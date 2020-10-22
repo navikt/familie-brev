@@ -1,25 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import './App.css';
-import { client } from './utils/sanity';
-const BlockContent = require('@sanity/block-content-to-react')
-
+import React, { useEffect, useState } from "react";
+import "./App.css";
+import { client } from "./utils/sanity";
+import Dokument from "./components/Dokument";
+import Dokumentvelger from "./components/Dokumentvelger";
 
 function App() {
-  const [info, setInfo] = useState<any>();
+  const [dokumenter, setDokumenter] = useState<string[]>([]);
+  const [dokumentNavn, setDokumentNavn] = useState("");
 
-  const query = '*[_type == "submal"][0]';
-
-    useEffect(() => {
-      client
-          .fetch(query)
-          .then((res: any) => {
-              setInfo(res.submal_block);
-          });
+  useEffect(() => {
+    const query = '*[_type == "dokumentmal"][].tittel';
+    client.fetch(query).then((res: any) => {
+      setDokumenter(res);
+    });
   }, []);
 
   return (
     <div className="App">
-          {info && <BlockContent blocks={info}/>}
+      <Dokument dokumentNavn={dokumentNavn} />
     </div>
   );
 }
