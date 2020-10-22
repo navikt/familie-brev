@@ -3,6 +3,7 @@ import "./App.css";
 import { client } from "./utils/sanity";
 import Dokument from "./components/Dokument";
 import Dokumentvelger from "./components/Dokumentvelger";
+import { Testgrensesnitt } from "./utils/Testgrensesnitt";
 
 function App() {
   const [dokumenter, setDokumenter] = useState<string[]>([]);
@@ -12,12 +13,16 @@ function App() {
     const query = '*[_type == "dokumentmal"][].tittel';
     client.fetch(query).then((res: any) => {
       setDokumenter(res);
+      setDokumentNavn("Innvilget Med Submal");
     });
   }, []);
 
   return (
     <div className="App">
-      <Dokument dokumentNavn={dokumentNavn} />
+      <Dokument
+        dokumentNavn={dokumentNavn}
+        grensesnitt={Testgrensesnitt[dokumentNavn]}
+      />
     </div>
   );
 }
