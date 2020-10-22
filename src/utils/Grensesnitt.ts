@@ -1,5 +1,5 @@
 export interface IDokumentGrensesnitt {
-  flettefelter: object;
-  skalMedFelter: object;
-  lister: { [listenavn: string]: IDokumentGrensesnitt[] };
+  flettefelter: { [felt: string]: string };
+  skalMedFelter: { [felt: string]: boolean };
+  lister: { [dokumentNavn: string]: IDokumentGrensesnitt[] };
 }
