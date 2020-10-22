@@ -3,7 +3,7 @@ import { IDokumentGrensesnitt } from "./Grensesnitt";
 export const Testgrensesnitt: {
   [dokumentnavn: string]: IDokumentGrensesnitt;
 } = {
-  innvilget: {
+  "Innvilget Med Submal": {
     flettefelter: {
       fodselsnummer: "12345678910",
       navn: "Mor Moresen",
@@ -17,7 +17,7 @@ export const Testgrensesnitt: {
       erEtterbetaling: true,
     },
     lister: {
-      perioder: [
+      Periode: [
         {
           flettefelter: {
             fom: "02.02.02",
