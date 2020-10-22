@@ -13,6 +13,34 @@ function Dokument(dokumentProps: DokumentProps) {
 
   const [dokument, setDokument] = useState<any>();
 
+  const listItemSerializer = (props: any) => {
+    const skalVæreMed = props.node.markDefs?.reduce(
+      (acc: boolean, markDef: any) =>
+        acc ||
+        !markDef.skalMedFelt ||
+        grensesnitt.skalMedFelter[markDef.skalMedFelt.felt],
+      false
+    );
+
+    return skalVæreMed ? (
+      <BlockContent
+        blocks={props.node}
+        serializers={{
+          marks: {
+            flettefelt: flettefeltSerializer,
+            skalMedDersom: skalMedDersomSerializer,
+          },
+          types: {
+            dokumentliste: dokumentlisteSerializer,
+            submal: submalSerializer,
+          },
+        }}
+      />
+    ) : (
+      ""
+    );
+  };
+
   const submalSerializer = (props: any) => {
     const dokumentNavn = props.node.tittel;
     return <Dokument dokumentNavn={dokumentNavn} grensesnitt={grensesnitt} />;
@@ -83,6 +111,7 @@ function Dokument(dokumentProps: DokumentProps) {
               dokumentliste: dokumentlisteSerializer,
               submal: submalSerializer,
             },
+            listItem: listItemSerializer,
           }}
         />
       )}
