@@ -1,7 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { client } from "../utils/sanity";
 import Testgrensesnitt from "../utils/Testgrensesnitt";
+import styled from 'styled-components';
 const BlockContent = require("@sanity/block-content-to-react");
+
+const StyledBrev = styled.div`
+  margin: 5rem;
+  padding: 5rem;
+  width: 800px;
+  flex-shrink: 0;
+  flex-grow: 0;
+  background-color: white;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+`
 
 interface DokumentProps {
   dokumentNavn: string;
@@ -17,7 +28,7 @@ function Dokument(dokumentProps: DokumentProps) {
   const flettefeltSerializer = (props: any) => {
     const annontering = props.mark.felt.felt;
     // @ts-ignore
-    return Testgrensesnitt.innvilget.flettefelter[annontering];
+    return Testgrensesnitt.innvilget.flettefelter[annontering] || <h2>overskrift</h2>;
   };
 
   const skalMedDersomSerializer = (props: any) => {
@@ -32,9 +43,7 @@ function Dokument(dokumentProps: DokumentProps) {
 
   useEffect(() => {
     const query = `*[_type == "dokumentmal" ][0]{..., innhold[]{..., markDefs[]{..., felt->, skalMedFelt->}}}`;
-    console.log(Testgrensesnitt.innvilget);
     client.fetch(query).then((res: any) => {
-      console.log(res);
       setDokument(res.innhold);
       setTittel(res.tittel);
       // @ts-ignore
@@ -42,9 +51,11 @@ function Dokument(dokumentProps: DokumentProps) {
     });
   }, [dokumentNavn]);
 
+  console.log("dok", dokument)
+
   console.log(tittel);
   return (
-    <div>
+    <StyledBrev>
       <h1>{tittel}</h1>
       {dokument && (
         <BlockContent
@@ -57,7 +68,7 @@ function Dokument(dokumentProps: DokumentProps) {
           }}
         />
       )}
-    </div>
+    </StyledBrev>
   );
 }
 

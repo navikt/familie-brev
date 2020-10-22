@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import "./App.css";
 import { client } from "./utils/sanity";
 import Dokument from "./components/Dokument";
 import Dokumentvelger from "./components/Dokumentvelger";
+import Meny from "./components/Meny";
+import styled from "styled-components";
 
 function App() {
   const [dokumenter, setDokumenter] = useState<string[]>([]);
@@ -15,10 +16,16 @@ function App() {
     });
   }, []);
 
+  const StyledApp = styled.div`
+    display: flex;
+    background-color: #e8e9e9;
+  `
+
   return (
-    <div className="App">
+    <StyledApp>
+      <Meny />
       <Dokument dokumentNavn={dokumentNavn} />
-    </div>
+    </StyledApp>
   );
 }
 
