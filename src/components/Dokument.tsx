@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { client } from "../utils/sanity";
-import Testgrensesnitt from "../utils/Testgrensesnitt";
 import styled from 'styled-components';
+import { IDokumentGrensesnitt } from "../utils/Grensesnitt";
 const BlockContent = require("@sanity/block-content-to-react");
 
 const StyledBrev = styled.div`
@@ -16,25 +16,48 @@ const StyledBrev = styled.div`
 
 interface DokumentProps {
   dokumentNavn: string;
+  grensesnitt: IDokumentGrensesnitt;
 }
 
 function Dokument(dokumentProps: DokumentProps) {
-  const { dokumentNavn } = dokumentProps;
+  const { dokumentNavn, grensesnitt } = dokumentProps;
 
   const [dokument, setDokument] = useState<any>();
-  const [tittel, setTittel] = useState<string>("");
-  const [grensesnitt, setGrensesnitt] = useState<any>("");
+
+  const submalSerializer = (props: any) => {
+    const dokumentNavn = props.node.tittel;
+    return <Dokument dokumentNavn={dokumentNavn} grensesnitt={grensesnitt} />;
+  };
+
+  const dokumentlisteSerializer = (props: any) => {
+    const dokumentNavn = props.node.tittel;
+    const grensesnittListe = grensesnitt.lister[dokumentNavn];
+
+    return (
+      <div>
+        {grensesnittListe.map((grensesnitt) => (
+          <Dokument
+            key={JSON.stringify(grensesnitt)}
+            dokumentNavn={dokumentNavn}
+            grensesnitt={grensesnitt}
+          />
+        ))}
+      </div>
+    );
+  };
 
   const flettefeltSerializer = (props: any) => {
     const annontering = props.mark.felt.felt;
-    // @ts-ignore
-    return Testgrensesnitt.innvilget.flettefelter[annontering] || <h2>overskrift</h2>;
+
+    if (!grensesnitt.flettefelter[annontering]) {
+      throw Error(`${annontering} finnes ikke i grensesnittet`);
+    }
+    return grensesnitt.flettefelter[annontering];
   };
 
   const skalMedDersomSerializer = (props: any) => {
     const skalMedAnnontering = props.mark.skalMedFelt.felt;
-    // @ts-ignore
-    if (Testgrensesnitt.innvilget.skalMedFelter[skalMedAnnontering]) {
+    if (grensesnitt.skalMedFelter[skalMedAnnontering]) {
       return props.children;
     } else {
       return "";
@@ -42,21 +65,24 @@ function Dokument(dokumentProps: DokumentProps) {
   };
 
   useEffect(() => {
-    const query = `*[_type == "dokumentmal" ][0]{..., innhold[]{..., markDefs[]{..., felt->, skalMedFelt->}}}`;
+    const query = `
+        *[_type == "dokumentmal" && tittel == "${dokumentNavn}"][0]
+        {..., innhold[]
+          {
+            _type == "block"=> {..., markDefs[]{..., felt->, skalMedFelt->}},
+            _type == "dokumentliste" => {...}->{...,"_type": "dokumentliste"},
+            _type == "submal" =>  {...}->{...,"_type": "submal"},
+          }
+        }
+        `;
     client.fetch(query).then((res: any) => {
       setDokument(res.innhold);
-      setTittel(res.tittel);
-      // @ts-ignore
-      setGrensesnitt(Testgrensesnitt[dokumentNavn.toLocaleLowerCase()]);
     });
   }, [dokumentNavn]);
 
-  console.log("dok", dokument)
 
-  console.log(tittel);
   return (
     <StyledBrev>
-      <h1>{tittel}</h1>
       {dokument && (
         <BlockContent
           blocks={dokument}
@@ -64,6 +90,10 @@ function Dokument(dokumentProps: DokumentProps) {
             marks: {
               flettefelt: flettefeltSerializer,
               skalMedDersom: skalMedDersomSerializer,
+            },
+            types: {
+              dokumentliste: dokumentlisteSerializer,
+              submal: submalSerializer,
             },
           }}
         />
