@@ -13,7 +13,7 @@ function App() {
     const query = '*[_type == "dokumentmal"][].tittel';
     client.fetch(query).then((res: any) => {
       setDokumenter(res);
-      setDokumentNavn("Innvilget Med Submal");
+      setDokumentNavn("Innvilget");
     });
   }, []);
 
