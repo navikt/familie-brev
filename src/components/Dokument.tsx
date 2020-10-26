@@ -14,7 +14,7 @@ function Dokument(dokumentProps: DokumentProps) {
   const [dokument, setDokument] = useState<any>();
 
   const listItemSerializer = (props: any) => {
-    const skalVæreMed = props.node.markDefs?.reduce(
+    const skalMed = props.node.markDefs?.reduce(
       (acc: boolean, markDef: any) =>
         acc ||
         !markDef.skalMedFelt ||
@@ -22,28 +22,37 @@ function Dokument(dokumentProps: DokumentProps) {
       false
     );
 
-    return skalVæreMed ? (
-      <BlockContent
-        blocks={props.node}
-        serializers={{
-          marks: {
-            flettefelt: flettefeltSerializer,
-            skalMedDersom: skalMedDersomSerializer,
-          },
-          types: {
-            dokumentliste: dokumentlisteSerializer,
-            submal: submalSerializer,
-          },
-        }}
-      />
-    ) : (
-      ""
-    );
+    if (skalMed) {
+      return (
+        <BlockContent
+          blocks={props.node}
+          serializers={{
+            marks: {
+              flettefelt: flettefeltSerializer,
+              submal: submalSerializer,
+            },
+            types: {
+              dokumentliste: dokumentlisteSerializer,
+            },
+          }}
+        />
+      );
+    } else {
+      return "";
+    }
   };
 
   const submalSerializer = (props: any) => {
-    const dokumentNavn = props.node.tittel;
-    return <Dokument dokumentNavn={dokumentNavn} grensesnitt={grensesnitt} />;
+    const skalMed =
+      !props.mark.skalMedFelt ||
+      grensesnitt.skalMedFelter[props.mark.skalMedFelt.felt];
+
+    const dokumentNavn = props.mark.submal.tittel;
+    if (skalMed) {
+      return <Dokument dokumentNavn={dokumentNavn} grensesnitt={grensesnitt} />;
+    } else {
+      return "";
+    }
   };
 
   const dokumentlisteSerializer = (props: any) => {
@@ -65,20 +74,10 @@ function Dokument(dokumentProps: DokumentProps) {
 
   const flettefeltSerializer = (props: any) => {
     const annontering = props.mark.felt.felt;
-
     if (!grensesnitt.flettefelter[annontering]) {
       throw Error(`${annontering} finnes ikke i grensesnittet`);
     }
     return grensesnitt.flettefelter[annontering];
-  };
-
-  const skalMedDersomSerializer = (props: any) => {
-    const skalMedAnnontering = props.mark.skalMedFelt.felt;
-    if (grensesnitt.skalMedFelter[skalMedAnnontering]) {
-      return props.children;
-    } else {
-      return "";
-    }
   };
 
   useEffect(() => {
@@ -86,9 +85,8 @@ function Dokument(dokumentProps: DokumentProps) {
         *[_type == "dokumentmal" && tittel == "${dokumentNavn}"][0]
         {..., innhold[]
           {
-            _type == "block"=> {..., markDefs[]{..., felt->, skalMedFelt->}},
+            _type == "block"=> {..., markDefs[]{..., felt->, skalMedFelt->, submal->}},
             _type == "dokumentliste" => {...}->{...,"_type": "dokumentliste"},
-            _type == "submal" =>  {...}->{...,"_type": "submal"},
           }
         }
         `;
@@ -105,11 +103,10 @@ function Dokument(dokumentProps: DokumentProps) {
           serializers={{
             marks: {
               flettefelt: flettefeltSerializer,
-              skalMedDersom: skalMedDersomSerializer,
+              submal: submalSerializer,
             },
             types: {
               dokumentliste: dokumentlisteSerializer,
-              submal: submalSerializer,
             },
             listItem: listItemSerializer,
           }}
