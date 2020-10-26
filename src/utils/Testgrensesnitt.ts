@@ -17,6 +17,7 @@ export const Testgrensesnitt: {
     skalMedFelter: {
       erEtterbetaling: true,
     },
+    valgfelter: {},
     lister: {
       Periode: [
         {
@@ -31,6 +32,9 @@ export const Testgrensesnitt: {
             INNVILGET_BOSATT_I_RIKTET: true,
             INNVILGET_LOVLIG_OPPHOLD_OPPHOLDSTILLATELSE: true,
           },
+          valgfelter: {
+            antallBegrunnelser: "singel",
+          },
           lister: {},
         },
         {
@@ -43,6 +47,9 @@ export const Testgrensesnitt: {
           },
           skalMedFelter: {
             INNVILGET_BOSATT_I_RIKTET: true,
+          },
+          valgfelter: {
+            antallBegrunnelser: "mange",
           },
           lister: {},
         },
