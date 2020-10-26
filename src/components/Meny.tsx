@@ -4,6 +4,7 @@ import { RadioGruppe, Radio } from "nav-frontend-skjema";
 import { Select } from 'nav-frontend-skjema';
 import { Input } from 'nav-frontend-skjema';
 import { Hovedknapp } from 'nav-frontend-knapper';
+import { CheckboksPanel } from 'nav-frontend-skjema';
 
 const StyledMeny = styled.div`
     height: 1300px;
@@ -40,26 +41,37 @@ const StyledHovedknapp = styled(Hovedknapp)`
     margin-bottom: 2rem;
 `;
 
-function Meny() {
-    const [brevtype, settBrevtype] = useState();
+interface MenyProps {
+    settDokumentNavn: any;
+    dokumentNavn: string;
+}
+
+function Meny(props: MenyProps) {
     const [antallMndEtterbetaling, settAntallMndEtterbetaling] = useState("");
     const [inntektstype, settInntektstype] = useState("");
 
+    const { settDokumentNavn, dokumentNavn } = props;
+
+    const [tempDokumentNavn, settTempDokumentNavn] = useState(dokumentNavn);
+    const [tempEtterbetaling, settTempEtterbetaling] = useState(false);
 
     const settInntektstypeRadio = (e: React.ChangeEvent<HTMLInputElement>) => {
         settInntektstype(e.target.name);
+    }
+
+    const settOppBrev = () => {
+        settDokumentNavn(tempDokumentNavn);
     }
 
     return (
         <StyledMeny>
             <div className="meny-innhold">
             <div className="meny-element">
-                <Select label="Brevtype" onChange={(e) => {
-                    settBrevtype(e.target.value);
+                <Select value={tempDokumentNavn} label="Brevtype" onChange={(e) => {
+                    settTempDokumentNavn(e.target.value);
                 }}>
-                    <option value="innvilgelse">Vedtak om innvilgelse</option>
-                    <option value="blabla">Vedtak om blabla</option>
-                    <option value="test">Test jaja</option>
+                    <option value="Innvilgelse">Vedtak om innvilgelse</option>
+                    <option value="Barnetrygd">Du får barnetrygd</option>
                 </Select>
             </div>
             <hr></hr>
@@ -78,11 +90,16 @@ function Meny() {
             </Select>
             </div>
             <hr></hr>
+            <div className="meny-element">
             <Select label="Inntektskategori">
                 <option value="norge">Varierende inntekt</option>
                 <option value="sverige">Test</option>
                 <option value="danmark">Test jaja</option>
             </Select>
+            </div>
+            <div className="meny-element">
+                <CheckboksPanel onChange={() => settTempEtterbetaling(!tempEtterbetaling)} checked={tempEtterbetaling} label="Er detterbetaling?" />
+            </div>
             <div className="meny-element">
             <RadioGruppe legend="Inntektstype">
                 <Radio label={"Kun arbeidsinntekt"} name="arbeidsinntekt" checked={inntektstype=="arbeidsinntekt"} onChange={settInntektstypeRadio} />
@@ -102,7 +119,7 @@ function Meny() {
                 <Radio label={"Arbeidskonktrakt"} name="arbeidskontrakt" />
                 <Radio label={"Starter på ytelse"} name="starter" />
             </RadioGruppe>
-            <StyledHovedknapp>Sett opp brev</StyledHovedknapp>
+            <StyledHovedknapp onClick={settOppBrev}>Sett opp brev</StyledHovedknapp>
             </div>
             </div>
         </StyledMeny>

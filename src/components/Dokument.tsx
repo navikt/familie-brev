@@ -49,7 +49,7 @@ function Dokument(dokumentProps: DokumentProps) {
   const flettefeltSerializer = (props: any) => {
     const annontering = props.mark.felt.felt;
 
-    if (!grensesnitt.flettefelter[annontering]) {
+    if (!grensesnitt?.flettefelter[annontering]) {
       throw Error(`${annontering} finnes ikke i grensesnittet`);
     }
     return grensesnitt.flettefelter[annontering];
@@ -79,7 +79,6 @@ function Dokument(dokumentProps: DokumentProps) {
       setDokument(res.innhold);
     });
   }, [dokumentNavn]);
-
 
   return (
     <StyledBrev>

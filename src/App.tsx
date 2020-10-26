@@ -8,15 +8,19 @@ import { Testgrensesnitt } from "./utils/Testgrensesnitt";
 
 function App() {
   const [dokumenter, setDokumenter] = useState<string[]>([]);
-  const [dokumentNavn, setDokumentNavn] = useState("");
+  const [dokumentNavn, settDokumentNavn] = useState("Innvilgelse");
+  const [grensesnitt, settGrensesnitt] = useState<any>();
 
   useEffect(() => {
     const query = '*[_type == "dokumentmal"][].tittel';
     client.fetch(query).then((res: any) => {
       setDokumenter(res);
-      setDokumentNavn("Innvilget Med Submal");
     });
   }, []);
+
+  useEffect(() => {
+    settGrensesnitt(Testgrensesnitt[dokumentNavn])
+  }, [dokumentNavn])
 
   const StyledApp = styled.div`
     display: flex;
@@ -25,7 +29,7 @@ function App() {
 
   return (
     <StyledApp>
-      <Meny/>
+      <Meny settDokumentNavn={settDokumentNavn} dokumentNavn={dokumentNavn}/>
       <Dokument
         dokumentNavn={dokumentNavn}
         grensesnitt={Testgrensesnitt[dokumentNavn]}
