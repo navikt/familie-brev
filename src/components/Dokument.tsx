@@ -24,9 +24,46 @@ function Dokument(dokumentProps: DokumentProps) {
 
   const [dokument, setDokument] = useState<any>();
 
+  const listItemSerializer = (props: any) => {
+    const skalMed = props.node.markDefs?.reduce(
+      (acc: boolean, markDef: any) =>
+        acc ||
+        !markDef.skalMedFelt ||
+        grensesnitt.skalMedFelter[markDef.skalMedFelt.felt],
+      false
+    );
+
+    if (skalMed) {
+      return (
+        <BlockContent
+          blocks={props.node}
+          serializers={{
+            marks: {
+              flettefelt: flettefeltSerializer,
+              submal: submalSerializer,
+            },
+            types: {
+              dokumentliste: dokumentlisteSerializer,
+            },
+          }}
+        />
+      );
+    } else {
+      return "";
+    }
+  };
+
   const submalSerializer = (props: any) => {
-    const dokumentNavn = props.node.tittel;
-    return <Dokument dokumentNavn={dokumentNavn} grensesnitt={grensesnitt} />;
+    const skalMed =
+      !props.mark.skalMedFelt ||
+      grensesnitt.skalMedFelter[props.mark.skalMedFelt.felt];
+
+    const dokumentNavn = props.mark.submal.tittel;
+    if (skalMed) {
+      return <Dokument dokumentNavn={dokumentNavn} grensesnitt={grensesnitt} />;
+    } else {
+      return "";
+    }
   };
 
   const dokumentlisteSerializer = (props: any) => {
@@ -48,17 +85,27 @@ function Dokument(dokumentProps: DokumentProps) {
 
   const flettefeltSerializer = (props: any) => {
     const annontering = props.mark.felt.felt;
-
-    if (!grensesnitt?.flettefelter[annontering]) {
+    if (!grensesnitt.flettefelter[annontering]) {
       throw Error(`${annontering} finnes ikke i grensesnittet`);
     }
     return grensesnitt.flettefelter[annontering];
   };
 
-  const skalMedDersomSerializer = (props: any) => {
-    const skalMedAnnontering = props.mark.skalMedFelt.felt;
-    if (grensesnitt.skalMedFelter[skalMedAnnontering]) {
-      return props.children;
+  const valgfeltSerializer = (props: any) => {
+    const valgfelt = props.mark.valgfelt;
+    const annontering = valgfelt.tittel;
+    const riktigValg = grensesnitt.valgfelter[annontering];
+    const muligeValg = valgfelt.valg;
+    const riktigDokument = muligeValg.find(
+      (valg: any) => valg.valgmulighet === riktigValg
+    );
+    const dokumentnavn = riktigDokument?.dokumentmal?.tittel;
+    if (dokumentnavn) {
+      return (
+        <div style={{ display: "inline-block" }}>
+          <Dokument dokumentNavn={dokumentnavn} grensesnitt={grensesnitt} />
+        </div>
+      );
     } else {
       return "";
     }
@@ -69,9 +116,14 @@ function Dokument(dokumentProps: DokumentProps) {
         *[_type == "dokumentmal" && tittel == "${dokumentNavn}"][0]
         {..., innhold[]
           {
-            _type == "block"=> {..., markDefs[]{..., felt->, skalMedFelt->}},
+            _type == "block"=> {..., markDefs[]{
+              ..., 
+              felt->, 
+              skalMedFelt->, 
+              submal->, 
+              valgfelt->{..., valg[]{..., dokumentmal->}}}
+            },
             _type == "dokumentliste" => {...}->{...,"_type": "dokumentliste"},
-            _type == "submal" =>  {...}->{...,"_type": "submal"},
           }
         }
         `;
@@ -81,23 +133,20 @@ function Dokument(dokumentProps: DokumentProps) {
   }, [dokumentNavn]);
 
   return (
-    <StyledBrev>
-      {dokument && (
-        <BlockContent
-          blocks={dokument}
-          serializers={{
-            marks: {
-              flettefelt: flettefeltSerializer,
-              skalMedDersom: skalMedDersomSerializer,
-            },
-            types: {
-              dokumentliste: dokumentlisteSerializer,
-              submal: submalSerializer,
-            },
-          }}
-        />
-      )}
-    </StyledBrev>
+    <BlockContent
+      blocks={dokument}
+      serializers={{
+        marks: {
+          flettefelt: flettefeltSerializer,
+          submal: submalSerializer,
+          valgfelt: valgfeltSerializer,
+        },
+        types: {
+          dokumentliste: dokumentlisteSerializer,
+        },
+        listItem: listItemSerializer,
+      }}
+    />
   );
 }
 
