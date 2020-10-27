@@ -1,7 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { client } from "../utils/sanity";
+import styled from 'styled-components';
 import { IDokumentGrensesnitt } from "../utils/Grensesnitt";
 const BlockContent = require("@sanity/block-content-to-react");
+
+const StyledBrev = styled.div`
+  margin: 5rem;
+  padding: 5rem;
+  width: 800px;
+  flex-shrink: 0;
+  flex-grow: 0;
+  background-color: white;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+`
 
 interface DokumentProps {
   dokumentNavn: string;
