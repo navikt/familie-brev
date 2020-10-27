@@ -80,12 +80,38 @@ function Dokument(dokumentProps: DokumentProps) {
     return grensesnitt.flettefelter[annontering];
   };
 
+  const valgfeltSerializer = (props: any) => {
+    const valgfelt = props.mark.valgfelt;
+    const annontering = valgfelt.tittel;
+    const riktigValg = grensesnitt.valgfelter[annontering];
+    const muligeValg = valgfelt.valg;
+    const riktigDokument = muligeValg.find(
+      (valg: any) => valg.valgmulighet === riktigValg
+    );
+    const dokumentnavn = riktigDokument?.dokumentmal?.tittel;
+    if (dokumentnavn) {
+      return (
+        <div style={{ display: "inline-block" }}>
+          <Dokument dokumentNavn={dokumentnavn} grensesnitt={grensesnitt} />
+        </div>
+      );
+    } else {
+      return "";
+    }
+  };
+
   useEffect(() => {
     const query = `
         *[_type == "dokumentmal" && tittel == "${dokumentNavn}"][0]
         {..., innhold[]
           {
-            _type == "block"=> {..., markDefs[]{..., felt->, skalMedFelt->, submal->}},
+            _type == "block"=> {..., markDefs[]{
+              ..., 
+              felt->, 
+              skalMedFelt->, 
+              submal->, 
+              valgfelt->{..., valg[]{..., dokumentmal->}}}
+            },
             _type == "dokumentliste" => {...}->{...,"_type": "dokumentliste"},
           }
         }
@@ -96,23 +122,20 @@ function Dokument(dokumentProps: DokumentProps) {
   }, [dokumentNavn]);
 
   return (
-    <div>
-      {dokument && (
-        <BlockContent
-          blocks={dokument}
-          serializers={{
-            marks: {
-              flettefelt: flettefeltSerializer,
-              submal: submalSerializer,
-            },
-            types: {
-              dokumentliste: dokumentlisteSerializer,
-            },
-            listItem: listItemSerializer,
-          }}
-        />
-      )}
-    </div>
+    <BlockContent
+      blocks={dokument}
+      serializers={{
+        marks: {
+          flettefelt: flettefeltSerializer,
+          submal: submalSerializer,
+          valgfelt: valgfeltSerializer,
+        },
+        types: {
+          dokumentliste: dokumentlisteSerializer,
+        },
+        listItem: listItemSerializer,
+      }}
+    />
   );
 }
 
