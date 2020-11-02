@@ -6,16 +6,6 @@ import hentDokumentQuery from "../utils/hentDokumentQuery";
 import Header from "./Header";
 const BlockContent = require("@sanity/block-content-to-react");
 
-const StyledBrev = styled.div`
-  margin: 5rem;
-  padding: 5rem;
-  width: 800px;
-  flex-shrink: 0;
-  flex-grow: 0;
-  background-color: white;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-`;
-
 interface DokumentProps {
   dokumentNavn: string;
   dokumentVariabler: IDokumentVariabler;
@@ -38,7 +28,7 @@ function Dokument(dokumentProps: DokumentProps) {
 
     const skalMed = props.node.markDefs?.reduce(
       (acc: boolean, markDef: any) =>
-        acc || !erSubmal || submalSkalMed(markDef.submal),
+        acc || !erSubmal(markDef) || submalSkalMed(markDef.submal),
       false
     );
 
@@ -144,28 +134,20 @@ function Dokument(dokumentProps: DokumentProps) {
   }, [dokumentNavn]);
 
   return (
-    <StyledBrev>
-      <Header
-        visLogo={true}
-        tittel={tittel}
-        navn={navn}
-        fødselsnr={fodselsnummer}
-      />
-      <BlockContent
-        blocks={dokument}
-        serializers={{
-          marks: {
-            flettefelt: flettefeltSerializer,
-            submal: submalSerializer,
-            valgfelt: valgfeltSerializer,
-          },
-          types: {
-            dokumentliste: dokumentlisteSerializer,
-          },
-          listItem: listItemSerializer,
-        }}
-      />
-    </StyledBrev>
+    <BlockContent
+      blocks={dokument}
+      serializers={{
+        marks: {
+          flettefelt: flettefeltSerializer,
+          submal: submalSerializer,
+          valgfelt: valgfeltSerializer,
+        },
+        types: {
+          dokumentliste: dokumentlisteSerializer,
+        },
+        listItem: listItemSerializer,
+      }}
+    />
   );
 }
 

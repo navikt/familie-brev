@@ -52,7 +52,9 @@ async function hentSubmalGrensesnitt(
   const skalMedFelt = submal.skalMedFelt?.felt;
   const tittel = submal.submal.tittel;
   return {
-    grensesnitt: undefinedOmTomtGrensesnitt(await hentGrensesnitt(tittel)),
+    grensesnitt: undefinedOmTomtGrensesnitt(
+      await hentGrensesnitt(tittel, false)
+    ),
     betingelse: skalMedFelt,
     submalNavn: tittel,
   };
@@ -65,7 +67,7 @@ async function hentValgfeltGrensesnitt(
   const valgmuigheter = Promise.all(
     valgfelt.valgfelt.valg.map(async (valg) => ({
       valgnavn: valg.valgmulighet,
-      grensesnitt: await hentGrensesnitt(valg.dokumentmal.tittel),
+      grensesnitt: await hentGrensesnitt(valg.dokumentmal.tittel, false),
     }))
   );
   return {
@@ -74,13 +76,21 @@ async function hentValgfeltGrensesnitt(
   };
 }
 
-const hentGrensesnitt = async (dokumentNavn: string): Promise<IGrensesnitt> => {
+const hentGrensesnitt = async (
+  dokumentNavn: string,
+  erHoveddokument: boolean = true
+): Promise<IGrensesnitt> => {
   const grensesnitt: IGrensesnitt = {
     flettefelter: [],
     submalFelter: [],
     valgfelter: [],
     lister: [],
   };
+  if (erHoveddokument) {
+    grensesnitt.flettefelter.push("navn");
+    grensesnitt.flettefelter.push("fodselsnummer");
+  }
+
   const query = hentDokumentQuery(dokumentNavn);
   const dokumentinnhold: IDokumentInnhold = (await client.fetch(query)).innhold;
 
@@ -121,7 +131,7 @@ const hentGrensesnitt = async (dokumentNavn: string): Promise<IGrensesnitt> => {
         const dokumentliste = sanityElement as IDokumentliste;
         grensesnitt.lister.push({
           dokumenttittel: dokumentliste.tittel,
-          grensesnitt: await hentGrensesnitt(dokumentliste.tittel),
+          grensesnitt: await hentGrensesnitt(dokumentliste.tittel, false),
         });
         break;
 
