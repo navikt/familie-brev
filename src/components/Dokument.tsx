@@ -3,7 +3,7 @@ import { client } from "../utils/sanity";
 import styled from "styled-components";
 import { IDokumentVariabler } from "../utils/Grensesnitt";
 import hentDokumentQuery from "../utils/hentDokumentQuery";
-import Header from './Header';
+import Header from "./Header";
 const BlockContent = require("@sanity/block-content-to-react");
 
 const StyledBrev = styled.div`
@@ -24,7 +24,7 @@ interface DokumentProps {
 function Dokument(dokumentProps: DokumentProps) {
   const { dokumentNavn, dokumentVariabler } = dokumentProps;
 
-  const { navn, fodselsnummer } = grensesnitt.flettefelter;
+  const { navn, fodselsnummer } = dokumentVariabler.flettefelter;
 
   const [dokument, setDokument] = useState<any>();
   const [tittel, setTittel] = useState<string>("");
