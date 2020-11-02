@@ -3,6 +3,7 @@ import { client } from "../utils/sanity";
 import styled from "styled-components";
 import { IDokumentVariabler } from "../utils/Grensesnitt";
 import hentDokumentQuery from "../utils/hentDokumentQuery";
+import Header from './Header';
 const BlockContent = require("@sanity/block-content-to-react");
 
 const StyledBrev = styled.div`
@@ -23,7 +24,10 @@ interface DokumentProps {
 function Dokument(dokumentProps: DokumentProps) {
   const { dokumentNavn, dokumentVariabler } = dokumentProps;
 
+  const { navn, fodselsnummer } = grensesnitt.flettefelter;
+
   const [dokument, setDokument] = useState<any>();
+  const [tittel, setTittel] = useState<string>("");
 
   const listItemSerializer = (props: any) => {
     const erSubmal = (markDef: any) => markDef._type === "submal";
@@ -134,13 +138,35 @@ function Dokument(dokumentProps: DokumentProps) {
 
   useEffect(() => {
     const query = hentDokumentQuery(dokumentNavn);
+    const query = `
+        *[_type == "dokumentmal" && id == "${dokumentNavn}"][0]
+        {..., innhold[]
+          {
+            _type == "block"=> {..., markDefs[]{
+              ..., 
+              felt->, 
+              skalMedFelt->, 
+              submal->, 
+              valgfelt->{..., valg[]{..., dokumentmal->}}}
+            },
+            _type == "dokumentliste" => {...}->{...,"_type": "dokumentliste"},
+          }
+        }
+        `;
     client.fetch(query).then((res: any) => {
       setDokument(res.innhold);
+      setTittel(res.tittel);
     });
   }, [dokumentNavn]);
 
   return (
-    <div style={{ display: "inline-block" }}>
+    <StyledBrev>
+      <Header
+        visLogo={true}
+        tittel={tittel}
+        navn={navn}
+        fødselsnr={fodselsnummer}
+      />
       <BlockContent
         blocks={dokument}
         serializers={{
@@ -155,7 +181,7 @@ function Dokument(dokumentProps: DokumentProps) {
           listItem: listItemSerializer,
         }}
       />
-    </div>
+    </StyledBrev>
   );
 }
 

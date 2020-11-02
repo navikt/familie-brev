@@ -102,9 +102,9 @@ function Meny(props: MenyProps) {
             </div>
             <div className="meny-element">
             <RadioGruppe legend="Inntektstype">
-                <Radio label={"Kun arbeidsinntekt"} name="arbeidsinntekt" checked={inntektstype=="arbeidsinntekt"} onChange={settInntektstypeRadio} />
-                <Radio label={"Arbeidsinntekt og annen stønad"} name="arbeid_og_annen" checked={inntektstype=="arbeid_og_annen"} onChange={settInntektstypeRadio}  />
-                <Radio label={"Kun annen stønad"} name="annen" checked={inntektstype=="annen"} onChange={settInntektstypeRadio}  />
+                <Radio label={"Kun arbeidsinntekt"} name="arbeidsinntekt" checked={inntektstype==="arbeidsinntekt"} onChange={settInntektstypeRadio} />
+                <Radio label={"Arbeidsinntekt og annen stønad"} name="arbeid_og_annen" checked={inntektstype==="arbeid_og_annen"} onChange={settInntektstypeRadio}  />
+                <Radio label={"Kun annen stønad"} name="annen" checked={inntektstype==="annen"} onChange={settInntektstypeRadio}  />
             </RadioGruppe>
             </div>
             <div className="meny-element">
