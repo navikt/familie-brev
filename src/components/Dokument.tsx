@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { client } from "../utils/sanity";
 import styled from 'styled-components';
 import { IDokumentGrensesnitt } from "../utils/Grensesnitt";
+import Header from './Header';
 const BlockContent = require("@sanity/block-content-to-react");
 
 const StyledBrev = styled.div`
@@ -12,7 +13,7 @@ const StyledBrev = styled.div`
   flex-grow: 0;
   background-color: white;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-`
+`;
 
 interface DokumentProps {
   dokumentNavn: string;
@@ -22,7 +23,10 @@ interface DokumentProps {
 function Dokument(dokumentProps: DokumentProps) {
   const { dokumentNavn, grensesnitt } = dokumentProps;
 
+  const { navn, fodselsnummer } = grensesnitt.flettefelter;
+
   const [dokument, setDokument] = useState<any>();
+  const [tittel, setTittel] = useState<string>("");
 
   const listItemSerializer = (props: any) => {
     const skalMed = props.node.markDefs?.reduce(
@@ -113,7 +117,7 @@ function Dokument(dokumentProps: DokumentProps) {
 
   useEffect(() => {
     const query = `
-        *[_type == "dokumentmal" && tittel == "${dokumentNavn}"][0]
+        *[_type == "dokumentmal" && id == "${dokumentNavn}"][0]
         {..., innhold[]
           {
             _type == "block"=> {..., markDefs[]{
@@ -129,24 +133,33 @@ function Dokument(dokumentProps: DokumentProps) {
         `;
     client.fetch(query).then((res: any) => {
       setDokument(res.innhold);
+      setTittel(res.tittel);
     });
   }, [dokumentNavn]);
 
   return (
-    <BlockContent
-      blocks={dokument}
-      serializers={{
-        marks: {
-          flettefelt: flettefeltSerializer,
-          submal: submalSerializer,
-          valgfelt: valgfeltSerializer,
-        },
-        types: {
-          dokumentliste: dokumentlisteSerializer,
-        },
-        listItem: listItemSerializer,
-      }}
-    />
+    <StyledBrev>
+      <Header
+        visLogo={true}
+        tittel={tittel}
+        navn={navn}
+        fødselsnr={fodselsnummer}
+      />
+      <BlockContent
+        blocks={dokument}
+        serializers={{
+          marks: {
+            flettefelt: flettefeltSerializer,
+            submal: submalSerializer,
+            valgfelt: valgfeltSerializer,
+          },
+          types: {
+            dokumentliste: dokumentlisteSerializer,
+          },
+          listItem: listItemSerializer,
+        }}
+      />
+    </StyledBrev>
   );
 }
 

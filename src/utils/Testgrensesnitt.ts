@@ -3,7 +3,7 @@ import { IDokumentGrensesnitt } from "./Grensesnitt";
 export const Testgrensesnitt: {
   [dokumentnavn: string]: IDokumentGrensesnitt;
 } = {
-  Innvilget: {
+  Innvilgelse: {
     flettefelter: {
       fodselsnummer: "12345678910",
       navn: "Mor Moresen",
