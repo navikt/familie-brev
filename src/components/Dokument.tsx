@@ -137,7 +137,7 @@ function Dokument(dokumentProps: DokumentProps) {
 
   return (
     <StyledBrev>
-      <Header tittel={tittel} navn="Test" fødselsnr="12345678901" />
+      <Header visLogo={true} tittel={tittel} navn="Test" fødselsnr="12345678901" />
       <BlockContent
         blocks={dokument}
         serializers={{
