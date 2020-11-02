@@ -84,8 +84,6 @@ const hentGrensesnitt = async (dokumentNavn: string): Promise<IGrensesnitt> => {
   const query = hentDokumentQuery(dokumentNavn);
   const dokumentinnhold: IDokumentInnhold = (await client.fetch(query)).innhold;
 
-  let i = 0;
-
   for await (const sanityElement of dokumentinnhold) {
     switch (sanityElement._type) {
       case "block":
@@ -130,7 +128,6 @@ const hentGrensesnitt = async (dokumentNavn: string): Promise<IGrensesnitt> => {
       default:
         console.warn(`Ukjent type`, sanityElement);
     }
-    i += 1;
   }
 
   return grensesnitt;
