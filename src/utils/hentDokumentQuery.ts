@@ -1,5 +1,5 @@
 export default (dokumentNavn: string) => `
-        *[_type == "dokumentmal" && tittel == "${dokumentNavn}"][0]
+        *[_type == "dokumentmal" && id == "${dokumentNavn}"][0]
         {..., innhold[]
           {
             _type == "block"=> {..., markDefs[]{

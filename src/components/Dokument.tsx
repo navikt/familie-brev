@@ -64,7 +64,6 @@ function Dokument(dokumentProps: DokumentProps) {
   };
 
   const submalSerializer = (props: any) => {
-    const skalMedFelt = props.mark.skalMedFelt?.felt;
     const dokumentNavn = props.mark.submal.tittel;
 
     const skalMed = dokumentVariabler.submaler[dokumentNavn]?.skalMed;
@@ -138,21 +137,6 @@ function Dokument(dokumentProps: DokumentProps) {
 
   useEffect(() => {
     const query = hentDokumentQuery(dokumentNavn);
-    const query = `
-        *[_type == "dokumentmal" && id == "${dokumentNavn}"][0]
-        {..., innhold[]
-          {
-            _type == "block"=> {..., markDefs[]{
-              ..., 
-              felt->, 
-              skalMedFelt->, 
-              submal->, 
-              valgfelt->{..., valg[]{..., dokumentmal->}}}
-            },
-            _type == "dokumentliste" => {...}->{...,"_type": "dokumentliste"},
-          }
-        }
-        `;
     client.fetch(query).then((res: any) => {
       setDokument(res.innhold);
       setTittel(res.tittel);
