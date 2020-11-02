@@ -4,12 +4,16 @@ import Dokument from "./components/Dokument";
 import Dokumentvelger from "./components/Dokumentvelger";
 import Meny from "./components/Meny";
 import styled from "styled-components";
-import { Testgrensesnitt } from "./utils/Testgrensesnitt";
+import hentGrenesnittFraDokument from "./utils/hentGrenesnittFraDokument";
+import { IDokumentVariabler } from "./utils/Grensesnitt";
+import lagPlaceholderVariabler from "./utils/hentPlaceholderVariablerFraGrensesnitt";
 
 function App() {
   const [dokumenter, setDokumenter] = useState<string[]>([]);
-  const [dokumentNavn, settDokumentNavn] = useState("Innvilgelse");
-  const [grensesnitt, settGrensesnitt] = useState<any>();
+  const [dokumentNavn, settDokumentNavn] = useState("Begrunnelser");
+  const [dokumentVariabler, settDokumentVariabler] = useState<
+    IDokumentVariabler
+  >();
 
   useEffect(() => {
     const query = '*[_type == "dokumentmal"][].tittel';
@@ -19,8 +23,10 @@ function App() {
   }, []);
 
   useEffect(() => {
-    settGrensesnitt(Testgrensesnitt[dokumentNavn])
-  }, [dokumentNavn])
+    hentGrenesnittFraDokument(dokumentNavn).then((res) => {
+      settDokumentVariabler(lagPlaceholderVariabler(res));
+    });
+  }, [dokumentNavn]);
 
   const StyledApp = styled.div`
     display: flex;
@@ -29,11 +35,13 @@ function App() {
 
   return (
     <StyledApp>
-      <Meny settDokumentNavn={settDokumentNavn} dokumentNavn={dokumentNavn}/>
-      <Dokument
-        dokumentNavn={dokumentNavn}
-        grensesnitt={Testgrensesnitt[dokumentNavn]}
-      />
+      <Meny settDokumentNavn={settDokumentNavn} dokumentNavn={dokumentNavn} />
+      {dokumentVariabler && (
+        <Dokument
+          dokumentNavn={dokumentNavn}
+          dokumentVariabler={dokumentVariabler}
+        />
+      )}
     </StyledApp>
   );
 }
