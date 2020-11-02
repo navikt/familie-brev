@@ -23,6 +23,8 @@ interface DokumentProps {
 function Dokument(dokumentProps: DokumentProps) {
   const { dokumentNavn, grensesnitt } = dokumentProps;
 
+  const { navn, fodselsnummer } = grensesnitt.flettefelter;
+
   const [dokument, setDokument] = useState<any>();
   const [tittel, setTittel] = useState<string>("");
 
@@ -137,7 +139,12 @@ function Dokument(dokumentProps: DokumentProps) {
 
   return (
     <StyledBrev>
-      <Header visLogo={true} tittel={tittel} navn="Test" fødselsnr="12345678901" />
+      <Header
+        visLogo={true}
+        tittel={tittel}
+        navn={navn}
+        fødselsnr={fodselsnummer}
+      />
       <BlockContent
         blocks={dokument}
         serializers={{
