@@ -1,5 +1,5 @@
 export interface IDokumentVariabler {
-  flettefelter: { [feltNavn: string]: string };
+  flettefelter: { [fletteFelt: string]: string };
   submaler: {
     [submalNavn: string]: ISubmal;
   };

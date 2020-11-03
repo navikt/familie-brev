@@ -4,13 +4,14 @@ import Dokument from "./components/Dokument";
 import Meny from "./components/Meny";
 import styled from "styled-components";
 import hentGrenesnittFraDokument from "./utils/hentGrenesnittFraDokument";
-import { IDokumentVariabler } from "./utils/Grensesnitt";
+import { IDokumentVariabler } from "./utils/DokumentVariabler";
 import lagPlaceholderVariabler from "./utils/hentPlaceholderVariablerFraGrensesnitt";
 import Header from "./components/Header";
 
 function App() {
   const [dokumenter, setDokumenter] = useState<string[]>([]);
-  const [dokumentNavn, settDokumentNavn] = useState("Innvilget");
+  const [aktivtDokument, settAktivtDokument] = useState();
+  const [dokumentNavn, settDokumentNavn] = useState();
   const [dokumentVariabler, settDokumentVariabler] = useState<
     IDokumentVariabler
   >();
@@ -23,10 +24,12 @@ function App() {
   }, []);
 
   useEffect(() => {
-    hentGrenesnittFraDokument(dokumentNavn).then((res) => {
-      settDokumentVariabler(lagPlaceholderVariabler(res));
-    });
-  }, [dokumentNavn]);
+    aktivtDokument &&
+      hentGrenesnittFraDokument(aktivtDokument).then((res) => {
+        settDokumentVariabler(lagPlaceholderVariabler(res));
+        settDokumentNavn(aktivtDokument);
+      });
+  }, [aktivtDokument]);
 
   const StyledApp = styled.div`
     display: flex;
@@ -35,7 +38,13 @@ function App() {
 
   return (
     <StyledApp>
-      <Meny settDokumentNavn={settDokumentNavn} dokumentNavn={dokumentNavn} />
+      <Meny
+        settDokumentNavn={settAktivtDokument}
+        aktivtDokument={aktivtDokument}
+        dokumenter={dokumenter}
+        dokumentVariabler={dokumentVariabler}
+        settDokumentVariabler={settDokumentVariabler}
+      />
       {dokumentVariabler && (
         <StyledBrev>
           <Header

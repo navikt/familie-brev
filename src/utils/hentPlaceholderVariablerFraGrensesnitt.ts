@@ -1,4 +1,4 @@
-import { IDokumentVariabler, ISubmal } from "./Grensesnitt";
+import { IDokumentVariabler, ISubmal } from "./DokumentVariabler";
 import {
   IDokument,
   IGrensesnitt,

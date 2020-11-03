@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { client } from "../utils/sanity";
-import styled from "styled-components";
-import { IDokumentVariabler } from "../utils/Grensesnitt";
+import { IDokumentVariabler } from "../utils/DokumentVariabler";
 import hentDokumentQuery from "../utils/hentDokumentQuery";
-import Header from "./Header";
 const BlockContent = require("@sanity/block-content-to-react");
 
 interface DokumentProps {
