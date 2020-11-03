@@ -1,4 +1,5 @@
 {
+  "homepage": "http://navikt.github.io/familie-brev",
   "name": "familie-brev",
   "version": "0.1.0",
   "private": true,
@@ -39,7 +40,9 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
-    "eject": "craco eject"
+    "eject": "craco eject",
+    "predeploy": "craco build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -57,6 +60,7 @@
     ]
   },
   "devDependencies": {
-    "@types/react": "^16.9.52"
+    "@types/react": "^16.9.52",
+    "gh-pages": "^3.1.0"
   }
 }
