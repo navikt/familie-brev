@@ -17,7 +17,7 @@ function App() {
   >();
 
   useEffect(() => {
-    const query = '*[_type == "dokumentmal"][].tittel';
+    const query = '*[_type == "dokumentmal"][].id';
     client.fetch(query).then((res: any) => {
       setDokumenter(res);
     });
