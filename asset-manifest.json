@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/familie-brev/static/css/main.5ecd60fb.chunk.css",
-    "main.js": "/familie-brev/static/js/main.8c288868.chunk.js",
-    "main.js.map": "/familie-brev/static/js/main.8c288868.chunk.js.map",
+    "main.js": "/familie-brev/static/js/main.2cf8abf1.chunk.js",
+    "main.js.map": "/familie-brev/static/js/main.2cf8abf1.chunk.js.map",
     "runtime-main.js": "/familie-brev/static/js/runtime-main.fb7a4edf.js",
     "runtime-main.js.map": "/familie-brev/static/js/runtime-main.fb7a4edf.js.map",
     "static/css/2.03ef88f4.chunk.css": "/familie-brev/static/css/2.03ef88f4.chunk.css",
     "static/js/2.66fb063e.chunk.js": "/familie-brev/static/js/2.66fb063e.chunk.js",
     "static/js/2.66fb063e.chunk.js.map": "/familie-brev/static/js/2.66fb063e.chunk.js.map",
     "index.html": "/familie-brev/index.html",
-    "precache-manifest.f2fe959bdd7919d3538fc82731de306c.js": "/familie-brev/precache-manifest.f2fe959bdd7919d3538fc82731de306c.js",
+    "precache-manifest.195c431e46ebfa3114c4dd993de3de83.js": "/familie-brev/precache-manifest.195c431e46ebfa3114c4dd993de3de83.js",
     "service-worker.js": "/familie-brev/service-worker.js",
     "static/css/2.03ef88f4.chunk.css.map": "/familie-brev/static/css/2.03ef88f4.chunk.css.map",
     "static/css/main.5ecd60fb.chunk.css.map": "/familie-brev/static/css/main.5ecd60fb.chunk.css.map",
@@ -21,6 +21,6 @@
     "static/css/2.03ef88f4.chunk.css",
     "static/js/2.66fb063e.chunk.js",
     "static/css/main.5ecd60fb.chunk.css",
-    "static/js/main.8c288868.chunk.js"
+    "static/js/main.2cf8abf1.chunk.js"
   ]
 }
