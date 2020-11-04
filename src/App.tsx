@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { client } from "./utils/sanity";
 import Dokument from "./components/Dokument";
-import Meny from "./components/Meny";
+import Meny from "./components/meny/Meny";
 import styled from "styled-components";
 import hentGrenesnittFraDokument from "./utils/hentGrenesnittFraDokument";
 import { IDokumentVariabler } from "./utils/DokumentVariabler";
