@@ -6,7 +6,7 @@ import { Input } from "nav-frontend-skjema";
 import { Hovedknapp } from "nav-frontend-knapper";
 import { CheckboksPanel } from "nav-frontend-skjema";
 import { IDokumentVariabler, ISubmal } from "../../utils/DokumentVariabler";
-import { useSubfelter } from "./Subfelter";
+import MenyVariabler from "./MenyVariabler";
 
 const StyledMeny = styled.div`
   height: 1300px;
@@ -62,6 +62,10 @@ function Meny(props: MenyProps) {
     settDokumentVariabler,
   } = props;
 
+  const [variabler, settVariabler] = useState<IDokumentVariabler | undefined>(
+    dokumentVariabler
+  );
+
   return (
     <StyledMeny>
       <div className="meny-innhold">
@@ -81,50 +85,20 @@ function Meny(props: MenyProps) {
             ))}
           </Select>
         </div>
-        {dokumentVariabler && (
-          <Variabler
-            dokumentVariabler={dokumentVariabler}
-            settDokumentVariabler={settDokumentVariabler}
-          />
+        {variabler && (
+          <>
+            <MenyVariabler
+              variabler={variabler}
+              settVariabler={settVariabler}
+            />
+            <StyledHovedknapp onClick={() => settDokumentVariabler(variabler)}>
+              Generer dokument
+            </StyledHovedknapp>
+          </>
         )}
       </div>
     </StyledMeny>
   );
 }
 
-function Variabler(props: {
-  dokumentVariabler: IDokumentVariabler;
-  settDokumentVariabler: Dispatch<
-    SetStateAction<IDokumentVariabler | undefined>
-  >;
-}) {
-  const { dokumentVariabler, settDokumentVariabler } = props;
-  const Subfelter = useSubfelter(dokumentVariabler, settDokumentVariabler);
-
-  return (
-    <>
-      <Subfelter />
-    </>
-  );
-}
-
-function Flettefelter(props: {
-  flettefelter: { [fletteFelt: string]: string };
-}) {
-  const { flettefelter } = props;
-  return (
-    <div className="meny-element">
-      {Object.keys(flettefelter).map((flettefelt) => (
-        <div key={flettefelt}>
-          <span>{flettefelt}: </span>
-          <Input
-            type="text"
-            value={flettefelter.fletteFelt}
-            alt={flettefelter.fletteFelt}
-          />
-        </div>
-      ))}
-    </div>
-  );
-}
 export default Meny;

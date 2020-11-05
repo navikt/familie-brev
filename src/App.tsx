@@ -10,7 +10,7 @@ import Header from "./components/Header";
 
 function App() {
   const [dokumenter, setDokumenter] = useState<string[]>([]);
-  const [aktivtDokument, settAktivtDokument] = useState();
+  const [aktivtDokument, settAktivtDokument] = useState("Innvilget");
   const [dokumentNavn, settDokumentNavn] = useState();
   const [dokumentVariabler, settDokumentVariabler] = useState<
     IDokumentVariabler
