@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { client } from "./utils/sanity";
 import Dokument from "./components/Dokument";
-import Meny from "./components/Meny";
+import Meny from "./components/meny/Meny";
 import styled from "styled-components";
 import hentGrenesnittFraDokument from "./utils/hentGrenesnittFraDokument";
 import { IDokumentVariabler } from "./utils/DokumentVariabler";
@@ -10,7 +10,7 @@ import Header from "./components/Header";
 
 function App() {
   const [dokumenter, setDokumenter] = useState<string[]>([]);
-  const [aktivtDokument, settAktivtDokument] = useState();
+  const [aktivtDokument, settAktivtDokument] = useState("Innvilget");
   const [dokumentNavn, settDokumentNavn] = useState();
   const [dokumentVariabler, settDokumentVariabler] = useState<
     IDokumentVariabler

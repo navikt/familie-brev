@@ -5,7 +5,8 @@ import { Select } from "nav-frontend-skjema";
 import { Input } from "nav-frontend-skjema";
 import { Hovedknapp } from "nav-frontend-knapper";
 import { CheckboksPanel } from "nav-frontend-skjema";
-import { IDokumentVariabler, ISubmal } from "../utils/DokumentVariabler";
+import { IDokumentVariabler, ISubmal } from "../../utils/DokumentVariabler";
+import MenyVariabler from "./MenyVariabler";
 
 const StyledMeny = styled.div`
   height: 1300px;
@@ -58,7 +59,12 @@ function Meny(props: MenyProps) {
     aktivtDokument,
     dokumenter,
     dokumentVariabler,
+    settDokumentVariabler,
   } = props;
+
+  const [variabler, settVariabler] = useState<IDokumentVariabler | undefined>(
+    dokumentVariabler
+  );
 
   return (
     <StyledMeny>
@@ -79,67 +85,20 @@ function Meny(props: MenyProps) {
             ))}
           </Select>
         </div>
-        {dokumentVariabler && (
-          <Variabler dokumentVariabler={dokumentVariabler} />
+        {variabler && (
+          <>
+            <MenyVariabler
+              variabler={variabler}
+              settVariabler={settVariabler}
+            />
+            <StyledHovedknapp onClick={() => settDokumentVariabler(variabler)}>
+              Generer dokument
+            </StyledHovedknapp>
+          </>
         )}
       </div>
     </StyledMeny>
   );
 }
 
-function Variabler(props: { dokumentVariabler: IDokumentVariabler }) {
-  const { dokumentVariabler } = props;
-  return (
-    <>
-      <Flettefelter flettefelter={dokumentVariabler.flettefelter} />
-    </>
-  );
-}
-
-function Subfelt(props: { submal: ISubmal }) {
-  const { submal } = props;
-
-  return (
-    <CheckboksPanel
-      onChange={() => ""}
-      checked={submal.skalMed}
-      label={submal.skalMedBetingelseNavn}
-    />
-  );
-}
-
-function Subfelter(props: { submaler: { [submalNavn: string]: ISubmal } }) {
-  const { submaler } = props;
-  return (
-    <div className="meny-element">
-      {Object.keys(submaler).map(
-        (submal) =>
-          submaler[submal].skalMedBetingelseNavn && (
-            <Subfelt submal={submaler[submal]} />
-          )
-      )}
-    </div>
-  );
-}
-
-function Flettefelter(props: {
-  flettefelter: { [fletteFelt: string]: string };
-}) {
-  const { flettefelter } = props;
-  return <></>;
-  return (
-    <div className="meny-element">
-      {Object.keys(flettefelter).map((flettefelt) => (
-        <div key={flettefelt}>
-          <span>{flettefelt}: </span>
-          <input
-            type="text"
-            value={flettefelter.fletteFelt}
-            alt={flettefelter.fletteFelt}
-          />
-        </div>
-      ))}
-    </div>
-  );
-}
 export default Meny;
