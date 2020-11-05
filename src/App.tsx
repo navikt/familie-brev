@@ -7,11 +7,15 @@ import hentGrenesnittFraDokument from "./utils/hentGrenesnittFraDokument";
 import { IDokumentVariabler } from "./utils/DokumentVariabler";
 import lagPlaceholderVariabler from "./utils/hentPlaceholderVariablerFraGrensesnitt";
 import Header from "./components/Header";
+import { useLocalStorage } from './hooks/useLocalStorage';
 
 function App() {
   const [dokumenter, setDokumenter] = useState<string[]>([]);
-  const [aktivtDokument, settAktivtDokument] = useState("Innvilget");
-  const [dokumentNavn, settDokumentNavn] = useState();
+    const [dokumentNavn, settDokumentNavn] = useLocalStorage(
+      "dokumentNavn",
+      "Innvilget"
+    );
+  const [aktivtDokument, settAktivtDokument] = useState(dokumentNavn);
   const [dokumentVariabler, settDokumentVariabler] = useState<
     IDokumentVariabler
   >();
@@ -71,6 +75,8 @@ const StyledBrev = styled.div`
   flex-grow: 0;
   background-color: white;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+  list-style-type: none;
 `;
 
 export default App;
