@@ -64,7 +64,7 @@ function Meny(props: MenyProps) {
   return (
     <StyledMeny>
       <div className="meny-innhold">
-        <div className="meny-element">
+        <div className="meny-element brevtype">
           <Select
             value={aktivtDokument}
             label="Brevtype"
