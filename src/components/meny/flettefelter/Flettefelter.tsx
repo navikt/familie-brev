@@ -2,6 +2,7 @@ import { IDokumentVariabler } from "../../../utils/DokumentVariabler";
 import React, { ChangeEvent } from "react";
 import { Input } from "nav-frontend-skjema";
 import styled from "styled-components";
+import { Element } from "nav-frontend-typografi";
 
 function Flettefelter(props: {
   variabler: IDokumentVariabler;
@@ -33,8 +34,8 @@ function Flettefelter(props: {
   return (
     <div>
       {Object.keys(flettefelter).map((flettefelt) => (
-        <Flettefelt key={flettefelt}>
-          <span>{flettefelt}: </span>
+        <StyledFlettefelt key={flettefelt}>
+          <Element className="label">{flettefelt}</Element>
           <Input
             type="text"
             value={flettefelter[flettefelt]}
@@ -42,13 +43,19 @@ function Flettefelter(props: {
             placeholder={flettefelter.fletteFelt}
             onChange={(e) => endreFlettefelt(e, flettefelt)}
           />
-        </Flettefelt>
+        </StyledFlettefelt>
       ))}
     </div>
   );
 }
 
-const Flettefelt = styled.div`
-  margin-top: 10px;
+const StyledFlettefelt = styled.div`
+  margin-top: 20px;
+
+  .label {
+    text-transform: capitalize;
+    margin-bottom: 0.5rem;
+  }
 `;
+
 export default Flettefelter;

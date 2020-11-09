@@ -3,6 +3,7 @@ import { RadioPanelGruppe } from "nav-frontend-skjema";
 import MenyVariabler from "../MenyVariabler";
 import React from "react";
 import styled from "styled-components";
+import { Element } from "nav-frontend-typografi";
 
 interface ValgFeltProps {
   valgfelt: IValg;
@@ -68,9 +69,9 @@ function ValgFelt(props: ValgFeltProps) {
   );
 }
 
-const StyledValgHeader = styled.div`
-  margin-bottom: 10px;
-  font-weight: bold;
+const StyledValgHeader = styled(Element)`
+  text-transform: capitalize;
+  margin-bottom: 0.5rem;
 `;
 
 export default ValgFelt;

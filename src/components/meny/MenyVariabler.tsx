@@ -20,14 +20,3 @@ export default function (props: {
     </div>
   );
 }
-
-//<Element className="label">{flettefelt}</Element>
-
-const StyledFlettefelt = styled.div`
-  margin-top: 20px;
-
-  .label {
-    text-transform: capitalize;
-    margin-bottom: 0.5rem;
-  }
-`;
