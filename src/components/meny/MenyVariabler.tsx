@@ -1,7 +1,9 @@
 import { IDokumentVariabler } from "../../utils/DokumentVariabler";
-import React, { ChangeEvent, useEffect, useState } from "react";
-import { Input } from "nav-frontend-skjema";
-import styled from "styled-components";
+import React from "react";
+import ListeFelter from "./Listefelter/ListeFelter";
+import Flettefelter from "./flettefelter/Flettefelter";
+import SubmalFelter from "./submalFelter/SubmalFelter";
+import ValgFelter from "./Valgfelter/ValgFelter";
 
 export default function (props: {
   variabler: IDokumentVariabler;
@@ -11,53 +13,10 @@ export default function (props: {
 
   return (
     <div>
+      <ValgFelter variabler={variabler} settVariabler={settVariabler} />
       <Flettefelter variabler={variabler} settVariabler={settVariabler} />
+      <SubmalFelter variabler={variabler} settVariabler={settVariabler} />
+      <ListeFelter variabler={variabler} settVariabler={settVariabler} />
     </div>
   );
 }
-
-function Flettefelter(props: {
-  variabler: IDokumentVariabler;
-  settVariabler: Function;
-}) {
-  const { variabler, settVariabler } = props;
-  const { flettefelter } = variabler;
-
-  function endreFlettefeltIDokumentVariabler(
-    flettefelt: string,
-    verdi: string
-  ): IDokumentVariabler {
-    return {
-      ...variabler,
-      flettefelter: { ...variabler.flettefelter, [flettefelt]: verdi },
-    };
-  }
-  const hmm = (e: ChangeEvent<HTMLInputElement>, flettefelt: string) => {
-    const nyeVariabler = endreFlettefeltIDokumentVariabler(
-      flettefelt,
-      e.target.value
-    );
-    settVariabler(nyeVariabler);
-  };
-
-  return (
-    <div>
-      {Object.keys(flettefelter).map((flettefelt) => (
-        <Flettefelt key={flettefelt}>
-          <span>{flettefelt}: </span>
-          <Input
-            type="text"
-            value={flettefelter[flettefelt]}
-            alt={flettefelter.fletteFelt}
-            placeholder={flettefelter.fletteFelt}
-            onChange={(e) => hmm(e, flettefelt)}
-          />
-        </Flettefelt>
-      ))}
-    </div>
-  );
-}
-
-const Flettefelt = styled.div`
-  margin-top: 10px;
-`;

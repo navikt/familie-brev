@@ -9,13 +9,13 @@ import {
   IValgfeltMark,
 } from "./sanityElementer";
 
-export interface ISubmalFelt {
+export interface ISubmalGrensesnitt {
   betingelse: string | undefined;
   submalNavn: string;
   grensesnitt: IGrensesnitt | undefined;
 }
 
-export interface IValgfelt {
+export interface IValgfeltGrensesnitt {
   navn: string;
   valgmuigheter: {
     valgnavn: string;
@@ -30,12 +30,12 @@ export interface IDokument {
 
 export interface IGrensesnitt {
   flettefelter: string[];
-  submalFelter: ISubmalFelt[];
-  valgfelter: IValgfelt[];
+  submalFelter: ISubmalGrensesnitt[];
+  valgfelter: IValgfeltGrensesnitt[];
   lister: IDokument[];
 }
 
-function undefinedOmTomtGrensesnitt(
+function undefinedDersomTomtGrensesnitt(
   grensesnitt: IGrensesnitt
 ): IGrensesnitt | undefined {
   return grensesnitt.lister.length === 0 &&
@@ -48,11 +48,11 @@ function undefinedOmTomtGrensesnitt(
 
 async function hentSubmalGrensesnitt(
   submal: ISubmalMark
-): Promise<ISubmalFelt> {
+): Promise<ISubmalGrensesnitt> {
   const skalMedFelt = submal.skalMedFelt?.felt;
   const tittel = submal.submal.tittel;
   return {
-    grensesnitt: undefinedOmTomtGrensesnitt(
+    grensesnitt: undefinedDersomTomtGrensesnitt(
       await hentGrensesnitt(tittel, false)
     ),
     betingelse: skalMedFelt,
@@ -62,7 +62,7 @@ async function hentSubmalGrensesnitt(
 
 async function hentValgfeltGrensesnitt(
   valgfelt: IValgfeltMark
-): Promise<IValgfelt> {
+): Promise<IValgfeltGrensesnitt> {
   const tittel = valgfelt.valgfelt.tittel;
   const valgmuigheter = Promise.all(
     valgfelt.valgfelt.valg.map(async (valg) => ({

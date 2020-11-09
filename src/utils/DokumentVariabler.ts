@@ -4,12 +4,15 @@ export interface IDokumentVariabler {
     [submalNavn: string]: ISubmal;
   };
   valgfelter: {
-    [feltNavn: string]: {
-      valgNavn: string;
-      valgVariabler: IDokumentVariabler;
-    };
+    [feltNavn: string]: IValg;
   };
   lister: { [dokumentNavn: string]: IDokumentVariabler[] };
+}
+
+export interface IValg {
+  valgNavn: string;
+  valgVariabler: IDokumentVariabler;
+  muligeValg: IValg[] | undefined;
 }
 
 export type ISubmal =

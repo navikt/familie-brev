@@ -3247,7 +3247,7 @@ class-utils@^0.3.5:
 
 classnames@^2.2.6:
   version "2.2.6"
-  resolved "https://registry.npmjs.org/classnames/-/classnames-2.2.6.tgz"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
   integrity sha512-JR/iSQOSt+LQIWwrwEzJ9uk0xfN3mTVYMwt1Ir5mUcSN6pU+V4zQFFaJsclJbPuAUQH+yfWef6tm7l1quW3C8Q==
 
 clean-css@^4.2.3:
@@ -7559,10 +7559,10 @@ nav-frontend-chevron-style@^0.3.9:
   resolved "https://registry.npmjs.org/nav-frontend-chevron-style/-/nav-frontend-chevron-style-0.3.9.tgz"
   integrity sha512-1oXBRfzVEiHgcP2CJRvxJnaVzt6Ihv/d4aRSCYZFxTwmwedXEyLEiKgBzJsXL9OaOIIVnFGzMZxkijnAFadi5A==
 
-nav-frontend-core@^5.0.5:
-  version "5.0.5"
-  resolved "https://registry.npmjs.org/nav-frontend-core/-/nav-frontend-core-5.0.5.tgz"
-  integrity sha512-thBvplvmNjMirKgsYzu+7YdcKzEJkHA2rb9N1oTkNJuelH1UcV6+V3GRnK7qIWl6MyhJ3nr2wOvcFIMgqo1Xag==
+nav-frontend-core@^5.0.8:
+  version "5.0.8"
+  resolved "https://registry.yarnpkg.com/nav-frontend-core/-/nav-frontend-core-5.0.8.tgz#ee735886dce11f6ba2f56f0147881eed5b18af47"
+  integrity sha512-2NsEnm+vnMVhXO8Jo4RsGLGJUHpfOziTaUtCWJqaQt0gCscRSTkPkFSBQGlR0bxs9QFkO4TEW514EVBOBsmR1g==
 
 nav-frontend-ekspanderbartpanel-style@^1.0.27:
   version "1.0.27"
@@ -7599,10 +7599,15 @@ nav-frontend-lenker@^1.0.45:
   resolved "https://registry.npmjs.org/nav-frontend-lenker/-/nav-frontend-lenker-1.0.45.tgz"
   integrity sha512-EEFPhDvQQg2xa5IU7odoOrhbIxwAgA3xU92yj5nHll6Ocm6FkX+QcIajYpnG9g0xB5AHVnR1dG8c328z3qZIBw==
 
-nav-frontend-paneler-style@^0.3.25:
-  version "0.3.25"
-  resolved "https://registry.npmjs.org/nav-frontend-paneler-style/-/nav-frontend-paneler-style-0.3.25.tgz"
-  integrity sha512-fph9j5IPF6uukMKLW6QQHcouACaNVLOSu6AwDdtB416icKVyyXfVqpeO/1F+XIzDr+vapjjQl1PjQIj/qqKNAA==
+nav-frontend-paneler-style@^0.3.28:
+  version "0.3.28"
+  resolved "https://registry.yarnpkg.com/nav-frontend-paneler-style/-/nav-frontend-paneler-style-0.3.28.tgz#a0fe2df0fd917d38871db977727fb946d17426bc"
+  integrity sha512-7SjDbgSmlM7XHcnuJN9UGBIVhmQBmGYXFREs9KgHaEjFnWMOsqsSZWxFYYxeHumZMa36q74yeLhsBKBHD9B6Iw==
+
+nav-frontend-paneler@^2.0.18:
+  version "2.0.18"
+  resolved "https://registry.yarnpkg.com/nav-frontend-paneler/-/nav-frontend-paneler-2.0.18.tgz#e3bd5567bee5889373817cc80f2eb028c559fbb6"
+  integrity sha512-1x/+4n22jArwFmSzRlX9CEln8UPqQeUvEC44G7e7C/DpoJUVB1CeLXkj6uyX3LM+2naAzF6/JAicFB7ubBUNVQ==
 
 nav-frontend-skjema-style@^2.0.16:
   version "2.0.16"
@@ -7614,17 +7619,17 @@ nav-frontend-skjema@^3.0.25:
   resolved "https://registry.npmjs.org/nav-frontend-skjema/-/nav-frontend-skjema-3.0.25.tgz"
   integrity sha512-rx0pmNtNwg3kNO5ic8LuldTcb4tmR6N0BcHx75B9ySq/W06LvBtJvjhrqU/SGRrHFFRed1XIO6mv6Q5FrF05Lg==
 
-nav-frontend-typografi-style@^1.0.26:
-  version "1.0.26"
-  resolved "https://registry.npmjs.org/nav-frontend-typografi-style/-/nav-frontend-typografi-style-1.0.26.tgz"
-  integrity sha512-WW/b5nRiAJqsZ4BVkvp0jLcGXABYXFmvI8T/sxUGQkUGtdQ+lJN58XJ0Ni42dsLz8AXCkYBVy44YDYBgokigEw==
+nav-frontend-typografi-style@^1.0.29:
+  version "1.0.29"
+  resolved "https://registry.yarnpkg.com/nav-frontend-typografi-style/-/nav-frontend-typografi-style-1.0.29.tgz#049d8f1a98432f79f3c33d62bd6ddf57994b1f8a"
+  integrity sha512-jgw4jjHSapdtHxk7WTZ4UJ1g4R7jmfwj4NYeFXrA+xRyx98w7YDGWYLxb0BVJVmypW8+OytQ4XnrxSUcfe3Crg==
   dependencies:
-    nav-frontend-core "^5.0.5"
+    nav-frontend-core "^5.0.8"
 
-nav-frontend-typografi@^2.0.30:
-  version "2.0.30"
-  resolved "https://registry.npmjs.org/nav-frontend-typografi/-/nav-frontend-typografi-2.0.30.tgz"
-  integrity sha512-OAjGMLQKMS5tWPVqX6B2a40QHNQICXGV1uJMm8pYuhkDUlvX00ox+gTzSkMyTAqZtz1bSvvm/2YIL59rDA0acw==
+nav-frontend-typografi@^2.0.34:
+  version "2.0.34"
+  resolved "https://registry.yarnpkg.com/nav-frontend-typografi/-/nav-frontend-typografi-2.0.34.tgz#74a7b474ddae944bff20b22bd3bc553ac59bcb72"
+  integrity sha512-UXFBJCUfQu+OQmBD1CH6uQg9PRIc5Qrmv5Nk2UYXTBqGXoUfSR3QAcZEv772ii5m/st2/dNqYgG3YJrPzBVFng==
 
 negotiator@0.6.2:
   version "0.6.2"
@@ -9100,9 +9105,18 @@ prompts@^2.0.1:
     kleur "^3.0.3"
     sisteransi "^1.0.4"
 
-prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@^15.6.2:
   version "15.7.2"
   resolved "https://registry.npmjs.org/prop-types/-/prop-types-15.7.2.tgz"
+  integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
+  dependencies:
+    loose-envify "^1.4.0"
+    object-assign "^4.1.1"
+    react-is "^16.8.1"
+
+prop-types@^15.7.2:
+  version "15.7.2"
+  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
   dependencies:
     loose-envify "^1.4.0"
@@ -9381,14 +9395,13 @@ react-scripts@3.4.3:
   optionalDependencies:
     fsevents "2.1.2"
 
-react@^16.14.0:
-  version "16.14.0"
-  resolved "https://registry.npmjs.org/react/-/react-16.14.0.tgz"
-  integrity sha512-0X2CImDkJGApiAlcf0ODKIneSwBPhqJawOa5wCtKbu7ZECrmS26NvtSILynQ66cgkT/RJ4LidJOc3bUESwmU8g==
+react@^17.0.1:
+  version "17.0.1"
+  resolved "https://registry.yarnpkg.com/react/-/react-17.0.1.tgz#6e0600416bd57574e3f86d92edba3d9008726127"
+  integrity sha512-lG9c9UuMHdcAexXtigOZLX8exLWkW0Ku29qPRU8uhF2R9BN96dLCt0psvzPLlHc5OWkgymP3qwTRgbnw5BKx3w==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
-    prop-types "^15.6.2"
 
 read-pkg-up@^2.0.0:
   version "2.0.0"
