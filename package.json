@@ -39,6 +39,7 @@
     "react-collapse": "^5.0.1",
     "react-dom": "^16.14.0",
     "react-scripts": "3.4.3",
+    "react-to-pdf": "0.0.13",
     "styled-components": "^5.2.0",
     "typescript": "~3.7.2"
   },

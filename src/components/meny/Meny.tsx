@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useState, useRef } from "react";
 import styled from "styled-components";
 import { Select } from "nav-frontend-skjema";
 import { Hovedknapp } from "nav-frontend-knapper";

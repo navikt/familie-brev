@@ -7,18 +7,19 @@ import hentGrenesnittFraDokument from "./utils/hentGrenesnittFraDokument";
 import { IDokumentVariabler } from "./utils/DokumentVariabler";
 import lagPlaceholderVariabler from "./utils/lagPlaceholderVariabler";
 import Header from "./components/Header";
-import { useLocalStorage } from './hooks/useLocalStorage';
+import { useLocalStorage } from "./hooks/useLocalStorage";
 
 function App() {
   const [dokumenter, setDokumenter] = useState<string[]>([]);
-    const [dokumentNavn, settDokumentNavn] = useLocalStorage(
-      "dokumentNavn",
-      "Innvilget"
-    );
+  const [dokumentNavn, settDokumentNavn] = useLocalStorage(
+    "dokumentNavn",
+    "Innvilget"
+  );
   const [aktivtDokument, settAktivtDokument] = useState(dokumentNavn);
-  const [dokumentVariabler, settDokumentVariabler] = useState<
-    IDokumentVariabler
-  >();
+  const [dokumentVariabler, settDokumentVariabler] = useLocalStorage(
+    "dokumentVariabler-" + dokumentNavn,
+    null
+  );
 
   useEffect(() => {
     const query = '*[_type == "dokumentmal"][].id';
@@ -30,7 +31,15 @@ function App() {
   useEffect(() => {
     aktivtDokument &&
       hentGrenesnittFraDokument(aktivtDokument).then((res) => {
-        settDokumentVariabler(lagPlaceholderVariabler(res));
+        const item = window.localStorage.getItem(
+          "dokumentVariabler-" + aktivtDokument
+        );
+
+        console.log("item", item);
+
+        settDokumentVariabler(
+          item ? JSON.parse(item) : lagPlaceholderVariabler(res)
+        );
         settDokumentNavn(aktivtDokument);
       });
   }, [aktivtDokument]);
