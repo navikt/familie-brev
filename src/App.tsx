@@ -5,7 +5,7 @@ import Meny from "./components/meny/Meny";
 import styled from "styled-components";
 import hentGrenesnittFraDokument from "./utils/hentGrenesnittFraDokument";
 import { IDokumentVariabler } from "./utils/DokumentVariabler";
-import lagPlaceholderVariabler from "./utils/hentPlaceholderVariablerFraGrensesnitt";
+import lagPlaceholderVariabler from "./utils/lagPlaceholderVariabler";
 import Header from "./components/Header";
 import { useLocalStorage } from './hooks/useLocalStorage';
 

@@ -2,8 +2,8 @@ import { IDokumentVariabler, ISubmal } from "./DokumentVariabler";
 import {
   IDokument,
   IGrensesnitt,
-  ISubmalFelt,
-  IValgfelt,
+  ISubmalGrensesnitt,
+  IValgfeltGrensesnitt,
 } from "./hentGrenesnittFraDokument";
 
 const lagPlaceholder = (variabel: string, tillegg: string): string =>
@@ -26,14 +26,17 @@ const lagPlaceholderVariabler = (
     );
   });
 
-  grensesnitt.submalFelter.forEach((submalFelt: ISubmalFelt) => {
+  grensesnitt.submalFelter.forEach((submalFelt: ISubmalGrensesnitt) => {
     let submal: any = {
       skalMed: true,
       submalVariabler: undefined,
       skalMedBetingelseNavn: undefined,
     };
     if (submalFelt.grensesnitt) {
-      submal.submalVariabler = lagPlaceholderVariabler(submalFelt.grensesnitt);
+      submal.submalVariabler = lagPlaceholderVariabler(
+        submalFelt.grensesnitt,
+        placeholderTillegg
+      );
     }
     if (submalFelt.betingelse) {
       submal.skalMedBetingelseNavn = submalFelt.betingelse;
@@ -41,19 +44,29 @@ const lagPlaceholderVariabler = (
     dokumentvariabler.submaler[submalFelt.submalNavn] = submal as ISubmal;
   });
 
-  grensesnitt.valgfelter.forEach((valgFelt: IValgfelt) => {
-    dokumentvariabler.valgfelter[valgFelt.navn] = {
-      valgNavn: valgFelt.valgmuigheter[0].valgnavn,
+  grensesnitt.valgfelter.forEach((valgFelt: IValgfeltGrensesnitt) => {
+    const { valgmuigheter, navn } = valgFelt;
+    dokumentvariabler.valgfelter[navn] = {
+      valgNavn: valgmuigheter[0].valgnavn,
       valgVariabler: lagPlaceholderVariabler(
-        valgFelt.valgmuigheter[0].grensesnitt
+        valgmuigheter[0].grensesnitt,
+        placeholderTillegg
       ),
+      muligeValg: valgmuigheter.map((valgMulighet) => ({
+        valgNavn: valgMulighet.valgnavn,
+        valgVariabler: lagPlaceholderVariabler(
+          valgMulighet.grensesnitt,
+          placeholderTillegg
+        ),
+        muligeValg: undefined,
+      })),
     };
   });
 
   grensesnitt.lister.forEach((dokument: IDokument) => {
     dokumentvariabler.lister[dokument.dokumenttittel] = [
-      lagPlaceholderVariabler(dokument.grensesnitt, "-0"),
-      lagPlaceholderVariabler(dokument.grensesnitt, "-1"),
+      lagPlaceholderVariabler(dokument.grensesnitt, `${placeholderTillegg}-1`),
+      lagPlaceholderVariabler(dokument.grensesnitt, `${placeholderTillegg}-2`),
     ];
   });
 

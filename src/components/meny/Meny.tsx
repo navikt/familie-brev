@@ -1,17 +1,12 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import styled from "styled-components";
-import { RadioGruppe, Radio } from "nav-frontend-skjema";
 import { Select } from "nav-frontend-skjema";
-import { Input } from "nav-frontend-skjema";
 import { Hovedknapp } from "nav-frontend-knapper";
-import { CheckboksPanel } from "nav-frontend-skjema";
 import { IDokumentVariabler, ISubmal } from "../../utils/DokumentVariabler";
 import MenyVariabler from "./MenyVariabler";
 
 const StyledMeny = styled.div`
-  height: 1300px;
-  width: 320px;
-  z-index: 10;
+  width: 400px;
   flex-grow: 0;
   flex-shrink: 0;
   background-color: #fff;
