@@ -1,37 +1,57 @@
 import React, { useEffect, useState } from "react";
-import { client } from "./utils/sanity";
 import Dokument from "./components/Dokument";
 import Meny from "./components/meny/Meny";
 import styled from "styled-components";
-import hentGrenesnittFraDokument from "./utils/hentGrenesnittFraDokument";
+import hentGrenesnittFraDokument, {
+  Maalform,
+} from "./utils/hentGrenesnittFraDokument";
 import { IDokumentVariabler } from "./utils/DokumentVariabler";
 import lagPlaceholderVariabler from "./utils/lagPlaceholderVariabler";
 import Header from "./components/Header";
-import { useLocalStorage } from './hooks/useLocalStorage';
+import { useLocalStorage } from "./hooks/useLocalStorage";
+import hentFraSanity from "./utils/hentFraSanity";
+
+interface Titler {
+  [dokumentId: string]: string;
+}
 
 function App() {
-  const [dokumenter, setDokumenter] = useState<string[]>([]);
-    const [dokumentNavn, settDokumentNavn] = useLocalStorage(
-      "dokumentNavn",
-      "Innvilget"
-    );
-  const [aktivtDokument, settAktivtDokument] = useState(dokumentNavn);
+  const [dokumenter, settDokumenter] = useState<string[]>([]);
+  const [titlerBokmaal, settTitlerBokmaal] = useState<Titler>({});
+  const [titlerNynorsk, settTitlerNynorsk] = useState<Titler>({});
+  const [dokumentId, settDokumentId] = useLocalStorage(
+    "dokumentId",
+    "Innvilget"
+  );
+  const [aktivtDokument, settAktivtDokument] = useState(dokumentId);
   const [dokumentVariabler, settDokumentVariabler] = useState<
     IDokumentVariabler
   >();
+  const [maalform, settMaalform] = useState<Maalform>("nynorsk");
 
   useEffect(() => {
-    const query = '*[_type == "dokumentmal"][].id';
-    client.fetch(query).then((res: any) => {
-      setDokumenter(res);
+    const query =
+      '*[_type == "dokumentmal"][]{id, tittelBokmaal, tittelNynorsk}';
+
+    hentFraSanity(query).then((res: any) => {
+      settDokumenter(res.map((dokument: any) => dokument.id));
+
+      const titlerBokmaal: { [dokumentId: string]: string } = {};
+      const titlerNynorsk: { [dokumentId: string]: string } = {};
+      res.forEach((dokument: any) => {
+        titlerBokmaal[dokument.id] = dokument.tittelBokmaal;
+        titlerNynorsk[dokument.id] = dokument.tittelNynorsk;
+      });
+      settTitlerBokmaal(titlerBokmaal);
+      settTitlerNynorsk(titlerNynorsk);
     });
   }, []);
 
   useEffect(() => {
     aktivtDokument &&
-      hentGrenesnittFraDokument(aktivtDokument).then((res) => {
+      hentGrenesnittFraDokument(aktivtDokument, maalform).then((res) => {
         settDokumentVariabler(lagPlaceholderVariabler(res));
-        settDokumentNavn(aktivtDokument);
+        settDokumentId(aktivtDokument);
       });
   }, [aktivtDokument]);
 
@@ -40,9 +60,20 @@ function App() {
     background-color: #e8e9e9;
   `;
 
+  const hentTittel = (): string => {
+    switch (maalform) {
+      case "bokmaal":
+        return titlerBokmaal[dokumentId];
+      case "nynorsk":
+        return titlerNynorsk[dokumentId];
+    }
+  };
+
   return (
     <StyledApp>
       <Meny
+        maalform={maalform}
+        settMalform={settMaalform}
         settDokumentNavn={settAktivtDokument}
         aktivtDokument={aktivtDokument}
         dokumenter={dokumenter}
@@ -53,13 +84,14 @@ function App() {
         <StyledBrev>
           <Header
             visLogo={true}
-            tittel={dokumentNavn}
+            tittel={hentTittel()}
             navn={dokumentVariabler.flettefelter.navn}
             fødselsnr={dokumentVariabler.flettefelter.fodselsnummer}
           />
           <Dokument
-            dokumentNavn={dokumentNavn}
+            dokumentId={dokumentId}
             dokumentVariabler={dokumentVariabler}
+            maalform={maalform}
           />
         </StyledBrev>
       )}

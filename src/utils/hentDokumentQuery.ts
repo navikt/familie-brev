@@ -1,6 +1,6 @@
-export default (dokumentNavn: string) => `
+export default (dokumentNavn: string, maalform: string) => `
         *[_type == "dokumentmal" && id == "${dokumentNavn}"][0]
-        {..., innhold[]
+        {..., ${maalform}[]
           {
             _type == "block"=> {..., markDefs[]{
               ..., 
