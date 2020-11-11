@@ -1,9 +1,10 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import styled from "styled-components";
-import { Select } from "nav-frontend-skjema";
+import { RadioPanelGruppe, Select } from "nav-frontend-skjema";
 import { Hovedknapp } from "nav-frontend-knapper";
 import { IDokumentVariabler, ISubmal } from "../../utils/DokumentVariabler";
 import MenyVariabler from "./MenyVariabler";
+import { Maalform } from "../../utils/hentGrenesnittFraDokument";
 
 const StyledMeny = styled.div`
   width: 400px;
@@ -46,6 +47,8 @@ interface MenyProps {
   settDokumentVariabler: Dispatch<
     SetStateAction<IDokumentVariabler | undefined>
   >;
+  maalform: Maalform;
+  settMalform: Function;
 }
 
 function Meny(props: MenyProps) {
@@ -55,6 +58,8 @@ function Meny(props: MenyProps) {
     dokumenter,
     dokumentVariabler,
     settDokumentVariabler,
+    maalform,
+    settMalform,
   } = props;
 
   const [variabler, settVariabler] = useState<IDokumentVariabler | undefined>(
@@ -72,7 +77,6 @@ function Meny(props: MenyProps) {
               settDokumentNavn(e.target.value);
             }}
           >
-            <option value={""}>{"---"}</option>
             {dokumenter.map((dokument) => (
               <option key={dokument} value={dokument}>
                 {dokument}
@@ -80,6 +84,26 @@ function Meny(props: MenyProps) {
             ))}
           </Select>
         </div>
+
+        <RadioPanelGruppe
+          name={"maalform"}
+          radios={[
+            {
+              checked: maalform === "bokmaal",
+              onChange: (_) => settMalform("bokmaal"),
+              label: "bokmaal",
+              name: "maalform",
+            },
+            {
+              checked: maalform === "nynorsk",
+              onChange: (_) => settMalform("nynorsk"),
+              label: "nynorsk",
+              name: "nynorsk",
+            },
+          ]}
+          onChange={() => {}}
+        />
+
         {variabler && (
           <>
             <MenyVariabler
