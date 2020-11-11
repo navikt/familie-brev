@@ -105,51 +105,59 @@ const hentGrensesnitt = async (
   const dokumentinnhold: IDokumentInnhold = (await hentFraSanity(query))[
     maalform
   ];
+  if (dokumentinnhold) {
+    for await (const sanityElement of dokumentinnhold) {
+      switch (sanityElement._type) {
+        case "block":
+          const block = sanityElement as ISanityBlock;
 
-  for await (const sanityElement of dokumentinnhold) {
-    switch (sanityElement._type) {
-      case "block":
-        const block = sanityElement as ISanityBlock;
+          for await (const mark of block.markDefs) {
+            switch (mark._type) {
+              case "flettefelt":
+                const flettefelt = mark as IFlettefeltMark;
+                grensesnitt.flettefelter.push(flettefelt.felt.felt);
+                break;
 
-        for await (const mark of block.markDefs) {
-          switch (mark._type) {
-            case "flettefelt":
-              const flettefelt = mark as IFlettefeltMark;
-              grensesnitt.flettefelter.push(flettefelt.felt.felt);
-              break;
+              case "submal":
+                const submal = mark as ISubmalMark;
+                const skalMedFelt = await hentSubmalGrensesnitt(
+                  submal,
+                  maalform
+                );
+                grensesnitt.submalFelter.push(skalMedFelt);
+                break;
 
-            case "submal":
-              const submal = mark as ISubmalMark;
-              const skalMedFelt = await hentSubmalGrensesnitt(submal, maalform);
-              grensesnitt.submalFelter.push(skalMedFelt);
-              break;
+              case "valgfelt":
+                const valgfelt = mark as IValgfeltMark;
+                const valgfeltGrensesnitt = await hentValgfeltGrensesnitt(
+                  valgfelt,
+                  maalform
+                );
+                grensesnitt.valgfelter.push(valgfeltGrensesnitt);
+                break;
 
-            case "valgfelt":
-              const valgfelt = mark as IValgfeltMark;
-              const valgfeltGrensesnitt = await hentValgfeltGrensesnitt(
-                valgfelt,
-                maalform
-              );
-              grensesnitt.valgfelter.push(valgfeltGrensesnitt);
-              break;
-
-            default:
-              console.warn(`Ukjent markfelt-type`, mark);
+              default:
+                console.warn(`Ukjent markfelt-type`, mark);
+            }
           }
-        }
 
-        break;
+          break;
 
-      case "dokumentliste":
-        const dokumentliste = sanityElement as IDokumentliste;
-        grensesnitt.lister.push({
-          id: dokumentliste.id,
-          grensesnitt: await hentGrensesnitt(dokumentliste.id, maalform, false),
-        });
-        break;
+        case "dokumentliste":
+          const dokumentliste = sanityElement as IDokumentliste;
+          grensesnitt.lister.push({
+            id: dokumentliste.id,
+            grensesnitt: await hentGrensesnitt(
+              dokumentliste.id,
+              maalform,
+              false
+            ),
+          });
+          break;
 
-      default:
-        console.warn(`Ukjent type`, sanityElement);
+        default:
+          console.warn(`Ukjent type`, sanityElement);
+      }
     }
   }
 

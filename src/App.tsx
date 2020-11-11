@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Dokument from "./components/Dokument";
 import Meny from "./components/meny/Meny";
 import styled from "styled-components";
@@ -19,15 +19,45 @@ function App() {
   const [dokumenter, settDokumenter] = useState<string[]>([]);
   const [titlerBokmaal, settTitlerBokmaal] = useState<Titler>({});
   const [titlerNynorsk, settTitlerNynorsk] = useState<Titler>({});
-  const [dokumentId, settDokumentId] = useLocalStorage(
-    "dokumentId",
-    "Innvilget"
-  );
-  const [aktivtDokument, settAktivtDokument] = useState(dokumentId);
+
+  const [tittel, settTittel] = useState<string>("");
+  const [dokumentId, settDokumentId] = useLocalStorage("dokumentId", undefined);
   const [dokumentVariabler, settDokumentVariabler] = useState<
     IDokumentVariabler
   >();
   const [maalform, settMaalform] = useState<Maalform>("nynorsk");
+
+  const settTitler = (dokumenter: any) => {
+    const titlerBokmaal: { [dokumentId: string]: string } = {};
+    const titlerNynorsk: { [dokumentId: string]: string } = {};
+    dokumenter.forEach((dokument: any) => {
+      titlerBokmaal[dokument.id] = dokument.tittelBokmaal;
+      titlerNynorsk[dokument.id] = dokument.tittelNynorsk;
+    });
+    settTitlerBokmaal(titlerBokmaal);
+    settTitlerNynorsk(titlerNynorsk);
+  };
+
+  const hentTittel = useCallback((): string => {
+    switch (maalform) {
+      case "bokmaal":
+        return titlerBokmaal[dokumentId];
+      case "nynorsk":
+        return titlerNynorsk[dokumentId];
+    }
+  }, [dokumentId, maalform]);
+
+  const opptaderDokument = useCallback(
+    (nyDokumentId: string = dokumentId, nyMaalform: Maalform = maalform) => {
+      hentGrenesnittFraDokument(nyDokumentId, nyMaalform).then((res) => {
+        settDokumentVariabler(lagPlaceholderVariabler(res));
+        settDokumentId(nyDokumentId);
+        settMaalform(nyMaalform);
+        settTittel(hentTittel);
+      });
+    },
+    [dokumentId, hentTittel, maalform]
+  );
 
   useEffect(() => {
     const query =
@@ -35,56 +65,41 @@ function App() {
 
     hentFraSanity(query).then((res: any) => {
       settDokumenter(res.map((dokument: any) => dokument.id));
-
-      const titlerBokmaal: { [dokumentId: string]: string } = {};
-      const titlerNynorsk: { [dokumentId: string]: string } = {};
-      res.forEach((dokument: any) => {
-        titlerBokmaal[dokument.id] = dokument.tittelBokmaal;
-        titlerNynorsk[dokument.id] = dokument.tittelNynorsk;
-      });
-      settTitlerBokmaal(titlerBokmaal);
-      settTitlerNynorsk(titlerNynorsk);
+      settTitler(res);
+      opptaderDokument();
     });
-  }, []);
+  }, [opptaderDokument]);
 
-  useEffect(() => {
-    aktivtDokument &&
-      hentGrenesnittFraDokument(aktivtDokument, maalform).then((res) => {
-        settDokumentVariabler(lagPlaceholderVariabler(res));
-        settDokumentId(aktivtDokument);
-      });
-  }, [aktivtDokument]);
+  const oppdaterMaalform = (nyMaalform: Maalform) => {
+    opptaderDokument(undefined, nyMaalform);
+  };
+
+  const opptaderDokumentId = (nyDokumentId: string) => {
+    opptaderDokument(nyDokumentId);
+  };
 
   const StyledApp = styled.div`
+    min-height: 100vh;
     display: flex;
     background-color: #e8e9e9;
   `;
-
-  const hentTittel = (): string => {
-    switch (maalform) {
-      case "bokmaal":
-        return titlerBokmaal[dokumentId];
-      case "nynorsk":
-        return titlerNynorsk[dokumentId];
-    }
-  };
 
   return (
     <StyledApp>
       <Meny
         maalform={maalform}
-        settMalform={settMaalform}
-        settDokumentNavn={settAktivtDokument}
-        aktivtDokument={aktivtDokument}
+        aktivtDokument={dokumentId}
         dokumenter={dokumenter}
         dokumentVariabler={dokumentVariabler}
         settDokumentVariabler={settDokumentVariabler}
+        oppdaterMaalform={oppdaterMaalform}
+        opptaderDokumentId={opptaderDokumentId}
       />
-      {dokumentVariabler && (
+      {dokumentId && dokumentVariabler && (
         <StyledBrev>
           <Header
             visLogo={true}
-            tittel={hentTittel()}
+            tittel={tittel}
             navn={dokumentVariabler.flettefelter.navn}
             fødselsnr={dokumentVariabler.flettefelter.fodselsnummer}
           />

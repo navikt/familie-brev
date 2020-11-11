@@ -40,7 +40,6 @@ const StyledHovedknapp = styled(Hovedknapp)`
 `;
 
 interface MenyProps {
-  settDokumentNavn(dokumentNavn: string): void;
   aktivtDokument: string;
   dokumenter: string[];
   dokumentVariabler: IDokumentVariabler | undefined;
@@ -48,18 +47,19 @@ interface MenyProps {
     SetStateAction<IDokumentVariabler | undefined>
   >;
   maalform: Maalform;
-  settMalform: Function;
+  opptaderDokumentId: (nyDokumentId: string) => void;
+  oppdaterMaalform: (nyMaalform: Maalform) => void;
 }
 
 function Meny(props: MenyProps) {
   const {
-    settDokumentNavn,
     aktivtDokument,
     dokumenter,
     dokumentVariabler,
     settDokumentVariabler,
     maalform,
-    settMalform,
+    opptaderDokumentId,
+    oppdaterMaalform,
   } = props;
 
   const [variabler, settVariabler] = useState<IDokumentVariabler | undefined>(
@@ -74,7 +74,7 @@ function Meny(props: MenyProps) {
             value={aktivtDokument}
             label="Brevtype"
             onChange={(e) => {
-              settDokumentNavn(e.target.value);
+              opptaderDokumentId(e.target.value);
             }}
           >
             {dokumenter.map((dokument) => (
@@ -90,14 +90,14 @@ function Meny(props: MenyProps) {
           radios={[
             {
               checked: maalform === "bokmaal",
-              onChange: (_) => settMalform("bokmaal"),
-              label: "bokmaal",
+              onChange: (_) => oppdaterMaalform("bokmaal"),
+              label: "Bokmål",
               name: "maalform",
             },
             {
               checked: maalform === "nynorsk",
-              onChange: (_) => settMalform("nynorsk"),
-              label: "nynorsk",
+              onChange: (_) => oppdaterMaalform("nynorsk"),
+              label: "Nynorsk",
               name: "nynorsk",
             },
           ]}

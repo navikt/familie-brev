@@ -133,7 +133,7 @@ function Dokument(dokumentProps: DokumentProps) {
     hentFraSanity(query).then((res: any) => {
       setDokument(res[maalform]);
     });
-  }, [dokumentId]);
+  }, [dokumentId, maalform]);
 
   return (
     <BlockContent
