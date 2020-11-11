@@ -1,27 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { client } from "../utils/sanity";
 import { IDokumentVariabler } from "../utils/DokumentVariabler";
 import hentDokumentQuery from "../utils/hentDokumentQuery";
+import { Maalform } from "../utils/hentGrenesnittFraDokument";
+import hentFraSanity from "../utils/hentFraSanity";
 const BlockContent = require("@sanity/block-content-to-react");
 
 interface DokumentProps {
-  dokumentNavn: string;
+  dokumentId: string;
   dokumentVariabler: IDokumentVariabler;
+  maalform: Maalform;
 }
 
 function Dokument(dokumentProps: DokumentProps) {
-  const { dokumentNavn, dokumentVariabler } = dokumentProps;
-
-  const { navn, fodselsnummer } = dokumentVariabler.flettefelter;
+  const { dokumentId, dokumentVariabler, maalform } = dokumentProps;
 
   const [dokument, setDokument] = useState<any>();
-  const [tittel, setTittel] = useState<string>("");
 
   const listItemSerializer = (props: any) => {
     const erSubmal = (markDef: any) => markDef._type === "submal";
     const submalSkalMed = (submal: any): boolean => {
-      const tittel = submal?.tittel;
-      return !!dokumentVariabler.submaler[tittel]?.skalMed;
+      const id = submal?.id;
+      return !!dokumentVariabler.submaler[id]?.skalMed;
     };
 
     const skalMed = props.node.markDefs?.reduce(
@@ -52,18 +51,22 @@ function Dokument(dokumentProps: DokumentProps) {
   };
 
   const submalSerializer = (props: any) => {
-    const dokumentNavn = props.mark.submal.tittel;
+    const dokumentId = props.mark.submal.id;
 
-    const skalMed = dokumentVariabler.submaler[dokumentNavn]?.skalMed;
+    const skalMed = dokumentVariabler.submaler[dokumentId]?.skalMed;
 
     const submalVariabler =
-      dokumentVariabler.submaler[dokumentNavn]?.submalVariabler;
+      dokumentVariabler.submaler[dokumentId]?.submalVariabler;
     const variabler = submalVariabler ? submalVariabler : dokumentVariabler;
 
     if (skalMed) {
       return (
         <div style={{ display: "inline-block" }}>
-          <Dokument dokumentNavn={dokumentNavn} dokumentVariabler={variabler} />
+          <Dokument
+            dokumentId={dokumentId}
+            dokumentVariabler={variabler}
+            maalform={maalform}
+          />
         </div>
       );
     } else {
@@ -72,16 +75,17 @@ function Dokument(dokumentProps: DokumentProps) {
   };
 
   const dokumentlisteSerializer = (props: any) => {
-    const dokumentNavn = props.node.tittel;
-    const dokumentVariablerListe = dokumentVariabler.lister[dokumentNavn];
+    const dokumentId = props.node.id;
+    const dokumentVariablerListe = dokumentVariabler.lister[dokumentId];
 
     return (
       <div>
         {dokumentVariablerListe.map((dokumentVariabler) => (
           <Dokument
             key={JSON.stringify(dokumentVariabler)}
-            dokumentNavn={dokumentNavn}
+            dokumentId={dokumentId}
             dokumentVariabler={dokumentVariabler}
+            maalform={maalform}
           />
         ))}
       </div>
@@ -104,16 +108,17 @@ function Dokument(dokumentProps: DokumentProps) {
     const riktigDokument = muligeValg.find(
       (valg: any) => valg.valgmulighet === riktigValg
     );
-    const dokumentnavn = riktigDokument?.dokumentmal?.tittel;
+    const dokumentId = riktigDokument?.dokumentmal?.id;
     const valgVariabler =
       dokumentVariabler.valgfelter[valgFeltNavn].valgVariabler;
 
-    if (dokumentnavn) {
+    if (dokumentId) {
       return (
         <div style={{ display: "inline-block" }}>
           <Dokument
-            dokumentNavn={dokumentnavn}
+            dokumentId={dokumentId}
             dokumentVariabler={valgVariabler}
+            maalform={maalform}
           />
         </div>
       );
@@ -124,12 +129,11 @@ function Dokument(dokumentProps: DokumentProps) {
   };
 
   useEffect(() => {
-    const query = hentDokumentQuery(dokumentNavn);
-    client.fetch(query).then((res: any) => {
-      setDokument(res.innhold);
-      setTittel(res.tittel);
+    const query = hentDokumentQuery(dokumentId, maalform);
+    hentFraSanity(query).then((res: any) => {
+      setDokument(res[maalform]);
     });
-  }, [dokumentNavn]);
+  }, [dokumentId]);
 
   return (
     <BlockContent

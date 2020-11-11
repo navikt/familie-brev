@@ -47,16 +47,14 @@ function ValgFelt(props: ValgFeltProps) {
       <StyledValgHeader>{navn}</StyledValgHeader>
       {valgfelt.muligeValg && (
         <RadioPanelGruppe
-          name={"hmm"}
+          name={navn}
           radios={valgfelt.muligeValg?.map((muligValg) => ({
             checked: muligValg.valgNavn === valgfelt.valgNavn,
             onChange: (e) => endreValg(muligValg),
             label: muligValg.valgNavn,
             name: navn,
           }))}
-          onChange={(e) => {
-            console.log(e);
-          }}
+          onChange={() => {}}
         />
       )}
       {valgfelt.valgVariabler && (

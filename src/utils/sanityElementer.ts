@@ -1,11 +1,11 @@
 export interface IDokumentmal {
-  tittel: string;
+  id: string;
   innhold: IDokumentInnhold;
   _type: "dokumentmal";
 }
 
 export interface IDokumentliste {
-  tittel: string;
+  id: string;
   innhold: IDokumentInnhold;
   _type: "dokumentliste";
 }
@@ -14,7 +14,7 @@ export type IDokumentInnhold = [IDokumentliste | ISanityBlock];
 
 export interface ISubmalMark {
   skalMedFelt?: { felt: string };
-  submal: { innhold: IDokumentInnhold; tittel: string };
+  submal: { innhold: IDokumentInnhold; id: string };
   _type: "submal";
 }
 

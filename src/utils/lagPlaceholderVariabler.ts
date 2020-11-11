@@ -41,7 +41,7 @@ const lagPlaceholderVariabler = (
     if (submalFelt.betingelse) {
       submal.skalMedBetingelseNavn = submalFelt.betingelse;
     }
-    dokumentvariabler.submaler[submalFelt.submalNavn] = submal as ISubmal;
+    dokumentvariabler.submaler[submalFelt.submalId] = submal as ISubmal;
   });
 
   grensesnitt.valgfelter.forEach((valgFelt: IValgfeltGrensesnitt) => {
@@ -64,7 +64,7 @@ const lagPlaceholderVariabler = (
   });
 
   grensesnitt.lister.forEach((dokument: IDokument) => {
-    dokumentvariabler.lister[dokument.dokumenttittel] = [
+    dokumentvariabler.lister[dokument.id] = [
       lagPlaceholderVariabler(dokument.grensesnitt, `${placeholderTillegg}-1`),
       lagPlaceholderVariabler(dokument.grensesnitt, `${placeholderTillegg}-2`),
     ];
