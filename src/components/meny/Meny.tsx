@@ -91,13 +91,13 @@ function Meny(props: MenyProps) {
             {
               checked: maalform === "bokmaal",
               onChange: (_) => oppdaterMaalform("bokmaal"),
-              label: "bokmaal",
+              label: "Bokmål",
               name: "maalform",
             },
             {
               checked: maalform === "nynorsk",
               onChange: (_) => oppdaterMaalform("nynorsk"),
-              label: "nynorsk",
+              label: "Nynorsk",
               name: "nynorsk",
             },
           ]}
