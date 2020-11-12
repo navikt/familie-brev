@@ -35,6 +35,7 @@
     "nav-frontend-typografi": "^2.0.34",
     "nav-frontend-typografi-style": "^1.0.29",
     "prop-types": "^15.7.2",
+    "query-string": "^6.13.7",
     "react": "^17.0.1",
     "react-collapse": "^5.0.1",
     "react-dom": "^16.14.0",
