@@ -38,26 +38,27 @@ function App() {
     settTitlerNynorsk(titlerNynorsk);
   };
 
-  const hentTittel = useCallback((): string => {
-    switch (maalform) {
-      case "bokmaal":
-        return titlerBokmaal[dokumentId];
-      case "nynorsk":
-        return titlerNynorsk[dokumentId];
-    }
-  }, [dokumentId, maalform]);
-
   const opptaderDokument = useCallback(
     (nyDokumentId: string = dokumentId, nyMaalform: Maalform = maalform) => {
       hentGrenesnittFraDokument(nyDokumentId, nyMaalform).then((res) => {
         settDokumentVariabler(lagPlaceholderVariabler(res));
         settDokumentId(nyDokumentId);
         settMaalform(nyMaalform);
-        settTittel(hentTittel);
       });
     },
-    [dokumentId, hentTittel, maalform]
+    [dokumentId, maalform]
   );
+
+  useEffect(() => {
+    switch (maalform) {
+      case "bokmaal":
+        settTittel(titlerBokmaal[dokumentId]);
+        break;
+      case "nynorsk":
+        settTittel(titlerNynorsk[dokumentId]);
+        break;
+    }
+  }, [dokumentId, maalform, titlerNynorsk, titlerBokmaal]);
 
   useEffect(() => {
     const query =
