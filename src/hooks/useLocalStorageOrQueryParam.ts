@@ -1,8 +1,15 @@
 import { useState } from 'react';
+const qs = require('query-string');
 
-export const useLocalStorage = (key: string, initialValue: any) => {
+export const useLocalStorageOrQueryParam = (key: string, initialValue: any, location?: any) => {
   const [storedValue, setStoredValue] = useState(() => {
     try {
+      const params = location && qs.parse(location.search.replace(/([/])(?==)/, ""));
+    
+      if (params?.brevtype) {
+        return params.brevtype.replace("+", " ")
+      }
+
       const item = window.localStorage.getItem(key);
 
       return item ? JSON.parse(item) : initialValue;
@@ -13,6 +20,7 @@ export const useLocalStorage = (key: string, initialValue: any) => {
   });
 
   const setValue = (value: any) => {
+    
     try {
       const valueToStore =
         value instanceof Function ? value(storedValue) : value;

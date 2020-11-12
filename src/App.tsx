@@ -8,7 +8,7 @@ import hentGrenesnittFraDokument, {
 import { IDokumentVariabler } from "./utils/DokumentVariabler";
 import lagPlaceholderVariabler from "./utils/lagPlaceholderVariabler";
 import Header from "./components/Header";
-import { useLocalStorage } from "./hooks/useLocalStorage";
+import { useLocalStorageOrQueryParam } from "./hooks/useLocalStorageOrQueryParam";
 import hentFraSanity from "./utils/hentFraSanity";
 
 interface Titler {
@@ -21,7 +21,7 @@ function App() {
   const [titlerNynorsk, settTitlerNynorsk] = useState<Titler>({});
 
   const [tittel, settTittel] = useState<string>("");
-  const [dokumentId, settDokumentId] = useLocalStorage("dokumentId", undefined);
+  const [dokumentId, settDokumentId] = useLocalStorageOrQueryParam("dokumentId", undefined, window.location);
   const [dokumentVariabler, settDokumentVariabler] = useState<
     IDokumentVariabler
   >();
