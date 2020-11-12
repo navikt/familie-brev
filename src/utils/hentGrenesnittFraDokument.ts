@@ -55,8 +55,12 @@ function undefinedDersomTomtGrensesnitt(
 
 async function hentSubmalGrensesnitt(
   submal: ISubmalMark,
-  maalform: Maalform
+  maalform: Maalform,
+  dokumentId: string
 ): Promise<ISubmalGrensesnitt> {
+  if (!submal.submal) {
+    throw new Error(`Submal i ${dokumentId} er tomt for ${maalform} versjon`);
+  }
   const skalMedFelt = submal.skalMedFelt?.felt;
   const id = submal.submal.id;
   return {
@@ -70,8 +74,12 @@ async function hentSubmalGrensesnitt(
 
 async function hentValgfeltGrensesnitt(
   valgfelt: IValgfeltMark,
-  maalform: Maalform
+  maalform: Maalform,
+  dokumentId: string
 ): Promise<IValgfeltGrensesnitt> {
+  if (!valgfelt.valgfelt) {
+    throw new Error(`Valgfelt i ${dokumentId} er tomt for ${maalform} versjon`);
+  }
   const tittel = valgfelt.valgfelt.tittel;
   const valgmuigheter = Promise.all(
     valgfelt.valgfelt.valg.map(async (valg) => ({
@@ -115,6 +123,11 @@ const hentGrensesnitt = async (
             switch (mark._type) {
               case "flettefelt":
                 const flettefelt = mark as IFlettefeltMark;
+                if (!flettefelt.felt) {
+                  throw new Error(
+                    `Flettefelt i ${dokumentId} er tomt for ${maalform} versjon`
+                  );
+                }
                 grensesnitt.flettefelter.push(flettefelt.felt.felt);
                 break;
 
@@ -122,7 +135,8 @@ const hentGrensesnitt = async (
                 const submal = mark as ISubmalMark;
                 const skalMedFelt = await hentSubmalGrensesnitt(
                   submal,
-                  maalform
+                  maalform,
+                  dokumentId
                 );
                 grensesnitt.submalFelter.push(skalMedFelt);
                 break;
@@ -131,7 +145,8 @@ const hentGrensesnitt = async (
                 const valgfelt = mark as IValgfeltMark;
                 const valgfeltGrensesnitt = await hentValgfeltGrensesnitt(
                   valgfelt,
-                  maalform
+                  maalform,
+                  dokumentId
                 );
                 grensesnitt.valgfelter.push(valgfeltGrensesnitt);
                 break;
@@ -140,10 +155,10 @@ const hentGrensesnitt = async (
                 console.warn(`Ukjent markfelt-type`, mark);
             }
           }
-
           break;
 
         case "dokumentliste":
+          console.log(sanityElement);
           const dokumentliste = sanityElement as IDokumentliste;
           grensesnitt.lister.push({
             id: dokumentliste.id,
@@ -157,6 +172,9 @@ const hentGrensesnitt = async (
 
         default:
           console.warn(`Ukjent type`, sanityElement);
+          throw new Error(
+            `Ojda, noe gikk galt. kotakt systemansvarlig hvis problemet vedvarer`
+          );
       }
     }
   }

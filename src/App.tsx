@@ -40,11 +40,13 @@ function App() {
 
   const opptaderDokument = useCallback(
     (nyDokumentId: string = dokumentId, nyMaalform: Maalform = maalform) => {
-      hentGrenesnittFraDokument(nyDokumentId, nyMaalform).then((res) => {
-        settDokumentVariabler(lagPlaceholderVariabler(res));
-        settDokumentId(nyDokumentId);
-        settMaalform(nyMaalform);
-      });
+      hentGrenesnittFraDokument(nyDokumentId, nyMaalform)
+        .then((res) => {
+          settDokumentVariabler(lagPlaceholderVariabler(res));
+          settDokumentId(nyDokumentId);
+          settMaalform(nyMaalform);
+        })
+        .catch((e) => alert(e));
     },
     [dokumentId, maalform]
   );
