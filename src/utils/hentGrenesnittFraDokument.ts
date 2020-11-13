@@ -158,7 +158,6 @@ const hentGrensesnitt = async (
           break;
 
         case "dokumentliste":
-          console.log(sanityElement);
           const dokumentliste = sanityElement as IDokumentliste;
           grensesnitt.lister.push({
             id: dokumentliste.id,
