@@ -84,7 +84,7 @@ async function hentValgfeltGrensesnitt(
   const valgmuigheter = Promise.all(
     valgfelt.valgfelt.valg.map(async (valg) => ({
       valgnavn: valg.valgmulighet,
-      grensesnitt: await hentGrensesnitt(valg.dokumentmal.id, maalform, false),
+      grensesnitt: await hentGrensesnitt(valg.delmal.id, maalform, false),
     }))
   );
   return {
@@ -109,7 +109,9 @@ const hentGrensesnitt = async (
     grensesnitt.flettefelter.push("fodselsnummer");
   }
 
-  const query = hentDokumentQuery(dokumentId, maalform);
+  const dokumentType = erHoveddokument ? "dokumentmal" : "delmal";
+
+  const query = hentDokumentQuery(dokumentType, dokumentId, maalform);
   const dokumentinnhold: IDokumentInnhold = (await hentFraSanity(query))[
     maalform
   ];
