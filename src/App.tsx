@@ -110,6 +110,7 @@ function App() {
             dokumentId={dokumentId}
             dokumentVariabler={dokumentVariabler}
             maalform={maalform}
+            erDokumentmal={true}
           />
         </StyledBrev>
       )}

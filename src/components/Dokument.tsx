@@ -9,11 +9,17 @@ interface DokumentProps {
   dokumentId: string;
   dokumentVariabler: IDokumentVariabler;
   maalform: Maalform;
+  erDokumentmal?: boolean;
 }
 
 function Dokument(dokumentProps: DokumentProps) {
-  const { dokumentId, dokumentVariabler, maalform } = dokumentProps;
-
+  const {
+    dokumentId,
+    dokumentVariabler,
+    maalform,
+    erDokumentmal = false,
+  } = dokumentProps;
+  const dokumentType = erDokumentmal ? "dokumentmal" : "delmal";
   const [dokument, setDokument] = useState<any>();
 
   const listItemSerializer = (props: any) => {
@@ -129,7 +135,7 @@ function Dokument(dokumentProps: DokumentProps) {
   };
 
   useEffect(() => {
-    const query = hentDokumentQuery(dokumentId, maalform);
+    const query = hentDokumentQuery(dokumentType, dokumentId, maalform);
     hentFraSanity(query).then((res: any) => {
       setDokument(res[maalform]);
     });

@@ -1,5 +1,9 @@
-export default (dokumentNavn: string, maalform: string) => `
-        *[_type == "dokumentmal" && id == "${dokumentNavn}"][0]
+export default (
+  dokumentType: string,
+  dokumentNavn: string,
+  maalform: string
+) => `
+        *[_type == "${dokumentType}" && id == "${dokumentNavn}"][0]
         {..., ${maalform}[]
           {
             _type == "block"=> {..., markDefs[]{
@@ -7,7 +11,7 @@ export default (dokumentNavn: string, maalform: string) => `
               felt->, 
               skalMedFelt->, 
               submal->, 
-              valgfelt->{..., valg[]{..., dokumentmal->}}}
+              valgfelt->{..., valg[]{..., delmal->}}}
             },
             _type == "dokumentliste" => {...}->{...,"_type": "dokumentliste"},
           }

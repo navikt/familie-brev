@@ -1,12 +1,14 @@
 export interface IDokumentmal {
   id: string;
-  innhold: IDokumentInnhold;
+  nynorsk: IDokumentInnhold;
+  bokmaal: IDokumentInnhold;
   _type: "dokumentmal";
 }
 
 export interface IDokumentliste {
   id: string;
-  innhold: IDokumentInnhold;
+  nynorsk: IDokumentInnhold;
+  bokmaal: IDokumentInnhold;
   _type: "dokumentliste";
 }
 
@@ -26,7 +28,7 @@ export interface IFlettefeltMark {
 export interface IValgfeltMark {
   valgfelt: {
     tittel: string;
-    valg: [{ valgmulighet: string; dokumentmal: IDokumentmal }];
+    valg: [{ valgmulighet: string; delmal: IDokumentmal }];
   };
   _type: "valgfelt";
 }
