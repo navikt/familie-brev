@@ -29,13 +29,15 @@ function Dokument(dokumentProps: DokumentProps) {
       return !!dokumentVariabler.submaler[id]?.skalMed;
     };
 
-    const skalMed = props.node.markDefs?.reduce(
+    const erKunText = props.node.markDefs.length === 0;
+
+    const markDefSkalMed = props.node.markDefs?.reduce(
       (acc: boolean, markDef: any) =>
         acc || !erSubmal(markDef) || submalSkalMed(markDef.submal),
       false
     );
 
-    if (skalMed) {
+    if (markDefSkalMed || erKunText) {
       return (
         <BlockContent
           blocks={props.node}
