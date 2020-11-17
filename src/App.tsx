@@ -9,7 +9,9 @@ import { IDokumentVariabler } from "./utils/DokumentVariabler";
 import lagPlaceholderVariabler from "./utils/lagPlaceholderVariabler";
 import Header from "./components/Header";
 import { useLocalStorageOrQueryParam } from "./hooks/useLocalStorageOrQueryParam";
+import { useLocalStorage } from "./hooks/useLocalStorage";
 import hentFraSanity from "./utils/hentFraSanity";
+import { StorageIds } from "./utils/storageIds";
 
 interface Titler {
   [dokumentId: string]: string;
@@ -25,7 +27,10 @@ function App() {
   const [dokumentVariabler, settDokumentVariabler] = useState<
     IDokumentVariabler
   >();
-  const [maalform, settMaalform] = useState<Maalform>("nynorsk");
+
+  const maalformStorageId = StorageIds.MAALFORM + dokumentId;
+
+  const [maalform, settMaalform] = useLocalStorage<Maalform>(maalformStorageId, "nynorsk");
 
   const settTitler = (dokumenter: any) => {
     const titlerBokmaal: { [dokumentId: string]: string } = {};

@@ -5,6 +5,8 @@ import { Hovedknapp } from "nav-frontend-knapper";
 import { IDokumentVariabler, ISubmal } from "../../utils/DokumentVariabler";
 import MenyVariabler from "./MenyVariabler";
 import { Maalform } from "../../utils/hentGrenesnittFraDokument";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { StorageIds } from "../../utils/storageIds";
 
 const StyledMeny = styled.div`
   width: 400px;
@@ -62,9 +64,9 @@ function Meny(props: MenyProps) {
     oppdaterMaalform,
   } = props;
 
-  const [variabler, settVariabler] = useState<IDokumentVariabler | undefined>(
-    dokumentVariabler
-  );
+  const dokumentVariablerId = StorageIds.VARIABLER + aktivtDokument;
+
+  const [variabler, settVariabler] = useLocalStorage<IDokumentVariabler | undefined>(dokumentVariablerId, dokumentVariabler);
 
   return (
     <StyledMeny>
