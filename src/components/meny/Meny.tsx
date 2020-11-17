@@ -1,8 +1,8 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import styled from "styled-components";
 import { RadioPanelGruppe, Select } from "nav-frontend-skjema";
 import { Hovedknapp } from "nav-frontend-knapper";
-import { IDokumentVariabler, ISubmal } from "../../utils/DokumentVariabler";
+import { IDokumentVariabler } from "../../utils/DokumentVariabler";
 import MenyVariabler from "./MenyVariabler";
 import { Maalform } from "../../utils/hentGrenesnittFraDokument";
 import { useLocalStorage } from "../../hooks/useLocalStorage";

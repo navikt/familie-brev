@@ -46,7 +46,7 @@ function Header(props: HeaderProps) {
   return (
     <StyledHeader>
         <h3 className="tittel">{tittel}</h3>
-        {visLogo && <img className="navLogo" src={navLogo} />}
+        {visLogo && <img alt="NAV-logo" className="navLogo" src={navLogo} />}
       <div className="kolonner">
         <div className="personinfo">
           <span>Navn: {navn}</span>
