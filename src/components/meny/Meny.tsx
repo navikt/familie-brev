@@ -7,6 +7,7 @@ import MenyVariabler from "./MenyVariabler";
 import { Maalform } from "../../utils/hentGrenesnittFraDokument";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 import { StorageIds } from "../../utils/storageIds";
+import hash from "object-hash";
 
 const StyledMeny = styled.div`
   width: 400px;
@@ -64,7 +65,7 @@ function Meny(props: MenyProps) {
     oppdaterMaalform,
   } = props;
 
-  const dokumentVariablerId = StorageIds.VARIABLER + aktivtDokument;
+  const dokumentVariablerId = StorageIds.VARIABLER + aktivtDokument + hash({dokumentVariabler});
 
   const [variabler, settVariabler] = useLocalStorage<IDokumentVariabler | undefined>(dokumentVariablerId, dokumentVariabler);
 
