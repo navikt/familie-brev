@@ -1,13 +1,10 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import styled from "styled-components";
 import { RadioPanelGruppe, Select } from "nav-frontend-skjema";
 import { Hovedknapp } from "nav-frontend-knapper";
 import { IDokumentVariabler } from "../../utils/DokumentVariabler";
 import MenyVariabler from "./MenyVariabler";
 import { Maalform } from "../../utils/hentGrenesnittFraDokument";
-import { useLocalStorage } from "../../hooks/useLocalStorage";
-import { StorageIds } from "../../utils/storageIds";
-import hash from "object-hash";
 
 const StyledMeny = styled.div`
   width: 400px;
@@ -65,9 +62,7 @@ function Meny(props: MenyProps) {
     oppdaterMaalform,
   } = props;
 
-  const dokumentVariablerId = StorageIds.VARIABLER + aktivtDokument + hash({dokumentVariabler});
-
-  const [variabler, settVariabler] = useLocalStorage<IDokumentVariabler | undefined>(dokumentVariablerId, dokumentVariabler);
+  const [variabler, settVariabler] = useState<IDokumentVariabler | undefined>(dokumentVariabler);
 
   return (
     <StyledMeny>
