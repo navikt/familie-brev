@@ -2,7 +2,7 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 import styled from "styled-components";
 import { RadioPanelGruppe, Select } from "nav-frontend-skjema";
 import { Hovedknapp } from "nav-frontend-knapper";
-import { IDokumentVariabler, ISubmal } from "../../utils/DokumentVariabler";
+import { IDokumentVariabler } from "../../utils/DokumentVariabler";
 import MenyVariabler from "./MenyVariabler";
 import { Maalform } from "../../utils/hentGrenesnittFraDokument";
 
@@ -62,9 +62,7 @@ function Meny(props: MenyProps) {
     oppdaterMaalform,
   } = props;
 
-  const [variabler, settVariabler] = useState<IDokumentVariabler | undefined>(
-    dokumentVariabler
-  );
+  const [variabler, settVariabler] = useState<IDokumentVariabler | undefined>(dokumentVariabler);
 
   return (
     <StyledMeny>

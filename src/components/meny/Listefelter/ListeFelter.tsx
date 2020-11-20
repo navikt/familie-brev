@@ -1,4 +1,4 @@
-import { IDokumentVariabler, ISubmal } from "../../../utils/DokumentVariabler";
+import { IDokumentVariabler } from "../../../utils/DokumentVariabler";
 import React from "react";
 import ListeFelt from "./ListeFelt";
 
