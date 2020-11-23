@@ -116,7 +116,7 @@ function Dokument(dokumentProps: DokumentProps) {
     const riktigDokument = muligeValg.find(
       (valg: any) => valg.valgmulighet === riktigValg
     );
-    const dokumentId = riktigDokument?.dokumentmal?.id;
+    const dokumentId = riktigDokument?.delmal?.id;
     const valgVariabler =
       dokumentVariabler.valgfelter[valgFeltNavn].valgVariabler;
 
