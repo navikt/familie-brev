@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "0b616f7942149ecfab9e2674749223fa",
+    "revision": "ba8c1affa4fc2257bf7dbec66a5853d9",
     "url": "/familie-brev/index.html"
   },
   {
-    "revision": "0001679baf2cbcc0695e",
+    "revision": "08511e0e4a825e1f78f6",
     "url": "/familie-brev/static/css/2.b24b63a2.chunk.css"
   },
   {
-    "revision": "924f880ec59bcb9c81a7",
+    "revision": "156dffba73619d0c76e4",
     "url": "/familie-brev/static/css/main.5ecd60fb.chunk.css"
   },
   {
-    "revision": "0001679baf2cbcc0695e",
-    "url": "/familie-brev/static/js/2.6921d48f.chunk.js"
+    "revision": "08511e0e4a825e1f78f6",
+    "url": "/familie-brev/static/js/2.df18e0fa.chunk.js"
   },
   {
     "revision": "bc1653466eb8d281bb70c1d5f0f6964e",
-    "url": "/familie-brev/static/js/2.6921d48f.chunk.js.LICENSE.txt"
+    "url": "/familie-brev/static/js/2.df18e0fa.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "924f880ec59bcb9c81a7",
-    "url": "/familie-brev/static/js/main.9587e84e.chunk.js"
+    "revision": "156dffba73619d0c76e4",
+    "url": "/familie-brev/static/js/main.7c475506.chunk.js"
   },
   {
     "revision": "a3b7a2de074ef5221a67",
