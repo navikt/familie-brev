@@ -3,6 +3,7 @@ import { IDokumentVariabler } from "../utils/DokumentVariabler";
 import hentDokumentQuery from "../utils/hentDokumentQuery";
 import { Maalform } from "../utils/hentGrenesnittFraDokument";
 import hentFraSanity from "../utils/hentFraSanity";
+import { Datasett } from "../utils/sanity";
 const BlockContent = require("@sanity/block-content-to-react");
 
 interface DokumentProps {
@@ -10,6 +11,7 @@ interface DokumentProps {
   dokumentVariabler: IDokumentVariabler;
   maalform: Maalform;
   erDokumentmal?: boolean;
+  datasett: Datasett;
 }
 
 function Dokument(dokumentProps: DokumentProps) {
@@ -18,6 +20,7 @@ function Dokument(dokumentProps: DokumentProps) {
     dokumentVariabler,
     maalform,
     erDokumentmal = false,
+    datasett,
   } = dokumentProps;
   const dokumentType = erDokumentmal ? "dokumentmal" : "delmal";
   const [dokument, setDokument] = useState<any>();
@@ -74,6 +77,7 @@ function Dokument(dokumentProps: DokumentProps) {
             dokumentId={dokumentId}
             dokumentVariabler={variabler}
             maalform={maalform}
+            datasett={datasett}
           />
         </div>
       );
@@ -94,6 +98,7 @@ function Dokument(dokumentProps: DokumentProps) {
             dokumentId={dokumentId}
             dokumentVariabler={dokumentVariabler}
             maalform={maalform}
+            datasett={datasett}
           />
         ))}
       </div>
@@ -127,6 +132,7 @@ function Dokument(dokumentProps: DokumentProps) {
             dokumentId={dokumentId}
             dokumentVariabler={valgVariabler}
             maalform={maalform}
+            datasett={datasett}
           />
         </div>
       );
@@ -138,7 +144,7 @@ function Dokument(dokumentProps: DokumentProps) {
 
   useEffect(() => {
     const query = hentDokumentQuery(dokumentType, dokumentId, maalform);
-    hentFraSanity(query).then((res: any) => {
+    hentFraSanity(query, datasett).then((res: any) => {
       setDokument(res[maalform]);
     });
   }, [dokumentId, maalform]);

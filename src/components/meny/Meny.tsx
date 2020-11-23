@@ -5,6 +5,7 @@ import { Hovedknapp } from "nav-frontend-knapper";
 import { IDokumentVariabler } from "../../utils/DokumentVariabler";
 import MenyVariabler from "./MenyVariabler";
 import { Maalform } from "../../utils/hentGrenesnittFraDokument";
+import { Datasett } from "../../utils/sanity";
 
 const StyledMeny = styled.div`
   width: 400px;
@@ -39,6 +40,8 @@ const StyledHovedknapp = styled(Hovedknapp)`
   margin-bottom: 2rem;
 `;
 
+const { NODE_ENV } = process.env;
+
 interface MenyProps {
   aktivtDokument: string;
   dokumenter: string[];
@@ -49,6 +52,8 @@ interface MenyProps {
   maalform: Maalform;
   opptaderDokumentId: (nyDokumentId: string) => void;
   oppdaterMaalform: (nyMaalform: Maalform) => void;
+  oppdaterDatasett: Function;
+  datasett: Datasett;
 }
 
 function Meny(props: MenyProps) {
@@ -60,13 +65,30 @@ function Meny(props: MenyProps) {
     maalform,
     opptaderDokumentId,
     oppdaterMaalform,
+    oppdaterDatasett,
+    datasett,
   } = props;
 
-  const [variabler, settVariabler] = useState<IDokumentVariabler | undefined>(dokumentVariabler);
+  const [variabler, settVariabler] = useState<IDokumentVariabler | undefined>(
+    dokumentVariabler
+  );
 
   return (
     <StyledMeny>
       <div className="meny-innhold">
+        <Select
+          value={datasett}
+          label="Datasett"
+          onChange={(e) => {
+            oppdaterDatasett(e.target.value);
+          }}
+        >
+          <option value={Datasett.BA}>{Datasett.BA}</option>
+          <option value={Datasett.EF}>{Datasett.EF}</option>
+          {NODE_ENV !== "production" && (
+            <option value={Datasett.TEST}>{Datasett.TEST}</option>
+          )}
+        </Select>
         <div className="meny-element brevtype">
           <Select
             value={aktivtDokument}
