@@ -1,4 +1,11 @@
 
+import backend, {
+    IApp,
+    ensureAuthenticated,
+    getLogTimestamp,
+    info,
+    envVar,
+} from '@navikt/familie-backend';
 
 var path = require('path');
 const express = require('express');

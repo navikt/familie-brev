@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var path = require('path');
 const express = require('express');
 const jsdom = require("jsdom");
