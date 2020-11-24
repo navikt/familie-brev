@@ -87,9 +87,9 @@ function App() {
     hentFraSanity(query, datasett).then((res: any) => {
       settDokumenter(res.map((dokument: any) => dokument.id));
       settTitler(res);
-      opptaderDokument();
+      opptaderDokument(dokumentId ? dokumentId : res[0].id);
     });
-  }, [opptaderDokument, datasett]);
+  }, [dokumentId, opptaderDokument, datasett]);
 
   const oppdaterMaalform = (nyMaalform: Maalform) => {
     opptaderDokument(undefined, nyMaalform);
