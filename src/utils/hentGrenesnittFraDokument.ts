@@ -8,6 +8,7 @@ import {
   IValgfeltMark,
 } from "./sanityElementer";
 import hentFraSanity from "./hentFraSanity";
+import { Datasett } from "./sanity";
 
 export type Maalform = "bokmaal" | "nynorsk";
 
@@ -56,7 +57,8 @@ function undefinedDersomTomtGrensesnitt(
 async function hentSubmalGrensesnitt(
   submal: ISubmalMark,
   maalform: Maalform,
-  dokumentId: string
+  dokumentId: string,
+  datasett: Datasett
 ): Promise<ISubmalGrensesnitt> {
   if (!submal.submal) {
     throw new Error(`Submal i ${dokumentId} er tomt for ${maalform} versjon`);
@@ -65,7 +67,7 @@ async function hentSubmalGrensesnitt(
   const id = submal.submal.id;
   return {
     grensesnitt: undefinedDersomTomtGrensesnitt(
-      await hentGrensesnitt(id, maalform, false)
+      await hentGrensesnitt(id, maalform, false, datasett)
     ),
     betingelse: skalMedFelt,
     submalId: id,
@@ -75,7 +77,8 @@ async function hentSubmalGrensesnitt(
 async function hentValgfeltGrensesnitt(
   valgfelt: IValgfeltMark,
   maalform: Maalform,
-  dokumentId: string
+  dokumentId: string,
+  datasett: Datasett
 ): Promise<IValgfeltGrensesnitt> {
   if (!valgfelt.valgfelt) {
     throw new Error(`Valgfelt i ${dokumentId} er tomt for ${maalform} versjon`);
@@ -84,7 +87,12 @@ async function hentValgfeltGrensesnitt(
   const valgmuigheter = Promise.all(
     valgfelt.valgfelt.valg.map(async (valg) => ({
       valgnavn: valg.valgmulighet,
-      grensesnitt: await hentGrensesnitt(valg.delmal.id, maalform, false),
+      grensesnitt: await hentGrensesnitt(
+        valg.delmal.id,
+        maalform,
+        false,
+        datasett
+      ),
     }))
   );
   return {
@@ -96,7 +104,8 @@ async function hentValgfeltGrensesnitt(
 const hentGrensesnitt = async (
   dokumentId: string,
   maalform: Maalform,
-  erHoveddokument: boolean = true
+  erHoveddokument: boolean = true,
+  datasett: Datasett
 ): Promise<IGrensesnitt> => {
   const grensesnitt: IGrensesnitt = {
     flettefelter: [],
@@ -112,9 +121,9 @@ const hentGrensesnitt = async (
   const dokumentType = erHoveddokument ? "dokumentmal" : "delmal";
 
   const query = hentDokumentQuery(dokumentType, dokumentId, maalform);
-  const dokumentinnhold: IDokumentInnhold = (await hentFraSanity(query))[
-    maalform
-  ];
+  const dokumentinnhold: IDokumentInnhold = (
+    await hentFraSanity(query, datasett)
+  )[maalform];
   if (dokumentinnhold) {
     for await (const sanityElement of dokumentinnhold) {
       switch (sanityElement._type) {
@@ -138,7 +147,8 @@ const hentGrensesnitt = async (
                 const skalMedFelt = await hentSubmalGrensesnitt(
                   submal,
                   maalform,
-                  dokumentId
+                  dokumentId,
+                  datasett
                 );
                 grensesnitt.submalFelter.push(skalMedFelt);
                 break;
@@ -148,7 +158,8 @@ const hentGrensesnitt = async (
                 const valgfeltGrensesnitt = await hentValgfeltGrensesnitt(
                   valgfelt,
                   maalform,
-                  dokumentId
+                  dokumentId,
+                  datasett
                 );
                 grensesnitt.valgfelter.push(valgfeltGrensesnitt);
                 break;
@@ -166,7 +177,8 @@ const hentGrensesnitt = async (
             grensesnitt: await hentGrensesnitt(
               dokumentliste.id,
               maalform,
-              false
+              false,
+              datasett
             ),
           });
           break;

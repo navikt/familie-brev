@@ -12,6 +12,7 @@ import { useLocalStorageOrQueryParam } from "./hooks/useLocalStorageOrQueryParam
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import hentFraSanity from "./utils/hentFraSanity";
 import { StorageIds } from "./utils/storageIds";
+import { Datasett } from "./utils/sanity";
 
 interface Titler {
   [dokumentId: string]: string;
@@ -23,14 +24,26 @@ function App() {
   const [titlerNynorsk, settTitlerNynorsk] = useState<Titler>({});
 
   const [tittel, settTittel] = useState<string>("");
-  const [dokumentId, settDokumentId] = useLocalStorageOrQueryParam("dokumentId", undefined, window.location);
+  const [dokumentId, settDokumentId] = useLocalStorageOrQueryParam(
+    "dokumentId",
+    undefined,
+    window.location
+  );
   const [dokumentVariabler, settDokumentVariabler] = useState<
     IDokumentVariabler
   >();
 
   const maalformStorageId = StorageIds.MAALFORM + dokumentId;
 
-  const [maalform, settMaalform] = useLocalStorage<Maalform>(maalformStorageId, "nynorsk");
+  const [maalform, settMaalform] = useLocalStorage<Maalform>(
+    maalformStorageId,
+    "nynorsk"
+  );
+
+  const [datasett, settDatasett] = useLocalStorage<Datasett>(
+    "datasett",
+    Datasett.BA
+  );
 
   const settTitler = (dokumenter: any) => {
     const titlerBokmaal: { [dokumentId: string]: string } = {};
@@ -45,7 +58,7 @@ function App() {
 
   const opptaderDokument = useCallback(
     (nyDokumentId: string = dokumentId, nyMaalform: Maalform = maalform) => {
-      hentGrenesnittFraDokument(nyDokumentId, nyMaalform)
+      hentGrenesnittFraDokument(nyDokumentId, nyMaalform, true, datasett)
         .then((res) => {
           settDokumentVariabler(lagPlaceholderVariabler(res));
           settDokumentId(nyDokumentId);
@@ -53,7 +66,7 @@ function App() {
         })
         .catch((e) => alert(e));
     },
-    [dokumentId, maalform]
+    [dokumentId, maalform, datasett]
   );
 
   useEffect(() => {
@@ -71,19 +84,24 @@ function App() {
     const query =
       '*[_type == "dokumentmal"][]{id, tittelBokmaal, tittelNynorsk}';
 
-    hentFraSanity(query).then((res: any) => {
+    hentFraSanity(query, datasett).then((res: any) => {
       settDokumenter(res.map((dokument: any) => dokument.id));
       settTitler(res);
-      opptaderDokument();
+      opptaderDokument(dokumentId ? dokumentId : res[0].id);
     });
-  }, [opptaderDokument]);
+  }, [dokumentId, opptaderDokument, datasett]);
 
   const oppdaterMaalform = (nyMaalform: Maalform) => {
     opptaderDokument(undefined, nyMaalform);
   };
 
-  const opptaderDokumentId = (nyDokumentId: string) => {
+  const opptaderDokumentId = (nyDokumentId: string | undefined) => {
     opptaderDokument(nyDokumentId);
+  };
+
+  const oppdaterDatasett = (datasett: Datasett) => {
+    settDatasett(datasett);
+    settDokumentId(undefined);
   };
 
   const StyledApp = styled.div`
@@ -102,6 +120,8 @@ function App() {
         settDokumentVariabler={settDokumentVariabler}
         oppdaterMaalform={oppdaterMaalform}
         opptaderDokumentId={opptaderDokumentId}
+        oppdaterDatasett={oppdaterDatasett}
+        datasett={datasett}
       />
       {dokumentId && dokumentVariabler && (
         <StyledBrev>
@@ -116,6 +136,7 @@ function App() {
             dokumentVariabler={dokumentVariabler}
             maalform={maalform}
             erDokumentmal={true}
+            datasett={datasett}
           />
         </StyledBrev>
       )}
