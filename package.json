@@ -51,7 +51,7 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
-    "serve": "craco build && tsc && NODE_ENV=development node node_dist/backend/server.js",
+    "serve": "craco build && tsc -p ./src/backend && NODE_ENV=development node node_dist/backend/server.js",
     "test": "craco test",
     "eject": "craco eject",
     "predeploy": "craco build",
