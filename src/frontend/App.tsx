@@ -66,6 +66,7 @@ function App() {
         })
         .catch((e) => alert(e));
     },
+    // eslint-disable-next-line
     [dokumentId, maalform, datasett]
   );
 

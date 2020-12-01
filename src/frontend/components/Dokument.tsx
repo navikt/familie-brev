@@ -147,7 +147,7 @@ function Dokument(dokumentProps: DokumentProps) {
     hentFraSanity(query, datasett).then((res: any) => {
       setDokument(res[maalform]);
     });
-  }, [dokumentId, maalform]);
+  }, [dokumentId, maalform, datasett, dokumentType]);
 
   return (
     <BlockContent
