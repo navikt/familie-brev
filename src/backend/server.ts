@@ -13,7 +13,7 @@ const jsdom = require("jsdom");
 const request = require("request");
 const mustacheExpress = require("mustache-express");
 const app = express();
-const port = 8080;
+const port = 8000;
 const router = express.Router();
 router.use(express.static(path.join(__dirname, '../../build')));
 const { JSDOM } = jsdom;
