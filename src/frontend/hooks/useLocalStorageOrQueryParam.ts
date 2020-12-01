@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 const qs = require("query-string");
 
 export const useLocalStorageOrQueryParam = (
@@ -25,7 +25,7 @@ export const useLocalStorageOrQueryParam = (
     }
   });
 
-  const setValue = (value: any) => {
+  const setValue = useCallback((value: any) => {
     try {
       const valueToStore =
         value instanceof Function ? value(storedValue) : value;
@@ -35,7 +35,7 @@ export const useLocalStorageOrQueryParam = (
     } catch (error) {
       console.log(error);
     }
-  };
+  }, [key, storedValue]);
 
   return [storedValue, setValue];
 };
