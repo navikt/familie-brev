@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import navLogo from "../assets/nav-logo-red.svg";
+import { NavIkon } from "../ikoner/navIkon";
 
 interface HeaderProps {
   tittel: string;
@@ -9,54 +10,25 @@ interface HeaderProps {
   visLogo?: boolean;
 }
 
-const StyledHeader = styled.div`
-  position: relative;
-
-  h3.tittel {
-    margin-bottom: 5rem;
-  }
-
-  .navLogo {
-    position: absolute;
-    top: -1.5rem;
-    right: 0;
-  }
-
-  .kolonner {
-    margin-bottom: 4rem;
-    display: flex;
-    justify-content: space-between;
-
-    .personinfo {
-      display: flex;
-      flex-direction: column;
-
-      span {
-        margin-bottom: 1rem;
-      }
-    }
-  }
-`;
-
-
 function Header(props: HeaderProps) {
-
-    const { tittel, navn, fødselsnr, visLogo } = props;
+  const { tittel, navn, fødselsnr, visLogo } = props;
 
   return (
-    <StyledHeader>
-        <h3 className="tittel">{tittel}</h3>
-        {visLogo && <img alt="NAV-logo" className="navLogo" src={navLogo} />}
-      <div className="kolonner">
-        <div className="personinfo">
-          <span>Navn: {navn}</span>
-          <span>Fødselsnr: {fødselsnr}</span>
-        </div>
-        <div className="dato">
-          <span>6. oktober 2020</span>
+    <div className={"header"}>
+      <div className="ikon-og-dato">
+        {visLogo && <NavIkon />}
+        <p>6. oktober 2020</p>
+      </div>
+      <div className={"tittel-og-personinfo"}>
+        <h2 className="tittel">{tittel.toUpperCase()}</h2>
+        <div className="kolonner">
+          <div className="personinfo">
+            <div>Navn: {navn}</div>
+            <div>Fødselsnr: {fødselsnr}</div>
+          </div>
         </div>
       </div>
-    </StyledHeader>
+    </div>
   );
 }
 

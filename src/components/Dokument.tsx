@@ -4,6 +4,7 @@ import hentDokumentQuery from "../utils/hentDokumentQuery";
 import { Maalform } from "../utils/hentGrenesnittFraDokument";
 import hentFraSanity from "../utils/hentFraSanity";
 import { Datasett } from "../utils/sanity";
+import useServerEffect from "../utils/useServerEffect";
 const BlockContent = require("@sanity/block-content-to-react");
 
 interface DokumentProps {
@@ -23,7 +24,13 @@ function Dokument(dokumentProps: DokumentProps) {
     datasett,
   } = dokumentProps;
   const dokumentType = erDokumentmal ? "dokumentmal" : "delmal";
-  const [dokument, setDokument] = useState<any>();
+
+  const [dokument] = useServerEffect(undefined, dokumentId, () => {
+    const query = hentDokumentQuery(dokumentType, dokumentId, maalform);
+    return hentFraSanity(query, datasett).then((res: any) => {
+      return res[maalform];
+    });
+  });
 
   const listItemSerializer = (props: any) => {
     const erSubmal = (markDef: any) => markDef._type === "submal";
@@ -40,22 +47,33 @@ function Dokument(dokumentProps: DokumentProps) {
       false
     );
 
-    if (markDefSkalMed || erKunText) {
+    const BlockContentWithoutListItemSerialazer = (blockRenderer: Function) => (
+      <BlockContent
+        blocks={props.children}
+        serializers={{
+          marks: {
+            flettefelt: flettefeltSerializer,
+            submal: submalSerializer,
+            valgfelt: valgfeltSerializer,
+          },
+          types: {
+            dokumentliste: dokumentlisteSerializer,
+            block: { blockRenderer },
+          },
+        }}
+      />
+    );
+
+    if (erKunText) {
       return (
-        <BlockContent
-          blocks={props.node}
-          serializers={{
-            marks: {
-              flettefelt: flettefeltSerializer,
-              submal: submalSerializer,
-              valgfelt: valgfeltSerializer,
-            },
-            types: {
-              dokumentliste: dokumentlisteSerializer,
-            },
-          }}
-        />
+        <li className={"list item"}>
+          {BlockContentWithoutListItemSerialazer((props: any) => (
+            <div>{props.children}</div>
+          ))}
+        </li>
       );
+    } else if (markDefSkalMed) {
+      return <li>{props.children}</li>;
     } else {
       return "";
     }
@@ -72,7 +90,7 @@ function Dokument(dokumentProps: DokumentProps) {
 
     if (skalMed) {
       return (
-        <div style={{ display: "inline-block" }}>
+        <div className={"delmal inline"}>
           <Dokument
             dokumentId={dokumentId}
             dokumentVariabler={variabler}
@@ -91,15 +109,19 @@ function Dokument(dokumentProps: DokumentProps) {
     const dokumentVariablerListe = dokumentVariabler.lister[dokumentId];
 
     return (
-      <div>
-        {dokumentVariablerListe.map((dokumentVariabler) => (
-          <Dokument
-            key={JSON.stringify(dokumentVariabler)}
-            dokumentId={dokumentId}
-            dokumentVariabler={dokumentVariabler}
-            maalform={maalform}
-            datasett={datasett}
-          />
+      <div className={"dokumentListe"}>
+        {dokumentVariablerListe.map((dokumentVariabler, index) => (
+          <div
+            key={JSON.stringify(`dokumentVariabler${index}`)}
+            className={"dokumentListe"}
+          >
+            <Dokument
+              dokumentId={dokumentId}
+              dokumentVariabler={dokumentVariabler}
+              maalform={maalform}
+              datasett={datasett}
+            />
+          </div>
         ))}
       </div>
     );
@@ -127,7 +149,7 @@ function Dokument(dokumentProps: DokumentProps) {
 
     if (dokumentId) {
       return (
-        <div style={{ display: "inline-block" }}>
+        <div className={"valgfelt inline"}>
           <Dokument
             dokumentId={dokumentId}
             dokumentVariabler={valgVariabler}
@@ -142,14 +164,7 @@ function Dokument(dokumentProps: DokumentProps) {
     }
   };
 
-  useEffect(() => {
-    const query = hentDokumentQuery(dokumentType, dokumentId, maalform);
-    hentFraSanity(query, datasett).then((res: any) => {
-      setDokument(res[maalform]);
-    });
-  }, [dokumentId, maalform]);
-
-  return (
+  const innhold = (
     <BlockContent
       blocks={dokument}
       serializers={{
@@ -160,11 +175,16 @@ function Dokument(dokumentProps: DokumentProps) {
         },
         types: {
           dokumentliste: dokumentlisteSerializer,
+          block: (props: any) => (
+            <div className={`block`}>{props.children}</div>
+          ),
         },
         listItem: listItemSerializer,
       }}
     />
   );
+
+  return innhold;
 }
 
 export default Dokument;
