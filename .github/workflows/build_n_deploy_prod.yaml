@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - 'master'
+      - 'pdf'
 
 env:
   IMAGE: docker.pkg.github.com/${{ github.repository }}/familie-brev:${{ github.sha }}
