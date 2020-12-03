@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { IDokumentVariabler } from "../utils/DokumentVariabler";
 import hentDokumentQuery from "../utils/hentDokumentQuery";
 import { Maalform } from "../utils/hentGrenesnittFraDokument";
 import hentFraSanity from "../utils/hentFraSanity";
 import { Datasett } from "../utils/sanity";
 import useServerEffect from "../utils/useServerEffect";
+
 const BlockContent = require("@sanity/block-content-to-react");
 
 interface DokumentProps {

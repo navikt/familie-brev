@@ -12,10 +12,9 @@ const hentDokumentHtml = async (
   dokumentVariabler: IDokumentVariabler,
   maalform: Maalform,
   dokumentId: string,
-  datasett: Datasett
+  datasett: Datasett,
+  tittel: string
 ): Promise<string> => {
-  const tittel = "Test-tittel";
-
   const contextValue = { requests: [] };
   const asyncHtml = () => (
     <Context.Provider value={contextValue}>

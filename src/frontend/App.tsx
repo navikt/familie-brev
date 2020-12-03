@@ -67,13 +67,17 @@ function App() {
 
   useEffect(() => {
     dokumentVariabler &&
-      hentDokumentHtml(dokumentVariabler, maalform, dokumentId, datasett).then(
-        (html) => {
-          settHtml(html);
-          genererPdf(html).then((x) => settPdf(x));
-        }
-      );
-  }, [dokumentVariabler, maalform, dokumentId, datasett]);
+      hentDokumentHtml(
+        dokumentVariabler,
+        maalform,
+        dokumentId,
+        datasett,
+        tittel
+      ).then((html) => {
+        settHtml(html);
+        genererPdf(html).then((x) => settPdf(x));
+      });
+  }, [dokumentVariabler, maalform, dokumentId, datasett, tittel]);
 
   const opptaderDokument = useCallback(
     (nyDokumentId: string = dokumentId, nyMaalform: Maalform = maalform) => {

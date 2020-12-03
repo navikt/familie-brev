@@ -1,6 +1,4 @@
 import React from "react";
-import styled from "styled-components";
-import navLogo from "../assets/nav-logo-red.svg";
 import { NavIkon } from "../ikoner/navIkon";
 
 interface HeaderProps {
