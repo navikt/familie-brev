@@ -1,9 +1,9 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "node_dist",
-    "baseUrl": "./src",
-    "rootDir": "./src",
+    "outDir": "../../node_dist/backend",
+    "baseUrl": ".",
+    "rootDir": ".",
     "resolveJsonModule": true,
     "types": [
       "express-session"
@@ -14,13 +14,10 @@
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
     "isolatedModules": true,
-    "noEmit": true
+    "noEmit": false
   },
   "include": [
-    "./src/backend"
-  ],
-  "exclude": [
-    "./src/frontend"
+    "."
   ],
   "lib": [
     "es2015"

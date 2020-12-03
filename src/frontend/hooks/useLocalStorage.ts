@@ -1,31 +1,18 @@
-import { useState } from "react";
-const qs = require("query-string");
+import { useState, Dispatch, SetStateAction, useCallback } from 'react';
 
-export const useLocalStorageOrQueryParam = (
-  key: string,
-  initialValue: any,
-  location?: any
-) => {
+export function useLocalStorage<S>(key: string, initialValue: S): [S, Dispatch<SetStateAction<S>>] {
   const [storedValue, setStoredValue] = useState(() => {
     try {
-      const params =
-        location && qs.parse(location.search.replace(/([/])(?==)/, ""));
-
-      if (params?.brevtype) {
-        return params.brevtype.replace("+", " ");
-      }
-
       const item = window.localStorage.getItem(key);
 
-      if (item === null || item === "undefined") return initialValue;
-      else return JSON.parse(item);
+      return item ? JSON.parse(item) : initialValue;
     } catch (error) {
       console.log("Error", error);
       return initialValue;
     }
   });
 
-  const setValue = (value: any) => {
+  const setValue = useCallback((value: any) => {
     try {
       const valueToStore =
         value instanceof Function ? value(storedValue) : value;
@@ -35,7 +22,9 @@ export const useLocalStorageOrQueryParam = (
     } catch (error) {
       console.log(error);
     }
-  };
+  }, [key, storedValue]);
 
   return [storedValue, setValue];
 };
+
+export default useLocalStorage;

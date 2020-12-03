@@ -1,0 +1,53 @@
+apiVersion: 'nais.io/v1alpha1'
+kind: 'Application'
+metadata:
+  name: familie-brev
+  namespace: teamfamilie
+  labels:
+    team: teamfamilie
+spec:
+  image: {{ image }}
+  team: teamfamilie
+  replicas:
+    min: 1
+    max: 2
+    cpuThresholdPercentage: 50
+  port: 8000
+  liveness:
+    path: /status
+    initialDelay: 5
+    periodSeconds: 5
+    failureThreshold: 30
+  readiness:
+    path: /status
+    initialDelay: 5
+    periodSeconds: 5
+    failureThreshold: 30
+  prometheus:
+    enabled: false
+  ingresses:
+    - https://familie-dokument.intern.nav.no
+  accessPolicy:
+    accessPolicy:
+    inbound:
+      rules:
+        - application: familie-ba-sak
+          namespace: default
+    outbound:
+      rules:
+        - application: familie-dokument
+          namespace: default
+      external:
+        - host: appres.nav.no
+  env:
+    - name: APP_VERSION
+      value: '{{version}}'
+    - name: APPRES_CMS_URL
+      value: https://appres.nav.no
+
+  resources:
+    limits:
+      cpu: 2000m
+      memory: 1024Mi
+    requests:
+      memory: 512Mi

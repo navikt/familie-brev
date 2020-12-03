@@ -85,7 +85,7 @@ function App() {
         })
         .catch((e) => alert(e));
     },
-    [dokumentId, maalform, datasett]
+    [dokumentId, maalform, datasett, settMaalform, settDokumentId]
   );
 
   useEffect(() => {
