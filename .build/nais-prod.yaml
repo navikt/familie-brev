@@ -34,10 +34,11 @@ spec:
         - application: familie-ba-sak
           namespace: default
     outbound:
+      rules:
+        - application: familie-dokument
+          namespace: default
       external:
-        - host: familie-dokument.nais.oera.no
         - host: appres.nav.no
-        - host: xsrv1mh6.apicdn.sanity.io
   env:
     - name: APP_VERSION
       value: '{{version}}'
