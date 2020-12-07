@@ -7,7 +7,7 @@ export enum Datasett {
 }
 
 const { NODE_ENV } = process.env;
-const useCdn = NODE_ENV === "production";
+const useCdn = NODE_ENV !== "production";
 
 export const client = (dataset: Datasett) =>
   sanityClient({
