@@ -1,6 +1,11 @@
 import express from "express";
 import bodyParser from "body-parser";
 import path from "path";
+import { client, Datasett } from "./sanity/sanityClient";
+import hentGrensesnitt, {
+  IGrensesnitt,
+  Maalform,
+} from "./sanity/hentGrenesnittFraDokument";
 
 const buildDir = path.join(process.cwd() + "/build");
 const app = express();
@@ -14,6 +19,106 @@ app.use(express.static(buildDir));
 
 app.get("/status", (req, res) => {
   res.status(200).end();
+});
+
+const hentDokumenter = async (datasett: Datasett) => {
+  const query = '*[_type == "dokumentmal"][].id';
+  return await client(datasett).fetch(query);
+};
+
+app.get("/:datasett/dokumenter", async (req, res) => {
+  const datasett = req.params.datasett as Datasett;
+  if (!Object.values(Datasett).includes(datasett)) {
+    return res.status(404).send(`Datasettet "${datasett}" finnes ikke.`);
+  }
+
+  res.send(await hentDokumenter);
+});
+
+const hentRelevanteGrensesnitt = async (
+  maalformForesporsel: undefined | string | string[],
+  dokumentForesporsel: undefined | string | string[],
+  datasett: Datasett
+) => {
+  let maalformer: string[];
+  if (maalformForesporsel) {
+    if (Array.isArray(maalformForesporsel)) {
+      maalformer = maalformForesporsel;
+    } else {
+      maalformer = [maalformForesporsel];
+    }
+  } else {
+    maalformer = Object.values(Maalform);
+  }
+
+  let dokumenter: string[];
+  if (dokumentForesporsel) {
+    if (Array.isArray(dokumentForesporsel)) {
+      dokumenter = dokumentForesporsel;
+    } else {
+      dokumenter = [dokumentForesporsel];
+    }
+  } else {
+    dokumenter = await hentDokumenter(datasett);
+  }
+
+  let grensesnitt: IGrensesnitt[] = [];
+  for (const maalform in maalformer) {
+    for (const dokumentId in dokumenter) {
+      grensesnitt.push(
+        await hentGrensesnitt(dokumentId, maalform as Maalform, datasett)
+      );
+    }
+  }
+  return grensesnitt;
+};
+
+app.get("/:datasett/grensesnitt", async (req, res) => {
+  const datasett = req.params.datasett as Datasett;
+  const dokumentForesporsel = req.query.dokumentId;
+  const maalformForesporsel = req.query.maalform;
+
+  if (!Object.values(Datasett).includes(datasett)) {
+    return res.status(404).send(`Datasettet "${datasett}" finnes ikke.`);
+  }
+  if (
+    typeof dokumentForesporsel === "object" ||
+    typeof maalformForesporsel === "object"
+  ) {
+    return res.status(400).send(`Ugylding forespørsel`);
+  }
+
+  let grensesnitt: IGrensesnitt[] = [];
+  try {
+    grensesnitt = await hentRelevanteGrensesnitt(
+      maalformForesporsel,
+      dokumentForesporsel,
+      datasett
+    );
+  } catch (error) {
+    return res.status(400).send(`Ugylding forespørsel: ${error}`);
+  }
+
+  res.send(grensesnitt);
+});
+
+app.post("/:datasett/:maalform/:dokumentId/html", async (req, res) => {
+  const datasett = req.params.datasett as Datasett;
+  const maalform = req.params.maalform as Maalform;
+  const dokumentId = req.params.dokumentId;
+
+  const token = req.body;
+
+  if (!Object.values(Datasett).includes(datasett)) {
+    return res.status(404).send(`Datasettet "${datasett}" finnes ikke.`);
+  }
+  if (!Object.values(Maalform).includes(maalform)) {
+    return res.status(404).send(`Målformen "${maalform}" finnes ikke.`);
+  }
+
+  const grensesnitt = hentGrensesnitt(dokumentId, maalform, datasett);
+
+  res.send(grensesnitt);
 });
 
 const port = 8000;
