@@ -6,7 +6,7 @@
     "sourceMap": true,
     "module": "esnext",
     "strict": true,
-    "target": "esnext",
+    "target": "es2018",
     "moduleResolution": "node"
   },
   "exclude": ["../../build", "../client"],

@@ -1,20 +1,26 @@
 import * as React from "react";
-import { IDokumentVariabler } from "../utils/DokumentVariabler";
-import { Maalform } from "../utils/hentGrenesnittFraDokument";
+import { IDokumentVariabler } from "../sanity/DokumentVariabler";
+import { Maalform } from "../sanity/hentGrenesnittFraDokument";
 import Dokument from "../components/Dokument";
-import { Datasett } from "../utils/sanity";
+import { Datasett } from "../sanity/sanityClient";
 import { renderToStaticMarkup } from "react-dom/server";
-import Context from "../utils/Context";
+import Context from "./Context";
 import css from "./css";
 import Header from "../components/Header";
+import { client } from "../sanity/sanityClient";
 
 const hentDokumentHtml = async (
   dokumentVariabler: IDokumentVariabler,
   maalform: Maalform,
   dokumentId: string,
-  datasett: Datasett,
-  tittel: string
+  datasett: Datasett
 ): Promise<string> => {
+  const tittel = (
+    await client(datasett).fetch(
+      `*[_type == "dokumentmal" && id == "${dokumentId}" ][].id`
+    )
+  )[0];
+
   const contextValue = { requests: [] };
   const asyncHtml = () => (
     <Context.Provider value={contextValue}>
@@ -29,7 +35,7 @@ const hentDokumentHtml = async (
               visLogo={true}
               tittel={tittel}
               navn={dokumentVariabler.flettefelter.navn}
-              fødselsnr={dokumentVariabler.flettefelter.fodselsnummer}
+              fodselsnr={dokumentVariabler.flettefelter.fodselsnummer}
             />
             <Dokument
               dokumentId={dokumentId}

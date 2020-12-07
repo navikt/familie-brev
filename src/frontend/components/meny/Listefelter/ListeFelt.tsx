@@ -1,9 +1,9 @@
-import { IDokumentVariabler } from "../../../utils/DokumentVariabler";
 import { EkspanderbartpanelBase } from "nav-frontend-ekspanderbartpanel";
 import MenyVariabler from "../MenyVariabler";
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Fareknapp, Knapp } from "nav-frontend-knapper";
+import { IDokumentVariabler } from "../../../../server/sanity/DokumentVariabler";
 
 interface ListeFeltProps {
   liste: IDokumentVariabler[];

@@ -6,6 +6,7 @@ import hentGrensesnitt, {
   IGrensesnitt,
   Maalform,
 } from "./sanity/hentGrenesnittFraDokument";
+import hentDokumentHtml from "./dokument/hentDokumentHtml";
 
 const buildDir = path.join(process.cwd() + "/build");
 const app = express();
@@ -16,6 +17,21 @@ app.use(
   })
 );
 app.use(express.static(buildDir));
+
+app.use(function (req, res, next) {
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, OPTIONS, PUT, PATCH, DELETE"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "X-Requested-With,content-type"
+  );
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+
+  next();
+});
 
 app.get("/status", (req, res) => {
   res.status(200).end();
@@ -63,13 +79,18 @@ const hentRelevanteGrensesnitt = async (
   }
 
   let grensesnitt: IGrensesnitt[] = [];
-  for (const maalform in maalformer) {
-    for (const dokumentId in dokumenter) {
+  for (let i = 0; i < maalformer.length; i++) {
+    for (let i = 0; i < dokumenter.length; i++) {
       grensesnitt.push(
-        await hentGrensesnitt(dokumentId, maalform as Maalform, datasett)
+        await hentGrensesnitt(
+          dokumenter[i],
+          maalformer[i] as Maalform,
+          datasett
+        )
       );
     }
   }
+
   return grensesnitt;
 };
 
@@ -96,7 +117,7 @@ app.get("/:datasett/grensesnitt", async (req, res) => {
       datasett
     );
   } catch (error) {
-    return res.status(400).send(`Ugylding forespørsel: ${error}`);
+    return res.status(500).send(`Ugylding forespørsel: ${error}`);
   }
 
   res.send(grensesnitt);
@@ -106,8 +127,7 @@ app.post("/:datasett/:maalform/:dokumentId/html", async (req, res) => {
   const datasett = req.params.datasett as Datasett;
   const maalform = req.params.maalform as Maalform;
   const dokumentId = req.params.dokumentId;
-
-  const token = req.body;
+  const dokumetVariabler = req.body;
 
   if (!Object.values(Datasett).includes(datasett)) {
     return res.status(404).send(`Datasettet "${datasett}" finnes ikke.`);
@@ -116,9 +136,14 @@ app.post("/:datasett/:maalform/:dokumentId/html", async (req, res) => {
     return res.status(404).send(`Målformen "${maalform}" finnes ikke.`);
   }
 
-  const grensesnitt = hentGrensesnitt(dokumentId, maalform, datasett);
+  const html = await hentDokumentHtml(
+    dokumetVariabler,
+    maalform,
+    dokumentId,
+    datasett
+  );
 
-  res.send(grensesnitt);
+  res.send(html);
 });
 
 const port = 8000;

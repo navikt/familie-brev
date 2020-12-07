@@ -2,18 +2,16 @@ import React, { useCallback, useEffect, useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import Meny from "./components/meny/Meny";
 import styled from "styled-components";
-import hentGrenesnittFraDokument, {
-  Maalform,
-} from "./utils/hentGrenesnittFraDokument";
-import { IDokumentVariabler } from "./utils/DokumentVariabler";
 import lagPlaceholderVariabler from "./utils/lagPlaceholderVariabler";
 import { useLocalStorageOrQueryParam } from "./hooks/useLocalStorageOrQueryParam";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import hentFraSanity from "./utils/hentFraSanity";
 import { StorageIds } from "./utils/storageIds";
-import { Datasett } from "./utils/sanity";
-import { genererPdf } from "./utils/api";
-import hentDokumentHtml from "./dokument/hentDokumentHtml";
+import { genererPdf, hentGrensesnitt, hentHtml } from "./utils/api";
+import { IDokumentVariabler } from "../server/sanity/DokumentVariabler";
+import { Maalform } from "../server/sanity/hentGrenesnittFraDokument";
+import { Datasett } from "../server/sanity/sanityClient";
+
 const parse = require("html-react-parser");
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
@@ -46,7 +44,7 @@ function App() {
 
   const [maalform, settMaalform] = useLocalStorage<Maalform>(
     maalformStorageId,
-    "nynorsk"
+    Maalform.NN
   );
 
   const [datasett, settDatasett] = useLocalStorage<Datasett>(
@@ -67,27 +65,23 @@ function App() {
 
   useEffect(() => {
     dokumentVariabler &&
-      hentDokumentHtml(
-        dokumentVariabler,
-        maalform,
-        dokumentId,
-        datasett,
-        tittel
-      ).then((html) => {
-        settHtml(html);
-        genererPdf(html).then((x) => settPdf(x));
-      });
+      hentHtml(dokumentVariabler, maalform, dokumentId, datasett).then(
+        (res) => {
+          settHtml(res.data);
+          genererPdf(res.data).then((x) => settPdf(x));
+        }
+      );
   }, [dokumentVariabler, maalform, dokumentId, datasett, tittel]);
 
   const opptaderDokument = useCallback(
     (nyDokumentId: string = dokumentId, nyMaalform: Maalform = maalform) => {
-      hentGrenesnittFraDokument(nyDokumentId, nyMaalform, true, datasett)
+      hentGrensesnitt(nyMaalform, nyDokumentId, datasett)
         .then((res) => {
-          settDokumentVariabler(lagPlaceholderVariabler(res));
+          settDokumentVariabler(lagPlaceholderVariabler(res.data[0]));
           settDokumentId(nyDokumentId);
           settMaalform(nyMaalform);
         })
-        .catch((e) => alert(e));
+        .catch((e) => console.log(e));
     },
     [dokumentId, maalform, datasett, settMaalform, settDokumentId]
   );

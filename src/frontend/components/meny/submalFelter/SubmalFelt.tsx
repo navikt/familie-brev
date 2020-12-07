@@ -1,7 +1,10 @@
-import { IDokumentVariabler, ISubmal } from "../../../utils/DokumentVariabler";
 import { CheckboksPanel } from "nav-frontend-skjema";
 import MenyVariabler from "../MenyVariabler";
 import React from "react";
+import {
+  IDokumentVariabler,
+  ISubmal,
+} from "../../../../server/sanity/DokumentVariabler";
 
 interface SubmalFeltProps {
   submal: ISubmal;

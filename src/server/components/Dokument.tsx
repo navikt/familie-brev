@@ -1,10 +1,9 @@
 import React from "react";
-import { IDokumentVariabler } from "../utils/DokumentVariabler";
-import hentDokumentQuery from "../utils/hentDokumentQuery";
-import { Maalform } from "../utils/hentGrenesnittFraDokument";
-import hentFraSanity from "../utils/hentFraSanity";
-import { Datasett } from "../utils/sanity";
-import useServerEffect from "../utils/useServerEffect";
+import { IDokumentVariabler } from "../sanity/DokumentVariabler";
+import hentDokumentQuery from "../sanity/hentDokumentQuery";
+import { Maalform } from "../sanity/hentGrenesnittFraDokument";
+import { client, Datasett } from "../sanity/sanityClient";
+import useServerEffect from "../dokument/useServerEffect";
 
 const BlockContent = require("@sanity/block-content-to-react");
 
@@ -28,9 +27,11 @@ function Dokument(dokumentProps: DokumentProps) {
 
   const [dokument] = useServerEffect(undefined, dokumentId, () => {
     const query = hentDokumentQuery(dokumentType, dokumentId, maalform);
-    return hentFraSanity(query, datasett).then((res: any) => {
-      return res[maalform];
-    });
+    return client(datasett)
+      .fetch(query)
+      .then((res: any) => {
+        return res[maalform];
+      });
   });
 
   const listItemSerializer = (props: any) => {
@@ -165,7 +166,7 @@ function Dokument(dokumentProps: DokumentProps) {
     }
   };
 
-  const innhold = (
+  return (
     <BlockContent
       blocks={dokument}
       serializers={{
@@ -184,8 +185,6 @@ function Dokument(dokumentProps: DokumentProps) {
       }}
     />
   );
-
-  return innhold;
 }
 
 export default Dokument;

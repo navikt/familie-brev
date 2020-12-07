@@ -1,9 +1,12 @@
-import { IDokumentVariabler, IValg } from "../../../utils/DokumentVariabler";
 import { RadioPanelGruppe } from "nav-frontend-skjema";
 import MenyVariabler from "../MenyVariabler";
 import React from "react";
 import styled from "styled-components";
 import { Element } from "nav-frontend-typografi";
+import {
+  IDokumentVariabler,
+  IValg,
+} from "../../../../server/sanity/DokumentVariabler";
 
 interface ValgFeltProps {
   valgfelt: IValg;
@@ -50,7 +53,7 @@ function ValgFelt(props: ValgFeltProps) {
           name={navn}
           radios={valgfelt.muligeValg?.map((muligValg) => ({
             checked: muligValg.valgNavn === valgfelt.valgNavn,
-            onChange: (e) => endreValg(muligValg),
+            onChange: (_) => endreValg(muligValg),
             label: muligValg.valgNavn,
             name: navn,
           }))}
