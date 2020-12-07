@@ -6,9 +6,12 @@ export enum Datasett {
   BA = "ba-brev",
 }
 
+const { NODE_ENV } = process.env;
+const useCdn = NODE_ENV === "production";
+
 export const client = (dataset: Datasett) =>
   sanityClient({
     projectId: "xsrv1mh6",
     dataset,
-    useCdn: true,
+    useCdn: useCdn,
   });
