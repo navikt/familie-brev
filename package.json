@@ -71,7 +71,8 @@
     "dev:server:nodemon": "rm -f build/server.js && wait-on -l build/server.js && nodemon build/server.js",
     "build": "craco build:client && yarn build:backend",
     "build:client": "react-scripts build",
-    "build:server": "webpack --config webpack.config.server.js"
+    "build:server": "webpack --config webpack.config.server.js",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
