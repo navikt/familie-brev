@@ -62,13 +62,14 @@
     "webpack-node-externals": "^2.5.2"
   },
   "scripts": {
+    "start": "NODE_ENV=production node build/backend/server.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "dev": "concurrently -p name -c \"yellow,magenta,blue\" -n \"webpack-server,nodemon-server,CRA\" \"yarn dev:server:webpack\" \"yarn dev:server:nodemon\" \"yarn dev:client\"",
     "dev:client": "wait-on -l tcp:8000 && craco start",
     "dev:server": "concurrently -p name -c \"yellow,magenta\" -n \"webpack-server,nodemon-server\" \"yarn dev:server:webpack\" \"yarn dev:server:nodemon\"",
     "dev:server:webpack": "webpack --config webpack.config.server.js --watch",
-    "dev:server:nodemon": "rm -f build/server.js && wait-on -l build/server.js && nodemon build/server.js",
+    "dev:server:nodemon": "rm -f build/server.js && wait-on -l build/backend/server.js && nodemon build/backend/server.js",
     "build": "yarn build:client && yarn build:server",
     "build:client": "craco build",
     "build:server": "webpack --config webpack.config.server.js",
