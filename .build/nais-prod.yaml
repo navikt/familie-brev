@@ -33,6 +33,8 @@ spec:
       rules:
         - application: familie-ba-sak
           namespace: default
+        - application: familie-brev
+          namespace: teamfamile
     outbound:
       rules:
         - application: familie-dokument
