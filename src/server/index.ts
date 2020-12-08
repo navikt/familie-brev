@@ -20,7 +20,7 @@ app.use(express.static(buildDir));
 
 app.use(function (req, res, next) {
   res.setHeader("Access-Control-Allow-Origin", [
-    "http://localhost:3000",
+    "http://localhost:8000",
     "https://familie-brev.intern.nav.no",
   ]);
   res.setHeader(
@@ -113,15 +113,12 @@ app.get("/:datasett/grensesnitt", async (req, res) => {
   }
 
   let grensesnitt: IGrensesnitt[] = [];
-  try {
-    grensesnitt = await hentRelevanteGrensesnitt(
-      maalformForesporsel,
-      dokumentForesporsel,
-      datasett
-    );
-  } catch (error) {
-    return res.status(500).send(`Ugylding forespørsel: ${error}`);
-  }
+
+  grensesnitt = await hentRelevanteGrensesnitt(
+    maalformForesporsel,
+    dokumentForesporsel,
+    datasett
+  );
 
   res.send(grensesnitt);
 });
