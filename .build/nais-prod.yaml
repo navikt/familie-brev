@@ -41,6 +41,7 @@ spec:
           namespace: default
       external:
         - host: appres.nav.no
+        - host: xsrv1mh6.api.sanity.io
   env:
     - name: APP_VERSION
       value: '{{version}}'
