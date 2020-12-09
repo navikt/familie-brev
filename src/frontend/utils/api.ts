@@ -12,7 +12,7 @@ export const hentHtml = async (
   dokumentId: string,
   datasett: Datasett
 ): Promise<AxiosResponse<string>> => {
-  const url = `${process.env.REACT_APP_BACKEND}/${datasett}/${maalform}/${dokumentId}/html`;
+  const url = `${process.env.REACT_APP_BACKEND}/api/${datasett}/${maalform}/${dokumentId}/html`;
   return axios.post(url, dokumentVariabler);
 };
 
@@ -21,7 +21,7 @@ export const hentGrensesnitt = async (
   dokumentId: string,
   datasett: Datasett
 ): Promise<AxiosResponse<IGrensesnitt[]>> => {
-  const url = `${process.env.REACT_APP_BACKEND}/${datasett}/grensesnitt?maalform=${maalform}&dokkumentId=${dokumentId}`;
+  const url = `${process.env.REACT_APP_BACKEND}/api/${datasett}/grensesnitt?maalform=${maalform}&dokkumentId=${dokumentId}`;
   return await axios.get(url);
 };
 
