@@ -19,10 +19,18 @@ app.use(
 app.use(express.static(buildDir));
 
 app.use(function (req, res, next) {
-  res.setHeader("Access-Control-Allow-Origin", [
+  const acceptedOrigins = [
     "http://localhost:8000",
+    "http://localhost:3000",
     "https://familie-brev.intern.nav.no",
-  ]);
+  ];
+  const defaultAcceptedOrigin = "https://familie-brev.intern.nav.no";
+  const origin = req.header("origin")?.toLowerCase();
+
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    origin && acceptedOrigins.includes(origin) ? origin : defaultAcceptedOrigin
+  );
   res.setHeader(
     "Access-Control-Allow-Methods",
     "GET, POST, OPTIONS, PUT, PATCH, DELETE"
