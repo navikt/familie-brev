@@ -166,6 +166,10 @@ function Dokument(dokumentProps: DokumentProps) {
     }
   };
 
+  if (!dokument) {
+    return null;
+  }
+
   return (
     <BlockContent
       blocks={dokument}
