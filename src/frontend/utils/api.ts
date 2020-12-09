@@ -7,22 +7,22 @@ import {
 import { Datasett } from "../../server/sanity/sanityClient";
 
 export const hentHtml = async (
-  dokumentVariabler: IDokumentVariabler,
+  datasett: Datasett,
   maalform: Maalform,
   dokumentId: string,
-  datasett: Datasett
-): Promise<AxiosResponse<string>> => {
+  dokumentVariabler: IDokumentVariabler
+): Promise<string> => {
   const url = `${process.env.REACT_APP_BACKEND}/api/${datasett}/${maalform}/${dokumentId}/html`;
-  return axios.post(url, dokumentVariabler);
+  return (await axios.post<string>(url, dokumentVariabler)).data;
 };
 
 export const hentGrensesnitt = async (
-  maalform: Maalform,
-  dokumentId: string,
-  datasett: Datasett
-): Promise<AxiosResponse<IGrensesnitt[]>> => {
-  const url = `${process.env.REACT_APP_BACKEND}/api/${datasett}/grensesnitt?maalform=${maalform}&dokkumentId=${dokumentId}`;
-  return await axios.get(url);
+  datasett: Datasett,
+  maalform?: Maalform,
+  dokumentId?: string
+): Promise<IGrensesnitt[]> => {
+  const url = `${process.env.REACT_APP_BACKEND}/api/${datasett}/grensesnitt?maalform=${maalform}&dokumentId=${dokumentId}`;
+  return (await axios.get(url)).data;
 };
 
 export const genererPdf = async (html: string): Promise<Uint8Array | Blob> => {

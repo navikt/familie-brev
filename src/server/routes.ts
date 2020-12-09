@@ -54,12 +54,20 @@ const hentRelevanteGrensesnitt = async (
   }
 
   let grensesnitt: IGrensesnitt[] = [];
-  for (let i = 0; i < maalformer.length; i++) {
-    for (let i = 0; i < dokumenter.length; i++) {
+  for (
+    let maalformIndex = 0;
+    maalformIndex < maalformer.length;
+    maalformIndex++
+  ) {
+    for (
+      let dokumentIndex = 0;
+      dokumentIndex < dokumenter.length;
+      dokumentIndex++
+    ) {
       grensesnitt.push(
         await hentGrensesnitt(
-          dokumenter[i],
-          maalformer[i] as Maalform,
+          dokumenter[dokumentIndex],
+          maalformer[maalformIndex] as Maalform,
           datasett
         )
       );

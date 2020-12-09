@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import Meny from "./components/meny/Meny";
 import styled from "styled-components";
@@ -11,6 +11,7 @@ import { genererPdf, hentGrensesnitt, hentHtml } from "./utils/api";
 import { IDokumentVariabler } from "../server/sanity/DokumentVariabler";
 import { Maalform } from "../server/sanity/hentGrenesnittFraDokument";
 import { Datasett } from "../server/sanity/sanityClient";
+import NavFrontendSpinner from "nav-frontend-spinner";
 
 const parse = require("html-react-parser");
 
@@ -18,30 +19,33 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 
 const { NODE_ENV } = process.env;
 
-interface Titler {
-  [dokumentId: string]: string;
+interface Dokument {
+  dokumentId: string;
+  maalform: Maalform;
+  datasett: Datasett;
 }
 
 function App() {
   const [dokumenter, settDokumenter] = useState<string[]>([]);
-  const [titlerBokmaal, settTitlerBokmaal] = useState<Titler>({});
-  const [titlerNynorsk, settTitlerNynorsk] = useState<Titler>({});
   const [numPages, setNumPages] = useState(0);
 
-  const [tittel, settTittel] = useState<string>("");
   const [dokumentId, settDokumentId] = useLocalStorageOrQueryParam(
     "dokumentId",
     undefined,
     window.location
   );
+  const dokumentIdRef = useRef(dokumentId);
+
   const [dokumentVariabler, settDokumentVariabler] = useState<
     IDokumentVariabler
   >();
-  const [pdf, settPdf] = useState<Uint8Array | Blob | undefined>(undefined);
+  const [pdf, settPdf] = useState<Uint8Array | Blob>(new Blob());
   const [html, settHtml] = useState<string>("");
+  const [isLoading, settIsLoading] = useState(true);
+  const dokument = useRef<Dokument | undefined>();
+  const isFirstRender = useRef(true);
 
   const maalformStorageId = StorageIds.MAALFORM + dokumentId;
-
   const [maalform, settMaalform] = useLocalStorage<Maalform>(
     maalformStorageId,
     Maalform.NN
@@ -52,75 +56,70 @@ function App() {
     Datasett.BA
   );
 
-  const settTitler = (dokumenter: any) => {
-    const titlerBokmaal: { [dokumentId: string]: string } = {};
-    const titlerNynorsk: { [dokumentId: string]: string } = {};
-    dokumenter.forEach((dokument: any) => {
-      titlerBokmaal[dokument.id] = dokument.tittelBokmaal;
-      titlerNynorsk[dokument.id] = dokument.tittelNynorsk;
-    });
-    settTitlerBokmaal(titlerBokmaal);
-    settTitlerNynorsk(titlerNynorsk);
-  };
-
-  useEffect(() => {
-    dokumentId &&
-      dokumentVariabler &&
-      hentHtml(dokumentVariabler, maalform, dokumentId, datasett).then(
-        (res) => {
-          settHtml(res.data);
-          genererPdf(res.data).then((x) => settPdf(x));
-        }
-      );
-  }, [dokumentVariabler, maalform, dokumentId, datasett, tittel]);
-
   const opptaderDokument = useCallback(
-    (nyDokumentId: string = dokumentId, nyMaalform: Maalform = maalform) => {
-      hentGrensesnitt(nyMaalform, nyDokumentId, datasett)
-        .then((res) => {
-          settDokumentVariabler(lagPlaceholderVariabler(res.data[0]));
-          settDokumentId(nyDokumentId);
-          settMaalform(nyMaalform);
-        })
-        .catch((e) => console.log(e));
+    async (
+      nyDokumentId: string = dokumentId,
+      nyMaalform: Maalform = maalform
+    ) => {
+      settIsLoading(true);
+      const grensesnitt = await hentGrensesnitt(
+        datasett,
+        nyMaalform,
+        nyDokumentId
+      );
+      const dokumentVariabler = lagPlaceholderVariabler(grensesnitt[0]);
+      dokument.current = {
+        datasett,
+        dokumentId: nyDokumentId,
+        maalform: nyMaalform,
+      };
+      settDokumentVariabler(dokumentVariabler);
     },
-    [dokumentId, maalform, datasett, settMaalform, settDokumentId]
+    [dokumentId, maalform, datasett]
   );
 
+  const opptaderDokumentRef = useRef(opptaderDokument);
   useEffect(() => {
-    switch (maalform) {
-      case "bokmaal":
-        settTittel(titlerBokmaal[dokumentId]);
-        break;
-      case "nynorsk":
-        settTittel(titlerNynorsk[dokumentId]);
-        break;
-    }
-  }, [dokumentId, maalform, titlerNynorsk, titlerBokmaal]);
+    const query = '*[_type == "dokumentmal"][].id';
 
-  useEffect(() => {
-    const query =
-      '*[_type == "dokumentmal"][]{id, tittelBokmaal, tittelNynorsk}';
-
-    hentFraSanity(query, datasett).then((res: any) => {
-      settDokumenter(res.map((dokument: any) => dokument.id));
-      settTitler(res);
-      opptaderDokument(dokumentId ? dokumentId : res[0].id);
+    hentFraSanity(query, datasett).then((dokumenter: any) => {
+      settDokumenter(dokumenter);
+      if (dokumentIdRef.current && dokumenter.includes(dokumentIdRef.current)) {
+        opptaderDokumentRef.current();
+      } else {
+        settDokumentId(dokumenter[0]);
+      }
     });
-  }, [dokumentId, opptaderDokument, datasett]);
+  }, [datasett, settDokumentId]);
 
-  const oppdaterMaalform = (nyMaalform: Maalform) => {
-    opptaderDokument(undefined, nyMaalform);
-  };
+  useEffect(() => {
+    dokumentIdRef.current = dokumentId;
+    if (!isFirstRender.current) {
+      opptaderDokument(dokumentId, maalform);
+    }
+  }, [dokumentId, maalform, opptaderDokument]);
 
-  const opptaderDokumentId = (nyDokumentId: string | undefined) => {
-    opptaderDokument(nyDokumentId);
-  };
+  useEffect(() => {
+    if (dokumentVariabler && dokument.current) {
+      settIsLoading(true);
 
-  const oppdaterDatasett = (datasett: Datasett) => {
-    settDatasett(datasett);
-    settDokumentId(undefined);
-  };
+      const { datasett, maalform, dokumentId } = dokument.current;
+      console.log(dokument.current);
+      console.log(dokumentVariabler);
+      hentHtml(datasett, maalform, dokumentId, dokumentVariabler).then(
+        (html) => {
+          settHtml(html);
+          genererPdf(html).then((pdf) => settPdf(pdf));
+
+          settIsLoading(false);
+        }
+      );
+    }
+  }, [dokumentVariabler]);
+
+  useEffect(() => {
+    isFirstRender.current = false;
+  }, []);
 
   const StyledApp = styled.div`
     min-height: 100vh;
@@ -136,12 +135,16 @@ function App() {
         dokumenter={dokumenter}
         dokumentVariabler={dokumentVariabler}
         settDokumentVariabler={settDokumentVariabler}
-        oppdaterMaalform={oppdaterMaalform}
-        opptaderDokumentId={opptaderDokumentId}
-        oppdaterDatasett={oppdaterDatasett}
+        oppdaterMaalform={settMaalform}
+        opptaderDokumentId={settDokumentId}
+        oppdaterDatasett={settDatasett}
         datasett={datasett}
       />
-      {pdf && (
+      {isLoading ? (
+        <StyledSpinnerKonteiner>
+          <NavFrontendSpinner transparent />
+        </StyledSpinnerKonteiner>
+      ) : (
         <StyledDokumentKonteiner>
           <Document
             file={pdf}
@@ -151,17 +154,19 @@ function App() {
             {Array.apply(null, Array(numPages))
               .map((_, i) => i + 1)
               .map((page) => (
-                <>
-                  <StyledPage pageNumber={page} />
+                <div key={page}>
+                  <StyledPage pageNumber={page} scale={1.4} />
                   {page !== numPages && <StyledSidedeler />}
-                </>
+                </div>
               ))}
           </Document>
         </StyledDokumentKonteiner>
       )}
       {NODE_ENV !== "production" && html && (
         <StyledDokumentKonteiner>
-          <BrevPadding>{parse(html)}</BrevPadding>
+          <StyledDokument>
+            <BrevPadding>{parse(html)}</BrevPadding>
+          </StyledDokument>
         </StyledDokumentKonteiner>
       )}
     </StyledApp>
@@ -180,12 +185,21 @@ const StyledPage = styled(Page)`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `;
 
+const StyledDokument = styled.div`
+  background-color: white;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+`;
+
 const StyledDokumentKonteiner = styled.div`
   margin: 5rem;
   flex-shrink: 0;
   flex-grow: 0;
 
   list-style-type: none;
+`;
+
+const StyledSpinnerKonteiner = styled.div`
+  margin: 28rem;
 `;
 
 export default App;

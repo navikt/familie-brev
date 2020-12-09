@@ -49,9 +49,9 @@ function Dokument(dokumentProps: DokumentProps) {
       false
     );
 
-    const BlockContentWithoutListItemSerialazer = (blockRenderer: Function) => (
+    const BlockContentWithoutListItemSerialazer = () => (
       <BlockContent
-        blocks={props.children}
+        blocks={{ ...props.node, level: undefined, listItem: undefined }}
         serializers={{
           marks: {
             flettefelt: flettefeltSerializer,
@@ -60,22 +60,18 @@ function Dokument(dokumentProps: DokumentProps) {
           },
           types: {
             dokumentliste: dokumentlisteSerializer,
-            block: { blockRenderer },
+            block: (props: any) => (
+              <li className={`block`}>{props.children}</li>
+            ),
           },
         }}
       />
     );
 
     if (erKunText) {
-      return (
-        <li className={"list item"}>
-          {BlockContentWithoutListItemSerialazer((props: any) => (
-            <div>{props.children}</div>
-          ))}
-        </li>
-      );
-    } else if (markDefSkalMed) {
       return <li>{props.children}</li>;
+    } else if (markDefSkalMed) {
+      return BlockContentWithoutListItemSerialazer();
     } else {
       return "";
     }

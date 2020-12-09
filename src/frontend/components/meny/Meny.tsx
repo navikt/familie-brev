@@ -112,13 +112,15 @@ function Meny(props: MenyProps) {
               checked: maalform === Maalform.BM,
               onChange: (_) => oppdaterMaalform(Maalform.BM),
               label: "Bokmål",
-              name: "maalform",
+              name: Maalform.BM,
+              value: Maalform.BM,
             },
             {
               checked: maalform === Maalform.NN,
               onChange: (_) => oppdaterMaalform(Maalform.NN),
               label: "Nynorsk",
-              name: "nynorsk",
+              name: Maalform.NN,
+              value: Maalform.NN,
             },
           ]}
           onChange={() => {}}
