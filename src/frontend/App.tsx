@@ -142,7 +142,7 @@ function App() {
         datasett={datasett}
       />
       {pdf && (
-        <StyledBrev>
+        <StyledDokumentKonteiner>
           <Document
             file={pdf}
             onLoadSuccess={({ numPages }) => setNumPages(numPages)}
@@ -157,12 +157,12 @@ function App() {
                 </>
               ))}
           </Document>
-        </StyledBrev>
+        </StyledDokumentKonteiner>
       )}
       {NODE_ENV !== "production" && html && (
-        <StyledBrev>
+        <StyledDokumentKonteiner>
           <BrevPadding>{parse(html)}</BrevPadding>
-        </StyledBrev>
+        </StyledDokumentKonteiner>
       )}
     </StyledApp>
   );
@@ -180,11 +180,10 @@ const StyledPage = styled(Page)`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `;
 
-const StyledBrev = styled.div`
+const StyledDokumentKonteiner = styled.div`
   margin: 5rem;
   flex-shrink: 0;
   flex-grow: 0;
-  background-color: white;
 
   list-style-type: none;
 `;
