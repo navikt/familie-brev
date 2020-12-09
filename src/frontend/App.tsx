@@ -64,7 +64,8 @@ function App() {
   };
 
   useEffect(() => {
-    dokumentVariabler &&
+    dokumentId &&
+      dokumentVariabler &&
       hentHtml(dokumentVariabler, maalform, dokumentId, datasett).then(
         (res) => {
           settHtml(res.data);
