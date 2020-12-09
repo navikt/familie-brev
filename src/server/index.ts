@@ -8,6 +8,8 @@ import hentGrensesnitt, {
 } from "./sanity/hentGrenesnittFraDokument";
 import hentDokumentHtml from "./dokument/hentDokumentHtml";
 
+const { NODE_ENV } = process.env;
+
 const buildDir = path.join(process.cwd() + "/build");
 const app = express();
 app.use(bodyParser.json());
@@ -16,7 +18,10 @@ app.use(
     extended: true,
   })
 );
-app.use(express.static(buildDir));
+
+if (NODE_ENV === "production") {
+  app.use(express.static(buildDir));
+}
 
 app.use(function (req, res, next) {
   const acceptedOrigins = [
@@ -117,16 +122,21 @@ app.get("/:datasett/grensesnitt", async (req, res) => {
     typeof dokumentForesporsel === "object" ||
     typeof maalformForesporsel === "object"
   ) {
-    return res.status(400).send(`Ugylding forespørsel`);
+    return res
+      .status(400)
+      .send(`Ugylding forespørsel. Feil format på query-parameterene.`);
   }
 
   let grensesnitt: IGrensesnitt[] = [];
-
-  grensesnitt = await hentRelevanteGrensesnitt(
-    maalformForesporsel,
-    dokumentForesporsel,
-    datasett
-  );
+  try {
+    grensesnitt = await hentRelevanteGrensesnitt(
+      maalformForesporsel,
+      dokumentForesporsel,
+      datasett
+    );
+  } catch (e) {
+    return res.status(500).send(`Ugylding forespørsel ${e}`);
+  }
 
   res.send(grensesnitt);
 });
