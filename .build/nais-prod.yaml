@@ -14,12 +14,12 @@ spec:
     cpuThresholdPercentage: 50
   port: 8000
   liveness:
-    path: /status
+    path: /api/status
     initialDelay: 5
     periodSeconds: 5
     failureThreshold: 30
   readiness:
-    path: /status
+    path: /api/status
     initialDelay: 5
     periodSeconds: 5
     failureThreshold: 30
