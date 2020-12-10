@@ -24,7 +24,7 @@ export function useLocalStorage<S>(
         console.log(error);
       }
     },
-    [key, storedValue]
+    [key]
   );
 
   return [storedValue, setValue];
