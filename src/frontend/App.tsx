@@ -20,7 +20,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 const { NODE_ENV } = process.env;
 
 interface Dokument {
-  dokumentId: string;
+  dokumentId: string | undefined;
   maalform: Maalform;
   datasett: Datasett;
 }
@@ -42,7 +42,6 @@ function App() {
   const [pdf, settPdf] = useState<Uint8Array | Blob>(new Blob());
   const [html, settHtml] = useState<string>("");
   const [isLoading, settIsLoading] = useState(true);
-  const dokument = useRef<Dokument | undefined>();
   const isFirstRender = useRef(true);
 
   const maalformStorageId = StorageIds.MAALFORM + dokumentId;
@@ -56,6 +55,8 @@ function App() {
     Datasett.BA
   );
 
+  const dokument = useRef<Dokument>({ dokumentId, maalform, datasett });
+
   const opptaderDokument = useCallback(
     async (
       nyDokumentId: string = dokumentId,
@@ -63,19 +64,19 @@ function App() {
     ) => {
       settIsLoading(true);
       const grensesnitt = await hentGrensesnitt(
-        datasett,
+        dokument.current.datasett,
         nyMaalform,
         nyDokumentId
       );
       const dokumentVariabler = lagPlaceholderVariabler(grensesnitt[0]);
       dokument.current = {
-        datasett,
+        ...dokument.current,
         dokumentId: nyDokumentId,
         maalform: nyMaalform,
       };
       settDokumentVariabler(dokumentVariabler);
     },
-    [dokumentId, maalform, datasett]
+    [dokumentId, maalform]
   );
 
   const opptaderDokumentRef = useRef(opptaderDokument);
@@ -83,6 +84,7 @@ function App() {
     const query = '*[_type == "dokumentmal"][].id';
 
     hentFraSanity(query, datasett).then((dokumenter: any) => {
+      dokument.current.datasett = datasett;
       settDokumenter(dokumenter);
       if (dokumentIdRef.current && dokumenter.includes(dokumentIdRef.current)) {
         opptaderDokumentRef.current();
@@ -97,15 +99,14 @@ function App() {
     if (!isFirstRender.current) {
       opptaderDokument(dokumentId, maalform);
     }
+    isFirstRender.current = false;
   }, [dokumentId, maalform, opptaderDokument]);
 
   useEffect(() => {
-    if (dokumentVariabler && dokument.current) {
+    if (dokumentVariabler && dokument.current.dokumentId) {
       settIsLoading(true);
 
       const { datasett, maalform, dokumentId } = dokument.current;
-      console.log(dokument.current);
-      console.log(dokumentVariabler);
       hentHtml(datasett, maalform, dokumentId, dokumentVariabler).then(
         (html) => {
           settHtml(html);
@@ -116,10 +117,6 @@ function App() {
       );
     }
   }, [dokumentVariabler]);
-
-  useEffect(() => {
-    isFirstRender.current = false;
-  }, []);
 
   const StyledApp = styled.div`
     min-height: 100vh;

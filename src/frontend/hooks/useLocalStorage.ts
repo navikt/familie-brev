@@ -17,11 +17,9 @@ export function useLocalStorage<S>(
   const setValue = useCallback(
     (value: any) => {
       try {
-        const valueToStore =
-          value instanceof Function ? value(storedValue) : value;
-        setStoredValue(valueToStore);
+        setStoredValue(value);
 
-        window.localStorage.setItem(key, JSON.stringify(valueToStore));
+        window.localStorage.setItem(key, JSON.stringify(value));
       } catch (error) {
         console.log(error);
       }
