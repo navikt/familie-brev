@@ -12,10 +12,7 @@ import { IDokumentVariabler } from "../server/sanity/DokumentVariabler";
 import { Maalform } from "../server/sanity/hentGrenesnittFraDokument";
 import { Datasett } from "../server/sanity/sanityClient";
 import NavFrontendSpinner from "nav-frontend-spinner";
-
-const parse = require("html-react-parser");
-
-pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+import parse from "html-react-parser";
 
 const { NODE_ENV } = process.env;
 
@@ -36,9 +33,10 @@ function App() {
   );
   const dokumentIdRef = useRef(dokumentId);
 
-  const [dokumentVariabler, settDokumentVariabler] = useState<
-    IDokumentVariabler
-  >();
+  const [
+    dokumentVariabler,
+    settDokumentVariabler,
+  ] = useState<IDokumentVariabler>();
   const [pdf, settPdf] = useState<Uint8Array | Blob>(new Blob());
   const [html, settHtml] = useState<string>("");
   const [isLoading, settIsLoading] = useState(true);
