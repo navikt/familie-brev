@@ -53,16 +53,17 @@ const lagPlaceholderVariabler = (
     const { valgmuigheter, navn } = valgFelt;
     dokumentvariabler.valgfelter[navn] = {
       valgNavn: valgmuigheter[0].valgnavn,
-      valgVariabler: lagPlaceholderVariabler(
-        valgmuigheter[0].grensesnitt,
-        placeholderTillegg
-      ),
-      muligeValg: valgmuigheter.map((valgMulighet) => ({
-        valgNavn: valgMulighet.valgnavn,
-        valgVariabler: lagPlaceholderVariabler(
-          valgMulighet.grensesnitt,
+      valgVariabler:
+        valgmuigheter[0].grensesnitt &&
+        lagPlaceholderVariabler(
+          valgmuigheter[0].grensesnitt,
           placeholderTillegg
         ),
+      muligeValg: valgmuigheter.map((valgMulighet) => ({
+        valgNavn: valgMulighet.valgnavn,
+        valgVariabler:
+          valgMulighet.grensesnitt &&
+          lagPlaceholderVariabler(valgMulighet.grensesnitt, placeholderTillegg),
         muligeValg: undefined,
       })),
     };

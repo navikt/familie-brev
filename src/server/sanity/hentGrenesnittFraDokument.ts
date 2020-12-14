@@ -25,7 +25,7 @@ export interface IValgfeltGrensesnitt {
   navn: string;
   valgmuigheter: {
     valgnavn: string;
-    grensesnitt: IGrensesnitt;
+    grensesnitt: IGrensesnitt | undefined;
   }[];
 }
 

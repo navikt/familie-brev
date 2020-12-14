@@ -11,7 +11,7 @@ export interface IDokumentVariabler {
 
 export interface IValg {
   valgNavn: string;
-  valgVariabler: IDokumentVariabler;
+  valgVariabler: IDokumentVariabler | undefined;
   muligeValg: IValg[] | undefined;
 }
 
