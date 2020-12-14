@@ -4,6 +4,7 @@ import hentDokumentQuery from "../sanity/hentDokumentQuery";
 import { Maalform } from "../sanity/hentGrenesnittFraDokument";
 import { client, Datasett } from "../sanity/sanityClient";
 import useServerEffect from "../dokument/useServerEffect";
+import formaterTilCamelCase from "../sanity/formaterTilCamelCase";
 
 const BlockContent = require("@sanity/block-content-to-react");
 
@@ -38,7 +39,7 @@ function Dokument(dokumentProps: DokumentProps) {
     const erSubmal = (markDef: any) => markDef._type === "submal";
     const submalSkalMed = (submal: any): boolean => {
       const id = submal?.id;
-      return !!dokumentVariabler.submaler[id]?.skalMed;
+      return !!dokumentVariabler.submaler[formaterTilCamelCase(id)]?.skalMed;
     };
 
     const erKunText = props.node.markDefs.length === 0;
@@ -80,10 +81,12 @@ function Dokument(dokumentProps: DokumentProps) {
   const submalSerializer = (props: any) => {
     const dokumentId = props.mark.submal.id;
 
-    const skalMed = dokumentVariabler.submaler[dokumentId]?.skalMed;
+    const skalMed =
+      dokumentVariabler.submaler[formaterTilCamelCase(dokumentId)]?.skalMed;
 
     const submalVariabler =
-      dokumentVariabler.submaler[dokumentId]?.submalVariabler;
+      dokumentVariabler.submaler[formaterTilCamelCase(dokumentId)]
+        ?.submalVariabler;
     const variabler = submalVariabler ? submalVariabler : dokumentVariabler;
 
     if (skalMed) {
@@ -104,7 +107,8 @@ function Dokument(dokumentProps: DokumentProps) {
 
   const dokumentlisteSerializer = (props: any) => {
     const dokumentId = props.node.id;
-    const dokumentVariablerListe = dokumentVariabler.lister[dokumentId];
+    const dokumentVariablerListe =
+      dokumentVariabler.lister[formaterTilCamelCase(dokumentId)];
 
     return (
       <div className={"dokumentListe"}>
@@ -127,30 +131,33 @@ function Dokument(dokumentProps: DokumentProps) {
 
   const flettefeltSerializer = (props: any) => {
     const annontering = props.mark.felt.felt;
-    if (!dokumentVariabler.flettefelter[annontering]) {
+    if (!dokumentVariabler.flettefelter[formaterTilCamelCase(annontering)]) {
       throw Error(`${annontering} finnes ikke blant dokumentvariablene`);
     }
-    return dokumentVariabler.flettefelter[annontering];
+    return dokumentVariabler.flettefelter[formaterTilCamelCase(annontering)];
   };
 
   const valgfeltSerializer = (props: any) => {
     const valgfelt = props.mark.valgfelt;
     const valgFeltNavn = valgfelt.tittel;
-    const riktigValg = dokumentVariabler.valgfelter[valgFeltNavn].valgNavn;
+    const riktigValg =
+      dokumentVariabler.valgfelter[formaterTilCamelCase(valgFeltNavn)].valgNavn;
     const muligeValg = valgfelt.valg;
     const riktigDokument = muligeValg.find(
       (valg: any) => valg.valgmulighet === riktigValg
     );
     const dokumentId = riktigDokument?.delmal?.id;
     const valgVariabler =
-      dokumentVariabler.valgfelter[valgFeltNavn].valgVariabler;
+      dokumentVariabler.valgfelter[formaterTilCamelCase(valgFeltNavn)]
+        .valgVariabler;
+    const variabler = valgVariabler ? valgVariabler : dokumentVariabler;
 
     if (dokumentId) {
       return (
         <div className={"valgfelt inline"}>
           <Dokument
             dokumentId={dokumentId}
-            dokumentVariabler={valgVariabler}
+            dokumentVariabler={variabler}
             maalform={maalform}
             datasett={datasett}
           />
