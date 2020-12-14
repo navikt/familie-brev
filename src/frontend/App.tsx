@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Document, Page, pdfjs } from "react-pdf";
+import { Document, Page } from "react-pdf";
 import Meny from "./components/meny/Meny";
 import styled from "styled-components";
 import lagPlaceholderVariabler from "./utils/lagPlaceholderVariabler";
