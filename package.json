@@ -1,8 +1,9 @@
 {
-  "homepage": "https://familie-brev.intern.nav.no",
-  "name": "",
+  "name": "famile-brev",
   "version": "0.1.0",
   "private": true,
+  "repository": "https://github.com/navikt/familie-brev.git",
+  "license": "MIT",
   "dependencies": {
     "@craco/craco": "^5.7.0",
     "@navikt/familie-backend": "^5.0.16",
