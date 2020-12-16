@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Document, Page } from "react-pdf";
 import Meny from "./components/meny/Meny";
 import Pdf from "./components/Pdf";
 import styled from "styled-components";
