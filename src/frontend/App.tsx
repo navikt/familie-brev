@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Document, Page } from "react-pdf";
 import Meny from "./components/meny/Meny";
+import Pdf from "./components/Pdf";
 import styled from "styled-components";
 import lagPlaceholderVariabler from "./utils/lagPlaceholderVariabler";
 import { useLocalStorageOrQueryParam } from "./hooks/useLocalStorageOrQueryParam";
@@ -24,7 +25,6 @@ interface Dokument {
 
 function App() {
   const [dokumenter, settDokumenter] = useState<string[]>([]);
-  const [numPages, setNumPages] = useState(0);
 
   const [dokumentId, settDokumentId] = useLocalStorageOrQueryParam(
     "dokumentId",
@@ -33,10 +33,9 @@ function App() {
   );
   const dokumentIdRef = useRef(dokumentId);
 
-  const [
-    dokumentVariabler,
-    settDokumentVariabler,
-  ] = useState<IDokumentVariabler>();
+  const [dokumentVariabler, settDokumentVariabler] = useState<
+    IDokumentVariabler
+  >();
   const [pdf, settPdf] = useState<Uint8Array | Blob>(new Blob());
   const [html, settHtml] = useState<string>("");
   const [isLoading, settIsLoading] = useState(true);
@@ -101,19 +100,23 @@ function App() {
   }, [dokumentId, maalform, opptaderDokument]);
 
   useEffect(() => {
-    if (dokumentVariabler && dokument.current.dokumentId) {
-      settIsLoading(true);
+    (async () => {
+      if (dokumentVariabler && dokument.current.dokumentId) {
+        settIsLoading(true);
 
-      const { datasett, maalform, dokumentId } = dokument.current;
-      hentHtml(datasett, maalform, dokumentId, dokumentVariabler).then(
-        (html) => {
-          settHtml(html);
-          genererPdf(html).then((pdf) => settPdf(pdf));
-
-          settIsLoading(false);
-        }
-      );
-    }
+        const { datasett, maalform, dokumentId } = dokument.current;
+        const html = await hentHtml(
+          datasett,
+          maalform,
+          dokumentId,
+          dokumentVariabler
+        );
+        settHtml(html);
+        const pdf = await genererPdf(html);
+        settPdf(pdf);
+        settIsLoading(false);
+      }
+    })();
   }, [dokumentVariabler]);
 
   const StyledApp = styled.div`
@@ -135,49 +138,24 @@ function App() {
         oppdaterDatasett={settDatasett}
         datasett={datasett}
       />
-      {isLoading ? (
-        <StyledSpinnerKonteiner>
-          <NavFrontendSpinner transparent />
-        </StyledSpinnerKonteiner>
-      ) : (
-        <StyledDokumentKonteiner>
-          <Document
-            file={pdf}
-            onLoadSuccess={({ numPages }) => setNumPages(numPages)}
-            onLoadError={console.error}
-          >
-            {Array.apply(null, Array(numPages))
-              .map((_, i) => i + 1)
-              .map((page) => (
-                <div key={page}>
-                  <StyledPage pageNumber={page} scale={1.4} />
-                  {page !== numPages && <StyledSidedeler />}
-                </div>
-              ))}
-          </Document>
-        </StyledDokumentKonteiner>
-      )}
+      <StyledDokumentKonteiner>
+        {isLoading ? (
+          <StyledSpinnerKonteiner transparent />
+        ) : (
+          <Pdf pdf={pdf} loading={<StyledSpinnerKonteiner transparent />} />
+        )}
+      </StyledDokumentKonteiner>
       {NODE_ENV !== "production" && html && (
-        <StyledDokumentKonteiner>
-          <StyledDokument>
-            <BrevPadding>{parse(html)}</BrevPadding>
-          </StyledDokument>
-        </StyledDokumentKonteiner>
+        <StyledDokument>
+          <BrevPadding>{parse(html)}</BrevPadding>
+        </StyledDokument>
       )}
     </StyledApp>
   );
 }
-const StyledSidedeler = styled.div`
-  height: 20px;
-  background-color: #e8e9e9;
-`;
 
 const BrevPadding = styled.div`
   padding: 3rem;
-`;
-
-const StyledPage = styled(Page)`
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `;
 
 const StyledDokument = styled.div`
@@ -193,8 +171,10 @@ const StyledDokumentKonteiner = styled.div`
   list-style-type: none;
 `;
 
-const StyledSpinnerKonteiner = styled.div`
-  margin: 28rem;
+const StyledSpinnerKonteiner = styled(NavFrontendSpinner)`
+  padding: 23rem;
+  height: 32px;
+  min-width: 32px;
 `;
 
 export default App;
