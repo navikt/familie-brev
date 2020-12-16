@@ -1,6 +1,5 @@
 {
-  "homepage": ".",
-  "name": "",
+  "name": "famile-brev",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
