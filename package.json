@@ -1,5 +1,4 @@
 {
-  "homepage": "https://navikt.github.io/familie-brev",
   "name": "familie-brev",
   "main": "node_dist/server.js",
   "version": "0.1.0",
