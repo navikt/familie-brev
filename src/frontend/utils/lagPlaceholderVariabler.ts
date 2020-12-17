@@ -1,10 +1,13 @@
-import { IDokumentVariabler, ISubmal } from "./DokumentVariabler";
 import {
   IDokument,
   IGrensesnitt,
   ISubmalGrensesnitt,
   IValgfeltGrensesnitt,
-} from "./hentGrenesnittFraDokument";
+} from "../../server/sanity/hentGrenesnittFraDokument";
+import {
+  IDokumentVariabler,
+  ISubmal,
+} from "../../server/sanity/DokumentVariabler";
 
 const lagPlaceholder = (variabel: string, tillegg: string): string =>
   `${variabel}-eksempel${tillegg}`;
@@ -13,12 +16,14 @@ const lagPlaceholderVariabler = (
   grensesnitt: IGrensesnitt,
   placeholderTillegg: string = ""
 ): IDokumentVariabler => {
-  let dokumentvariabler: IDokumentVariabler = {
+  let dokumentvariabler: IDokumentVariabler;
+  dokumentvariabler = {
     submaler: {},
     flettefelter: {},
     valgfelter: {},
     lister: {},
   };
+
   grensesnitt.flettefelter.forEach((flettefelt: string) => {
     dokumentvariabler.flettefelter[flettefelt] = lagPlaceholder(
       flettefelt,

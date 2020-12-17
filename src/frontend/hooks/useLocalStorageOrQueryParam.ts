@@ -25,17 +25,18 @@ export const useLocalStorageOrQueryParam = (
     }
   });
 
-  const setValue = useCallback((value: any) => {
-    try {
-      const valueToStore =
-        value instanceof Function ? value(storedValue) : value;
-      setStoredValue(valueToStore);
+  const setValue = useCallback(
+    (value: any) => {
+      try {
+        setStoredValue(value);
 
-      window.localStorage.setItem(key, JSON.stringify(valueToStore));
-    } catch (error) {
-      console.log(error);
-    }
-  }, [key, storedValue]);
+        window.localStorage.setItem(key, JSON.stringify(value));
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    [key]
+  );
 
   return [storedValue, setValue];
 };

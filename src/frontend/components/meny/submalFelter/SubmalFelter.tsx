@@ -1,6 +1,9 @@
-import { IDokumentVariabler, ISubmal } from "../../../utils/DokumentVariabler";
 import React from "react";
 import SubmalFelt from "./SubmalFelt";
+import {
+  IDokumentVariabler,
+  ISubmal,
+} from "../../../../server/sanity/DokumentVariabler";
 
 interface SubmalFelterProps {
   variabler: IDokumentVariabler;

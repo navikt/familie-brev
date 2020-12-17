@@ -1,6 +1,6 @@
-import { IDokumentVariabler } from "../../../utils/DokumentVariabler";
 import React from "react";
 import ListeFelt from "./ListeFelt";
+import { IDokumentVariabler } from "../../../../server/sanity/DokumentVariabler";
 
 interface ListeFelterProps {
   variabler: IDokumentVariabler;

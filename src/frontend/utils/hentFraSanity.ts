@@ -1,4 +1,4 @@
-import { client, Datasett } from "./sanity";
+import { client, Datasett } from "../../server/sanity/sanityClient";
 
 async function hentFraSanity(query: string, datasett: Datasett) {
   const key = datasett + ";" + query;

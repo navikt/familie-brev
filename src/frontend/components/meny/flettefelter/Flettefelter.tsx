@@ -1,8 +1,8 @@
-import { IDokumentVariabler } from "../../../utils/DokumentVariabler";
 import React, { ChangeEvent } from "react";
 import { Input } from "nav-frontend-skjema";
 import styled from "styled-components";
 import { Element } from "nav-frontend-typografi";
+import { IDokumentVariabler } from "../../../../server/sanity/DokumentVariabler";
 
 function Flettefelter(props: {
   variabler: IDokumentVariabler;

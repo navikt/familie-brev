@@ -1,28 +1,29 @@
 {
-  "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "node_dist",
-    "baseUrl": "./src",
-    "rootDir": "./src",
-    "resolveJsonModule": true,
-    "types": [
-      "express-session"
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
     ],
     "allowJs": true,
     "skipLibCheck": true,
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
+    "strict": true,
     "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
     "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true
+    "noEmit": true,
+    "jsx": "react"
   },
   "include": [
-    "./src/backend"
+    "src"
   ],
   "exclude": [
-    "./src/frontend"
-  ],
-  "lib": [
-    "es2015"
+    "src/server"
   ]
 }

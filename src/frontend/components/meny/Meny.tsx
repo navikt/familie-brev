@@ -2,10 +2,10 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 import styled from "styled-components";
 import { RadioPanelGruppe, Select } from "nav-frontend-skjema";
 import { Hovedknapp } from "nav-frontend-knapper";
-import { IDokumentVariabler } from "../../utils/DokumentVariabler";
 import MenyVariabler from "./MenyVariabler";
-import { Maalform } from "../../utils/hentGrenesnittFraDokument";
-import { Datasett } from "../../utils/sanity";
+import { IDokumentVariabler } from "../../../server/sanity/DokumentVariabler";
+import { Maalform } from "../../../server/sanity/hentGrenesnittFraDokument";
+import { Datasett } from "../../../server/sanity/sanityClient";
 
 const StyledMeny = styled.div`
   width: 400px;
@@ -109,16 +109,18 @@ function Meny(props: MenyProps) {
           name={"maalform"}
           radios={[
             {
-              checked: maalform === "bokmaal",
-              onChange: (_) => oppdaterMaalform("bokmaal"),
+              checked: maalform === Maalform.BM,
+              onChange: (_) => oppdaterMaalform(Maalform.BM),
               label: "Bokmål",
-              name: "maalform",
+              name: Maalform.BM,
+              value: Maalform.BM,
             },
             {
-              checked: maalform === "nynorsk",
-              onChange: (_) => oppdaterMaalform("nynorsk"),
+              checked: maalform === Maalform.NN,
+              onChange: (_) => oppdaterMaalform(Maalform.NN),
               label: "Nynorsk",
-              name: "nynorsk",
+              name: Maalform.NN,
+              value: Maalform.NN,
             },
           ]}
           onChange={() => {}}

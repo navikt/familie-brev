@@ -14,12 +14,12 @@ spec:
     cpuThresholdPercentage: 50
   port: 8000
   liveness:
-    path: /status
+    path: /api/status
     initialDelay: 5
     periodSeconds: 5
     failureThreshold: 30
   readiness:
-    path: /status
+    path: /api/status
     initialDelay: 5
     periodSeconds: 5
     failureThreshold: 30
@@ -33,12 +33,15 @@ spec:
       rules:
         - application: familie-ba-sak
           namespace: default
+        - application: familie-brev
+          namespace: teamfamile
     outbound:
       rules:
         - application: familie-dokument
           namespace: default
       external:
         - host: appres.nav.no
+        - host: xsrv1mh6.api.sanity.io
   env:
     - name: APP_VERSION
       value: '{{version}}'

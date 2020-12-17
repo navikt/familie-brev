@@ -7,10 +7,12 @@ import {
   ISubmalMark,
   IValgfeltMark,
 } from "./sanityElementer";
-import hentFraSanity from "./hentFraSanity";
-import { Datasett } from "./sanity";
+import { client, Datasett } from "./sanityClient";
 
-export type Maalform = "bokmaal" | "nynorsk";
+export enum Maalform {
+  BM = "bokmaal",
+  NN = "nynorsk",
+}
 
 export interface ISubmalGrensesnitt {
   betingelse: string | undefined;
@@ -67,7 +69,7 @@ async function hentSubmalGrensesnitt(
   const id = submal.submal.id;
   return {
     grensesnitt: undefinedDersomTomtGrensesnitt(
-      await hentGrensesnitt(id, maalform, false, datasett)
+      await hentGrensesnitt(id, maalform, datasett, false)
     ),
     betingelse: skalMedFelt,
     submalId: id,
@@ -90,8 +92,8 @@ async function hentValgfeltGrensesnitt(
       grensesnitt: await hentGrensesnitt(
         valg.delmal.id,
         maalform,
-        false,
-        datasett
+        datasett,
+        false
       ),
     }))
   );
@@ -104,8 +106,8 @@ async function hentValgfeltGrensesnitt(
 const hentGrensesnitt = async (
   dokumentId: string,
   maalform: Maalform,
-  erHoveddokument: boolean = true,
-  datasett: Datasett
+  datasett: Datasett,
+  erHoveddokument: boolean = true
 ): Promise<IGrensesnitt> => {
   const grensesnitt: IGrensesnitt = {
     flettefelter: [],
@@ -122,7 +124,7 @@ const hentGrensesnitt = async (
 
   const query = hentDokumentQuery(dokumentType, dokumentId, maalform);
   const dokumentinnhold: IDokumentInnhold = (
-    await hentFraSanity(query, datasett)
+    await client(datasett).fetch(query)
   )[maalform];
   if (dokumentinnhold) {
     for await (const sanityElement of dokumentinnhold) {
@@ -177,8 +179,8 @@ const hentGrensesnitt = async (
             grensesnitt: await hentGrensesnitt(
               dokumentliste.id,
               maalform,
-              false,
-              datasett
+              datasett,
+              false
             ),
           });
           break;
