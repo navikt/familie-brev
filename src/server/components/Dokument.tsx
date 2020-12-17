@@ -88,7 +88,7 @@ function Dokument(dokumentProps: DokumentProps) {
 
     if (skalMed) {
       return (
-        <div className={"delmal inline"}>
+        <div className={"delmal"}>
           <Dokument
             dokumentId={dokumentId}
             dokumentVariabler={variabler}
