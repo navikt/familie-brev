@@ -1,9 +1,6 @@
-import { useState, Dispatch, SetStateAction, useCallback } from "react";
+import { useState, Dispatch, SetStateAction, useCallback } from 'react';
 
-export function useLocalStorage<S>(
-  key: string,
-  initialValue: S
-): [S, Dispatch<SetStateAction<S>>] {
+export function useLocalStorage<S>(key: string, initialValue: S): [S, Dispatch<SetStateAction<S>>] {
   const [storedValue, setStoredValue] = useState(() => {
     try {
       const item = window.localStorage.getItem(key);
@@ -24,7 +21,7 @@ export function useLocalStorage<S>(
         console.log(error);
       }
     },
-    [key]
+    [key],
   );
 
   return [storedValue, setValue];

@@ -1,14 +1,11 @@
-import express from "express";
-import { client, Datasett } from "./sanity/sanityClient";
-import hentGrensesnitt, {
-  IGrensesnitt,
-  Maalform,
-} from "./sanity/hentGrenesnittFraDokument";
-import hentDokumentHtml from "./dokument/hentDokumentHtml";
+import express from 'express';
+import { client, Datasett } from './sanity/sanityClient';
+import hentGrensesnitt, { IGrensesnitt, Maalform } from './sanity/hentGrenesnittFraDokument';
+import hentDokumentHtml from './dokument/hentDokumentHtml';
 
 const router = express.Router();
 
-router.get("/status", (req, res) => {
+router.get('/status', (req, res) => {
   res.status(200).end();
 });
 
@@ -17,7 +14,7 @@ const hentDokumenter = async (datasett: Datasett) => {
   return await client(datasett).fetch(query);
 };
 
-router.get("/:datasett/dokumenter", async (req, res) => {
+router.get('/:datasett/dokumenter', async (req, res) => {
   const datasett = req.params.datasett as Datasett;
   if (!Object.values(Datasett).includes(datasett)) {
     return res.status(404).send(`Datasettet "${datasett}" finnes ikke.`);
@@ -29,7 +26,7 @@ router.get("/:datasett/dokumenter", async (req, res) => {
 const hentRelevanteGrensesnitt = async (
   maalformForesporsel: undefined | string | string[],
   dokumentForesporsel: undefined | string | string[],
-  datasett: Datasett
+  datasett: Datasett,
 ) => {
   let maalformer: string[];
   if (maalformForesporsel) {
@@ -53,23 +50,15 @@ const hentRelevanteGrensesnitt = async (
     dokumenter = await hentDokumenter(datasett);
   }
 
-  let grensesnitt: IGrensesnitt[] = [];
-  for (
-    let maalformIndex = 0;
-    maalformIndex < maalformer.length;
-    maalformIndex++
-  ) {
-    for (
-      let dokumentIndex = 0;
-      dokumentIndex < dokumenter.length;
-      dokumentIndex++
-    ) {
+  const grensesnitt: IGrensesnitt[] = [];
+  for (let maalformIndex = 0; maalformIndex < maalformer.length; maalformIndex++) {
+    for (let dokumentIndex = 0; dokumentIndex < dokumenter.length; dokumentIndex++) {
       grensesnitt.push(
         await hentGrensesnitt(
           dokumenter[dokumentIndex],
           maalformer[maalformIndex] as Maalform,
-          datasett
-        )
+          datasett,
+        ),
       );
     }
   }
@@ -77,7 +66,7 @@ const hentRelevanteGrensesnitt = async (
   return grensesnitt;
 };
 
-router.get("/:datasett/grensesnitt", async (req, res) => {
+router.get('/:datasett/grensesnitt', async (req, res) => {
   const datasett = req.params.datasett as Datasett;
   const dokumentForesporsel = req.query.dokumentId;
   const maalformForesporsel = req.query.maalform;
@@ -85,13 +74,8 @@ router.get("/:datasett/grensesnitt", async (req, res) => {
   if (!Object.values(Datasett).includes(datasett)) {
     return res.status(404).send(`Datasettet "${datasett}" finnes ikke.`);
   }
-  if (
-    typeof dokumentForesporsel === "object" ||
-    typeof maalformForesporsel === "object"
-  ) {
-    return res
-      .status(400)
-      .send(`Ugylding forespørsel. Feil format på query-parameterene.`);
+  if (typeof dokumentForesporsel === 'object' || typeof maalformForesporsel === 'object') {
+    return res.status(400).send(`Ugylding forespørsel. Feil format på query-parameterene.`);
   }
 
   let grensesnitt: IGrensesnitt[] = [];
@@ -99,7 +83,7 @@ router.get("/:datasett/grensesnitt", async (req, res) => {
     grensesnitt = await hentRelevanteGrensesnitt(
       maalformForesporsel,
       dokumentForesporsel,
-      datasett
+      datasett,
     );
   } catch (e) {
     console.error(e);
@@ -109,7 +93,7 @@ router.get("/:datasett/grensesnitt", async (req, res) => {
   res.send(grensesnitt);
 });
 
-router.post("/:datasett/:maalform/:dokumentId/html", async (req, res) => {
+router.post('/:datasett/:maalform/:dokumentId/html', async (req, res) => {
   const datasett = req.params.datasett as Datasett;
   const maalform = req.params.maalform as Maalform;
   const dokumentId = req.params.dokumentId;
@@ -122,12 +106,7 @@ router.post("/:datasett/:maalform/:dokumentId/html", async (req, res) => {
     return res.status(404).send(`Målformen "${maalform}" finnes ikke.`);
   }
 
-  const html = await hentDokumentHtml(
-    dokumetVariabler,
-    maalform,
-    dokumentId,
-    datasett
-  );
+  const html = await hentDokumentHtml(dokumetVariabler, maalform, dokumentId, datasett);
 
   res.send(html);
 });

@@ -1,6 +1,6 @@
-import { Document, Page } from "react-pdf";
-import React, { useState } from "react";
-import styled from "styled-components";
+import { Document, Page } from 'react-pdf';
+import React, { useState } from 'react';
+import styled from 'styled-components';
 
 interface PdfProps {
   pdf: Uint8Array | Blob;
@@ -18,9 +18,9 @@ const Pdf = (props: PdfProps) => {
       onLoadError={console.error}
       loading={loading}
     >
-      {Array.apply(null, Array(numPages))
+      {Array.from({ length: numPages }, (_, i) => i + 1)
         .map((_, i) => i + 1)
-        .map((page) => (
+        .map(page => (
           <div key={page}>
             <StyledPage pageNumber={page} scale={1.4} />
             {page !== numPages && <StyledSidedeler />}

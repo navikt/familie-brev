@@ -1,9 +1,9 @@
-import * as React from "react";
+import * as React from 'react';
 
 const NavIkon: React.FunctionComponent = () => {
   return (
     <svg
-      className={"nav-ikon"}
+      className={'nav-ikon'}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 50 32"
       width="50"

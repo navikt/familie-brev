@@ -1,12 +1,9 @@
-import { RadioPanelGruppe } from "nav-frontend-skjema";
-import MenyVariabler from "../MenyVariabler";
-import React from "react";
-import styled from "styled-components";
-import { Element } from "nav-frontend-typografi";
-import {
-  IDokumentVariabler,
-  IValg,
-} from "../../../../server/sanity/DokumentVariabler";
+import { RadioPanelGruppe } from 'nav-frontend-skjema';
+import MenyVariabler from '../MenyVariabler';
+import React from 'react';
+import styled from 'styled-components';
+import { Element } from 'nav-frontend-typografi';
+import { IDokumentVariabler, IValg } from '../../../../server/sanity/DokumentVariabler';
 
 interface ValgFeltProps {
   valgfelt: IValg;
@@ -27,14 +24,14 @@ function ValgFelt(props: ValgFeltProps) {
   };
 
   const endreValgFeltVariabler = (valgfeltVariabler: IDokumentVariabler) => {
-    const nyeMuligeValg = valgfelt.muligeValg?.map((muligValg) =>
+    const nyeMuligeValg = valgfelt.muligeValg?.map(muligValg =>
       muligValg.valgNavn === valgfelt.valgNavn
         ? {
             muligeValg: undefined,
             valgNavn: muligValg.valgNavn,
             valgVariabler: valgfeltVariabler,
           }
-        : muligValg
+        : muligValg,
     );
 
     const nyttValgFelt = {
@@ -51,20 +48,17 @@ function ValgFelt(props: ValgFeltProps) {
       {valgfelt.muligeValg && (
         <RadioPanelGruppe
           name={navn}
-          radios={valgfelt.muligeValg?.map((muligValg) => ({
+          radios={valgfelt.muligeValg?.map(muligValg => ({
             checked: muligValg.valgNavn === valgfelt.valgNavn,
-            onChange: (_) => endreValg(muligValg),
+            onChange: _ => endreValg(muligValg),
             label: muligValg.valgNavn,
             name: navn,
           }))}
-          onChange={() => {}}
+          onChange={_ => undefined}
         />
       )}
       {valgfelt.valgVariabler && (
-        <MenyVariabler
-          settVariabler={endreValgFeltVariabler}
-          variabler={valgfelt.valgVariabler}
-        />
+        <MenyVariabler settVariabler={endreValgFeltVariabler} variabler={valgfelt.valgVariabler} />
       )}
     </>
   );

@@ -6,27 +6,26 @@ const formaterTilCamelCase = (id: string): string => {
   return lowerCaseTilCamelCase(lowercaseId);
 };
 
-const fjernUgyldigeBokstaver = (tekst: string) =>
-  tekst.replace(/[^\w\s]/gi, "");
+const fjernUgyldigeBokstaver = (tekst: string) => tekst.replace(/[^\w\s]/gi, '');
 
 const fjernNorskeBokstaver = (tekst: string): string =>
-  tekst.replace("ø", "o").replace("å", "aa").replace("æ", "ae");
+  tekst.replace('ø', 'o').replace('å', 'aa').replace('æ', 'ae');
 
 const lowerCaseTilCamelCase = (lowerCase: string) =>
   lowerCase
-    .split(" ")
+    .split(' ')
     .map((idElement, index) => {
       if (idElement.length === 0) {
-        return "";
+        return '';
       }
       return index === 0
         ? idElement.toLowerCase()
         : idElement[0].toUpperCase() + idElement.slice(1).toLowerCase();
     })
-    .join("");
+    .join('');
 
 const strip = (tekst: string) => {
-  return String(tekst).replace(/^\s+|\s+$/g, "");
+  return String(tekst).replace(/^\s+|\s+$/g, '');
 };
 
 export default formaterTilCamelCase;

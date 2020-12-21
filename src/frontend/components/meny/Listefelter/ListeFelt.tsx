@@ -1,27 +1,21 @@
-import { EkspanderbartpanelBase } from "nav-frontend-ekspanderbartpanel";
-import MenyVariabler from "../MenyVariabler";
-import React, { useState } from "react";
-import styled from "styled-components";
-import { Fareknapp, Knapp } from "nav-frontend-knapper";
-import { IDokumentVariabler } from "../../../../server/sanity/DokumentVariabler";
+import { EkspanderbartpanelBase } from 'nav-frontend-ekspanderbartpanel';
+import MenyVariabler from '../MenyVariabler';
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { Fareknapp, Knapp } from 'nav-frontend-knapper';
+import { IDokumentVariabler } from '../../../../server/sanity/DokumentVariabler';
 
 interface ListeFeltProps {
   liste: IDokumentVariabler[];
   navn: string;
-  endreListeIDokumentVariabler: (
-    listeNavn: string,
-    liste: IDokumentVariabler[]
-  ) => void;
+  endreListeIDokumentVariabler: (listeNavn: string, liste: IDokumentVariabler[]) => void;
 }
 
 const ListeFelt = (props: ListeFeltProps) => {
   const { navn, liste, endreListeIDokumentVariabler } = props;
-  const [åpen, settÅpen] = useState(false);
+  const [pen, settÅpen] = useState(false);
 
-  const endreListeVariabler = (
-    index: number,
-    dokumentVariabler: IDokumentVariabler
-  ) => {
+  const endreListeVariabler = (index: number, dokumentVariabler: IDokumentVariabler) => {
     const nyListe = [...liste];
     nyListe[index] = dokumentVariabler;
     endreListeIDokumentVariabler(navn, nyListe);
@@ -41,16 +35,12 @@ const ListeFelt = (props: ListeFeltProps) => {
 
   return (
     <>
-      <EkspanderbartpanelBase
-        tittel={navn}
-        apen={åpen}
-        onClick={() => settÅpen(!åpen)}
-      >
+      <EkspanderbartpanelBase tittel={navn} apen={pen} onClick={() => settÅpen(!pen)}>
         {liste.map((dokumentVariabler, index) => (
           <div key={index}>
-            {index !== 0 ? <Separator /> : ""}
+            {index !== 0 ? <Separator /> : ''}
             <StyledListeHeader>
-              <div>{navn + " " + (index + 1)}</div>
+              <div>{navn + ' ' + (index + 1)}</div>
               {liste.length > 1 && (
                 <Fareknapp mini={true} onClick={() => slettListeElement(index)}>
                   Slett

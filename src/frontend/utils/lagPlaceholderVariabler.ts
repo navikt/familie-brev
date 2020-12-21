@@ -3,19 +3,17 @@ import {
   IGrensesnitt,
   ISubmalGrensesnitt,
   IValgfeltGrensesnitt,
-} from "../../server/sanity/hentGrenesnittFraDokument";
-import { IDokumentVariabler } from "../../server/sanity/DokumentVariabler";
+} from '../../server/sanity/hentGrenesnittFraDokument';
+import { IDokumentVariabler } from '../../server/sanity/DokumentVariabler';
 
 const lagPlaceholder = (variabel: string, tillegg: string): string =>
   `${variabel}-eksempel${tillegg}`;
 
 const lagPlaceholderVariabler = (
   grensesnitt: IGrensesnitt,
-  placeholderTillegg: string = ""
+  placeholderTillegg = '',
 ): IDokumentVariabler => {
-  let dokumentvariabler: IDokumentVariabler;
-
-  dokumentvariabler = {
+  const dokumentvariabler: IDokumentVariabler = {
     submalerMetaData: {},
     submaler: {},
     flettefelter: {},
@@ -24,18 +22,12 @@ const lagPlaceholderVariabler = (
   };
 
   grensesnitt.flettefelter.forEach((flettefelt: string) => {
-    dokumentvariabler.flettefelter[flettefelt] = lagPlaceholder(
-      flettefelt,
-      placeholderTillegg
-    );
+    dokumentvariabler.flettefelter[flettefelt] = lagPlaceholder(flettefelt, placeholderTillegg);
   });
 
   grensesnitt.submalFelter.forEach((submalFelt: ISubmalGrensesnitt) => {
     if (submalFelt.grensesnitt) {
-      const submalVariabler = lagPlaceholderVariabler(
-        submalFelt.grensesnitt,
-        placeholderTillegg
-      );
+      const submalVariabler = lagPlaceholderVariabler(submalFelt.grensesnitt, placeholderTillegg);
       dokumentvariabler.submaler[submalFelt.submalId] = submalVariabler;
       if (dokumentvariabler.submalerMetaData) {
         dokumentvariabler.submalerMetaData[`${submalFelt.submalId}`] = {
@@ -56,11 +48,8 @@ const lagPlaceholderVariabler = (
       valgNavn: valgmuigheter[0].valgnavn,
       valgVariabler:
         valgmuigheter[0].grensesnitt &&
-        lagPlaceholderVariabler(
-          valgmuigheter[0].grensesnitt,
-          placeholderTillegg
-        ),
-      muligeValg: valgmuigheter.map((valgMulighet) => ({
+        lagPlaceholderVariabler(valgmuigheter[0].grensesnitt, placeholderTillegg),
+      muligeValg: valgmuigheter.map(valgMulighet => ({
         valgNavn: valgMulighet.valgnavn,
         valgVariabler:
           valgMulighet.grensesnitt &&

@@ -1,11 +1,11 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
-import styled from "styled-components";
-import { RadioPanelGruppe, Select } from "nav-frontend-skjema";
-import { Hovedknapp } from "nav-frontend-knapper";
-import MenyVariabler from "./MenyVariabler";
-import { IDokumentVariabler } from "../../../server/sanity/DokumentVariabler";
-import { Maalform } from "../../../server/sanity/hentGrenesnittFraDokument";
-import { Datasett } from "../../../server/sanity/sanityClient";
+import React, { Dispatch, SetStateAction, useState } from 'react';
+import styled from 'styled-components';
+import { RadioPanelGruppe, Select } from 'nav-frontend-skjema';
+import { Hovedknapp } from 'nav-frontend-knapper';
+import MenyVariabler from './MenyVariabler';
+import { IDokumentVariabler } from '../../../server/sanity/DokumentVariabler';
+import { Maalform } from '../../../server/sanity/hentGrenesnittFraDokument';
+import { Datasett } from '../../../server/sanity/sanityClient';
 
 const StyledMeny = styled.div`
   width: 400px;
@@ -46,9 +46,7 @@ interface MenyProps {
   aktivtDokument: string;
   dokumenter: string[];
   dokumentVariabler: IDokumentVariabler | undefined;
-  settDokumentVariabler: Dispatch<
-    SetStateAction<IDokumentVariabler | undefined>
-  >;
+  settDokumentVariabler: Dispatch<SetStateAction<IDokumentVariabler | undefined>>;
   maalform: Maalform;
   opptaderDokumentId: (nyDokumentId: string) => void;
   oppdaterMaalform: (nyMaalform: Maalform) => void;
@@ -69,9 +67,7 @@ function Meny(props: MenyProps) {
     datasett,
   } = props;
 
-  const [variabler, settVariabler] = useState<IDokumentVariabler | undefined>(
-    dokumentVariabler
-  );
+  const [variabler, settVariabler] = useState<IDokumentVariabler | undefined>(dokumentVariabler);
 
   return (
     <StyledMeny>
@@ -79,25 +75,23 @@ function Meny(props: MenyProps) {
         <Select
           value={datasett}
           label="Datasett"
-          onChange={(e) => {
+          onChange={e => {
             oppdaterDatasett(e.target.value);
           }}
         >
           <option value={Datasett.BA}>{Datasett.BA}</option>
           <option value={Datasett.EF}>{Datasett.EF}</option>
-          {NODE_ENV !== "production" && (
-            <option value={Datasett.TEST}>{Datasett.TEST}</option>
-          )}
+          {NODE_ENV !== 'production' && <option value={Datasett.TEST}>{Datasett.TEST}</option>}
         </Select>
         <div className="meny-element brevtype">
           <Select
             value={aktivtDokument}
             label="Brevtype"
-            onChange={(e) => {
+            onChange={e => {
               opptaderDokumentId(e.target.value);
             }}
           >
-            {dokumenter.map((dokument) => (
+            {dokumenter.map(dokument => (
               <option key={dokument} value={dokument}>
                 {dokument}
               </option>
@@ -106,32 +100,29 @@ function Meny(props: MenyProps) {
         </div>
 
         <RadioPanelGruppe
-          name={"maalform"}
+          name={'maalform'}
           radios={[
             {
-              checked: maalform === Maalform.BM,
-              onChange: (_) => oppdaterMaalform(Maalform.BM),
-              label: "Bokmål",
-              name: Maalform.BM,
-              value: Maalform.BM,
+              checked: maalform === Maalform.NB,
+              onChange: _ => oppdaterMaalform(Maalform.NB),
+              label: 'Bokmål',
+              name: Maalform.NB,
+              value: Maalform.NB,
             },
             {
               checked: maalform === Maalform.NN,
-              onChange: (_) => oppdaterMaalform(Maalform.NN),
-              label: "Nynorsk",
+              onChange: _ => oppdaterMaalform(Maalform.NN),
+              label: 'Nynorsk',
               name: Maalform.NN,
               value: Maalform.NN,
             },
           ]}
-          onChange={() => {}}
+          onChange={_ => undefined}
         />
 
         {variabler && (
           <>
-            <MenyVariabler
-              variabler={variabler}
-              settVariabler={settVariabler}
-            />
+            <MenyVariabler variabler={variabler} settVariabler={settVariabler} />
             <StyledHovedknapp onClick={() => settDokumentVariabler(variabler)}>
               Generer dokument
             </StyledHovedknapp>

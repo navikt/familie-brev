@@ -1,8 +1,4 @@
-export default (
-  dokumentType: string,
-  dokumentNavn: string,
-  maalform: string
-) => `
+export default (dokumentType: string, dokumentNavn: string, maalform: string) => `
         *[_type == "${dokumentType}" && id == "${dokumentNavn}"][0]
         {..., ${maalform}[]
           {

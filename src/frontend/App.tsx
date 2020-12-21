@@ -1,18 +1,18 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import Meny from "./components/meny/Meny";
-import Pdf from "./components/Pdf";
-import styled from "styled-components";
-import lagPlaceholderVariabler from "./utils/lagPlaceholderVariabler";
-import { useLocalStorageOrQueryParam } from "./hooks/useLocalStorageOrQueryParam";
-import { useLocalStorage } from "./hooks/useLocalStorage";
-import hentFraSanity from "./utils/hentFraSanity";
-import { StorageIds } from "./utils/storageIds";
-import { genererPdf, hentGrensesnitt, hentHtml } from "./utils/api";
-import { IDokumentVariabler } from "../server/sanity/DokumentVariabler";
-import { Maalform } from "../server/sanity/hentGrenesnittFraDokument";
-import { Datasett } from "../server/sanity/sanityClient";
-import NavFrontendSpinner from "nav-frontend-spinner";
-import parse from "html-react-parser";
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import Meny from './components/meny/Meny';
+import Pdf from './components/Pdf';
+import styled from 'styled-components';
+import lagPlaceholderVariabler from './utils/lagPlaceholderVariabler';
+import { useLocalStorageOrQueryParam } from './hooks/useLocalStorageOrQueryParam';
+import { useLocalStorage } from './hooks/useLocalStorage';
+import hentFraSanity from './utils/hentFraSanity';
+import { StorageIds } from './utils/storageIds';
+import { genererPdf, hentGrensesnitt, hentHtml } from './utils/api';
+import { IDokumentVariabler } from '../server/sanity/DokumentVariabler';
+import { Maalform } from '../server/sanity/hentGrenesnittFraDokument';
+import { Datasett } from '../server/sanity/sanityClient';
+import NavFrontendSpinner from 'nav-frontend-spinner';
+import parse from 'html-react-parser';
 
 const { NODE_ENV } = process.env;
 
@@ -26,43 +26,32 @@ function App() {
   const [dokumenter, settDokumenter] = useState<string[]>([]);
 
   const [dokumentId, settDokumentId] = useLocalStorageOrQueryParam(
-    "dokumentId",
+    'dokumentId',
     undefined,
-    window.location
+    window.location,
   );
   const dokumentIdRef = useRef(dokumentId);
 
-  const [dokumentVariabler, settDokumentVariabler] = useState<
-    IDokumentVariabler
-  >();
+  const [dokumentVariabler, settDokumentVariabler] = useState<IDokumentVariabler>();
   const [pdf, settPdf] = useState<Uint8Array | Blob>(new Blob());
-  const [html, settHtml] = useState<string>("");
+  const [html, settHtml] = useState<string>('');
   const [isLoading, settIsLoading] = useState(true);
   const isFirstRender = useRef(true);
 
   const maalformStorageId = StorageIds.MAALFORM + dokumentId;
-  const [maalform, settMaalform] = useLocalStorage<Maalform>(
-    maalformStorageId,
-    Maalform.NN
-  );
+  const [maalform, settMaalform] = useLocalStorage<Maalform>(maalformStorageId, Maalform.NN);
 
-  const [datasett, settDatasett] = useLocalStorage<Datasett>(
-    "datasett",
-    Datasett.BA
-  );
+  const [datasett, settDatasett] = useLocalStorage<Datasett>('datasett', Datasett.BA);
 
   const dokument = useRef<Dokument>({ dokumentId, maalform, datasett });
 
   const opptaderDokument = useCallback(
-    async (
-      nyDokumentId: string = dokumentId,
-      nyMaalform: Maalform = maalform
-    ) => {
+    async (nyDokumentId: string = dokumentId, nyMaalform: Maalform = maalform) => {
       settIsLoading(true);
       const grensesnitt = await hentGrensesnitt(
         dokument.current.datasett,
         nyMaalform,
-        nyDokumentId
+        nyDokumentId,
       );
       const dokumentVariabler = lagPlaceholderVariabler(grensesnitt[0]);
       dokument.current = {
@@ -72,7 +61,7 @@ function App() {
       };
       settDokumentVariabler(dokumentVariabler);
     },
-    [dokumentId, maalform]
+    [dokumentId, maalform],
   );
 
   const opptaderDokumentRef = useRef(opptaderDokument);
@@ -104,12 +93,7 @@ function App() {
         settIsLoading(true);
 
         const { datasett, maalform, dokumentId } = dokument.current;
-        const html = await hentHtml(
-          datasett,
-          maalform,
-          dokumentId,
-          dokumentVariabler
-        );
+        const html = await hentHtml(datasett, maalform, dokumentId, dokumentVariabler);
         settHtml(html);
         const pdf = await genererPdf(html);
         settPdf(pdf);
@@ -144,7 +128,7 @@ function App() {
           <Pdf pdf={pdf} loading={<StyledSpinnerKonteiner transparent />} />
         )}
       </StyledDokumentKonteiner>
-      {NODE_ENV !== "production" && html && (
+      {NODE_ENV !== 'production' && html && (
         <StyledDokument>
           <BrevPadding>{parse(html)}</BrevPadding>
         </StyledDokument>
