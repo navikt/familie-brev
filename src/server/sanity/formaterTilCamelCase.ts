@@ -15,11 +15,14 @@ const fjernNorskeBokstaver = (tekst: string): string =>
 const lowerCaseTilCamelCase = (lowerCase: string) =>
   lowerCase
     .split(" ")
-    .map((idElement, index) =>
-      index === 0
+    .map((idElement, index) => {
+      if (idElement.length === 0) {
+        return "";
+      }
+      return index === 0
         ? idElement.toLowerCase()
-        : idElement[0].toUpperCase() + idElement.slice(1).toLowerCase()
-    )
+        : idElement[0].toUpperCase() + idElement.slice(1).toLowerCase();
+    })
     .join("");
 
 const strip = (tekst: string) => {
