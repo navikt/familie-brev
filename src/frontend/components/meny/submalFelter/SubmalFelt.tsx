@@ -3,42 +3,55 @@ import MenyVariabler from "../MenyVariabler";
 import React from "react";
 import {
   IDokumentVariabler,
-  ISubmal,
+  ISubmalMetaData,
 } from "../../../../server/sanity/DokumentVariabler";
 
 interface SubmalFeltProps {
-  submal: ISubmal;
+  submal: IDokumentVariabler | boolean | undefined;
   navn: string;
   endreSubmalIDokumentVariabler: Function;
+  metaData?: ISubmalMetaData;
 }
 
 function SubmalFelt(props: SubmalFeltProps) {
-  const { navn, submal, endreSubmalIDokumentVariabler } = props;
+  const { navn, submal, endreSubmalIDokumentVariabler, metaData } = props;
+
+  if (!metaData) {
+    return <div>Delmal mangler metadata</div>;
+  }
 
   const toggleSubmal = () => {
-    endreSubmalIDokumentVariabler(navn, {
-      ...submal,
-      skalMed: !submal.skalMed,
-    });
+    let nySubmal;
+    if (typeof submal === "boolean") {
+      nySubmal = !submal;
+    } else {
+      submal ? (nySubmal = undefined) : (nySubmal = metaData.dokumentVariabler);
+    }
+
+    endreSubmalIDokumentVariabler(navn, nySubmal, metaData);
   };
 
   const endreSubmalVariabler = (subfeltVariabler: IDokumentVariabler) => {
-    const nySubmal = { ...submal, submalVariabler: subfeltVariabler };
-    endreSubmalIDokumentVariabler(navn, nySubmal);
+    let nyMetaData = metaData;
+    nyMetaData.dokumentVariabler = subfeltVariabler;
+
+    endreSubmalIDokumentVariabler(navn, subfeltVariabler, nyMetaData);
   };
 
-  if (submal.skalMedBetingelseNavn) {
+  if (typeof submal !== "boolean") {
     return (
       <>
-        <CheckboksPanel
-          onChange={toggleSubmal}
-          checked={submal.skalMed}
-          label={submal.skalMedBetingelseNavn}
-        />
-        {submal.skalMed && submal.submalVariabler && (
+        {metaData.betingelse && (
+          <CheckboksPanel
+            onChange={toggleSubmal}
+            checked={!!submal}
+            label={metaData.betingelse}
+          />
+        )}
+        {submal && (
           <MenyVariabler
             settVariabler={endreSubmalVariabler}
-            variabler={submal.submalVariabler}
+            variabler={submal}
           />
         )}
       </>
@@ -46,14 +59,11 @@ function SubmalFelt(props: SubmalFeltProps) {
   }
 
   return (
-    <>
-      {submal.submalVariabler && (
-        <MenyVariabler
-          settVariabler={endreSubmalVariabler}
-          variabler={submal.submalVariabler}
-        />
-      )}
-    </>
+    <CheckboksPanel
+      onChange={toggleSubmal}
+      checked={submal}
+      label={metaData.betingelse}
+    />
   );
 }
 

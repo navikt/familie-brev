@@ -37,16 +37,15 @@ function Dokument(dokumentProps: DokumentProps) {
 
   const listItemSerializer = (props: any) => {
     const erSubmal = (markDef: any) => markDef._type === "submal";
-    const submalSkalMed = (submal: any): boolean => {
-      const id = submal?.id;
-      return !!dokumentVariabler.submaler[formaterTilCamelCase(id)]?.skalMed;
-    };
+    const submalSkalMed = (mark: any): boolean =>
+      !mark.skalMedFelt ||
+      !!dokumentVariabler.submaler[formaterTilCamelCase(mark.submal?.id)];
 
     const erKunText = props.node.markDefs.length === 0;
 
     const markDefSkalMed = props.node.markDefs?.reduce(
       (acc: boolean, markDef: any) =>
-        acc || !erSubmal(markDef) || submalSkalMed(markDef.submal),
+        acc || !erSubmal(markDef) || submalSkalMed(markDef),
       false
     );
 
@@ -81,15 +80,16 @@ function Dokument(dokumentProps: DokumentProps) {
   const submalSerializer = (props: any) => {
     const dokumentId = props.mark.submal.id;
 
-    const skalMed =
-      dokumentVariabler.submaler[formaterTilCamelCase(dokumentId)]?.skalMed;
+    const submalSkalMed =
+      !props.mark.skalMedFelt ||
+      !!dokumentVariabler.submaler[formaterTilCamelCase(dokumentId)];
 
     const submalVariabler =
-      dokumentVariabler.submaler[formaterTilCamelCase(dokumentId)]
-        ?.submalVariabler;
-    const variabler = submalVariabler ? submalVariabler : dokumentVariabler;
+      dokumentVariabler.submaler[formaterTilCamelCase(dokumentId)];
+    const variabler =
+      typeof submalVariabler === "object" ? submalVariabler : dokumentVariabler;
 
-    if (skalMed) {
+    if (submalSkalMed) {
       return (
         <div className={"delmal inline"}>
           <Dokument

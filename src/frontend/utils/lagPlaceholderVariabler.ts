@@ -4,10 +4,7 @@ import {
   ISubmalGrensesnitt,
   IValgfeltGrensesnitt,
 } from "../../server/sanity/hentGrenesnittFraDokument";
-import {
-  IDokumentVariabler,
-  ISubmal,
-} from "../../server/sanity/DokumentVariabler";
+import { IDokumentVariabler } from "../../server/sanity/DokumentVariabler";
 
 const lagPlaceholder = (variabel: string, tillegg: string): string =>
   `${variabel}-eksempel${tillegg}`;
@@ -17,7 +14,9 @@ const lagPlaceholderVariabler = (
   placeholderTillegg: string = ""
 ): IDokumentVariabler => {
   let dokumentvariabler: IDokumentVariabler;
+
   dokumentvariabler = {
+    submalerMetaData: {},
     submaler: {},
     flettefelter: {},
     valgfelter: {},
@@ -32,21 +31,23 @@ const lagPlaceholderVariabler = (
   });
 
   grensesnitt.submalFelter.forEach((submalFelt: ISubmalGrensesnitt) => {
-    let submal: any = {
-      skalMed: true,
-      submalVariabler: undefined,
-      skalMedBetingelseNavn: undefined,
-    };
     if (submalFelt.grensesnitt) {
-      submal.submalVariabler = lagPlaceholderVariabler(
+      const submalVariabler = lagPlaceholderVariabler(
         submalFelt.grensesnitt,
         placeholderTillegg
       );
+      dokumentvariabler.submaler[submalFelt.submalId] = submalVariabler;
+      if (dokumentvariabler.submalerMetaData) {
+        dokumentvariabler.submalerMetaData[`${submalFelt.submalId}`] = {
+          betingelse: submalFelt.betingelse,
+          dokumentVariabler: submalVariabler,
+        };
+      }
+    } else {
+      if (submalFelt.betingelse != null) {
+        dokumentvariabler.submaler[submalFelt.submalId] = true;
+      }
     }
-    if (submalFelt.betingelse) {
-      submal.skalMedBetingelseNavn = submalFelt.betingelse;
-    }
-    dokumentvariabler.submaler[submalFelt.submalId] = submal as ISubmal;
   });
 
   grensesnitt.valgfelter.forEach((valgFelt: IValgfeltGrensesnitt) => {
