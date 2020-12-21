@@ -91,7 +91,7 @@ function Dokument(dokumentProps: DokumentProps) {
 
     if (submalSkalMed) {
       return (
-        <div className={"delmal inline"}>
+        <div className={"delmal"}>
           <Dokument
             dokumentId={dokumentId}
             dokumentVariabler={variabler}
