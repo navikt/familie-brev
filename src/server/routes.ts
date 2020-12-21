@@ -103,7 +103,7 @@ router.get("/:datasett/grensesnitt", async (req, res) => {
     );
   } catch (e) {
     console.error(e);
-    return res.status(500).send(`Ugylding forespørsel: ${e}`);
+    return res.status(500).send(`Ugylding forespørsel ${e}`);
   }
 
   res.send(grensesnitt);

@@ -2,7 +2,7 @@ import React from "react";
 import SubmalFelt from "./SubmalFelt";
 import {
   IDokumentVariabler,
-  ISubmal,
+  ISubmalMetaData,
 } from "../../../../server/sanity/DokumentVariabler";
 
 interface SubmalFelterProps {
@@ -12,15 +12,20 @@ interface SubmalFelterProps {
 
 function SubmalFelter(props: SubmalFelterProps) {
   const { variabler, settVariabler } = props;
-  const { submaler } = variabler;
+  const { submaler, submalerMetaData } = variabler;
 
   const endreSubmalIDokumentVariabler = (
     submalNavn: string,
-    subfelt: ISubmal
+    subfelt: IDokumentVariabler | boolean | undefined,
+    submalMetaData: ISubmalMetaData
   ) => {
     const nyeVariabler = {
       ...variabler,
       submaler: { ...variabler.submaler, [submalNavn]: subfelt },
+      submalerMetaData: {
+        ...variabler.submalerMetaData,
+        [submalNavn]: submalMetaData,
+      },
     };
     settVariabler(nyeVariabler);
   };
@@ -31,6 +36,7 @@ function SubmalFelter(props: SubmalFelterProps) {
         <SubmalFelt
           key={submalNavn}
           submal={submaler[submalNavn]}
+          metaData={submalerMetaData ? submalerMetaData[submalNavn] : undefined}
           navn={submalNavn}
           endreSubmalIDokumentVariabler={endreSubmalIDokumentVariabler}
         />

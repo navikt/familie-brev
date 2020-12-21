@@ -1,28 +1,23 @@
 export interface IDokumentVariabler {
   flettefelter: { [fletteFelt: string]: string };
   submaler: {
-    [submalId: string]: ISubmal;
+    [submalId: string]: IDokumentVariabler | boolean | undefined;
   };
   valgfelter: {
     [feltNavn: string]: IValg;
   };
   lister: { [dokumentNavn: string]: IDokumentVariabler[] };
+  submalerMetaData?: {
+    [submalId: string]: ISubmalMetaData;
+  };
 }
 
 export interface IValg {
   valgNavn: string;
-  valgVariabler: IDokumentVariabler;
-  muligeValg: IValg[] | undefined;
+  valgVariabler?: IDokumentVariabler;
+  muligeValg?: IValg[];
 }
-
-export type ISubmal =
-  | {
-      skalMedBetingelseNavn: undefined;
-      skalMed: true;
-      submalVariabler: IDokumentVariabler | undefined;
-    }
-  | {
-      skalMedBetingelseNavn: string;
-      skalMed: boolean;
-      submalVariabler: IDokumentVariabler | undefined;
-    };
+export interface ISubmalMetaData {
+  betingelse?: string;
+  dokumentVariabler: IDokumentVariabler;
+}

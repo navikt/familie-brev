@@ -8,6 +8,7 @@ import {
   IValgfeltMark,
 } from "./sanityElementer";
 import { client, Datasett } from "./sanityClient";
+import formaterTilCamelCase from "./formaterTilCamelCase";
 
 export enum Maalform {
   BM = "bokmaal",
@@ -24,7 +25,7 @@ export interface IValgfeltGrensesnitt {
   navn: string;
   valgmuigheter: {
     valgnavn: string;
-    grensesnitt: IGrensesnitt;
+    grensesnitt: IGrensesnitt | undefined;
   }[];
 }
 
@@ -71,8 +72,8 @@ async function hentSubmalGrensesnitt(
     grensesnitt: undefinedDersomTomtGrensesnitt(
       await hentGrensesnitt(id, maalform, datasett, false)
     ),
-    betingelse: skalMedFelt,
-    submalId: id,
+    betingelse: skalMedFelt && formaterTilCamelCase(skalMedFelt),
+    submalId: formaterTilCamelCase(id),
   };
 }
 
@@ -88,17 +89,14 @@ async function hentValgfeltGrensesnitt(
   const tittel = valgfelt.valgfelt.tittel;
   const valgmuigheter = Promise.all(
     valgfelt.valgfelt.valg.map(async (valg) => ({
-      valgnavn: valg.valgmulighet,
-      grensesnitt: await hentGrensesnitt(
-        valg.delmal.id,
-        maalform,
-        datasett,
-        false
+      valgnavn: formaterTilCamelCase(valg.valgmulighet),
+      grensesnitt: undefinedDersomTomtGrensesnitt(
+        await hentGrensesnitt(valg.delmal.id, maalform, datasett, false)
       ),
     }))
   );
   return {
-    navn: tittel,
+    navn: formaterTilCamelCase(tittel),
     valgmuigheter: await valgmuigheter,
   };
 }
@@ -141,18 +139,20 @@ const hentGrensesnitt = async (
                     `Flettefelt i ${dokumentId} er tomt for ${maalform} versjon`
                   );
                 }
-                grensesnitt.flettefelter.push(flettefelt.felt.felt);
+                grensesnitt.flettefelter.push(
+                  formaterTilCamelCase(flettefelt.felt.felt)
+                );
                 break;
 
               case "submal":
-                const submal = mark as ISubmalMark;
-                const skalMedFelt = await hentSubmalGrensesnitt(
-                  submal,
+                const submalMark = mark as ISubmalMark;
+                const submalGrensesnitt = await hentSubmalGrensesnitt(
+                  submalMark,
                   maalform,
                   dokumentId,
                   datasett
                 );
-                grensesnitt.submalFelter.push(skalMedFelt);
+                grensesnitt.submalFelter.push(submalGrensesnitt);
                 break;
 
               case "valgfelt":
@@ -175,7 +175,7 @@ const hentGrensesnitt = async (
         case "dokumentliste":
           const dokumentliste = sanityElement as IDokumentliste;
           grensesnitt.lister.push({
-            id: dokumentliste.id,
+            id: formaterTilCamelCase(dokumentliste.id),
             grensesnitt: await hentGrensesnitt(
               dokumentliste.id,
               maalform,
