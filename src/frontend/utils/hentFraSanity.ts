@@ -1,7 +1,7 @@
-import { client, Datasett } from "../../server/sanity/sanityClient";
+import { client, Datasett } from '../../server/sanity/sanityClient';
 
 async function hentFraSanity(query: string, datasett: Datasett) {
-  const key = datasett + ";" + query;
+  const key = datasett + ';' + query;
   const cachedHits = sessionStorage.getItem(key);
   if (cachedHits) {
     return JSON.parse(cachedHits);

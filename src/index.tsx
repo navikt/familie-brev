@@ -1,8 +1,8 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "./frontend/index.css";
-import App from "./frontend/App";
-import * as serviceWorker from "./frontend/serviceWorker";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './frontend/index.css';
+import App from './frontend/App';
+import * as serviceWorker from './frontend/serviceWorker';
 
 // clear session storage used to cache Sanity requests
 sessionStorage.clear();
@@ -11,7 +11,7 @@ ReactDOM.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById('root'),
 );
 
 // If you want your app to work offline and load faster, you can change

@@ -1,10 +1,7 @@
-import { CheckboksPanel } from "nav-frontend-skjema";
-import MenyVariabler from "../MenyVariabler";
-import React from "react";
-import {
-  IDokumentVariabler,
-  ISubmalMetaData,
-} from "../../../../server/sanity/DokumentVariabler";
+import { CheckboksPanel } from 'nav-frontend-skjema';
+import MenyVariabler from '../MenyVariabler';
+import React from 'react';
+import { IDokumentVariabler, ISubmalMetaData } from '../../../../server/sanity/DokumentVariabler';
 
 interface SubmalFeltProps {
   submal: IDokumentVariabler | boolean | undefined;
@@ -22,7 +19,7 @@ function SubmalFelt(props: SubmalFeltProps) {
 
   const toggleSubmal = () => {
     let nySubmal;
-    if (typeof submal === "boolean") {
+    if (typeof submal === 'boolean') {
       nySubmal = !submal;
     } else {
       submal ? (nySubmal = undefined) : (nySubmal = metaData.dokumentVariabler);
@@ -32,39 +29,24 @@ function SubmalFelt(props: SubmalFeltProps) {
   };
 
   const endreSubmalVariabler = (subfeltVariabler: IDokumentVariabler) => {
-    let nyMetaData = metaData;
+    const nyMetaData = metaData;
     nyMetaData.dokumentVariabler = subfeltVariabler;
 
     endreSubmalIDokumentVariabler(navn, subfeltVariabler, nyMetaData);
   };
 
-  if (typeof submal !== "boolean") {
+  if (typeof submal !== 'boolean') {
     return (
       <>
         {metaData.betingelse && (
-          <CheckboksPanel
-            onChange={toggleSubmal}
-            checked={!!submal}
-            label={metaData.betingelse}
-          />
+          <CheckboksPanel onChange={toggleSubmal} checked={!!submal} label={metaData.betingelse} />
         )}
-        {submal && (
-          <MenyVariabler
-            settVariabler={endreSubmalVariabler}
-            variabler={submal}
-          />
-        )}
+        {submal && <MenyVariabler settVariabler={endreSubmalVariabler} variabler={submal} />}
       </>
     );
   }
 
-  return (
-    <CheckboksPanel
-      onChange={toggleSubmal}
-      checked={submal}
-      label={metaData.betingelse}
-    />
-  );
+  return <CheckboksPanel onChange={toggleSubmal} checked={submal} label={metaData.betingelse} />;
 }
 
 export default SubmalFelt;

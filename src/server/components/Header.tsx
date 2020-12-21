@@ -1,5 +1,5 @@
-import React from "react";
-import { NavIkon } from "../ikoner/navIkon";
+import React from 'react';
+import { NavIkon } from '../ikoner/navIkon';
 
 interface HeaderProps {
   tittel: string;
@@ -12,12 +12,12 @@ function Header(props: HeaderProps) {
   const { tittel, navn, fodselsnr, visLogo } = props;
 
   return (
-    <div className={"header"}>
+    <div className={'header'}>
       <div className="ikon-og-dato">
         {visLogo && <NavIkon />}
         <p>6. oktober 2020</p>
       </div>
-      <div className={"tittel-og-personinfo"}>
+      <div className={'tittel-og-personinfo'}>
         <h2 className="tittel">{tittel.toUpperCase()}</h2>
         <div className="kolonner">
           <div className="personinfo">

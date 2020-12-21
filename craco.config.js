@@ -1,7 +1,7 @@
 module.exports = {
-    plugins: [
-      {
-        plugin: require('craco-less'),
-      },
-    ],
-  };
+  plugins: [
+    {
+      plugin: require('craco-less'),
+    },
+  ],
+};

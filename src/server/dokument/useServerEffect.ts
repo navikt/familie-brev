@@ -1,5 +1,5 @@
-import { useState, useContext } from "react";
-import Context from "./Context";
+import { useState, useContext } from 'react';
+import Context from './Context';
 
 const useServerEffect = (initial: any, key: any, effect: any) => {
   const context: any = useContext(Context);
@@ -8,7 +8,7 @@ const useServerEffect = (initial: any, key: any, effect: any) => {
     context.requests.push(
       effect().then((data: any) => {
         return (context[key] = data);
-      })
+      }),
     );
   }
   return [data];
