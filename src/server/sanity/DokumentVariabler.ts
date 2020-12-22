@@ -7,17 +7,11 @@ export interface IDokumentVariabler {
     [feltNavn: string]: IValg;
   };
   lister: { [dokumentNavn: string]: IDokumentVariabler[] };
-  submalerMetaData?: {
-    [submalId: string]: ISubmalMetaData;
-  };
+  submalerBetingelser?: { [submalId: string]: string | undefined };
 }
 
 export interface IValg {
   valgNavn: string;
   valgVariabler?: IDokumentVariabler;
   muligeValg?: IValg[];
-}
-export interface ISubmalMetaData {
-  betingelse?: string;
-  dokumentVariabler: IDokumentVariabler;
 }

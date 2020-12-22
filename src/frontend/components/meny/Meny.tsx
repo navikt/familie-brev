@@ -40,8 +40,6 @@ const StyledHovedknapp = styled(Hovedknapp)`
   margin-bottom: 2rem;
 `;
 
-const { NODE_ENV } = process.env;
-
 interface MenyProps {
   aktivtDokument: string;
   dokumenter: string[];
@@ -50,7 +48,7 @@ interface MenyProps {
   maalform: Maalform;
   opptaderDokumentId: (nyDokumentId: string) => void;
   oppdaterMaalform: (nyMaalform: Maalform) => void;
-  oppdaterDatasett: Function;
+  oppdaterDatasett: React.Dispatch<React.SetStateAction<Datasett>>;
   datasett: Datasett;
 }
 
@@ -76,12 +74,12 @@ function Meny(props: MenyProps) {
           value={datasett}
           label="Datasett"
           onChange={e => {
-            oppdaterDatasett(e.target.value);
+            oppdaterDatasett(e.target.value as Datasett);
           }}
         >
           <option value={Datasett.BA}>{Datasett.BA}</option>
           <option value={Datasett.EF}>{Datasett.EF}</option>
-          {NODE_ENV !== 'production' && <option value={Datasett.TEST}>{Datasett.TEST}</option>}
+          <option value={Datasett.TEST}>{Datasett.TEST}</option>
         </Select>
         <div className="meny-element brevtype">
           <Select

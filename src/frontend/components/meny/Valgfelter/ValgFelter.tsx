@@ -4,7 +4,7 @@ import { IDokumentVariabler, IValg } from '../../../../server/sanity/DokumentVar
 
 interface SubmalFelterProps {
   variabler: IDokumentVariabler;
-  settVariabler: Function;
+  settVariabler: (dokumentvariabler: IDokumentVariabler) => void;
 }
 
 function ValgFelter(props: SubmalFelterProps) {

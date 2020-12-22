@@ -48,27 +48,25 @@ function Dokument(dokumentProps: DokumentProps) {
       false,
     );
 
-    const BlockContentWithoutListItemSerialazer = () => (
-      <BlockContent
-        blocks={{ ...props.node, level: undefined, listItem: undefined }}
-        serializers={{
-          marks: {
-            flettefelt: flettefeltSerializer,
-            submal: submalSerializer,
-            valgfelt: valgfeltSerializer,
-          },
-          types: {
-            dokumentliste: dokumentlisteSerializer,
-            block: (props: any) => <li className={`block`}>{props.children}</li>,
-          },
-        }}
-      />
-    );
-
     if (erKunText) {
       return <li>{props.children}</li>;
     } else if (markDefSkalMed) {
-      return BlockContentWithoutListItemSerialazer();
+      return (
+        <BlockContent
+          blocks={{ ...props.node, level: undefined, listItem: undefined }}
+          serializers={{
+            marks: {
+              flettefelt: flettefeltSerializer,
+              submal: submalSerializer,
+              valgfelt: valgfeltSerializer,
+            },
+            types: {
+              dokumentliste: dokumentlisteSerializer,
+              block: (props: any) => <li className={`block`}>{props.children}</li>,
+            },
+          }}
+        />
+      );
     } else {
       return '';
     }
@@ -129,7 +127,7 @@ function Dokument(dokumentProps: DokumentProps) {
 
   const valgfeltSerializer = (props: any) => {
     const valgfelt = props.mark.valgfelt;
-    const valgFeltNavn = valgfelt.tittel;
+    const valgFeltNavn = valgfelt.id;
     const riktigValg = dokumentVariabler.valgfelter[formaterTilCamelCase(valgFeltNavn)].valgNavn;
     const muligeValg = valgfelt.valg;
     const riktigDokument = muligeValg.find((valg: any) => valg.valgmulighet === riktigValg);

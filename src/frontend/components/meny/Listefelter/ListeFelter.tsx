@@ -4,7 +4,7 @@ import { IDokumentVariabler } from '../../../../server/sanity/DokumentVariabler'
 
 interface ListeFelterProps {
   variabler: IDokumentVariabler;
-  settVariabler: Function;
+  settVariabler: (dokumentvariabler: IDokumentVariabler) => void;
 }
 
 function ListeFelter(props: ListeFelterProps) {
