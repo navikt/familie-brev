@@ -5,7 +5,10 @@ import SubmalFelter from './submalFelter/SubmalFelter';
 import ValgFelter from './Valgfelter/ValgFelter';
 import { IDokumentVariabler } from '../../../server/sanity/DokumentVariabler';
 
-export default function (props: { variabler: IDokumentVariabler; settVariabler: Function }) {
+export default function (props: {
+  variabler: IDokumentVariabler;
+  settVariabler: (dokumentvariabler: IDokumentVariabler) => void;
+}) {
   const { variabler, settVariabler } = props;
 
   return (

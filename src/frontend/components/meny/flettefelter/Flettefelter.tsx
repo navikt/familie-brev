@@ -3,8 +3,12 @@ import { Input } from 'nav-frontend-skjema';
 import styled from 'styled-components';
 import { Element } from 'nav-frontend-typografi';
 import { IDokumentVariabler } from '../../../../server/sanity/DokumentVariabler';
+import { camelCaseTilVanligTekst } from '../../../utils/camelCaseTilVanligTekst';
 
-function Flettefelter(props: { variabler: IDokumentVariabler; settVariabler: Function }) {
+function Flettefelter(props: {
+  variabler: IDokumentVariabler;
+  settVariabler: (dokumentvariabler: IDokumentVariabler) => void;
+}) {
   const { variabler, settVariabler } = props;
   const { flettefelter } = variabler;
 
@@ -26,7 +30,7 @@ function Flettefelter(props: { variabler: IDokumentVariabler; settVariabler: Fun
     <div>
       {Object.keys(flettefelter).map(flettefelt => (
         <StyledFlettefelt key={flettefelt}>
-          <Element className="label">{flettefelt}</Element>
+          <Element className="label">{camelCaseTilVanligTekst(flettefelt)}</Element>
           <Input
             type="text"
             value={flettefelter[flettefelt]}

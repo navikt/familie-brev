@@ -4,11 +4,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { Element } from 'nav-frontend-typografi';
 import { IDokumentVariabler, IValg } from '../../../../server/sanity/DokumentVariabler';
+import { camelCaseTilVanligTekst } from '../../../utils/camelCaseTilVanligTekst';
 
 interface ValgFeltProps {
   valgfelt: IValg;
   navn: string;
-  endreValgfeltIDokumentVariabler: Function;
+  endreValgfeltIDokumentVariabler: (valgfeltNavn: string, valgfelt: IValg) => void;
 }
 
 function ValgFelt(props: ValgFeltProps) {
@@ -44,14 +45,14 @@ function ValgFelt(props: ValgFeltProps) {
 
   return (
     <>
-      <StyledValgHeader>{navn}</StyledValgHeader>
+      <StyledValgHeader>{camelCaseTilVanligTekst(navn)}</StyledValgHeader>
       {valgfelt.muligeValg && (
         <RadioPanelGruppe
-          name={navn}
+          name={camelCaseTilVanligTekst(navn)}
           radios={valgfelt.muligeValg?.map(muligValg => ({
             checked: muligValg.valgNavn === valgfelt.valgNavn,
             onChange: _ => endreValg(muligValg),
-            label: muligValg.valgNavn,
+            label: camelCaseTilVanligTekst(muligValg.valgNavn),
             name: navn,
           }))}
           onChange={_ => undefined}

@@ -27,7 +27,7 @@ export interface IFlettefeltMark {
 
 export interface IValgfeltMark {
   valgfelt: {
-    tittel: string;
+    id: string;
     valg: [{ valgmulighet: string; delmal: IDokumentmal }];
   };
   _type: 'valgfelt';

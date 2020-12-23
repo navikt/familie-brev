@@ -85,9 +85,9 @@ router.get('/:datasett/grensesnitt', async (req, res) => {
       dokumentForesporsel,
       datasett,
     );
-  } catch (e) {
-    console.error(e);
-    return res.status(500).send(`Ugylding forespørsel ${e}`);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send(`${error}`);
   }
 
   res.send(grensesnitt);
@@ -105,10 +105,13 @@ router.post('/:datasett/:maalform/:dokumentId/html', async (req, res) => {
   if (!Object.values(Maalform).includes(maalform)) {
     return res.status(404).send(`Målformen "${maalform}" finnes ikke.`);
   }
-
-  const html = await hentDokumentHtml(dokumetVariabler, maalform, dokumentId, datasett);
-
-  res.send(html);
+  try {
+    const html = await hentDokumentHtml(dokumetVariabler, maalform, dokumentId, datasett);
+    res.send(html);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send(`${error}`);
+  }
 });
 
 export default router;

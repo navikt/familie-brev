@@ -14,7 +14,7 @@ const lagPlaceholderVariabler = (
   placeholderTillegg = '',
 ): IDokumentVariabler => {
   const dokumentvariabler: IDokumentVariabler = {
-    submalerMetaData: {},
+    submalerBetingelser: {},
     submaler: {},
     flettefelter: {},
     valgfelter: {},
@@ -27,13 +27,12 @@ const lagPlaceholderVariabler = (
 
   grensesnitt.submalFelter.forEach((submalFelt: ISubmalGrensesnitt) => {
     if (submalFelt.grensesnitt) {
-      const submalVariabler = lagPlaceholderVariabler(submalFelt.grensesnitt, placeholderTillegg);
-      dokumentvariabler.submaler[submalFelt.submalId] = submalVariabler;
-      if (dokumentvariabler.submalerMetaData) {
-        dokumentvariabler.submalerMetaData[`${submalFelt.submalId}`] = {
-          betingelse: submalFelt.betingelse,
-          dokumentVariabler: submalVariabler,
-        };
+      dokumentvariabler.submaler[submalFelt.submalId] = lagPlaceholderVariabler(
+        submalFelt.grensesnitt,
+        placeholderTillegg,
+      );
+      if (dokumentvariabler.submalerBetingelser) {
+        dokumentvariabler.submalerBetingelser[`${submalFelt.submalId}`] = submalFelt.betingelse;
       }
     } else {
       if (submalFelt.betingelse != null) {

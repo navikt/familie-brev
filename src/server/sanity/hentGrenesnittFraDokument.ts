@@ -84,7 +84,7 @@ async function hentValgfeltGrensesnitt(
   if (!valgfelt.valgfelt) {
     throw new Error(`Valgfelt i ${dokumentId} er tomt for ${maalform} versjon`);
   }
-  const tittel = valgfelt.valgfelt.tittel;
+  const id = valgfelt.valgfelt.id;
   const valgmuigheter = Promise.all(
     valgfelt.valgfelt.valg.map(async valg => ({
       valgnavn: formaterTilCamelCase(valg.valgmulighet),
@@ -94,7 +94,7 @@ async function hentValgfeltGrensesnitt(
     })),
   );
   return {
-    navn: formaterTilCamelCase(tittel),
+    navn: formaterTilCamelCase(id),
     valgmuigheter: await valgmuigheter,
   };
 }

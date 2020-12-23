@@ -1,13 +1,12 @@
-import { useState, useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import qs from 'query-string';
 
 export const useLocalStorageOrQueryParam = (key: string, initialValue: any, location?: any) => {
   const [storedValue, setStoredValue] = useState(() => {
     try {
-      const params = location && qs.parse(location.search.replace(/([/])(?==)/, ''));
+      const params: any = location && qs.parse(location.search.replace(/([/])(?==)/, ''));
 
       if (params?.brevtype) {
-        // @ts-ignore
         return params.brevtype.replace('+', ' ');
       }
 
@@ -28,7 +27,7 @@ export const useLocalStorageOrQueryParam = (key: string, initialValue: any, loca
 
         window.localStorage.setItem(key, JSON.stringify(value));
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     },
     [key],
