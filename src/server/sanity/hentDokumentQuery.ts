@@ -10,6 +10,7 @@ export default (dokumentType: string, dokumentNavn: string, maalform: string) =>
               valgfelt->{..., valg[]{..., delmal->}}}
             },
             _type == "dokumentliste" => {...}->{...,"_type": "dokumentliste"},
+            _type == "delmalBlock" => {..., submal->},
           }
         }
         `;

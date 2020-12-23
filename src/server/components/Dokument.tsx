@@ -58,6 +58,9 @@ function Dokument(dokumentProps: DokumentProps) {
           dokumentliste: (props: any) =>
             dokumentlisteSerializer(props, dokumentVariabler, maalform, datasett),
           block: (props: any) => <div className={`block`}>{props.children}</div>,
+          undefined: (_: any) => <div />,
+          delmalBlock: (props: any) =>
+            submalSerializer(props, dokumentVariabler, maalform, datasett),
         },
         listItem: (props: any) => listItemSerializer(props, dokumentVariabler, maalform, datasett),
       }}

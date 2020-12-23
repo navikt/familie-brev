@@ -12,12 +12,18 @@ export interface IDokumentliste {
   _type: 'dokumentliste';
 }
 
-export type IDokumentInnhold = [IDokumentliste | ISanityBlock];
+export type IDokumentInnhold = [IDokumentliste | ISanityBlock | IDelmalBlock];
 
 export interface ISubmalMark {
   skalMedFelt?: { felt: string };
   submal: { innhold: IDokumentInnhold; id: string };
   _type: 'submal';
+}
+
+export interface IDelmalBlock {
+  skalMedFelt?: { felt: string };
+  submal: { innhold: IDokumentInnhold; id: string };
+  _type: 'delmalBlock';
 }
 
 export interface IFlettefeltMark {

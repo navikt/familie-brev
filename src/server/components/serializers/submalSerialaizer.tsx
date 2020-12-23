@@ -11,10 +11,11 @@ const submalSerializer = (
   maalform: Maalform,
   datasett: Datasett,
 ) => {
-  const dokumentId = props.mark.submal.id;
+  const { submal, skalMedFelt } = props.mark || props.node;
+  const dokumentId = submal.id;
 
   const submalSkalMed =
-    !props.mark.skalMedFelt || !!dokumentVariabler.submaler[formaterTilCamelCase(dokumentId)];
+    !skalMedFelt || !!dokumentVariabler.submaler[formaterTilCamelCase(dokumentId)];
 
   const submalVariabler = dokumentVariabler.submaler[formaterTilCamelCase(dokumentId)];
   const variabler = typeof submalVariabler === 'object' ? submalVariabler : dokumentVariabler;

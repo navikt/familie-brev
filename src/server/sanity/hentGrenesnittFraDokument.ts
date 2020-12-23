@@ -1,5 +1,6 @@
 import hentDokumentQuery from './hentDokumentQuery';
 import {
+  IDelmalBlock,
   IDokumentInnhold,
   IDokumentliste,
   IFlettefeltMark,
@@ -56,7 +57,7 @@ function undefinedDersomTomtGrensesnitt(grensesnitt: IGrensesnitt): IGrensesnitt
 }
 
 async function hentSubmalGrensesnitt(
-  submal: ISubmalMark,
+  submal: ISubmalMark | IDelmalBlock,
   maalform: Maalform,
   dokumentId: string,
   datasett: Datasett,
@@ -170,6 +171,20 @@ const hentGrensesnitt = async (
             id: formaterTilCamelCase(dokumentliste.id),
             grensesnitt: await hentGrensesnitt(dokumentliste.id, maalform, datasett, false),
           });
+          break;
+
+        case 'delmalBlock':
+          const delmalBlock = sanityElement as IDelmalBlock;
+          const submalGrensesnitt = await hentSubmalGrensesnitt(
+            delmalBlock,
+            maalform,
+            dokumentId,
+            datasett,
+          );
+          grensesnitt.submalFelter.push(submalGrensesnitt);
+          break;
+
+        case undefined:
           break;
 
         default:
