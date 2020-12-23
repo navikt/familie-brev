@@ -7,7 +7,9 @@
     "module": "esnext",
     "strict": true,
     "target": "es2018",
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
   },
   "exclude": ["../../build", "../client"],
   "include": ["."]
