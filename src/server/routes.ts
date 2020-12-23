@@ -5,7 +5,7 @@ import hentDokumentHtml from './dokument/hentDokumentHtml';
 
 const router = express.Router();
 
-router.get('/status', (req, res) => {
+router.get('/status', (_, res) => {
   res.status(200).end();
 });
 
