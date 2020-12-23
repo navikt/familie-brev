@@ -20,9 +20,11 @@ const submalSerializer = (
   const submalVariabler = dokumentVariabler.submaler[formaterTilCamelCase(dokumentId)];
   const variabler = typeof submalVariabler === 'object' ? submalVariabler : dokumentVariabler;
 
+  const erInline = !!props.mark;
+
   if (submalSkalMed) {
     return (
-      <div className={'delmal'}>
+      <div className={`delmal ${erInline && 'inline'}`}>
         <Dokument
           dokumentId={dokumentId}
           dokumentVariabler={variabler}
