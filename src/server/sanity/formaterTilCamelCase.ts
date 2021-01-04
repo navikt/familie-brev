@@ -9,7 +9,7 @@ const formaterTilCamelCase = (id: string): string => {
 const fjernUgyldigeBokstaver = (tekst: string) => tekst.replace(/[^\w\s]/gi, '');
 
 const fjernNorskeBokstaver = (tekst: string): string =>
-  tekst.replace('ø', 'o').replace('å', 'aa').replace('æ', 'ae');
+  tekst.replace(/ø/g, 'o').replace(/å/g, 'aa').replace(/æ/g, 'ae');
 
 const lowerCaseTilCamelCase = (lowerCase: string) =>
   lowerCase
