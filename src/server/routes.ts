@@ -20,7 +20,7 @@ router.get('/:datasett/dokumenter', async (req, res) => {
     return res.status(404).send(`Datasettet "${datasett}" finnes ikke.`);
   }
 
-  res.send(await hentDokumenter);
+  res.send(await hentDokumenter(datasett));
 });
 
 const hentRelevanteGrensesnitt = async (
