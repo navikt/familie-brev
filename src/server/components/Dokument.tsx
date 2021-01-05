@@ -57,7 +57,11 @@ function Dokument(dokumentProps: DokumentProps) {
         types: {
           dokumentliste: (props: any) =>
             dokumentlisteSerializer(props, dokumentVariabler, maalform, datasett),
-          block: (props: any) => <div className={`block`}>{props.children}</div>,
+          block: (props: any) => (
+            <div style={{ minHeight: '1rem' }} className={`block`}>
+              {props.children}
+            </div>
+          ),
           undefined: (_: any) => <div />,
           delmalBlock: (props: any) =>
             submalSerializer(props, dokumentVariabler, maalform, datasett),
