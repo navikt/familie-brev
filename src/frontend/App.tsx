@@ -152,6 +152,10 @@ const StyledDokumentKonteiner = styled.div`
   flex-grow: 0;
 
   list-style-type: none;
+
+  p {
+    margin: 1rem;
+  }
 `;
 
 const StyledSpinnerKonteiner = styled(NavFrontendSpinner)`
