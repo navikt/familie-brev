@@ -9,7 +9,7 @@ interface SubmalFelterProps {
 
 function SubmalFelter(props: SubmalFelterProps) {
   const { variabler, settVariabler } = props;
-  const { submaler, submalerBetingelser } = variabler;
+  const { delmaler, submalerBetingelser } = variabler;
 
   const endreSubmalIDokumentVariabler = (
     submalNavn: string,
@@ -17,17 +17,17 @@ function SubmalFelter(props: SubmalFelterProps) {
   ) => {
     const nyeVariabler = {
       ...variabler,
-      submaler: { ...variabler.submaler, [submalNavn]: subfelt },
+      submaler: { ...variabler.delmaler, [submalNavn]: subfelt },
     };
     settVariabler(nyeVariabler);
   };
 
   return (
     <div className="meny-element">
-      {Object.keys(submaler).map(submalNavn => (
+      {Object.keys(delmaler).map(submalNavn => (
         <SubmalFelt
           key={submalNavn}
-          submal={submaler[submalNavn]}
+          submal={delmaler[submalNavn]}
           betingelse={submalerBetingelser ? submalerBetingelser[submalNavn] : undefined}
           navn={submalNavn}
           endreSubmalIDokumentVariabler={endreSubmalIDokumentVariabler}

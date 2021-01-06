@@ -1,41 +1,51 @@
 import formaterTilCamelCase from '../../sanity/formaterTilCamelCase';
 import React from 'react';
-import { IDokumentVariabler } from '../../sanity/DokumentVariabler';
+import { IDelmal, IDelmaler } from '../../sanity/DokumentVariabler';
 import { Maalform } from '../../sanity/hentGrenesnittFraDokument';
 import { Datasett } from '../../sanity/sanityClient';
 import Dokument from '../Dokument';
 
-const submalSerializer = (
+const delmalSerializer = (
   props: any,
-  dokumentVariabler: IDokumentVariabler,
+  delmaler: IDelmaler,
   maalform: Maalform,
   datasett: Datasett,
 ) => {
-  const { submal, skalMedFelt } = props.mark || props.node;
-  const dokumentId = submal.id;
+  const { submal } = props.mark || props.node;
+  const dokumentId = formaterTilCamelCase(submal.id);
 
-  const submalSkalMed =
-    !skalMedFelt || !!dokumentVariabler.submaler[formaterTilCamelCase(dokumentId)];
+  const delmal: IDelmal | undefined = delmaler[dokumentId];
+  // Hvis ikke konsument har sendt inn delmalen rendrer vi heller ikke denne delen
+  if (!delmal) {
+    return '';
+  }
 
-  const submalVariabler = dokumentVariabler.submaler[formaterTilCamelCase(dokumentId)];
-  const variabler = typeof submalVariabler === 'object' ? submalVariabler : dokumentVariabler;
+  const { dokumentVariabler } = delmaler[dokumentId];
 
   const erInline = !!props.mark;
 
-  if (submalSkalMed) {
-    return (
-      <div className={`delmal ${erInline && 'inline'}`}>
+  return (
+    <div className={`delmal ${erInline && 'inline'}`}>
+      {dokumentVariabler.length > 0 ? (
+        dokumentVariabler.map(variabler => (
+          <Dokument
+            dokumentId={dokumentId}
+            dokumentVariabler={variabler}
+            maalform={maalform}
+            datasett={datasett}
+          />
+        ))
+      ) : (
         <Dokument
           dokumentId={dokumentId}
-          dokumentVariabler={variabler}
+          dokumentVariabler={undefined}
           maalform={maalform}
           datasett={datasett}
         />
-      </div>
-    );
-  } else {
-    return '';
-  }
+      )}
+      )
+    </div>
+  );
 };
 
-export default submalSerializer;
+export default delmalSerializer;

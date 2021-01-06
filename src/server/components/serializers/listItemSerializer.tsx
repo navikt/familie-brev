@@ -3,10 +3,9 @@ import React from 'react';
 import { IDokumentVariabler } from '../../sanity/DokumentVariabler';
 import { Maalform } from '../../sanity/hentGrenesnittFraDokument';
 import { Datasett } from '../../sanity/sanityClient';
-import dokumentlisteSerializer from './dokumentlisteSerializer';
 import valgfeltSerializer from './valgfeltSerializer';
 import flettefeltSerializer from './flettefeltSerializer';
-import submalSerializer from './submalSerialaizer';
+import delmalSerializer from './submalSerialaizer';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const BlockContent = require('@sanity/block-content-to-react');
 
@@ -18,7 +17,7 @@ const listItemSerializer = (
 ) => {
   const erSubmal = (markDef: any) => markDef._type === 'submal';
   const submalSkalMed = (mark: any): boolean =>
-    !mark.skalMedFelt || !!dokumentVariabler.submaler[formaterTilCamelCase(mark.submal?.id)];
+    !mark.skalMedFelt || !!dokumentVariabler.delmaler[formaterTilCamelCase(mark.submal?.id)];
 
   const erKunText = props.node.markDefs.length === 0;
 
@@ -30,24 +29,36 @@ const listItemSerializer = (
   if (erKunText) {
     return <li>{props.children}</li>;
   } else if (markDefSkalMed) {
-    return (
-      <BlockContent
-        blocks={{ ...props.node, level: undefined, listItem: undefined }}
-        serializers={{
-          marks: {
-            flettefelt: (props: any) => flettefeltSerializer(props, dokumentVariabler),
-            submal: (props: any) => submalSerializer(props, dokumentVariabler, maalform, datasett),
-            valgfelt: (props: any) =>
-              valgfeltSerializer(props, dokumentVariabler, maalform, datasett),
-          },
-          types: {
-            dokumentliste: (props: any) =>
-              dokumentlisteSerializer(props, dokumentVariabler, maalform, datasett),
-            block: (props: any) => <li className={`block`}>{props.children}</li>,
-          },
-        }}
-      />
-    );
+    if (!dokumentVariabler) {
+      return (
+        <BlockContent
+          blocks={{ ...props.node, level: undefined, listItem: undefined }}
+          serializers={{
+            types: {
+              block: (props: any) => <li className={`block`}>{props.children}</li>,
+            },
+          }}
+        />
+      );
+    } else {
+      return (
+        <BlockContent
+          blocks={{ ...props.node, level: undefined, listItem: undefined }}
+          serializers={{
+            marks: {
+              flettefelt: (props: any) => flettefeltSerializer(props, dokumentVariabler),
+              submal: (props: any) =>
+                delmalSerializer(props, dokumentVariabler.delmaler, maalform, datasett),
+              valgfelt: (props: any) =>
+                valgfeltSerializer(props, dokumentVariabler.valgfelter, maalform, datasett),
+            },
+            types: {
+              block: (props: any) => <li className={`block`}>{props.children}</li>,
+            },
+          }}
+        />
+      );
+    }
   } else {
     return '';
   }
