@@ -18,12 +18,14 @@ export enum Maalform {
 
 export interface ISubmalGrensesnitt {
   betingelse: string | undefined;
+  erGjentagende: boolean;
   submalId: string;
   grensesnitt: IGrensesnitt | undefined;
 }
 
 export interface IValgfeltGrensesnitt {
   navn: string;
+  erGjentagende: boolean;
   valgmuigheter: {
     valgnavn: string;
     grensesnitt: IGrensesnitt | undefined;
@@ -55,22 +57,23 @@ function undefinedDersomTomtGrensesnitt(grensesnitt: IGrensesnitt): IGrensesnitt
 }
 
 async function hentSubmalGrensesnitt(
-  submal: IDelmalMark | IDelmalBlock,
+  delmal: IDelmalMark | IDelmalBlock,
   maalform: Maalform,
   dokumentId: string,
   datasett: Datasett,
 ): Promise<ISubmalGrensesnitt> {
-  if (!submal.submal) {
+  if (!delmal.submal) {
     throw new Error(`Submal i ${dokumentId} er tomt for ${maalform} versjon`);
   }
-  const skalMedFelt = submal.skalMedFelt?.felt;
-  const id = submal.submal.id;
+  const skalMedFelt = delmal.skalMedFelt?.felt;
+  const id = delmal.submal.id;
   return {
     grensesnitt: undefinedDersomTomtGrensesnitt(
       await hentGrensesnitt(id, maalform, datasett, false),
     ),
     betingelse: skalMedFelt && formaterTilCamelCase(skalMedFelt),
     submalId: formaterTilCamelCase(id),
+    erGjentagende: !!delmal.erGjentagende,
   };
 }
 
@@ -95,6 +98,7 @@ async function hentValgfeltGrensesnitt(
   return {
     navn: formaterTilCamelCase(id),
     valgmuigheter: await valgmuigheter,
+    erGjentagende: !!valgfelt.erGjentagende,
   };
 }
 
