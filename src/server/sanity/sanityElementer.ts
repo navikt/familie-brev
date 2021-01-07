@@ -10,12 +10,14 @@ export type IDokumentInnhold = [ISanityBlock | IDelmalBlock | IValfeltBlock];
 export interface IDelmalMark {
   skalMedFelt?: { felt: string };
   submal: { innhold: IDokumentInnhold; id: string };
+  erGjentagende: undefined;
   _type: 'submal';
 }
 
 export interface IDelmalBlock {
   skalMedFelt?: { felt: string };
   submal: { innhold: IDokumentInnhold; id: string };
+  erGjentagende: boolean;
   _type: 'delmalBlock';
 }
 
@@ -24,6 +26,7 @@ export interface IValfeltBlock {
     id: string;
     valg: [{ valgmulighet: string; delmal: IDokumentmal }];
   };
+  erGjentagende: boolean;
   _type: 'valgfeltBlock';
 }
 
@@ -37,6 +40,7 @@ export interface IValgfeltMark {
     id: string;
     valg: [{ valgmulighet: string; delmal: IDokumentmal }];
   };
+  erGjentagende: undefined;
   _type: 'valgfelt';
 }
 
