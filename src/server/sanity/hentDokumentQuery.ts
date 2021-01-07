@@ -9,8 +9,8 @@ export default (dokumentType: string, dokumentNavn: string, maalform: string) =>
               submal->, 
               valgfelt->{..., valg[]{..., delmal->}}}
             },
-            _type == "dokumentliste" => {...}->{...,"_type": "dokumentliste"},
             _type == "delmalBlock" => {..., submal->},
+            _type == "valgfeltBlock" => {..., valgfelt->{..., valg[]{..., delmal->}}},
           }
         }
         `;
