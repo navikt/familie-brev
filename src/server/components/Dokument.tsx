@@ -6,7 +6,7 @@ import { client, Datasett } from '../sanity/sanityClient';
 import useServerEffect from '../dokument/useServerEffect';
 import valgfeltSerializer from './serializers/valgfeltSerializer';
 import flettefeltSerializer from './serializers/flettefeltSerializer';
-import delmalSerializer from './serializers/submalSerialaizer';
+import delmalSerializer from './serializers/delmalSerialaizer';
 import listItemSerializer from './serializers/listItemSerializer';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires

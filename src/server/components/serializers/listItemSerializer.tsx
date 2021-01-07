@@ -5,7 +5,7 @@ import { Maalform } from '../../sanity/hentGrenesnittFraDokument';
 import { Datasett } from '../../sanity/sanityClient';
 import valgfeltSerializer from './valgfeltSerializer';
 import flettefeltSerializer from './flettefeltSerializer';
-import delmalSerializer from './submalSerialaizer';
+import delmalSerializer from './delmalSerialaizer';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const BlockContent = require('@sanity/block-content-to-react');
 
