@@ -124,7 +124,6 @@ const hentGrensesnitt = async (
           break;
 
         case 'delmalBlock':
-          console.log('dokumentId', dokumentId);
           const delmalBlock = sanityElement as IDelmalBlock;
           const submalGrensesnitt = await hentSubmalGrensesnitt(
             delmalBlock,
