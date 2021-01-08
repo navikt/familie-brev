@@ -5,25 +5,29 @@ export interface IDokumentmal {
   _type: 'dokumentmal';
 }
 
-export interface IDokumentliste {
-  id: string;
-  nynorsk: IDokumentInnhold;
-  bokmaal: IDokumentInnhold;
-  _type: 'dokumentliste';
-}
+export type IDokumentInnhold = [ISanityBlock | IDelmalBlock | IValfeltBlock];
 
-export type IDokumentInnhold = [IDokumentliste | ISanityBlock | IDelmalBlock];
-
-export interface ISubmalMark {
+export interface IDelmalMark {
   skalMedFelt?: { felt: string };
   submal: { innhold: IDokumentInnhold; id: string };
+  erGjentagende: undefined;
   _type: 'submal';
 }
 
 export interface IDelmalBlock {
   skalMedFelt?: { felt: string };
   submal: { innhold: IDokumentInnhold; id: string };
+  erGjentagende: boolean;
   _type: 'delmalBlock';
+}
+
+export interface IValfeltBlock {
+  valgfelt: {
+    id: string;
+    valg: [{ valgmulighet: string; delmal: IDokumentmal }];
+  };
+  erGjentagende: boolean;
+  _type: 'valgfeltBlock';
 }
 
 export interface IFlettefeltMark {
@@ -36,11 +40,12 @@ export interface IValgfeltMark {
     id: string;
     valg: [{ valgmulighet: string; delmal: IDokumentmal }];
   };
+  erGjentagende: undefined;
   _type: 'valgfelt';
 }
 
 export interface ISanityBlock {
   children: any;
-  markDefs: [ISubmalMark | IFlettefeltMark | IValgfeltMark];
+  markDefs: [IDelmalMark | IFlettefeltMark | IValgfeltMark];
   _type: 'block';
 }

@@ -1,18 +1,19 @@
 import React from 'react';
 import ValgFelt from './ValgFelt';
-import { IDokumentVariabler, IValg } from '../../../../server/sanity/DokumentVariabler';
+import { IDokumentVariablerMedMetadata } from '../../../../typer/dokumentFrontend';
+import { IValgfelt } from '../../../../typer/dokumentApi';
 
-interface SubmalFelterProps {
-  variabler: IDokumentVariabler;
-  settVariabler: (dokumentvariabler: IDokumentVariabler) => void;
+interface ValgFelterProps {
+  variabler: IDokumentVariablerMedMetadata;
+  settVariabler: (dokumentvariabler: IDokumentVariablerMedMetadata) => void;
 }
 
-function ValgFelter(props: SubmalFelterProps) {
+function ValgFelter(props: ValgFelterProps) {
   const { variabler, settVariabler } = props;
-  const { valgfelter } = variabler;
+  const { valgfelter, valgfeltMetadata } = variabler;
 
-  const endreValgfeltIDokumentVariabler = (valgfeltNavn: string, valgfelt: IValg) => {
-    const nyeVariabler = {
+  const endreValgfeltIDokumentVariabler = (valgfeltNavn: string, valgfelt: IValgfelt) => {
+    const nyeVariabler: IDokumentVariablerMedMetadata = {
       ...variabler,
       valgfelter: { ...variabler.valgfelter, [valgfeltNavn]: valgfelt },
     };
@@ -27,6 +28,7 @@ function ValgFelter(props: SubmalFelterProps) {
           valgfelt={valgfelter[valgfelt]}
           navn={valgfelt}
           endreValgfeltIDokumentVariabler={endreValgfeltIDokumentVariabler}
+          valgfeltgrensesnitt={valgfeltMetadata[valgfelt]}
         />
       ))}
     </div>

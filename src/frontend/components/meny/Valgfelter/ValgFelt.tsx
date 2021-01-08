@@ -3,42 +3,51 @@ import MenyVariabler from '../MenyVariabler';
 import React from 'react';
 import styled from 'styled-components';
 import { Element } from 'nav-frontend-typografi';
-import { IDokumentVariabler, IValg } from '../../../../server/sanity/DokumentVariabler';
+import { IValgfelt } from '../../../../typer/dokumentApi';
 import { camelCaseTilVanligTekst } from '../../../utils/camelCaseTilVanligTekst';
+import {
+  ISanityValgfeltGrensesnitt,
+  ISanityValgmulighet,
+} from '../../../../typer/sanitygrensesnitt';
+import lagPlaceholderVariabler from '../../../utils/lagPlaceholderVariabler';
+import { IDokumentVariablerMedMetadata } from '../../../../typer/dokumentFrontend';
 
 interface ValgFeltProps {
-  valgfelt: IValg;
+  valgfelt: IValgfelt;
+  valgfeltgrensesnitt: ISanityValgfeltGrensesnitt;
   navn: string;
-  endreValgfeltIDokumentVariabler: (valgfeltNavn: string, valgfelt: IValg) => void;
+  endreValgfeltIDokumentVariabler: (valgfeltNavn: string, valgfelt: IValgfelt) => void;
 }
 
 function ValgFelt(props: ValgFeltProps) {
-  const { navn, valgfelt, endreValgfeltIDokumentVariabler } = props;
+  const { navn, valgfelt, endreValgfeltIDokumentVariabler, valgfeltgrensesnitt } = props;
 
-  const endreValg = (valg: IValg) => {
-    const nyttValgFelt: IValg = {
-      muligeValg: valgfelt.muligeValg,
-      valgNavn: valg.valgNavn,
-      valgVariabler: valg.valgVariabler,
+  const endreValgFeltVariabler = (valgfeltVariabler: IDokumentVariablerMedMetadata) => {
+    const nyttValgFelt: IValgfelt = {
+      valg: [{ navn: valgfelt.valg[0].navn, dokumentVariabler: valgfeltVariabler }],
+      erGjentagende: false,
     };
+
     endreValgfeltIDokumentVariabler(navn, nyttValgFelt);
   };
 
-  const endreValgFeltVariabler = (valgfeltVariabler: IDokumentVariabler) => {
-    const nyeMuligeValg = valgfelt.muligeValg?.map(muligValg =>
-      muligValg.valgNavn === valgfelt.valgNavn
-        ? {
-            muligeValg: undefined,
-            valgNavn: muligValg.valgNavn,
-            valgVariabler: valgfeltVariabler,
-          }
-        : muligValg,
+  const endreValg = (valgnavn: string) => {
+    const sanityValgmulighet:
+      | ISanityValgmulighet
+      | undefined = valgfeltgrensesnitt.valgmuligheter.find(
+      valgmulighet => valgmulighet.valgnavn === valgnavn,
+    );
+    if (!sanityValgmulighet) {
+      throw new Error('fant ikke valgmulighet');
+    }
+
+    const nyeVariabler: IDokumentVariablerMedMetadata = lagPlaceholderVariabler(
+      sanityValgmulighet.grensesnitt,
     );
 
-    const nyttValgFelt = {
-      ...valgfelt,
-      valgVariabler: valgfeltVariabler,
-      muligeValg: nyeMuligeValg,
+    const nyttValgFelt: IValgfelt = {
+      valg: [{ navn: valgnavn, dokumentVariabler: nyeVariabler }],
+      erGjentagende: false,
     };
     endreValgfeltIDokumentVariabler(navn, nyttValgFelt);
   };
@@ -46,21 +55,22 @@ function ValgFelt(props: ValgFeltProps) {
   return (
     <>
       <StyledValgHeader>{camelCaseTilVanligTekst(navn)}</StyledValgHeader>
-      {valgfelt.muligeValg && (
+      {
         <RadioPanelGruppe
           name={camelCaseTilVanligTekst(navn)}
-          radios={valgfelt.muligeValg?.map(muligValg => ({
-            checked: muligValg.valgNavn === valgfelt.valgNavn,
-            onChange: _ => endreValg(muligValg),
-            label: camelCaseTilVanligTekst(muligValg.valgNavn),
+          radios={valgfeltgrensesnitt.valgmuligheter.map(({ valgnavn }) => ({
+            checked: valgnavn === valgfelt.valg[0].navn,
+            onChange: _ => endreValg(valgnavn),
+            label: camelCaseTilVanligTekst(valgnavn),
             name: navn,
           }))}
           onChange={_ => undefined}
         />
-      )}
-      {valgfelt.valgVariabler && (
-        <MenyVariabler settVariabler={endreValgFeltVariabler} variabler={valgfelt.valgVariabler} />
-      )}
+      }
+      <MenyVariabler
+        settVariabler={endreValgFeltVariabler}
+        variabler={valgfelt.valg[0].dokumentVariabler as IDokumentVariablerMedMetadata}
+      />
     </>
   );
 }
