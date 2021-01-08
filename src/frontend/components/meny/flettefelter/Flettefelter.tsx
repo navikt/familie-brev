@@ -2,12 +2,12 @@ import React, { ChangeEvent } from 'react';
 import { Input } from 'nav-frontend-skjema';
 import styled from 'styled-components';
 import { Element } from 'nav-frontend-typografi';
-import { IDokumentVariabler } from '../../../../server/sanity/DokumentVariabler';
 import { camelCaseTilVanligTekst } from '../../../utils/camelCaseTilVanligTekst';
+import { IDokumentVariablerMedMetadata } from '../../../../typer/dokumentFrontend';
 
 function Flettefelter(props: {
-  variabler: IDokumentVariabler;
-  settVariabler: (dokumentvariabler: IDokumentVariabler) => void;
+  variabler: IDokumentVariablerMedMetadata;
+  settVariabler: (dokumentvariabler: IDokumentVariablerMedMetadata) => void;
 }) {
   const { variabler, settVariabler } = props;
   const { flettefelter } = variabler;
@@ -15,7 +15,7 @@ function Flettefelter(props: {
   function endreFlettefeltIDokumentVariabler(
     flettefelt: string,
     verdi: string,
-  ): IDokumentVariabler {
+  ): IDokumentVariablerMedMetadata {
     return {
       ...variabler,
       flettefelter: { ...variabler.flettefelter, [flettefelt]: verdi },

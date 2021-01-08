@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { IDokumentVariabler } from '../sanity/DokumentVariabler';
-import { Maalform } from '../sanity/hentGrenesnittFraDokument';
+import { IDokumentVariabler } from '../../typer/dokumentApi';
 import Dokument from '../components/Dokument';
 import { Datasett } from '../sanity/sanityClient';
 import { renderToStaticMarkup } from 'react-dom/server';
@@ -8,6 +7,7 @@ import Context from './Context';
 import css from './css';
 import Header from '../components/Header';
 import { client } from '../sanity/sanityClient';
+import { Maalform } from '../../typer/sanitygrensesnitt';
 
 enum HtmlLang {
   NB = 'nb',

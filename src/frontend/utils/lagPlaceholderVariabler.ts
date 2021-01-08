@@ -1,71 +1,79 @@
+import { IDokumentVariabler, IValg } from '../../typer/dokumentApi';
 import {
-  IDokument,
-  IGrensesnitt,
-  ISubmalGrensesnitt,
-  IValgfeltGrensesnitt,
-} from '../../server/sanity/hentGrenesnittFraDokument';
-import { IDokumentVariabler } from '../../server/sanity/DokumentVariabler';
+  ISanityDelmalGrensesnitt,
+  ISanityGrensesnitt,
+  ISanityValgfeltGrensesnitt,
+  ISanityValgmulighet,
+} from '../../typer/sanitygrensesnitt';
+import { IDokumentVariablerMedMetadata } from '../../typer/dokumentFrontend';
 
 const lagPlaceholder = (variabel: string, tillegg: string): string =>
   `${variabel}-eksempel${tillegg}`;
 
 const lagPlaceholderVariabler = (
-  grensesnitt: IGrensesnitt,
+  grensesnitt: ISanityGrensesnitt,
   placeholderTillegg = '',
-): IDokumentVariabler => {
-  const dokumentvariabler: IDokumentVariabler = {
-    submalerBetingelser: {},
+): IDokumentVariablerMedMetadata => {
+  const dokumentVariabler: IDokumentVariablerMedMetadata = {
     delmaler: {},
     flettefelter: {},
     valgfelter: {},
-    lister: {},
+    valgfeltMetadata: {},
+    delmalMetadata: {},
   };
 
   grensesnitt.flettefelter.forEach((flettefelt: string) => {
-    dokumentvariabler.flettefelter[flettefelt] = lagPlaceholder(flettefelt, placeholderTillegg);
+    dokumentVariabler.flettefelter[flettefelt] = lagPlaceholder(flettefelt, placeholderTillegg);
   });
 
-  grensesnitt.submalFelter.forEach((submalFelt: ISubmalGrensesnitt) => {
-    if (submalFelt.grensesnitt) {
-      dokumentvariabler.delmaler[submalFelt.submalId] = lagPlaceholderVariabler(
-        submalFelt.grensesnitt,
-        placeholderTillegg,
-      );
-      if (dokumentvariabler.submalerBetingelser) {
-        dokumentvariabler.submalerBetingelser[`${submalFelt.submalId}`] = submalFelt.betingelse;
-      }
+  grensesnitt.delmaler.forEach((delmal: ISanityDelmalGrensesnitt) => {
+    let delmalDokumentVariabler: IDokumentVariabler[] = [];
+
+    if (delmal.erGjentagende) {
+      delmalDokumentVariabler = [
+        lagPlaceholderVariabler(delmal.grensesnitt, placeholderTillegg + '-1'),
+        lagPlaceholderVariabler(delmal.grensesnitt, placeholderTillegg + '-2'),
+      ];
     } else {
-      if (submalFelt.betingelse != null) {
-        dokumentvariabler.delmaler[submalFelt.submalId] = true;
-      }
+      delmalDokumentVariabler = [lagPlaceholderVariabler(delmal.grensesnitt, placeholderTillegg)];
     }
-  });
 
-  grensesnitt.valgfelter.forEach((valgFelt: IValgfeltGrensesnitt) => {
-    const { valgmuigheter, navn } = valgFelt;
-    dokumentvariabler.valgfelter[navn] = {
-      valgNavn: valgmuigheter[0].valgnavn,
-      valgVariabler:
-        valgmuigheter[0].grensesnitt &&
-        lagPlaceholderVariabler(valgmuigheter[0].grensesnitt, placeholderTillegg),
-      muligeValg: valgmuigheter.map(valgMulighet => ({
-        valgNavn: valgMulighet.valgnavn,
-        valgVariabler:
-          valgMulighet.grensesnitt &&
-          lagPlaceholderVariabler(valgMulighet.grensesnitt, placeholderTillegg),
-        muligeValg: undefined,
-      })),
+    dokumentVariabler.delmaler[delmal.id] = {
+      erGjentagende: delmal.erGjentagende,
+      dokumentVariabler: delmalDokumentVariabler,
     };
+
+    dokumentVariabler.delmalMetadata[delmal.id] = delmal;
   });
 
-  grensesnitt.lister.forEach((dokument: IDokument) => {
-    dokumentvariabler.lister[dokument.id] = [
-      lagPlaceholderVariabler(dokument.grensesnitt, `${placeholderTillegg}-1`),
-      lagPlaceholderVariabler(dokument.grensesnitt, `${placeholderTillegg}-2`),
-    ];
+  const lagValg = (valgmulighetIndex: number, valgmuligheter: ISanityValgmulighet[]) => ({
+    navn: valgmuligheter[valgmulighetIndex].valgnavn,
+    dokumentVariabler: lagPlaceholderVariabler(
+      valgmuligheter[valgmulighetIndex].grensesnitt,
+      placeholderTillegg,
+    ),
   });
 
-  return dokumentvariabler;
+  grensesnitt.valgfelter.forEach((valgFelt: ISanityValgfeltGrensesnitt) => {
+    const { valgmuligheter, navn, erGjentagende } = valgFelt;
+
+    let valg: IValg[] = [];
+
+    if (erGjentagende) {
+      valg = [lagValg(0, valgmuligheter), lagValg(1, valgmuligheter)];
+    } else {
+      valg = [lagValg(0, valgmuligheter)];
+    }
+
+    dokumentVariabler.valgfelter[navn] = {
+      valg: valg,
+      erGjentagende: erGjentagende,
+    };
+
+    dokumentVariabler.valgfeltMetadata[navn] = valgFelt;
+  });
+
+  return dokumentVariabler;
 };
 
 export default lagPlaceholderVariabler;

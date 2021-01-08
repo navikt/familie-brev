@@ -1,23 +1,21 @@
 import React from 'react';
 import SubmalFelt from './SubmalFelt';
-import { IDokumentVariabler } from '../../../../server/sanity/DokumentVariabler';
+import { IDokumentVariablerMedMetadata } from '../../../../typer/dokumentFrontend';
+import { IDelmal } from '../../../../typer/dokumentApi';
 
 interface SubmalFelterProps {
-  variabler: IDokumentVariabler;
-  settVariabler: (dokumentvariabler: IDokumentVariabler) => void;
+  variabler: IDokumentVariablerMedMetadata;
+  settVariabler: (dokumentvariabler: IDokumentVariablerMedMetadata) => void;
 }
 
 function SubmalFelter(props: SubmalFelterProps) {
   const { variabler, settVariabler } = props;
-  const { delmaler, submalerBetingelser } = variabler;
+  const { delmaler } = variabler;
 
-  const endreSubmalIDokumentVariabler = (
-    submalNavn: string,
-    subfelt: IDokumentVariabler | boolean | undefined,
-  ) => {
-    const nyeVariabler = {
+  const endreSubmalIDokumentVariabler = (delmalnavn: string, delmal: IDelmal) => {
+    const nyeVariabler: IDokumentVariablerMedMetadata = {
       ...variabler,
-      submaler: { ...variabler.delmaler, [submalNavn]: subfelt },
+      delmaler: { ...variabler.delmaler, [delmalnavn]: delmal },
     };
     settVariabler(nyeVariabler);
   };
@@ -27,10 +25,10 @@ function SubmalFelter(props: SubmalFelterProps) {
       {Object.keys(delmaler).map(submalNavn => (
         <SubmalFelt
           key={submalNavn}
-          submal={delmaler[submalNavn]}
-          betingelse={submalerBetingelser ? submalerBetingelser[submalNavn] : undefined}
+          delmal={delmaler[submalNavn]}
           navn={submalNavn}
           endreSubmalIDokumentVariabler={endreSubmalIDokumentVariabler}
+          delmalGrensesnitt={variabler.delmalMetadata[submalNavn]}
         />
       ))}
     </div>

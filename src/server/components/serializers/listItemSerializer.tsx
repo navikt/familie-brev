@@ -1,11 +1,11 @@
 import formaterTilCamelCase from '../../sanity/formaterTilCamelCase';
 import React from 'react';
-import { IDokumentVariabler } from '../../sanity/DokumentVariabler';
-import { Maalform } from '../../sanity/hentGrenesnittFraDokument';
+import { IDokumentVariabler } from '../../../typer/dokumentApi';
 import { Datasett } from '../../sanity/sanityClient';
 import valgfeltSerializer from './valgfeltSerializer';
 import flettefeltSerializer from './flettefeltSerializer';
 import delmalSerializer from './delmalSerialaizer';
+import { Maalform } from '../../../typer/sanitygrensesnitt';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const BlockContent = require('@sanity/block-content-to-react');
 

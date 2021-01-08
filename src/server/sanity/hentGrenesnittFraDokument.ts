@@ -1,78 +1,37 @@
 import hentDokumentQuery from './hentDokumentQuery';
+import formaterTilCamelCase from './formaterTilCamelCase';
+import {
+  ISanityDelmalGrensesnitt,
+  ISanityGrensesnitt,
+  ISanityValgfeltGrensesnitt,
+  Maalform,
+} from '../../typer/sanitygrensesnitt';
 import {
   IDelmalBlock,
+  IDelmalMark,
   IDokumentInnhold,
   IFlettefeltMark,
   ISanityBlock,
-  IDelmalMark,
-  IValgfeltMark,
   IValfeltBlock,
-} from './sanityElementer';
+  IValgfeltMark,
+} from '../../typer/sanity';
 import { client, Datasett } from './sanityClient';
-import formaterTilCamelCase from './formaterTilCamelCase';
-
-export enum Maalform {
-  NB = 'bokmaal',
-  NN = 'nynorsk',
-}
-
-export interface ISubmalGrensesnitt {
-  betingelse: string | undefined;
-  erGjentagende: boolean;
-  submalId: string;
-  grensesnitt: IGrensesnitt | undefined;
-}
-
-export interface IValgfeltGrensesnitt {
-  navn: string;
-  erGjentagende: boolean;
-  valgmuigheter: {
-    valgnavn: string;
-    grensesnitt: IGrensesnitt | undefined;
-  }[];
-}
-
-export interface IDokument {
-  id: string;
-  grensesnitt: IGrensesnitt;
-}
-
-export interface IGrensesnitt {
-  flettefelter: string[];
-  submalFelter: ISubmalGrensesnitt[];
-  valgfelter: IValgfeltGrensesnitt[];
-}
-
-export interface IGrensesnittMedMaalform {
-  grensesnitt: IGrensesnitt;
-  maalform: Maalform;
-}
-
-function undefinedDersomTomtGrensesnitt(grensesnitt: IGrensesnitt): IGrensesnitt | undefined {
-  return grensesnitt.valgfelter.length === 0 &&
-    grensesnitt.flettefelter.length === 0 &&
-    grensesnitt.submalFelter.length === 0
-    ? undefined
-    : grensesnitt;
-}
 
 async function hentSubmalGrensesnitt(
   delmal: IDelmalMark | IDelmalBlock,
   maalform: Maalform,
   dokumentId: string,
   datasett: Datasett,
-): Promise<ISubmalGrensesnitt> {
+): Promise<ISanityDelmalGrensesnitt> {
   if (!delmal.submal) {
     throw new Error(`Submal i ${dokumentId} er tomt for ${maalform} versjon`);
   }
   const skalMedFelt = delmal.skalMedFelt?.felt;
   const id = delmal.submal.id;
   return {
-    grensesnitt: undefinedDersomTomtGrensesnitt(
-      await hentGrensesnitt(id, maalform, datasett, false),
-    ),
+    grensesnitt: await hentGrensesnitt(id, maalform, datasett, false),
     betingelse: skalMedFelt && formaterTilCamelCase(skalMedFelt),
-    submalId: formaterTilCamelCase(id),
+    id: formaterTilCamelCase(id),
     erGjentagende: !!delmal.erGjentagende,
   };
 }
@@ -82,7 +41,7 @@ async function hentValgfeltGrensesnitt(
   maalform: Maalform,
   dokumentId: string,
   datasett: Datasett,
-): Promise<IValgfeltGrensesnitt> {
+): Promise<ISanityValgfeltGrensesnitt> {
   if (!valgfelt.valgfelt) {
     throw new Error(`Valgfelt i ${dokumentId} er tomt for ${maalform} versjon`);
   }
@@ -90,14 +49,12 @@ async function hentValgfeltGrensesnitt(
   const valgmuigheter = Promise.all(
     valgfelt.valgfelt.valg.map(async valg => ({
       valgnavn: formaterTilCamelCase(valg.valgmulighet),
-      grensesnitt: undefinedDersomTomtGrensesnitt(
-        await hentGrensesnitt(valg.delmal.id, maalform, datasett, false),
-      ),
+      grensesnitt: await hentGrensesnitt(valg.delmal.id, maalform, datasett, false),
     })),
   );
   return {
     navn: formaterTilCamelCase(id),
-    valgmuigheter: await valgmuigheter,
+    valgmuligheter: await valgmuigheter,
     erGjentagende: !!valgfelt.erGjentagende,
   };
 }
@@ -107,10 +64,10 @@ const hentGrensesnitt = async (
   maalform: Maalform,
   datasett: Datasett,
   erHoveddokument = true,
-): Promise<IGrensesnitt> => {
-  const grensesnitt: IGrensesnitt = {
+): Promise<ISanityGrensesnitt> => {
+  const grensesnitt: ISanityGrensesnitt = {
     flettefelter: [],
-    submalFelter: [],
+    delmaler: [],
     valgfelter: [],
   };
   if (erHoveddokument) {
@@ -146,7 +103,7 @@ const hentGrensesnitt = async (
                   dokumentId,
                   datasett,
                 );
-                grensesnitt.submalFelter.push(submalGrensesnitt);
+                grensesnitt.delmaler.push(submalGrensesnitt);
                 break;
 
               case 'valgfelt':
@@ -167,6 +124,7 @@ const hentGrensesnitt = async (
           break;
 
         case 'delmalBlock':
+          console.log('dokumentId', dokumentId);
           const delmalBlock = sanityElement as IDelmalBlock;
           const submalGrensesnitt = await hentSubmalGrensesnitt(
             delmalBlock,
@@ -174,7 +132,7 @@ const hentGrensesnitt = async (
             dokumentId,
             datasett,
           );
-          grensesnitt.submalFelter.push(submalGrensesnitt);
+          grensesnitt.delmaler.push(submalGrensesnitt);
           break;
 
         case 'valgfeltBlock':

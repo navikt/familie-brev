@@ -1,13 +1,13 @@
 import React from 'react';
-import { IDokumentVariabler } from '../sanity/DokumentVariabler';
+import { IDokumentVariabler } from '../../typer/dokumentApi';
 import hentDokumentQuery from '../sanity/hentDokumentQuery';
-import { Maalform } from '../sanity/hentGrenesnittFraDokument';
 import { client, Datasett } from '../sanity/sanityClient';
 import useServerEffect from '../dokument/useServerEffect';
 import valgfeltSerializer from './serializers/valgfeltSerializer';
 import flettefeltSerializer from './serializers/flettefeltSerializer';
 import delmalSerializer from './serializers/delmalSerialaizer';
 import listItemSerializer from './serializers/listItemSerializer';
+import { Maalform } from '../../typer/sanitygrensesnitt';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const BlockContent = require('@sanity/block-content-to-react');
@@ -80,6 +80,8 @@ function Dokument(dokumentProps: DokumentProps) {
             undefined: (_: any) => <div />,
             delmalBlock: (props: any) =>
               delmalSerializer(props, dokumentVariabler.delmaler, maalform, datasett),
+            valgfeltBlock: (props: any) =>
+              valgfeltSerializer(props, dokumentVariabler.valgfelter, maalform, datasett),
           },
           listItem: (props: any) =>
             listItemSerializer(props, dokumentVariabler, maalform, datasett),

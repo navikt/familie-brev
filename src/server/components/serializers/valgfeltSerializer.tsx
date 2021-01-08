@@ -1,9 +1,9 @@
 import formaterTilCamelCase from '../../sanity/formaterTilCamelCase';
 import React from 'react';
-import { IValgfelt, IValgfelter } from '../../sanity/DokumentVariabler';
-import { Maalform } from '../../sanity/hentGrenesnittFraDokument';
+import { IValgfelt, IValgfelter } from '../../../typer/dokumentApi';
 import { Datasett } from '../../sanity/sanityClient';
 import Dokument from '../Dokument';
+import { Maalform } from '../../../typer/sanitygrensesnitt';
 
 const valgfeltSerializer = (
   props: any,
@@ -11,7 +11,8 @@ const valgfeltSerializer = (
   maalform: Maalform,
   datasett: Datasett,
 ) => {
-  const { id, valg: muligeValg } = props.mark.valgfelt;
+  const { valgfelt: santyValgfelt } = props.mark || props.node;
+  const { id, valg: muligeValg } = santyValgfelt;
   const valgFeltId = formaterTilCamelCase(id);
 
   const valgfelt: IValgfelt | undefined = valgfelter[valgFeltId];
@@ -20,43 +21,35 @@ const valgfeltSerializer = (
     return '';
   }
 
-  const { valgNavn, erGjentagende, dokumentVariabler } = valgfelter[valgFeltId];
+  const { valg, erGjentagende } = valgfelter[valgFeltId];
 
-  const riktigDokument = muligeValg.find(
-    (valg: any) => formaterTilCamelCase(valg.valgmulighet) === valgNavn,
-  );
-
-  if (erGjentagende && dokumentVariabler.length === 0) {
+  if (erGjentagende && valg.length === 0) {
     throw new Error(`Gjentagende valgfelt ${valgFeltId} skal ha minst en dokumentVariabler`);
   }
 
-  const dokumentId = riktigDokument?.delmal?.id;
-  if (dokumentId) {
-    return (
-      <div className={'valgfelt inline'}>
-        {dokumentVariabler.length > 0 ? (
-          dokumentVariabler.map(variabler => (
-            <Dokument
-              dokumentId={dokumentId}
-              dokumentVariabler={variabler}
-              maalform={maalform}
-              datasett={datasett}
-            />
-          ))
-        ) : (
+  const erInline = !!props.mark;
+
+  return valg.map(({ navn, dokumentVariabler }) => {
+    const riktigDokument = muligeValg.find(
+      (valg: any) => formaterTilCamelCase(valg.valgmulighet) === navn,
+    );
+    const dokumentId = riktigDokument?.delmal?.id;
+
+    if (dokumentId) {
+      return (
+        <div className={`valgfelt ${erInline ? 'inline' : ''}`}>
           <Dokument
             dokumentId={dokumentId}
-            dokumentVariabler={undefined}
+            dokumentVariabler={dokumentVariabler}
             maalform={maalform}
             datasett={datasett}
           />
-        )}
-        )
-      </div>
-    );
-  } else {
-    throw new Error(`Gjentagende valgfelt ${valgFeltId} skal ha minst en dokumentVariabler`);
-  }
+        </div>
+      );
+    } else {
+      throw new Error(`Gjentagende valgfelt ${valgFeltId} skal ha minst en dokumentVariabler`);
+    }
+  });
 };
 
 export default valgfeltSerializer;

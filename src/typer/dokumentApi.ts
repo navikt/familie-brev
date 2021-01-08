@@ -5,7 +5,7 @@ export interface IDokumentVariabler {
 }
 
 export interface IDelmaler {
-  [submalId: string]: IDelmal;
+  [delmalId: string]: IDelmal;
 }
 
 export interface IDelmal {
@@ -18,7 +18,11 @@ export interface IValgfelter {
 }
 
 export interface IValgfelt {
-  valgNavn: string;
+  valg: IValg[];
   erGjentagende: boolean;
-  dokumentVariabler: IDokumentVariabler[];
+}
+
+export interface IValg {
+  navn: string;
+  dokumentVariabler: IDokumentVariabler;
 }
