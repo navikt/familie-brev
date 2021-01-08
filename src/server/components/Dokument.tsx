@@ -72,11 +72,19 @@ function Dokument(dokumentProps: DokumentProps) {
               valgfeltSerializer(props, dokumentVariabler.valgfelter, maalform, datasett),
           },
           types: {
-            block: (props: any) => (
-              <div style={{ minHeight: '1rem' }} className={`block`}>
-                {props.children}
-              </div>
-            ),
+            block: (props: any) => {
+              // Mellomrom på slutten av et inline html-element brekker rendringen i
+              // openhtmltopdf som blir brukt til å produsere PDFene
+              const children: any[] = props.children;
+              if (typeof children[children.length - 1] === 'string') {
+                children[children.length - 1] = children[children.length - 1].trimRight();
+              }
+              return (
+                <div style={{ minHeight: '1rem' }} className={`block`}>
+                  {children}
+                </div>
+              );
+            },
             undefined: (_: any) => <div />,
             delmalBlock: (props: any) =>
               delmalSerializer(props, dokumentVariabler.delmaler, maalform, datasett),
