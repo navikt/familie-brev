@@ -44,6 +44,16 @@ function Dokument(dokumentProps: DokumentProps) {
     return null;
   }
 
+  const settTag = (node: any) => {
+    const style = node.style;
+
+    if (RegExp('/?h[1-6]').test(style)) {
+      return style;
+    }
+
+    return 'div';
+  };
+
   return (
     <BlockContent
       blocks={dokument}
@@ -57,11 +67,15 @@ function Dokument(dokumentProps: DokumentProps) {
         types: {
           dokumentliste: (props: any) =>
             dokumentlisteSerializer(props, dokumentVariabler, maalform, datasett),
-          block: (props: any) => (
-            <div style={{ minHeight: '1rem' }} className={`block`}>
-              {props.children}
-            </div>
-          ),
+          block: (props: any) => {
+            const Tag = settTag(props.node);
+
+            return (
+              <Tag style={{ minHeight: '1rem' }} className={`block`}>
+                {props.children}
+              </Tag>
+            );
+          },
           undefined: (_: any) => <div />,
           delmalBlock: (props: any) =>
             submalSerializer(props, dokumentVariabler, maalform, datasett),
