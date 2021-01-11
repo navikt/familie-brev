@@ -43,6 +43,16 @@ function Dokument(dokumentProps: DokumentProps) {
     return null;
   }
 
+  const settTag = (node: any) => {
+    const style = node.style;
+
+    if (RegExp('/?h[1-6]').test(style)) {
+      return style;
+    }
+
+    return 'div';
+  };
+
   if (!dokumentVariabler) {
     return (
       <BlockContent
@@ -79,10 +89,13 @@ function Dokument(dokumentProps: DokumentProps) {
               if (typeof children[children.length - 1] === 'string') {
                 children[children.length - 1] = children[children.length - 1].trimRight();
               }
+
+              const Tag = settTag(props.node);
+
               return (
-                <div style={{ minHeight: '1rem' }} className={`block`}>
+                <Tag style={{ minHeight: '1rem' }} className={`block`}>
                   {children}
-                </div>
+                </Tag>
               );
             },
             undefined: (_: any) => <div />,
