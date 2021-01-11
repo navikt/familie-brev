@@ -1,7 +1,8 @@
 import express from 'express';
 import { client, Datasett } from './sanity/sanityClient';
-import hentGrensesnitt, { IGrensesnitt, Maalform } from './sanity/hentGrenesnittFraDokument';
 import hentDokumentHtml from './dokument/hentDokumentHtml';
+import { ISanityGrensesnitt, Maalform } from '../typer/sanitygrensesnitt';
+import hentGrensesnitt from './sanity/hentGrenesnittFraDokument';
 
 const router = express.Router();
 
@@ -50,7 +51,7 @@ const hentRelevanteGrensesnitt = async (
     dokumenter = await hentDokumenter(datasett);
   }
 
-  const grensesnitt: IGrensesnitt[] = [];
+  const grensesnitt: ISanityGrensesnitt[] = [];
   for (let maalformIndex = 0; maalformIndex < maalformer.length; maalformIndex++) {
     for (let dokumentIndex = 0; dokumentIndex < dokumenter.length; dokumentIndex++) {
       grensesnitt.push(
@@ -78,7 +79,7 @@ router.get('/:datasett/grensesnitt', async (req, res) => {
     return res.status(400).send(`Ugylding forespørsel. Feil format på query-parameterene.`);
   }
 
-  let grensesnitt: IGrensesnitt[] = [];
+  let grensesnitt: ISanityGrensesnitt[] = [];
   try {
     grensesnitt = await hentRelevanteGrensesnitt(
       maalformForesporsel,

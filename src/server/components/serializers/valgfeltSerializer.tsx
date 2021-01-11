@@ -1,41 +1,55 @@
 import formaterTilCamelCase from '../../sanity/formaterTilCamelCase';
 import React from 'react';
-import { IDokumentVariabler } from '../../sanity/DokumentVariabler';
-import { Maalform } from '../../sanity/hentGrenesnittFraDokument';
+import { IValgfelt, IValgfelter } from '../../../typer/dokumentApi';
 import { Datasett } from '../../sanity/sanityClient';
 import Dokument from '../Dokument';
+import { Maalform } from '../../../typer/sanitygrensesnitt';
 
 const valgfeltSerializer = (
   props: any,
-  dokumentVariabler: IDokumentVariabler,
+  valgfelter: IValgfelter,
   maalform: Maalform,
   datasett: Datasett,
 ) => {
-  const { id: valgFeltId, valg: muligeValg } = props.mark.valgfelt;
-  const riktigValg = dokumentVariabler.valgfelter[formaterTilCamelCase(valgFeltId)].valgNavn;
-  const riktigDokument = muligeValg.find(
-    (valg: any) => formaterTilCamelCase(valg.valgmulighet) === riktigValg,
-  );
-  const dokumentId = riktigDokument?.delmal?.id;
-  const valgVariabler =
-    dokumentVariabler.valgfelter[formaterTilCamelCase(valgFeltId)].valgVariabler;
-  const variabler = valgVariabler ? valgVariabler : dokumentVariabler;
+  const { valgfelt: santyValgfelt } = props.mark || props.node;
+  const { id, valg: muligeValg } = santyValgfelt;
+  const valgFeltId = formaterTilCamelCase(id);
 
-  if (dokumentId) {
-    return (
-      <div className={'valgfelt inline'}>
-        <Dokument
-          dokumentId={dokumentId}
-          dokumentVariabler={variabler}
-          maalform={maalform}
-          datasett={datasett}
-        />
-      </div>
-    );
-  } else {
-    console.warn(`Fant ikke dokument med tilhørende ${riktigValg}`);
+  const valgfelt: IValgfelt | undefined = valgfelter[valgFeltId];
+  // Hvis ikke konsument har sendt inn valgfeltet rendrer vi heller ikke denne delen
+  if (!valgfelt) {
     return '';
   }
+
+  const { valg, erGjentagende } = valgfelter[valgFeltId];
+
+  if (erGjentagende && valg.length === 0) {
+    throw new Error(`Gjentagende valgfelt ${valgFeltId} skal ha minst en dokumentVariabler`);
+  }
+
+  const erInline = !!props.mark;
+
+  return valg.map(({ navn, dokumentVariabler }) => {
+    const riktigDokument = muligeValg.find(
+      (valg: any) => formaterTilCamelCase(valg.valgmulighet) === navn,
+    );
+    const dokumentId = riktigDokument?.delmal?.id;
+
+    if (dokumentId) {
+      return (
+        <div className={`valgfelt ${erInline ? 'inline' : ''}`}>
+          <Dokument
+            dokumentId={dokumentId}
+            dokumentVariabler={dokumentVariabler}
+            maalform={maalform}
+            datasett={datasett}
+          />
+        </div>
+      );
+    } else {
+      throw new Error(`Gjentagende valgfelt ${valgFeltId} skal ha minst en dokumentVariabler`);
+    }
+  });
 };
 
 export default valgfeltSerializer;

@@ -1,5 +1,5 @@
 import formaterTilCamelCase from '../../sanity/formaterTilCamelCase';
-import { IDokumentVariabler } from '../../sanity/DokumentVariabler';
+import { IDokumentVariabler } from '../../../typer/dokumentApi';
 
 const flettefeltSerializer = (props: any, dokumentVariabler: IDokumentVariabler) => {
   const annontering = props.mark.felt.felt;

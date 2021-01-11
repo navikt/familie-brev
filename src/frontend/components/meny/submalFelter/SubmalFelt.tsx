@@ -1,55 +1,72 @@
 import { CheckboksPanel } from 'nav-frontend-skjema';
 import MenyVariabler from '../MenyVariabler';
 import React, { useState } from 'react';
-import { IDokumentVariabler } from '../../../../server/sanity/DokumentVariabler';
+import { IDelmal } from '../../../../typer/dokumentApi';
 import { camelCaseTilVanligTekst } from '../../../utils/camelCaseTilVanligTekst';
+import { ISanityDelmalGrensesnitt } from '../../../../typer/sanitygrensesnitt';
+import { IDokumentVariablerMedMetadata } from '../../../../typer/dokumentFrontend';
+import lagPlaceholderVariabler from '../../../utils/lagPlaceholderVariabler';
 
-interface SubmalFeltProps {
-  submal: IDokumentVariabler | boolean | undefined;
+interface DelmalFeltProps {
+  delmal: IDelmal;
   navn: string;
-  endreSubmalIDokumentVariabler: (
-    submalNavn: string,
-    subfelt: IDokumentVariabler | boolean | undefined,
-  ) => void;
-  betingelse?: string | undefined;
+  endreSubmalIDokumentVariabler: (delmalnavn: string, delmal: IDelmal) => void;
+  delmalGrensesnitt: ISanityDelmalGrensesnitt;
 }
 
-function SubmalFelt(props: SubmalFeltProps) {
-  const { navn, submal, endreSubmalIDokumentVariabler, betingelse } = props;
-  const [tempDokumentVariabler, settTempDokumentVariabler] = useState(submal);
+function SubmalFelt(props: DelmalFeltProps) {
+  const [skalVises, settSkalVises] = useState<boolean>(true);
 
-  const toggleSubmal = () => {
-    let nySubmal;
-    if (typeof submal === 'boolean') {
-      nySubmal = !submal;
+  const { navn, delmal, endreSubmalIDokumentVariabler, delmalGrensesnitt } = props;
+
+  const endreSkalVises = () => {
+    settSkalVises(!skalVises);
+
+    if (skalVises) {
+      const nyeVariabler: IDokumentVariablerMedMetadata = lagPlaceholderVariabler(
+        delmalGrensesnitt.grensesnitt,
+      );
+      endreSubmalVariabler(nyeVariabler, 0);
     } else {
-      submal ? (nySubmal = undefined) : (nySubmal = tempDokumentVariabler);
+      endreSubmalIDokumentVariabler(navn, {
+        erGjentagende: delmal.erGjentagende,
+        dokumentVariabler: [],
+      });
     }
-
-    endreSubmalIDokumentVariabler(navn, nySubmal);
   };
 
-  const endreSubmalVariabler = (subfeltVariabler: IDokumentVariabler) => {
-    settTempDokumentVariabler(subfeltVariabler);
-    endreSubmalIDokumentVariabler(navn, subfeltVariabler);
+  const endreSubmalVariabler = (delmalvariabler: IDokumentVariablerMedMetadata, index: number) => {
+    const nyeVariabler = delmal.dokumentVariabler;
+    nyeVariabler[index] = delmalvariabler;
+
+    const nyDelmal: IDelmal = {
+      erGjentagende: delmal.erGjentagende,
+      dokumentVariabler: nyeVariabler,
+    };
+    endreSubmalIDokumentVariabler(navn, nyDelmal);
   };
 
-  if (typeof submal !== 'boolean') {
-    return (
-      <>
-        {betingelse && (
-          <CheckboksPanel
-            onChange={toggleSubmal}
-            checked={!!submal}
-            label={camelCaseTilVanligTekst(betingelse)}
-          />
-        )}
-        {submal && <MenyVariabler settVariabler={endreSubmalVariabler} variabler={submal} />}
-      </>
-    );
-  }
-
-  return <CheckboksPanel onChange={toggleSubmal} checked={submal} label={betingelse} />;
+  return (
+    <>
+      {delmal.dokumentVariabler.map((dokumentvariabel, index) => (
+        <>
+          {delmalGrensesnitt.betingelse && (
+            <CheckboksPanel
+              onChange={endreSkalVises}
+              checked={skalVises}
+              label={camelCaseTilVanligTekst(delmalGrensesnitt.betingelse)}
+            />
+          )}
+          {skalVises && (
+            <MenyVariabler
+              settVariabler={dokumentvariabler => endreSubmalVariabler(dokumentvariabler, index)}
+              variabler={dokumentvariabel as IDokumentVariablerMedMetadata}
+            />
+          )}
+        </>
+      ))}
+    </>
+  );
 }
 
 export default SubmalFelt;

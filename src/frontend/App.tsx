@@ -2,17 +2,17 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Meny from './components/meny/Meny';
 import Pdf from './components/Pdf';
 import styled from 'styled-components';
-import lagPlaceholderVariabler from './utils/lagPlaceholderVariabler';
 import { useLocalStorageOrQueryParam } from './hooks/useLocalStorageOrQueryParam';
 import { useLocalStorage } from './hooks/useLocalStorage';
 import hentFraSanity from './utils/hentFraSanity';
 import { StorageIds } from './utils/storageIds';
-import { genererPdf, hentGrensesnitt, hentHtml } from './utils/api';
-import { IDokumentVariabler } from '../server/sanity/DokumentVariabler';
-import { Maalform } from '../server/sanity/hentGrenesnittFraDokument';
+import { genererPdf, hentGrensesnittFraBackend, hentHtml } from './utils/api';
 import { Datasett } from '../server/sanity/sanityClient';
 import NavFrontendSpinner from 'nav-frontend-spinner';
 import parse from 'html-react-parser';
+import { Maalform } from '../typer/sanitygrensesnitt';
+import { IDokumentVariablerMedMetadata } from '../typer/dokumentFrontend';
+import lagPlaceholderVariabler from './utils/lagPlaceholderVariabler';
 
 const { NODE_ENV } = process.env;
 
@@ -23,6 +23,7 @@ interface Dokument {
 }
 
 function App() {
+  const [datasett, settDatasett] = useLocalStorage<Datasett>('datasett', Datasett.BA);
   const [dokumenter, settDokumenter] = useState<string[]>([]);
 
   const [dokumentId, settDokumentId] = useLocalStorageOrQueryParam(
@@ -31,24 +32,21 @@ function App() {
     window.location,
   );
   const dokumentIdRef = useRef(dokumentId);
-
-  const [dokumentVariabler, settDokumentVariabler] = useState<IDokumentVariabler>();
-  const [pdf, settPdf] = useState<Uint8Array | Blob>(new Blob());
-  const [html, settHtml] = useState<string>('');
-  const [isLoading, settIsLoading] = useState(true);
-  const isFirstRender = useRef(true);
-
   const maalformStorageId = StorageIds.MAALFORM + dokumentId;
   const [maalform, settMaalform] = useLocalStorage<Maalform>(maalformStorageId, Maalform.NN);
-
-  const [datasett, settDatasett] = useLocalStorage<Datasett>('datasett', Datasett.BA);
-
   const dokument = useRef<Dokument>({ dokumentId, maalform, datasett });
+
+  const [dokumentVariabler, settDokumentVariabler] = useState<IDokumentVariablerMedMetadata>();
+
+  const isFirstRender = useRef(true);
+  const [isLoading, settIsLoading] = useState(true);
+  const [html, settHtml] = useState<string>('');
+  const [pdf, settPdf] = useState<Uint8Array | Blob>(new Blob());
 
   const opptaderDokument = useCallback(
     async (nyDokumentId: string = dokumentId, nyMaalform: Maalform = maalform) => {
       settIsLoading(true);
-      const grensesnitt = await hentGrensesnitt(
+      const grensesnitt = await hentGrensesnittFraBackend(
         dokument.current.datasett,
         nyMaalform,
         nyDokumentId,

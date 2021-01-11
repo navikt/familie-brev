@@ -12,5 +12,5 @@
     "noUnusedParameters": true
   },
   "exclude": ["../../build", "../client"],
-  "include": ["."]
+  "include": [".", "../typer"]
 }

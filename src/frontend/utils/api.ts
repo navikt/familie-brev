@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
-import { IDokumentVariabler } from '../../server/sanity/DokumentVariabler';
-import { IGrensesnitt, Maalform } from '../../server/sanity/hentGrenesnittFraDokument';
+import { IDokumentVariabler } from '../../typer/dokumentApi';
 import { Datasett } from '../../server/sanity/sanityClient';
+import { ISanityGrensesnitt, Maalform } from '../../typer/sanitygrensesnitt';
 
 export const hentHtml = async (
   datasett: Datasett,
@@ -13,11 +13,11 @@ export const hentHtml = async (
   return (await axios.post<string>(url, dokumentVariabler)).data;
 };
 
-export const hentGrensesnitt = async (
+export const hentGrensesnittFraBackend = async (
   datasett: Datasett,
   maalform?: Maalform,
   dokumentId?: string,
-): Promise<IGrensesnitt[]> => {
+): Promise<ISanityGrensesnitt[]> => {
   const url = `${process.env.REACT_APP_BACKEND}/api/${datasett}/grensesnitt?maalform=${maalform}&dokumentId=${dokumentId}`;
   return (await axios.get(url)).data;
 };

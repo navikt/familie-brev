@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { RadioPanelGruppe, Select } from 'nav-frontend-skjema';
 import { Hovedknapp } from 'nav-frontend-knapper';
 import MenyVariabler from './MenyVariabler';
-import { IDokumentVariabler } from '../../../server/sanity/DokumentVariabler';
-import { Maalform } from '../../../server/sanity/hentGrenesnittFraDokument';
 import { Datasett } from '../../../server/sanity/sanityClient';
+import { IDokumentVariablerMedMetadata } from '../../../typer/dokumentFrontend';
+import { Maalform } from '../../../typer/sanitygrensesnitt';
 
 const StyledMeny = styled.div`
   width: 400px;
@@ -43,8 +43,8 @@ const StyledHovedknapp = styled(Hovedknapp)`
 interface MenyProps {
   aktivtDokument: string;
   dokumenter: string[];
-  dokumentVariabler: IDokumentVariabler | undefined;
-  settDokumentVariabler: Dispatch<SetStateAction<IDokumentVariabler | undefined>>;
+  dokumentVariabler: IDokumentVariablerMedMetadata | undefined;
+  settDokumentVariabler: Dispatch<SetStateAction<IDokumentVariablerMedMetadata | undefined>>;
   maalform: Maalform;
   opptaderDokumentId: (nyDokumentId: string) => void;
   oppdaterMaalform: (nyMaalform: Maalform) => void;
@@ -65,7 +65,9 @@ function Meny(props: MenyProps) {
     datasett,
   } = props;
 
-  const [variabler, settVariabler] = useState<IDokumentVariabler | undefined>(dokumentVariabler);
+  const [variabler, settVariabler] = useState<IDokumentVariablerMedMetadata | undefined>(
+    dokumentVariabler,
+  );
 
   return (
     <StyledMeny>
