@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { IDokumentVariabler } from '../../typer/dokumentApi';
-import Dokument from '../components/Dokument';
+import { IApiDokument } from '../../typer/dokumentApi';
+import EnkeltDokument from '../components/EnkeltDokument';
 import { Datasett } from '../sanity/sanityClient';
 import { renderToStaticMarkup } from 'react-dom/server';
 import Context from '../utils/Context';
@@ -14,8 +14,8 @@ enum HtmlLang {
   NN = 'nn',
 }
 
-const hentDokumentHtml = async (
-  dokumentVariabler: IDokumentVariabler,
+const hentEnkeltDokumentHtml = async (
+  apiDokument: IApiDokument,
   maalform: Maalform,
   dokumentId: string,
   datasett: Datasett,
@@ -47,10 +47,10 @@ const hentDokumentHtml = async (
             <Header
               visLogo={true}
               tittel={tittel}
-              navn={dokumentVariabler.flettefelter.navn}
-              fodselsnr={dokumentVariabler.flettefelter.fodselsnummer}
+              navn={apiDokument.flettefelter.navn}
+              fodselsnr={apiDokument.flettefelter.fodselsnummer}
             />
-            <Dokument
+            <EnkeltDokument
               dokumentId={dokumentId}
               dokumentVariabler={dokumentVariabler}
               maalform={maalform}
@@ -81,4 +81,4 @@ const hentDokumentHtml = async (
   return dokument.replace(/(\r\n|\n|\r)/gm, '');
 };
 
-export default hentDokumentHtml;
+export default hentEnkeltDokumentHtml;

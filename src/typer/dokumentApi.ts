@@ -1,5 +1,5 @@
 export interface IDokumentVariabler {
-  flettefelter: { [fletteFelt: string]: string };
+  flettefelter: Flettefelter;
   delmaler: IDelmaler;
   valgfelter: IValgfelter;
 }
@@ -26,3 +26,11 @@ export interface IValg {
   navn: string;
   dokumentVariabler: IDokumentVariabler;
 }
+
+// Enkelt dokument
+export interface IApiDokument {
+  delmaler: { [key: string]: Flettefelter };
+  flettefelter: Flettefelter;
+}
+
+export type Flettefelter = { [key: string]: string };

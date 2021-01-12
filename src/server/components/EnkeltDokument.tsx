@@ -1,5 +1,5 @@
 import React from 'react';
-import { IDokumentVariabler } from '../../typer/dokumentApi';
+import { IDokumentVariabler, IApiDokument } from '../../typer/dokumentApi';
 import hentDokumentQuery from '../sanity/hentDokumentQuery';
 import { client, Datasett } from '../sanity/sanityClient';
 import useServerEffect from '../utils/useServerEffect';
@@ -14,20 +14,14 @@ const BlockContent = require('@sanity/block-content-to-react');
 
 interface DokumentProps {
   dokumentId: string;
-  dokumentVariabler?: IDokumentVariabler;
+  apiDokument: IApiDokument;
   maalform: Maalform;
   erDokumentmal?: boolean;
   datasett: Datasett;
 }
 
 function Dokument(dokumentProps: DokumentProps) {
-  const {
-    dokumentId,
-    dokumentVariabler,
-    maalform,
-    erDokumentmal = false,
-    datasett,
-  } = dokumentProps;
+  const { dokumentId, apiDokument, maalform, erDokumentmal = false, datasett } = dokumentProps;
   const dokumentType = erDokumentmal ? 'dokumentmal' : 'delmal';
 
   const [dokument] = useServerEffect(undefined, dokumentId, () => {
@@ -53,7 +47,7 @@ function Dokument(dokumentProps: DokumentProps) {
     return 'div';
   };
 
-  if (!dokumentVariabler) {
+  if (!apiDokument) {
     return (
       <BlockContent
         blocks={dokument}
@@ -75,11 +69,7 @@ function Dokument(dokumentProps: DokumentProps) {
         blocks={dokument}
         serializers={{
           marks: {
-            flettefelt: (props: any) => flettefeltSerializer(props, dokumentVariabler),
-            submal: (props: any) =>
-              delmalSerializer(props, dokumentVariabler.delmaler, maalform, datasett),
-            valgfelt: (props: any) =>
-              valgfeltSerializer(props, dokumentVariabler.valgfelter, maalform, datasett),
+            flettefelt: (props: any) => flettefeltSerializer(props, apiDokument.flettefelter),
           },
           types: {
             block: (props: any) => {
@@ -100,9 +90,7 @@ function Dokument(dokumentProps: DokumentProps) {
             },
             undefined: (_: any) => <div />,
             delmalBlock: (props: any) =>
-              delmalSerializer(props, dokumentVariabler.delmaler, maalform, datasett),
-            valgfeltBlock: (props: any) =>
-              valgfeltSerializer(props, dokumentVariabler.valgfelter, maalform, datasett),
+              delmalSerializer(props, apiDokument.delmaler, maalform, datasett),
           },
           listItem: (props: any) =>
             listItemSerializer(props, dokumentVariabler, maalform, datasett),

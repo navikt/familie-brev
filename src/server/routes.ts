@@ -3,6 +3,7 @@ import { client, Datasett } from './sanity/sanityClient';
 import hentDokumentHtml from './dokument/hentDokumentHtml';
 import { ISanityGrensesnitt, Maalform } from '../typer/sanitygrensesnitt';
 import hentGrensesnitt from './sanity/hentGrenesnittFraDokument';
+import { IApiDokument } from '../typer/dokumentApi';
 
 const router = express.Router();
 
@@ -108,6 +109,30 @@ router.post('/:datasett/:maalform/:dokumentId/html', async (req, res) => {
   }
   try {
     const html = await hentDokumentHtml(dokumetVariabler, maalform, dokumentId, datasett);
+    res.send(html);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send(`${error}`);
+  }
+});
+
+router.post('/:datasett/dokument/:maalform/:dokumentId/html', async (req, res) => {
+  const datasett = req.params.datasett as Datasett;
+  const maalform = req.params.maalform as Maalform;
+  const dokumentId = req.params.dokumentId;
+
+  const dokument: IApiDokument = req.body as IApiDokument;
+  console.log(dokument);
+
+  if (!Object.values(Datasett).includes(datasett)) {
+    return res.status(404).send(`Datasettet "${datasett}" finnes ikke.`);
+  }
+  if (!Object.values(Maalform).includes(maalform)) {
+    return res.status(404).send(`Målformen "${maalform}" finnes ikke.`);
+  }
+
+  try {
+    const html = await hentEnkeltDokumentHtml(dokument, maalform, dokumentId, datasett);
     res.send(html);
   } catch (error) {
     console.error(error);
