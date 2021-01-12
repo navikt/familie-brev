@@ -3,7 +3,8 @@ import { client, Datasett } from './sanity/sanityClient';
 import hentDokumentHtml from './dokument/hentDokumentHtml';
 import { ISanityGrensesnitt, Maalform } from '../typer/sanitygrensesnitt';
 import hentGrensesnitt from './sanity/hentGrenesnittFraDokument';
-import { IApiDokument } from '../typer/dokumentApi';
+import { IEnkeltDokumentData } from '../typer/dokumentApi';
+import hentEnkeltDokumentHtml from './enkeltDokument/hentEnkeltDokumentHtml';
 
 const router = express.Router();
 
@@ -121,7 +122,7 @@ router.post('/:datasett/dokument/:maalform/:dokumentId/html', async (req, res) =
   const maalform = req.params.maalform as Maalform;
   const dokumentId = req.params.dokumentId;
 
-  const dokument: IApiDokument = req.body as IApiDokument;
+  const dokument: IEnkeltDokumentData = req.body as IEnkeltDokumentData;
   console.log(dokument);
 
   if (!Object.values(Datasett).includes(datasett)) {

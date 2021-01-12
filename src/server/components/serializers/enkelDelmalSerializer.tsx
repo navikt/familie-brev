@@ -1,51 +1,40 @@
 import formaterTilCamelCase from '../../sanity/formaterTilCamelCase';
 import React from 'react';
-import { IDelmal, IDelmaler } from '../../../typer/dokumentApi';
-import { Datasett } from '../../sanity/sanityClient';
-import Dokument from '../Dokument';
-import { Maalform } from '../../../typer/sanitygrensesnitt';
+import { Flettefelter, IEnkleDelmalData } from '../../../typer/dokumentApi';
+import flettefeltSerializer from './flettefeltSerializer';
+import blockSerializer from './blockSerializer';
 
-const delmalSerializer = (
-  props: any,
-  delmaler: IDelmaler,
-  maalform: Maalform,
-  datasett: Datasett,
-) => {
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const BlockContent = require('@sanity/block-content-to-react');
+
+const enkelDelmalSerializer = (props: any, enkleDelmalData: IEnkleDelmalData) => {
   const { submal } = props.mark || props.node;
-  const dokumentId = formaterTilCamelCase(submal.id);
+  const enkeltDelmalId = formaterTilCamelCase(submal.id);
 
-  const delmal: IDelmal | undefined = delmaler[dokumentId];
+  const flettefelter: Flettefelter | undefined = enkleDelmalData[enkeltDelmalId];
   // Hvis ikke konsument har sendt inn delmalen rendrer vi heller ikke denne delen
-  if (!delmal) {
+  if (!flettefelter) {
     return '';
   }
-
-  const { dokumentVariabler } = delmaler[dokumentId];
 
   const erInline = !!props.mark;
 
   return (
     <div className={`delmal ${erInline ? 'inline' : ''}`}>
-      {dokumentVariabler.length > 0 ? (
-        dokumentVariabler.map((variabler, index) => (
-          <Dokument
-            key={variabler + index.toString()}
-            dokumentId={submal.id}
-            dokumentVariabler={variabler}
-            maalform={maalform}
-            datasett={datasett}
-          />
-        ))
-      ) : (
-        <Dokument
-          dokumentId={submal.id}
-          dokumentVariabler={undefined}
-          maalform={maalform}
-          datasett={datasett}
-        />
-      )}
+      <BlockContent
+        blocks={props.node}
+        serializers={{
+          marks: {
+            flettefelt: (props: any) => flettefeltSerializer(props, flettefelter),
+          },
+          types: {
+            block: blockSerializer,
+            undefined: (_: any) => <div />,
+          },
+        }}
+      />
     </div>
   );
 };
 
-export default delmalSerializer;
+export default enkelDelmalSerializer;

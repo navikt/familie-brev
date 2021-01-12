@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IApiDokument } from '../../typer/dokumentApi';
+import { IEnkeltDokumentData } from '../../typer/dokumentApi';
 import EnkeltDokument from '../components/EnkeltDokument';
 import { Datasett } from '../sanity/sanityClient';
 import { renderToStaticMarkup } from 'react-dom/server';
@@ -15,13 +15,13 @@ enum HtmlLang {
 }
 
 const hentEnkeltDokumentHtml = async (
-  apiDokument: IApiDokument,
+  apiDokument: IEnkeltDokumentData,
   maalform: Maalform,
   dokumentId: string,
   datasett: Datasett,
 ): Promise<string> => {
   const tittel = (
-    await client(datasett).fetch(`*[_type == "dokumentmal" && id == "${dokumentId}" ][].id`)
+    await client(datasett).fetch(`*[_type == "enkelDokumentmal" && id == "${dokumentId}" ][].id`)
   )[0];
 
   const htmlLang = () => {
@@ -52,9 +52,8 @@ const hentEnkeltDokumentHtml = async (
             />
             <EnkeltDokument
               dokumentId={dokumentId}
-              dokumentVariabler={dokumentVariabler}
+              apiEnkeltDokument={apiDokument}
               maalform={maalform}
-              erDokumentmal={true}
               datasett={datasett}
             />
           </div>

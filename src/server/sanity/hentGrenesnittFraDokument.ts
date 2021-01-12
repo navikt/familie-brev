@@ -1,4 +1,4 @@
-import hentDokumentQuery from './hentDokumentQuery';
+import { hentDokumentQuery } from './hentDokumentQuery';
 import formaterTilCamelCase from './formaterTilCamelCase';
 import {
   ISanityDelmalGrensesnitt,

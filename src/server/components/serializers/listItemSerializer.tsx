@@ -46,7 +46,8 @@ const listItemSerializer = (
           blocks={{ ...props.node, level: undefined, listItem: undefined }}
           serializers={{
             marks: {
-              flettefelt: (props: any) => flettefeltSerializer(props, dokumentVariabler),
+              flettefelt: (props: any) =>
+                flettefeltSerializer(props, dokumentVariabler.flettefelter),
               submal: (props: any) =>
                 delmalSerializer(props, dokumentVariabler.delmaler, maalform, datasett),
               valgfelt: (props: any) =>

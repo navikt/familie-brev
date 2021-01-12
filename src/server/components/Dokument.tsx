@@ -1,6 +1,6 @@
 import React from 'react';
 import { IDokumentVariabler } from '../../typer/dokumentApi';
-import hentDokumentQuery from '../sanity/hentDokumentQuery';
+import { hentDokumentQuery } from '../sanity/hentDokumentQuery';
 import { client, Datasett } from '../sanity/sanityClient';
 import useServerEffect from '../utils/useServerEffect';
 import valgfeltSerializer from './serializers/valgfeltSerializer';
@@ -75,7 +75,7 @@ function Dokument(dokumentProps: DokumentProps) {
         blocks={dokument}
         serializers={{
           marks: {
-            flettefelt: (props: any) => flettefeltSerializer(props, dokumentVariabler),
+            flettefelt: (props: any) => flettefeltSerializer(props, dokumentVariabler.flettefelter),
             submal: (props: any) =>
               delmalSerializer(props, dokumentVariabler.delmaler, maalform, datasett),
             valgfelt: (props: any) =>

@@ -28,9 +28,13 @@ export interface IValg {
 }
 
 // Enkelt dokument
-export interface IApiDokument {
-  delmaler: { [key: string]: Flettefelter };
+export interface IEnkeltDokumentData {
+  enkleDelmalData: IEnkleDelmalData;
   flettefelter: Flettefelter;
+}
+
+export interface IEnkleDelmalData {
+  [key: string]: Flettefelter;
 }
 
 export type Flettefelter = { [key: string]: string };

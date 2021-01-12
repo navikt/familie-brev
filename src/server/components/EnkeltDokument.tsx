@@ -1,31 +1,36 @@
 import React from 'react';
-import { IDokumentVariabler, IApiDokument } from '../../typer/dokumentApi';
-import hentDokumentQuery from '../sanity/hentDokumentQuery';
+import { IEnkeltDokumentData } from '../../typer/dokumentApi';
+import { hentEnkeltDokumentQuery } from '../sanity/hentDokumentQuery';
 import { client, Datasett } from '../sanity/sanityClient';
 import useServerEffect from '../utils/useServerEffect';
-import valgfeltSerializer from './serializers/valgfeltSerializer';
 import flettefeltSerializer from './serializers/flettefeltSerializer';
-import delmalSerializer from './serializers/delmalSerialaizer';
-import listItemSerializer from './serializers/listItemSerializer';
 import { Maalform } from '../../typer/sanitygrensesnitt';
+import enkelDelmalSerializer from './serializers/enkelDelmalSerializer';
+import blockSerializer from './serializers/blockSerializer';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const BlockContent = require('@sanity/block-content-to-react');
 
-interface DokumentProps {
+interface EnkeltDokumentProps {
   dokumentId: string;
-  apiDokument: IApiDokument;
+  apiEnkeltDokument: IEnkeltDokumentData;
   maalform: Maalform;
-  erDokumentmal?: boolean;
+  erEnkeltDokumentmal?: boolean;
   datasett: Datasett;
 }
 
-function Dokument(dokumentProps: DokumentProps) {
-  const { dokumentId, apiDokument, maalform, erDokumentmal = false, datasett } = dokumentProps;
-  const dokumentType = erDokumentmal ? 'dokumentmal' : 'delmal';
+function EnkeltDokument(dokumentProps: EnkeltDokumentProps) {
+  const {
+    dokumentId,
+    apiEnkeltDokument,
+    maalform,
+    erEnkeltDokumentmal = false,
+    datasett,
+  } = dokumentProps;
+  const dokumentType = erEnkeltDokumentmal ? 'dokumentmal' : 'delmal';
 
   const [dokument] = useServerEffect(undefined, dokumentId, () => {
-    const query = hentDokumentQuery(dokumentType, dokumentId, maalform);
+    const query = hentEnkeltDokumentQuery(dokumentType, dokumentId, maalform);
     return client(datasett)
       .fetch(query)
       .then((res: any) => {
@@ -37,17 +42,7 @@ function Dokument(dokumentProps: DokumentProps) {
     return null;
   }
 
-  const settTag = (node: any) => {
-    const style = node.style;
-
-    if (RegExp('/?h[1-6]').test(style)) {
-      return style;
-    }
-
-    return 'div';
-  };
-
-  if (!apiDokument) {
+  if (!apiEnkeltDokument) {
     return (
       <BlockContent
         blocks={dokument}
@@ -69,35 +64,18 @@ function Dokument(dokumentProps: DokumentProps) {
         blocks={dokument}
         serializers={{
           marks: {
-            flettefelt: (props: any) => flettefeltSerializer(props, apiDokument.flettefelter),
+            flettefelt: (props: any) => flettefeltSerializer(props, apiEnkeltDokument.flettefelter),
           },
           types: {
-            block: (props: any) => {
-              // Mellomrom på slutten av et inline html-element brekker rendringen i
-              // openhtmltopdf som blir brukt til å produsere PDFene
-              const children: any[] = props.children;
-              if (typeof children[children.length - 1] === 'string') {
-                children[children.length - 1] = children[children.length - 1].trimRight();
-              }
-
-              const Tag = settTag(props.node);
-
-              return (
-                <Tag style={{ minHeight: '1rem' }} className={`block`}>
-                  {children}
-                </Tag>
-              );
-            },
+            block: blockSerializer,
             undefined: (_: any) => <div />,
-            delmalBlock: (props: any) =>
-              delmalSerializer(props, apiDokument.delmaler, maalform, datasett),
+            enkelDelmalBlock: (props: any) =>
+              enkelDelmalSerializer(props, apiEnkeltDokument.enkleDelmalData),
           },
-          listItem: (props: any) =>
-            listItemSerializer(props, dokumentVariabler, maalform, datasett),
         }}
       />
     );
   }
 }
 
-export default Dokument;
+export default EnkeltDokument;
