@@ -15,19 +15,12 @@ interface EnkeltDokumentProps {
   dokumentId: string;
   apiEnkeltDokument: IEnkeltDokumentData;
   maalform: Maalform;
-  erEnkeltDokumentmal?: boolean;
   datasett: Datasett;
 }
 
 function EnkeltDokument(dokumentProps: EnkeltDokumentProps) {
-  const {
-    dokumentId,
-    apiEnkeltDokument,
-    maalform,
-    erEnkeltDokumentmal = false,
-    datasett,
-  } = dokumentProps;
-  const dokumentType = erEnkeltDokumentmal ? 'dokumentmal' : 'delmal';
+  const { dokumentId, apiEnkeltDokument, maalform, datasett } = dokumentProps;
+  const dokumentType = 'enkelDokumentmal';
 
   const [dokument] = useServerEffect(undefined, dokumentId, () => {
     const query = hentEnkeltDokumentQuery(dokumentType, dokumentId, maalform);
@@ -42,35 +35,36 @@ function EnkeltDokument(dokumentProps: EnkeltDokumentProps) {
     return null;
   }
 
+  console.log('har variabler', apiEnkeltDokument);
+
   if (!apiEnkeltDokument) {
+    console.log('kommer hit');
     return (
       <BlockContent
         blocks={dokument}
         serializers={{
           types: {
-            block: (props: any) => (
-              <div style={{ minHeight: '1rem' }} className={`block`}>
-                {props.children}
-              </div>
-            ),
+            block: blockSerializer,
             undefined: (_: any) => <div />,
           },
         }}
       />
     );
   } else {
+    console.log('er her');
     return (
       <BlockContent
         blocks={dokument}
         serializers={{
           marks: {
-            flettefelt: (props: any) => flettefeltSerializer(props, apiEnkeltDokument.flettefelter),
+            flettefelt: (props: any) =>
+              flettefeltSerializer(props, apiEnkeltDokument.flettefelter, dokumentId),
           },
           types: {
             block: blockSerializer,
             undefined: (_: any) => <div />,
             enkelDelmalBlock: (props: any) =>
-              enkelDelmalSerializer(props, apiEnkeltDokument.enkleDelmalData),
+              enkelDelmalSerializer(props, apiEnkeltDokument.enkelDelmalData, maalform),
           },
         }}
       />

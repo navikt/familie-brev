@@ -75,7 +75,8 @@ function Dokument(dokumentProps: DokumentProps) {
         blocks={dokument}
         serializers={{
           marks: {
-            flettefelt: (props: any) => flettefeltSerializer(props, dokumentVariabler.flettefelter),
+            flettefelt: (props: any) =>
+              flettefeltSerializer(props, dokumentVariabler.flettefelter, dokumentId),
             submal: (props: any) =>
               delmalSerializer(props, dokumentVariabler.delmaler, maalform, datasett),
             valgfelt: (props: any) =>
@@ -105,7 +106,7 @@ function Dokument(dokumentProps: DokumentProps) {
               valgfeltSerializer(props, dokumentVariabler.valgfelter, maalform, datasett),
           },
           listItem: (props: any) =>
-            listItemSerializer(props, dokumentVariabler, maalform, datasett),
+            listItemSerializer(props, dokumentVariabler, maalform, datasett, dokumentId),
         }}
       />
     );

@@ -14,6 +14,7 @@ const listItemSerializer = (
   dokumentVariabler: IDokumentVariabler,
   maalform: Maalform,
   datasett: Datasett,
+  dokumentId: string,
 ) => {
   const erSubmal = (markDef: any) => markDef._type === 'submal';
   const submalSkalMed = (mark: any): boolean =>
@@ -47,7 +48,7 @@ const listItemSerializer = (
           serializers={{
             marks: {
               flettefelt: (props: any) =>
-                flettefeltSerializer(props, dokumentVariabler.flettefelter),
+                flettefeltSerializer(props, dokumentVariabler.flettefelter, dokumentId),
               submal: (props: any) =>
                 delmalSerializer(props, dokumentVariabler.delmaler, maalform, datasett),
               valgfelt: (props: any) =>

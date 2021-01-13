@@ -123,13 +123,22 @@ router.post('/:datasett/dokument/:maalform/:dokumentId/html', async (req, res) =
   const dokumentId = req.params.dokumentId;
 
   const dokument: IEnkeltDokumentData = req.body as IEnkeltDokumentData;
-  console.log(dokument);
 
   if (!Object.values(Datasett).includes(datasett)) {
     return res.status(404).send(`Datasettet "${datasett}" finnes ikke.`);
   }
   if (!Object.values(Maalform).includes(maalform)) {
     return res.status(404).send(`Målformen "${maalform}" finnes ikke.`);
+  }
+  if (!dokument?.flettefelter?.navn) {
+    return res
+      .status(400)
+      .send(`Flettefeltet "navn" er påkrevd for dokument med Id "${dokumentId}"`);
+  }
+  if (!dokument?.flettefelter?.fodselsnummer) {
+    return res
+      .status(400)
+      .send(`Flettefeltet "fodselsnummer" er påkrevd for dokument med Id "${dokumentId}"`);
   }
 
   try {

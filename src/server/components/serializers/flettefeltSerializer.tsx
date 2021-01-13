@@ -1,10 +1,14 @@
 import formaterTilCamelCase from '../../sanity/formaterTilCamelCase';
 import { Flettefelter } from '../../../typer/dokumentApi';
 
-const flettefeltSerializer = (props: any, flettefelter: Flettefelter) => {
+const flettefeltSerializer = (
+  props: any,
+  flettefelter: Flettefelter | undefined,
+  dokumentId: string,
+) => {
   const annontering = props.mark.felt.felt;
-  if (!flettefelter[formaterTilCamelCase(annontering)]) {
-    throw Error(`${annontering} finnes ikke blant dokumentvariablene`);
+  if (!flettefelter || !flettefelter[formaterTilCamelCase(annontering)]) {
+    throw Error(`Flettefeltet ${annontering} er påkrevd for dokument med Id "${dokumentId}"`);
   }
   return flettefelter[formaterTilCamelCase(annontering)];
 };

@@ -22,7 +22,7 @@ export const hentEnkeltDokumentQuery = (
   maalform: string,
 ) => `
 *[_type == "${dokumentType}" && id == "${dokumentId}"][0]
-        {..., ${maalform}
+        {..., ${maalform}[]
           {
             _type == "block"=> {..., markDefs[]{
               ..., 
