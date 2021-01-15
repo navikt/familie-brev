@@ -37,8 +37,6 @@ const hentEnkeltDokumentHtml = async (
     }
   };
 
-  console.log(tittel);
-
   const contextValue = { requests: [] };
   const asyncHtml = () => (
     <Context.Provider value={contextValue}>
