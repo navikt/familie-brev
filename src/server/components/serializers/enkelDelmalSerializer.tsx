@@ -1,7 +1,6 @@
-import formaterTilCamelCase from '../../sanity/formaterTilCamelCase';
 import React from 'react';
 import { Flettefelter, IEnkelDelmalData } from '../../../typer/dokumentApi';
-import flettefeltSerializer from './flettefeltSerializer';
+import flettefeltSerializer from './enkelFlettefeltSerializer';
 import blockSerializer from './blockSerializer';
 import { Maalform } from '../../../typer/sanitygrensesnitt';
 
@@ -13,25 +12,29 @@ const enkelDelmalSerializer = (
   enkelDelmalData: IEnkelDelmalData | undefined,
   maalform: Maalform,
 ) => {
-  const { submal } = props.mark || props.node;
-  const enkeltDelmalId = formaterTilCamelCase(submal.id);
+  // Om delmalen hentes fra en annotering finnes den i props.mark.
+  // Om den hentes fra en delmalBlock finnes den i props.node.
+  const { enkelDelmalReferanse } = props.mark || props.node;
+  const enkelDelmalApiNavn = enkelDelmalReferanse.apiNavn;
 
   // Hvis ikke konsument har sendt inn delmalen rendrer vi heller ikke denne delen
-  if (!enkelDelmalData && submal.skalMedFelt) {
-    return '';
+  if (!enkelDelmalData && enkelDelmalReferanse.skalMedFelt) {
+    return null;
   }
 
-  const flettefelter: Flettefelter | undefined = enkelDelmalData && enkelDelmalData[enkeltDelmalId];
+  const flettefelter: Flettefelter | undefined =
+    enkelDelmalData && enkelDelmalData[enkelDelmalApiNavn];
 
   const erInline = !!props.mark;
 
   return (
     <div className={`delmal ${erInline ? 'inline' : ''}`}>
       <BlockContent
-        blocks={submal[maalform]}
+        blocks={enkelDelmalReferanse[maalform]}
         serializers={{
           marks: {
-            flettefelt: (props: any) => flettefeltSerializer(props, flettefelter, submal.id),
+            flettefelt: (props: any) =>
+              flettefeltSerializer(props, flettefelter, enkelDelmalApiNavn),
           },
           types: {
             block: blockSerializer,

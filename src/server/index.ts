@@ -1,7 +1,9 @@
 import express from 'express';
 import path from 'path';
 import routes from './routes';
+import dotenv from 'dotenv';
 
+dotenv.config();
 const { NODE_ENV } = process.env;
 
 const buildDir = path.join(process.cwd() + '/build');

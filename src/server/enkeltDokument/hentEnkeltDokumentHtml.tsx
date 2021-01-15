@@ -17,11 +17,15 @@ enum HtmlLang {
 const hentEnkeltDokumentHtml = async (
   apiDokument: IEnkeltDokumentData,
   maalform: Maalform,
-  dokumentId: string,
+  dokumentApiNavn: string,
   datasett: Datasett,
 ): Promise<string> => {
   const tittel = (
-    await client(datasett).fetch(`*[_type == "enkelDokumentmal" && id == "${dokumentId}" ][].id`)
+    await client(datasett).fetch(
+      `*[_type == "dokument" && apiNavn == "${dokumentApiNavn}" ][].tittel${
+        maalform === Maalform.NB ? 'Bokmaal' : 'Nynorsk'
+      }`,
+    )
   )[0];
 
   const htmlLang = () => {
@@ -32,6 +36,8 @@ const hentEnkeltDokumentHtml = async (
         return HtmlLang.NN;
     }
   };
+
+  console.log(tittel);
 
   const contextValue = { requests: [] };
   const asyncHtml = () => (
@@ -51,7 +57,7 @@ const hentEnkeltDokumentHtml = async (
               fodselsnr={apiDokument.flettefelter.fodselsnummer}
             />
             <EnkeltDokument
-              dokumentId={dokumentId}
+              dokumentApiNavn={dokumentApiNavn}
               apiEnkeltDokument={apiDokument}
               maalform={maalform}
               datasett={datasett}

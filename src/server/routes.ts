@@ -5,6 +5,7 @@ import { ISanityGrensesnitt, Maalform } from '../typer/sanitygrensesnitt';
 import hentGrensesnitt from './sanity/hentGrenesnittFraDokument';
 import { IEnkeltDokumentData } from '../typer/dokumentApi';
 import hentEnkeltDokumentHtml from './enkeltDokument/hentEnkeltDokumentHtml';
+import { genererPdf } from './utils/api';
 
 const router = express.Router();
 
@@ -117,10 +118,10 @@ router.post('/:datasett/:maalform/:dokumentId/html', async (req, res) => {
   }
 });
 
-router.post('/:datasett/dokument/:maalform/:dokumentId/html', async (req, res) => {
+router.post('/:datasett/dokument/:maalform/:dokumentApiNavn/html', async (req, res) => {
   const datasett = req.params.datasett as Datasett;
   const maalform = req.params.maalform as Maalform;
-  const dokumentId = req.params.dokumentId;
+  const dokumentApiNavn = req.params.dokumentApiNavn;
 
   const dokument: IEnkeltDokumentData = req.body as IEnkeltDokumentData;
 
@@ -133,17 +134,18 @@ router.post('/:datasett/dokument/:maalform/:dokumentId/html', async (req, res) =
   if (!dokument?.flettefelter?.navn) {
     return res
       .status(400)
-      .send(`Flettefeltet "navn" er påkrevd for dokument med Id "${dokumentId}"`);
+      .send(`Flettefeltet "navn" er påkrevd for dokument med Id "${dokumentApiNavn}"`);
   }
   if (!dokument?.flettefelter?.fodselsnummer) {
     return res
       .status(400)
-      .send(`Flettefeltet "fodselsnummer" er påkrevd for dokument med Id "${dokumentId}"`);
+      .send(`Flettefeltet "fodselsnummer" er påkrevd for dokument med Id "${dokumentApiNavn}"`);
   }
 
   try {
-    const html = await hentEnkeltDokumentHtml(dokument, maalform, dokumentId, datasett);
-    res.send(html);
+    const html = await hentEnkeltDokumentHtml(dokument, maalform, dokumentApiNavn, datasett);
+    const pdf = await genererPdf(html);
+    res.send(pdf);
   } catch (error) {
     console.error(error);
     return res.status(500).send(`${error}`);

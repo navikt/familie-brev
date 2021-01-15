@@ -18,21 +18,28 @@ export const hentDokumentQuery = (dokumentType: string, dokumentNavn: string, ma
 
 export const hentEnkeltDokumentQuery = (
   dokumentType: string,
-  dokumentId: string,
+  dokumentApiNavn: string,
   maalform: string,
 ) => `
-*[_type == "${dokumentType}" && id == "${dokumentId}"][0]
-        {..., ${maalform}[]
-          {
-            _type == "block"=> {..., markDefs[]{
-              ..., 
-              felt->, 
-              skalMedFelt->, 
-              submal->{..., markDefs[]{
-              ..., 
-              felt->}}
-            }},
-            _type == "enkelDelmalBlock" => {..., submal->},
+*[_type == "${dokumentType}" && apiNavn == "${dokumentApiNavn}"][0]
+  {..., ${maalform}[]
+    { ...,
+      _type == "block"=> {..., markDefs[]{
+        ...,
+        flettefeltReferanse->
+        }
+      },
+      _type == "enkelDelmalBlock" => {..., 
+        enkelDelmalReferanse->{
+          ..., ${maalform}[]{
+            ..., _type == "block"=> {..., markDefs[]{
+                ...,
+                flettefeltReferanse->
+              }
+            }
           }
         }
-        `;
+      },
+    }
+  }
+ `;
