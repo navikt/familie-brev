@@ -18,7 +18,7 @@ const enkelDelmalSerializer = (
   const enkelDelmalApiNavn = enkelDelmalReferanse.apiNavn;
 
   // Hvis ikke konsument har sendt inn delmalen rendrer vi heller ikke denne delen
-  if (!enkelDelmalData && enkelDelmalReferanse.skalMedFelt) {
+  if (!enkelDelmalData && !enkelDelmalReferanse.skalAlltidMed) {
     return null;
   }
 
