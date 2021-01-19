@@ -1,12 +1,11 @@
 import * as React from 'react';
-import { IEnkeltDokumentData } from '../../typer/dokumentApi';
-import EnkeltDokument from '../components/EnkeltDokument';
-import { Datasett } from '../sanity/sanityClient';
+import { IDokumentVariabler } from '../../typer/dokumentApi';
+import AvansertDokument from '../components/AvansertDokument';
+import { client, Datasett } from '../sanity/sanityClient';
 import { renderToStaticMarkup } from 'react-dom/server';
 import Context from '../utils/Context';
 import css from '../utils/css';
 import Header from '../components/Header';
-import { client } from '../sanity/sanityClient';
 import { Maalform } from '../../typer/sanitygrensesnitt';
 
 enum HtmlLang {
@@ -14,18 +13,14 @@ enum HtmlLang {
   NN = 'nn',
 }
 
-const hentEnkeltDokumentHtml = async (
-  apiDokument: IEnkeltDokumentData,
+const hentAvansertDokumentHtml = async (
+  dokumentVariabler: IDokumentVariabler,
   maalform: Maalform,
-  dokumentApiNavn: string,
+  dokumentId: string,
   datasett: Datasett,
 ): Promise<string> => {
   const tittel = (
-    await client(datasett).fetch(
-      `*[_type == "dokument" && apiNavn == "${dokumentApiNavn}" ][].tittel${
-        maalform === Maalform.NB ? 'Bokmaal' : 'Nynorsk'
-      }`,
-    )
+    await client(datasett).fetch(`*[_type == "dokumentmal" && id == "${dokumentId}" ][].id`)
   )[0];
 
   const htmlLang = () => {
@@ -51,13 +46,14 @@ const hentEnkeltDokumentHtml = async (
             <Header
               visLogo={true}
               tittel={tittel}
-              navn={apiDokument.flettefelter.navn}
-              fodselsnr={apiDokument.flettefelter.fodselsnummer}
+              navn={dokumentVariabler.flettefelter.navn}
+              fodselsnr={dokumentVariabler.flettefelter.fodselsnummer}
             />
-            <EnkeltDokument
-              dokumentApiNavn={dokumentApiNavn}
-              apiEnkeltDokument={apiDokument}
+            <AvansertDokument
+              dokumentId={dokumentId}
+              dokumentVariabler={dokumentVariabler}
               maalform={maalform}
+              erDokumentmal={true}
               datasett={datasett}
             />
           </div>
@@ -84,4 +80,4 @@ const hentEnkeltDokumentHtml = async (
   return dokument.replace(/(\r\n|\n|\r)/gm, '');
 };
 
-export default hentEnkeltDokumentHtml;
+export default hentAvansertDokumentHtml;

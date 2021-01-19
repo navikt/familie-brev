@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IDokumentVariabler } from '../../typer/dokumentApi';
+import { IDokumentData } from '../../typer/dokumentApi';
 import Dokument from '../components/Dokument';
 import { Datasett } from '../sanity/sanityClient';
 import { renderToStaticMarkup } from 'react-dom/server';
@@ -15,13 +15,17 @@ enum HtmlLang {
 }
 
 const hentDokumentHtml = async (
-  dokumentVariabler: IDokumentVariabler,
+  apiDokument: IDokumentData,
   maalform: Maalform,
-  dokumentId: string,
+  dokumentApiNavn: string,
   datasett: Datasett,
 ): Promise<string> => {
   const tittel = (
-    await client(datasett).fetch(`*[_type == "dokumentmal" && id == "${dokumentId}" ][].id`)
+    await client(datasett).fetch(
+      `*[_type == "dokument" && apiNavn == "${dokumentApiNavn}" ][].tittel${
+        maalform === Maalform.NB ? 'Bokmaal' : 'Nynorsk'
+      }`,
+    )
   )[0];
 
   const htmlLang = () => {
@@ -47,14 +51,13 @@ const hentDokumentHtml = async (
             <Header
               visLogo={true}
               tittel={tittel}
-              navn={dokumentVariabler.flettefelter.navn}
-              fodselsnr={dokumentVariabler.flettefelter.fodselsnummer}
+              navn={apiDokument.flettefelter.navn}
+              fodselsnr={apiDokument.flettefelter.fodselsnummer}
             />
             <Dokument
-              dokumentId={dokumentId}
-              dokumentVariabler={dokumentVariabler}
+              dokumentApiNavn={dokumentApiNavn}
+              apiEnkeltDokument={apiDokument}
               maalform={maalform}
-              erDokumentmal={true}
               datasett={datasett}
             />
           </div>

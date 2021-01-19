@@ -29,14 +29,17 @@ export const hentEnkeltDokumentQuery = (
         flettefeltReferanse->
         }
       },
-      _type == "enkelDelmalBlock" => {..., 
-        enkelDelmalReferanse->{
+      _type == "flettefelt" => {..., flettefeltReferanse->},
+      _type == "delmal" => {..., 
+        delmalReferanse->{
           ..., ${maalform}[]{
-            ..., _type == "block"=> {..., markDefs[]{
+            ..., 
+            _type == "block"=> {..., markDefs[]{
                 ...,
                 flettefeltReferanse->
-              }
-            }
+              },
+            _type == "flettefelt" => {..., flettefeltReferanse->}
+            },
           }
         }
       },

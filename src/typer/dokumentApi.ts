@@ -28,7 +28,7 @@ export interface IValg {
 }
 
 // Enkelt dokument
-export interface IEnkeltDokumentData {
+export interface IDokumentData {
   enkelDelmalData: IEnkelDelmalData;
   flettefelter: Flettefelter;
 }
@@ -37,4 +37,4 @@ export interface IEnkelDelmalData {
   [key: string]: Flettefelter;
 }
 
-export type Flettefelter = { [key: string]: string };
+export type Flettefelter = { [key: string]: string | string[] };

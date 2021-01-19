@@ -3,13 +3,22 @@ import { NavIkon } from '../ikoner/navIkon';
 
 interface HeaderProps {
   tittel: string;
-  navn: string;
-  fodselsnr: string;
+  navn: string | string[];
+  fodselsnr: string | string[];
   visLogo?: boolean;
 }
 
 function Header(props: HeaderProps) {
   const { tittel, navn, fodselsnr, visLogo } = props;
+
+  if (Array.isArray(fodselsnr)) {
+    throw Error(
+      `Flettefeltet ${fodselsnr} i dokument med tittel "${tittel}" forventer ikke en liste`,
+    );
+  }
+  if (Array.isArray(navn)) {
+    throw Error(`Flettefeltet ${navn} i dokument med tittel "${tittel}" forventer ikke en liste`);
+  }
 
   return (
     <div className={'header'}>
