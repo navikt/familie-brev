@@ -10,12 +10,11 @@ const BlockContent = require('@sanity/block-content-to-react');
 const delmalSerializer = (props: any, delmalData: IDelmalData | undefined, maalform: Maalform) => {
   // Om delmalen hentes fra en annotering finnes den i props.mark.
   // Om den hentes fra en delmalBlock finnes den i props.node.
-  console.log(props);
-  const { delmalReferanse } = props.mark || props.node;
+  const { delmalReferanse, skalAlltidMed } = props.mark || props.node;
   const apiNavn = delmalReferanse.apiNavn;
 
   // Hvis ikke konsument har sendt inn delmalen rendrer vi heller ikke denne delen
-  if (!delmalData && !delmalReferanse.skalAlltidMed) {
+  if (!delmalData && !skalAlltidMed) {
     return null;
   }
 
