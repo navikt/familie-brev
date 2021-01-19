@@ -29,11 +29,11 @@ export interface IValg {
 
 // Enkelt dokument
 export interface IDokumentData {
-  enkelDelmalData: IEnkelDelmalData;
+  delmalData: IDelmalData;
   flettefelter: Flettefelter;
 }
 
-export interface IEnkelDelmalData {
+export interface IDelmalData {
   [key: string]: Flettefelter;
 }
 

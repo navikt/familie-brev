@@ -60,8 +60,7 @@ function Dokument(dokumentProps: EnkeltDokumentProps) {
               flettefeltSerializer(props, apiEnkeltDokument.flettefelter, dokumentApiNavn),
             block: blockSerializer,
             undefined: (_: any) => <div />,
-            delmal: (props: any) =>
-              delmalSerializer(props, apiEnkeltDokument.enkelDelmalData, maalform),
+            delmal: (props: any) => delmalSerializer(props, apiEnkeltDokument.delmalData, maalform),
           },
         }}
       />
