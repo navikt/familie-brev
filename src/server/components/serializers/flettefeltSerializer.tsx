@@ -36,7 +36,7 @@ const flettefeltSerializer = (
       </ul>
     );
   } else {
-    if (Array.isArray(flettefelt)) {
+    if (flettefelt.length > 1) {
       throw Error(
         `Flettefeltet ${flettefeltNavn} i dokument med Api-navn "${dokumentApiNavn}" forventer ikke en liste`,
       );
