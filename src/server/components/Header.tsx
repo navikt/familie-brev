@@ -3,21 +3,23 @@ import { NavIkon } from '../ikoner/navIkon';
 
 interface HeaderProps {
   tittel: string;
-  navn: string | string[];
-  fodselsnr: string | string[];
+  navn: string[];
+  fodselsnr: string[];
   visLogo?: boolean;
 }
 
 function Header(props: HeaderProps) {
   const { tittel, navn, fodselsnr, visLogo } = props;
 
-  if (Array.isArray(fodselsnr)) {
+  if (fodselsnr.length !== 1) {
     throw Error(
-      `Flettefeltet ${fodselsnr} i dokument med tittel "${tittel}" forventer ikke en liste`,
+      `Flettefeltet fodselsnr i dokument med tittel "${tittel}" forventer en liste med nøyaktig et element`,
     );
   }
-  if (Array.isArray(navn)) {
-    throw Error(`Flettefeltet ${navn} i dokument med tittel "${tittel}" forventer ikke en liste`);
+  if (navn.length !== 1) {
+    throw Error(
+      `Flettefeltet navn i dokument med tittel "${tittel}" forventer en liste med nøyaktig et element`,
+    );
   }
 
   return (

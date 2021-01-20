@@ -37,4 +37,4 @@ export interface IDelmalData {
   [key: string]: Flettefelter;
 }
 
-export type Flettefelter = { [key: string]: string | string[] };
+export type Flettefelter = { [key: string]: string[] };

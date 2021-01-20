@@ -19,13 +19,11 @@ const flettefeltSerializer = (
 
   const flettefelt = flettefelter[flettefeltNavn];
 
-  if (flettefeltReferanse.erListe) {
-    if (!Array.isArray(flettefelt)) {
-      throw Error(
-        `Flettefeltet ${flettefeltNavn} i dokument med Api-navn "${dokumentApiNavn}" forventer en liste`,
-      );
-    }
+  if (!Array.isArray(flettefelt)) {
+    throw Error(`Flettefeltet ${flettefeltNavn} er ikke en liste"`);
+  }
 
+  if (flettefeltReferanse.erListe) {
     return (
       <ul>
         {flettefelt.map((felt, index) => (
@@ -36,13 +34,13 @@ const flettefeltSerializer = (
       </ul>
     );
   } else {
-    if (flettefelt.length > 1) {
+    if (flettefelt.length !== 1) {
       throw Error(
-        `Flettefeltet ${flettefeltNavn} i dokument med Api-navn "${dokumentApiNavn}" forventer ikke en liste`,
+        `Flettefeltet ${flettefeltNavn} i dokument med Api-navn "${dokumentApiNavn}" forventer en liste med nøyaktig et element`,
       );
     }
 
-    return flettefelt;
+    return flettefelt[0];
   }
 };
 
