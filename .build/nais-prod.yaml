@@ -27,6 +27,7 @@ spec:
     enabled: false
   ingresses:
     - https://familie-brev.intern.nav.no
+    - https://familie-brev.prod-fss-pub.nais.io
   accessPolicy:
     accessPolicy:
     inbound:
