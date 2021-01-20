@@ -31,7 +31,7 @@ function Header(props: HeaderProps) {
         <div className="kolonner">
           <div className="personinfo">
             <div>Navn: {navn}</div>
-            <div>Fødselsnr: {fodselsnr}</div>
+            <div>Fødselsnummer: {fodselsnr}</div>
           </div>
         </div>
       </div>
