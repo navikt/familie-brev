@@ -16,7 +16,7 @@ export const hentDokumentQuery = (dokumentType: string, dokumentNavn: string, ma
         }
         `;
 
-export const hentEnkeltDokumentQuery = (
+export const hentDokumentQuery = (
   dokumentType: string,
   dokumentApiNavn: string,
   maalform: string,
