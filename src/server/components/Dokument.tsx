@@ -1,6 +1,6 @@
 import React from 'react';
 import { IDokumentData } from '../../typer/dokumentApi';
-import { hentEnkeltDokumentQuery } from '../sanity/hentDokumentQuery';
+import { hentDokumentQuery } from '../sanity/hentDokumentQuery';
 import { client, Datasett } from '../sanity/sanityClient';
 import useServerEffect from '../utils/useServerEffect';
 import flettefeltSerializer from './serializers/flettefeltSerializer';
@@ -22,7 +22,7 @@ function Dokument(dokumentProps: EnkeltDokumentProps) {
   const { dokumentApiNavn, apiEnkeltDokument, maalform, datasett } = dokumentProps;
 
   const [dokument] = useServerEffect(undefined, dokumentApiNavn, () => {
-    const query = hentEnkeltDokumentQuery('dokument', dokumentApiNavn, maalform);
+    const query = hentDokumentQuery('dokument', dokumentApiNavn, maalform);
     return client(datasett)
       .fetch(query)
       .then((res: any) => {

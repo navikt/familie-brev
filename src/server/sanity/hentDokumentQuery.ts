@@ -1,4 +1,8 @@
-export const hentDokumentQuery = (dokumentType: string, dokumentNavn: string, maalform: string) => `
+export const hentAvansertDokumentQuery = (
+  dokumentType: string,
+  dokumentNavn: string,
+  maalform: string,
+) => `
         *[_type == "${dokumentType}" && id == "${dokumentNavn}"][0]
         {..., ${maalform}[]
           {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { IDokumentVariabler } from '../../typer/dokumentApi';
-import { hentDokumentQuery } from '../sanity/hentDokumentQuery';
+import { hentAvansertDokumentQuery } from '../sanity/hentDokumentQuery';
 import { client, Datasett } from '../sanity/sanityClient';
 import useServerEffect from '../utils/useServerEffect';
 import valgfeltSerializer from './serializers/valgfeltSerializer';
@@ -31,7 +31,7 @@ function AvansertDokument(dokumentProps: DokumentProps) {
   const dokumentType = erDokumentmal ? 'dokumentmal' : 'delmal';
 
   const [dokument] = useServerEffect(undefined, dokumentId, () => {
-    const query = hentDokumentQuery(dokumentType, dokumentId, maalform);
+    const query = hentAvansertDokumentQuery(dokumentType, dokumentId, maalform);
     return client(datasett)
       .fetch(query)
       .then((res: any) => {
