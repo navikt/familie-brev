@@ -31,18 +31,21 @@ export const hentEnkeltDokumentQuery = (
       },
       _type == "flettefelt" => {..., flettefeltReferanse->},
       _type == "delmal" => {..., 
-        delmalReferanse->{
-          ..., ${maalform}[]{
-            ..., 
-            _type == "block"=> {..., markDefs[]{
-                ...,
-                flettefeltReferanse->
-              },
-            _type == "flettefelt" => {..., flettefeltReferanse->}
-            },
-          }
-        }
+        delmalReferanse->${hentDelmalQuery(maalform)}
       },
     }
   }
  `;
+
+const hentDelmalQuery = (maalform: string) =>
+  `{
+    ..., ${maalform}[]{
+      ..., 
+      _type == "block"=> {..., markDefs[]{
+          ...,
+          flettefeltReferanse->
+        },
+      _type == "flettefelt" => {..., flettefeltReferanse->}
+      },
+    }
+  }`;
