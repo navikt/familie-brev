@@ -4,7 +4,7 @@ import routes from './routes';
 import dotenv from 'dotenv';
 
 dotenv.config();
-const { NODE_ENV } = process.env;
+export const { NODE_ENV } = process.env;
 
 const buildDir = path.join(process.cwd() + '/build');
 const app = express();
