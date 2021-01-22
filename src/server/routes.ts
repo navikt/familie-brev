@@ -173,7 +173,7 @@ router.post('/:datasett/dokument/:maalform/:dokumentApiNavn/pdf', async (req, re
     res.setHeader('Content-Disposition', `attachment; filename=${dokumentApiNavn}.pdf`);
     res.end(pdf);
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
     if (error instanceof HttpError) {
       return res.status(error.code).send(error.message);
     }
