@@ -10,7 +10,7 @@ export const genererPdf = async (html: string): Promise<ArrayBuffer> => {
       responseType: 'arraybuffer',
       headers: {
         'Content-Type': 'text/html',
-        'Content-length': Buffer.byteLength(html),
+        'Content-Length': Buffer.byteLength(html),
         Accept: 'application/pdf',
       },
     })
