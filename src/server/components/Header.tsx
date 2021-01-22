@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavIkon } from '../ikoner/navIkon';
+import { NavIkon } from './ikoner/navIkon';
 import { Flettefelt } from '../../typer/dokumentApi';
 import { validerFlettefelt } from '../utils/valideringer';
 
