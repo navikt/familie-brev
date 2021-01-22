@@ -1,7 +1,8 @@
 import axios, { AxiosResponse } from 'axios';
+import { hentMiljøvariabler } from '../environment';
 
 export const genererPdf = async (html: string): Promise<ArrayBuffer> => {
-  const url = `${process.env.REACT_APP_FAMILIE_DOKUMENT}/api/html-til-pdf`;
+  const url = `${hentMiljøvariabler().FAMILIE_DOKUMENT_API_URL}/api/html-til-pdf`;
 
   return axios
     .post(url, html, {

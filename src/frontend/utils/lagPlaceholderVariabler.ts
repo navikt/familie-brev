@@ -7,8 +7,10 @@ import {
 } from '../../typer/sanitygrensesnitt';
 import { IDokumentVariablerMedMetadata } from '../../typer/dokumentFrontend';
 
+/* TODO: fikse flettefelst liste
 const lagPlaceholder = (variabel: string, tillegg: string): string =>
   `${variabel}-eksempel${tillegg}`;
+*/
 
 const lagPlaceholderVariabler = (
   grensesnitt: ISanityGrensesnitt,
@@ -22,9 +24,10 @@ const lagPlaceholderVariabler = (
     delmalMetadata: {},
   };
 
+  /* TODO: fikse flettefelst liste
   grensesnitt.flettefelter.forEach((flettefelt: string) => {
     dokumentVariabler.flettefelter[flettefelt] = lagPlaceholder(flettefelt, placeholderTillegg);
-  });
+  });*/
 
   grensesnitt.delmaler.forEach((delmal: ISanityDelmalGrensesnitt) => {
     let delmalDokumentVariabler: IAvansertDokumentVariabler[] = [];

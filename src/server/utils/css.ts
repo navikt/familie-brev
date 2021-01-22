@@ -5,7 +5,6 @@ export default `
       line-height: 1.4em;
       margin: 0;
       box-sizing: border-box;
-
   }
 
   .ikon-og-dato{

@@ -3,7 +3,7 @@ import { client, Datasett } from './sanity/sanityClient';
 import { ISanityGrensesnitt, Maalform } from '../typer/sanitygrensesnitt';
 import hentGrensesnitt from './sanity/hentGrenesnittFraDokument';
 import { IDokumentData } from '../typer/dokumentApi';
-import hentDokumentHtml from './enkeltDokument/hentDokumentHtml';
+import hentDokumentHtml from './hentDokumentHtml';
 import { genererPdf } from './utils/api';
 import { HttpError } from './utils/HttpError';
 
@@ -173,6 +173,7 @@ router.post('/:datasett/dokument/:maalform/:dokumentApiNavn/pdf', async (req, re
     res.setHeader('Content-Disposition', `attachment; filename=${dokumentApiNavn}.pdf`);
     res.end(pdf);
   } catch (error) {
+    console.log(error.message);
     if (error instanceof HttpError) {
       return res.status(error.code).send(error.message);
     }
