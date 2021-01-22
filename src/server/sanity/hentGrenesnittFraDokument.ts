@@ -1,4 +1,4 @@
-import { hentAvansertDokumentQuery } from './hentAvansertDokumentQuery';
+import { hentAvansertDokumentQuery } from './Queries';
 import formaterTilCamelCase from './formaterTilCamelCase';
 import {
   ISanityDelmalGrensesnitt,

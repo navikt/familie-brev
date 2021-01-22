@@ -1,6 +1,6 @@
 import React from 'react';
 import { IDokumentData } from '../../typer/dokumentApi';
-import { hentDokumentQuery } from '../sanity/hentAvansertDokumentQuery';
+import { hentDokumentQuery } from '../sanity/Queries';
 import { client, Datasett } from '../sanity/sanityClient';
 import useServerEffect from '../utils/useServerEffect';
 import flettefeltSerializer from './serializers/flettefeltSerializer';

@@ -1,6 +1,6 @@
 import React from 'react';
 import { IAvansertDokumentVariabler } from '../../typer/dokumentApi';
-import { hentAvansertDokumentQuery } from '../sanity/hentAvansertDokumentQuery';
+import { hentAvansertDokumentQuery } from '../sanity/Queries';
 import { client, Datasett } from '../sanity/sanityClient';
 import useServerEffect from '../utils/useServerEffect';
 import valgfeltSerializer from './serializers/valgfeltSerializer';
