@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IDokumentVariabler } from '../typer/dokumentApi';
+import { IAvansertDokumentVariabler } from '../typer/dokumentApi';
 import AvansertDokument from './components/AvansertDokument';
 import { client, Datasett } from './sanity/sanityClient';
 import { renderToStaticMarkup } from 'react-dom/server';
@@ -14,7 +14,7 @@ enum HtmlLang {
 }
 
 const hentAvansertDokumentHtml = async (
-  dokumentVariabler: IDokumentVariabler,
+  dokumentVariabler: IAvansertDokumentVariabler,
   maalform: Maalform,
   dokumentId: string,
   datasett: Datasett,
@@ -47,11 +47,13 @@ const hentAvansertDokumentHtml = async (
               visLogo={true}
               tittel={tittel}
               navn={dokumentVariabler.flettefelter.navn}
-              fodselsnr={dokumentVariabler.flettefelter.fodselsnummer}
+              fodselsnummer={dokumentVariabler.flettefelter.fodselsnummer}
+              apiNavn={dokumentId}
+              dato={dokumentVariabler.flettefelter.dato}
             />
             <AvansertDokument
-              dokumentId={dokumentId}
-              dokumentVariabler={dokumentVariabler}
+              apiNavn={dokumentId}
+              avansertDokumentVariabler={dokumentVariabler}
               maalform={maalform}
               erDokumentmal={true}
               datasett={datasett}

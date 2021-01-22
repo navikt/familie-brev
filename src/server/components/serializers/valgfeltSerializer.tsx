@@ -39,8 +39,8 @@ const valgfeltSerializer = (
       return (
         <div className={`valgfelt ${erInline ? 'inline' : ''}`}>
           <AvansertDokument
-            dokumentId={dokumentId}
-            dokumentVariabler={dokumentVariabler}
+            apiNavn={dokumentId}
+            avansertDokumentVariabler={dokumentVariabler}
             maalform={maalform}
             datasett={datasett}
           />

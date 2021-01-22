@@ -1,4 +1,4 @@
-import { hentDokumentQuery } from './hentDokumentQuery';
+import { hentAvansertDokumentQuery } from './Queries';
 import formaterTilCamelCase from './formaterTilCamelCase';
 import {
   ISanityDelmalGrensesnitt,
@@ -77,7 +77,7 @@ const hentGrensesnitt = async (
 
   const dokumentType = erHoveddokument ? 'dokumentmal' : 'delmal';
 
-  const query = hentDokumentQuery(dokumentType, dokumentId, maalform);
+  const query = hentAvansertDokumentQuery(dokumentType, dokumentId, maalform);
   const dokumentinnhold: IDokumentInnhold = (await client(datasett).fetch(query))[maalform];
   if (dokumentinnhold) {
     for await (const sanityElement of dokumentinnhold) {

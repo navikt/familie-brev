@@ -1,6 +1,6 @@
 import formaterTilCamelCase from '../../sanity/formaterTilCamelCase';
 import React from 'react';
-import { IDokumentVariabler } from '../../../typer/dokumentApi';
+import { IAvansertDokumentVariabler } from '../../../typer/dokumentApi';
 import { Datasett } from '../../sanity/sanityClient';
 import valgfeltSerializer from './valgfeltSerializer';
 import avansertFlettefeltSerializer from './AvansertFlettefeltSerializer';
@@ -11,7 +11,7 @@ const BlockContent = require('@sanity/block-content-to-react');
 
 const listItemSerializer = (
   props: any,
-  dokumentVariabler: IDokumentVariabler,
+  dokumentVariabler: IAvansertDokumentVariabler,
   maalform: Maalform,
   datasett: Datasett,
   dokumentId: string,

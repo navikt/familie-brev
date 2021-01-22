@@ -1,6 +1,6 @@
 import React from 'react';
-import { IDokumentVariabler } from '../../typer/dokumentApi';
-import { hentAvansertDokumentQuery } from '../sanity/hentDokumentQuery';
+import { IAvansertDokumentVariabler } from '../../typer/dokumentApi';
+import { hentAvansertDokumentQuery } from '../sanity/Queries';
 import { client, Datasett } from '../sanity/sanityClient';
 import useServerEffect from '../utils/useServerEffect';
 import valgfeltSerializer from './serializers/valgfeltSerializer';
@@ -8,30 +8,31 @@ import avansertFlettefeltSerializer from './serializers/AvansertFlettefeltSerial
 import delmalSerializer from './serializers/avansertDelmalSerialaizer';
 import listItemSerializer from './serializers/listItemSerializer';
 import { Maalform } from '../../typer/sanitygrensesnitt';
+import blockSerializer from './serializers/blockSerializer';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const BlockContent = require('@sanity/block-content-to-react');
 
-interface DokumentProps {
-  dokumentId: string;
-  dokumentVariabler?: IDokumentVariabler;
+interface AvansertDokumentProps {
+  apiNavn: string;
+  avansertDokumentVariabler?: IAvansertDokumentVariabler;
   maalform: Maalform;
   erDokumentmal?: boolean;
   datasett: Datasett;
 }
 
-function AvansertDokument(dokumentProps: DokumentProps) {
+function AvansertDokument(avansertDokumentProps: AvansertDokumentProps) {
   const {
-    dokumentId,
-    dokumentVariabler,
+    apiNavn,
+    avansertDokumentVariabler,
     maalform,
     erDokumentmal = false,
     datasett,
-  } = dokumentProps;
+  } = avansertDokumentProps;
   const dokumentType = erDokumentmal ? 'dokumentmal' : 'delmal';
 
-  const [dokument] = useServerEffect(undefined, dokumentId, () => {
-    const query = hentAvansertDokumentQuery(dokumentType, dokumentId, maalform);
+  const [avansertDokument] = useServerEffect(undefined, apiNavn, () => {
+    const query = hentAvansertDokumentQuery(dokumentType, apiNavn, maalform);
     return client(datasett)
       .fetch(query)
       .then((res: any) => {
@@ -39,31 +40,17 @@ function AvansertDokument(dokumentProps: DokumentProps) {
       });
   });
 
-  if (!dokument) {
+  if (!avansertDokument) {
     return null;
   }
 
-  const settTag = (node: any) => {
-    const style = node.style;
-
-    if (RegExp('/?h[1-6]').test(style)) {
-      return style;
-    }
-
-    return 'div';
-  };
-
-  if (!dokumentVariabler) {
+  if (!avansertDokumentVariabler) {
     return (
       <BlockContent
-        blocks={dokument}
+        blocks={avansertDokument}
         serializers={{
           types: {
-            block: (props: any) => (
-              <div style={{ minHeight: '1rem' }} className={`block`}>
-                {props.children}
-              </div>
-            ),
+            block: blockSerializer,
             undefined: (_: any) => <div />,
           },
         }}
@@ -72,41 +59,26 @@ function AvansertDokument(dokumentProps: DokumentProps) {
   } else {
     return (
       <BlockContent
-        blocks={dokument}
+        blocks={avansertDokument}
         serializers={{
           marks: {
             flettefelt: (props: any) =>
-              avansertFlettefeltSerializer(props, dokumentVariabler.flettefelter, dokumentId),
+              avansertFlettefeltSerializer(props, avansertDokumentVariabler.flettefelter, apiNavn),
             submal: (props: any) =>
-              delmalSerializer(props, dokumentVariabler.delmaler, maalform, datasett),
+              delmalSerializer(props, avansertDokumentVariabler.delmaler, maalform, datasett),
             valgfelt: (props: any) =>
-              valgfeltSerializer(props, dokumentVariabler.valgfelter, maalform, datasett),
+              valgfeltSerializer(props, avansertDokumentVariabler.valgfelter, maalform, datasett),
           },
           types: {
-            block: (props: any) => {
-              // Mellomrom på slutten av et inline html-element brekker rendringen i
-              // openhtmltopdf som blir brukt til å produsere PDFene
-              const children: any[] = props.children;
-              if (typeof children[children.length - 1] === 'string') {
-                children[children.length - 1] = children[children.length - 1].trimRight();
-              }
-
-              const Tag = settTag(props.node);
-
-              return (
-                <Tag style={{ minHeight: '1rem' }} className={`block`}>
-                  {children}
-                </Tag>
-              );
-            },
+            block: blockSerializer,
             undefined: (_: any) => <div />,
             delmalBlock: (props: any) =>
-              delmalSerializer(props, dokumentVariabler.delmaler, maalform, datasett),
+              delmalSerializer(props, avansertDokumentVariabler.delmaler, maalform, datasett),
             valgfeltBlock: (props: any) =>
-              valgfeltSerializer(props, dokumentVariabler.valgfelter, maalform, datasett),
+              valgfeltSerializer(props, avansertDokumentVariabler.valgfelter, maalform, datasett),
           },
           listItem: (props: any) =>
-            listItemSerializer(props, dokumentVariabler, maalform, datasett, dokumentId),
+            listItemSerializer(props, avansertDokumentVariabler, maalform, datasett, apiNavn),
         }}
       />
     );

@@ -1,5 +1,7 @@
 import { Flettefelter } from '../../../typer/dokumentApi';
 import React from 'react';
+import { HttpError } from '../../utils/HttpError';
+import { validerFlettefelt } from '../../utils/valideringer';
 
 const flettefeltSerializer = (
   props: any,
@@ -11,17 +13,17 @@ const flettefeltSerializer = (
   const { flettefeltReferanse } = props.mark || props.node;
   const flettefeltNavn = flettefeltReferanse.felt;
 
-  if (!flettefelter || !flettefelter[flettefeltNavn]) {
-    throw Error(
-      `Flettefeltet ${flettefeltNavn} er påkrevd for dokument med Api-navn "${dokumentApiNavn}"`,
+  if (!flettefelter) {
+    throw new HttpError(
+      `Flettefeltet ${flettefeltNavn} er påkrevd for dokument med Api-navn "${dokumentApiNavn}",` +
+        `men det ble ikke sendt med noen flettefelter for ${dokumentApiNavn}`,
+      400,
     );
   }
 
   const flettefelt = flettefelter[flettefeltNavn];
 
-  if (!Array.isArray(flettefelt)) {
-    throw Error(`Flettefeltet ${flettefeltNavn} er ikke en liste"`);
-  }
+  validerFlettefelt(flettefelt, flettefeltNavn, dokumentApiNavn, flettefeltReferanse.erListe);
 
   if (flettefeltReferanse.erListe) {
     return (
@@ -34,12 +36,6 @@ const flettefeltSerializer = (
       </ul>
     );
   } else {
-    if (flettefelt.length !== 1) {
-      throw Error(
-        `Flettefeltet ${flettefeltNavn} i dokument med Api-navn "${dokumentApiNavn}" forventer en liste med nøyaktig et element`,
-      );
-    }
-
     return flettefelt[0];
   }
 };

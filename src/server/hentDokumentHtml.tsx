@@ -51,12 +51,14 @@ const hentDokumentHtml = async (
             <Header
               visLogo={true}
               tittel={tittel}
-              navn={apiDokument.flettefelter.navn}
-              fodselsnr={apiDokument.flettefelter.fodselsnummer}
+              navn={apiDokument?.flettefelter?.navn}
+              fodselsnummer={apiDokument?.flettefelter?.fodselsnummer}
+              dato={apiDokument?.flettefelter?.dato}
+              apiNavn={dokumentApiNavn}
             />
             <Dokument
               dokumentApiNavn={dokumentApiNavn}
-              apiEnkeltDokument={apiDokument}
+              dokumentData={apiDokument}
               maalform={maalform}
               datasett={datasett}
             />

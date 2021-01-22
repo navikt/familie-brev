@@ -30,16 +30,16 @@ const delmalSerializer = (
         dokumentVariabler.map((variabler, index) => (
           <AvansertDokument
             key={variabler + index.toString()}
-            dokumentId={submal.id}
-            dokumentVariabler={variabler}
+            apiNavn={submal.id}
+            avansertDokumentVariabler={variabler}
             maalform={maalform}
             datasett={datasett}
           />
         ))
       ) : (
         <AvansertDokument
-          dokumentId={submal.id}
-          dokumentVariabler={undefined}
+          apiNavn={submal.id}
+          avansertDokumentVariabler={undefined}
           maalform={maalform}
           datasett={datasett}
         />
