@@ -2,7 +2,7 @@ import formaterTilCamelCase from '../../sanity/formaterTilCamelCase';
 import React from 'react';
 import { IDelmal, IDelmaler } from '../../../typer/dokumentApi';
 import { Datasett } from '../../sanity/sanityClient';
-import Dokument from '../Dokument';
+import AvansertDokument from '../AvansertDokument';
 import { Maalform } from '../../../typer/sanitygrensesnitt';
 
 const delmalSerializer = (
@@ -28,18 +28,18 @@ const delmalSerializer = (
     <div className={`delmal ${erInline ? 'inline' : ''}`}>
       {dokumentVariabler.length > 0 ? (
         dokumentVariabler.map((variabler, index) => (
-          <Dokument
+          <AvansertDokument
             key={variabler + index.toString()}
-            dokumentId={submal.id}
-            dokumentVariabler={variabler}
+            apiNavn={submal.id}
+            avansertDokumentVariabler={variabler}
             maalform={maalform}
             datasett={datasett}
           />
         ))
       ) : (
-        <Dokument
-          dokumentId={submal.id}
-          dokumentVariabler={undefined}
+        <AvansertDokument
+          apiNavn={submal.id}
+          avansertDokumentVariabler={undefined}
           maalform={maalform}
           datasett={datasett}
         />

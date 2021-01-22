@@ -2,7 +2,7 @@ import formaterTilCamelCase from '../../sanity/formaterTilCamelCase';
 import React from 'react';
 import { IValgfelt, IValgfelter } from '../../../typer/dokumentApi';
 import { Datasett } from '../../sanity/sanityClient';
-import Dokument from '../Dokument';
+import AvansertDokument from '../AvansertDokument';
 import { Maalform } from '../../../typer/sanitygrensesnitt';
 
 const valgfeltSerializer = (
@@ -38,9 +38,9 @@ const valgfeltSerializer = (
     if (dokumentId) {
       return (
         <div className={`valgfelt ${erInline ? 'inline' : ''}`}>
-          <Dokument
-            dokumentId={dokumentId}
-            dokumentVariabler={dokumentVariabler}
+          <AvansertDokument
+            apiNavn={dokumentId}
+            avansertDokumentVariabler={dokumentVariabler}
             maalform={maalform}
             datasett={datasett}
           />

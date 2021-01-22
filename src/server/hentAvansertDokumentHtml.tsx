@@ -1,21 +1,20 @@
 import * as React from 'react';
-import { IDokumentVariabler } from '../../typer/dokumentApi';
-import Dokument from '../components/Dokument';
-import { Datasett } from '../sanity/sanityClient';
+import { IAvansertDokumentVariabler } from '../typer/dokumentApi';
+import AvansertDokument from './components/AvansertDokument';
+import { client, Datasett } from './sanity/sanityClient';
 import { renderToStaticMarkup } from 'react-dom/server';
-import Context from './Context';
-import css from './css';
-import Header from '../components/Header';
-import { client } from '../sanity/sanityClient';
-import { Maalform } from '../../typer/sanitygrensesnitt';
+import Context from './utils/Context';
+import css from './utils/css';
+import Header from './components/Header';
+import { Maalform } from '../typer/sanitygrensesnitt';
 
 enum HtmlLang {
   NB = 'nb',
   NN = 'nn',
 }
 
-const hentDokumentHtml = async (
-  dokumentVariabler: IDokumentVariabler,
+const hentAvansertDokumentHtml = async (
+  dokumentVariabler: IAvansertDokumentVariabler,
   maalform: Maalform,
   dokumentId: string,
   datasett: Datasett,
@@ -48,11 +47,13 @@ const hentDokumentHtml = async (
               visLogo={true}
               tittel={tittel}
               navn={dokumentVariabler.flettefelter.navn}
-              fodselsnr={dokumentVariabler.flettefelter.fodselsnummer}
+              fodselsnummer={dokumentVariabler.flettefelter.fodselsnummer}
+              apiNavn={dokumentId}
+              dato={dokumentVariabler.flettefelter.dato}
             />
-            <Dokument
-              dokumentId={dokumentId}
-              dokumentVariabler={dokumentVariabler}
+            <AvansertDokument
+              apiNavn={dokumentId}
+              avansertDokumentVariabler={dokumentVariabler}
               maalform={maalform}
               erDokumentmal={true}
               datasett={datasett}
@@ -81,4 +82,4 @@ const hentDokumentHtml = async (
   return dokument.replace(/(\r\n|\n|\r)/gm, '');
 };
 
-export default hentDokumentHtml;
+export default hentAvansertDokumentHtml;

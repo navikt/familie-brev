@@ -5,7 +5,6 @@ export default `
       line-height: 1.4em;
       margin: 0;
       box-sizing: border-box;
-
   }
 
   .ikon-og-dato{
@@ -37,11 +36,7 @@ export default `
     margin-top: 200px;
   }
 
-  ul, ol {
-    padding: 0 0 0 1rem;
-  }
-
-  ul li {
-    list-style-type: none;
+  ul {
+    margin: 0;
   }
 `;

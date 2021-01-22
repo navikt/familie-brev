@@ -26,12 +26,11 @@ spec:
   prometheus:
     enabled: false
   ingresses:
-    - https://familie-brev.intern.nav.no
+    - https://familie-brev.dev.intern.nav.no
   accessPolicy:
     outbound:
       rules:
         - application: familie-dokument
-          namespace: default
       external:
         - host: appres.nav.no
         - host: xsrv1mh6.api.sanity.io
@@ -40,7 +39,6 @@ spec:
       value: '{{version}}'
     - name: APPRES_CMS_URL
       value: https://appres.nav.no
-
   resources:
     limits:
       cpu: 2000m

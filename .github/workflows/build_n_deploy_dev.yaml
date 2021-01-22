@@ -1,10 +1,9 @@
-name: Build, push, and deploy app to prod
+name: Build, push, and deploy app to dev
 
 on:
   push:
     branches:
-      - 'master'
-      - 'deploy-test'
+      - '**'
 
 env:
   IMAGE: docker.pkg.github.com/${{ github.repository }}/familie-brev:${{ github.sha }}
@@ -35,14 +34,3 @@ jobs:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
           RESOURCE: .build/nais-dev.yaml
-  deploy-prod:
-    name: Deploy to prod-gcp
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v1
-      - uses: nais/deploy/actions/deploy@v1
-        env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-          CLUSTER: prod-gcp
-          RESOURCE: .build/nais-prod.yaml

@@ -1,19 +1,20 @@
 import formaterTilCamelCase from '../../sanity/formaterTilCamelCase';
 import React from 'react';
-import { IDokumentVariabler } from '../../../typer/dokumentApi';
+import { IAvansertDokumentVariabler } from '../../../typer/dokumentApi';
 import { Datasett } from '../../sanity/sanityClient';
 import valgfeltSerializer from './valgfeltSerializer';
-import flettefeltSerializer from './flettefeltSerializer';
-import delmalSerializer from './delmalSerialaizer';
+import avansertFlettefeltSerializer from './AvansertFlettefeltSerializer';
+import delmalSerializer from './avansertDelmalSerialaizer';
 import { Maalform } from '../../../typer/sanitygrensesnitt';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const BlockContent = require('@sanity/block-content-to-react');
 
 const listItemSerializer = (
   props: any,
-  dokumentVariabler: IDokumentVariabler,
+  dokumentVariabler: IAvansertDokumentVariabler,
   maalform: Maalform,
   datasett: Datasett,
+  dokumentId: string,
 ) => {
   const erSubmal = (markDef: any) => markDef._type === 'submal';
   const submalSkalMed = (mark: any): boolean =>
@@ -46,7 +47,8 @@ const listItemSerializer = (
           blocks={{ ...props.node, level: undefined, listItem: undefined }}
           serializers={{
             marks: {
-              flettefelt: (props: any) => flettefeltSerializer(props, dokumentVariabler),
+              flettefelt: (props: any) =>
+                avansertFlettefeltSerializer(props, dokumentVariabler.flettefelter, dokumentId),
               submal: (props: any) =>
                 delmalSerializer(props, dokumentVariabler.delmaler, maalform, datasett),
               valgfelt: (props: any) =>
