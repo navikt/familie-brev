@@ -13,5 +13,9 @@ export const genererPdf = async (html: string): Promise<ArrayBuffer> => {
         Accept: 'application/pdf',
       },
     })
-    .then((res: AxiosResponse<ArrayBuffer>) => res.data);
+    .then((res: AxiosResponse<ArrayBuffer>) => res.data)
+    .catch(error => {
+      console.log(`Feil mot familie-dokument: ${error}`);
+      return error;
+    });
 };
