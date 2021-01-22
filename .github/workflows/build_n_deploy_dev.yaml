@@ -1,4 +1,4 @@
-name: Build, push, and deploy app to prod
+name: Build, push, and deploy app to dev
 
 on:
   push:
