@@ -122,25 +122,12 @@ const validerDokumentData = async (
   datasett: Datasett,
   maalform: Maalform,
   dokumentApiNavn: string,
-  dokument: IDokumentData,
 ) => {
   if (!Object.values(Datasett).includes(datasett)) {
     throw new HttpError(`Datasettet "${datasett}" finnes ikke.`, 404);
   }
   if (!Object.values(Maalform).includes(maalform)) {
     throw new HttpError(`Målformen "${maalform}" finnes ikke.`, 404);
-  }
-  if (!dokument?.flettefelter?.navn) {
-    throw new HttpError(
-      `Flettefeltet "navn" er påkrevd for dokument med apiNavn "${dokumentApiNavn}"`,
-      400,
-    );
-  }
-  if (!dokument?.flettefelter?.fodselsnummer) {
-    throw new HttpError(
-      `Flettefeltet "fodselsnummer" er påkrevd for dokument med apiNavn "${dokumentApiNavn}"`,
-      400,
-    );
   }
 
   const sanityDokumenter = await client(datasett).fetch(
@@ -159,12 +146,12 @@ router.post('/:datasett/dokument/:maalform/:dokumentApiNavn/html', async (req, r
   const dokument: IDokumentData = req.body as IDokumentData;
 
   try {
-    await validerDokumentData(datasett, maalform, dokumentApiNavn, dokument);
+    await validerDokumentData(datasett, maalform, dokumentApiNavn);
     const html = await hentDokumentHtml(dokument, maalform, dokumentApiNavn, datasett);
     res.send(html);
   } catch (error) {
     if (error instanceof HttpError) {
-      res.status(error.code).send(error.message);
+      return res.status(error.code).send(error.message);
     }
     return res.status(500).send(`${error}`);
   }
@@ -178,7 +165,7 @@ router.post('/:datasett/dokument/:maalform/:dokumentApiNavn/pdf', async (req, re
   const dokument: IDokumentData = req.body as IDokumentData;
 
   try {
-    await validerDokumentData(datasett, maalform, dokumentApiNavn, dokument);
+    await validerDokumentData(datasett, maalform, dokumentApiNavn);
     const html = await hentDokumentHtml(dokument, maalform, dokumentApiNavn, datasett);
     const pdf = await genererPdf(html);
     res.setHeader('Content-Length', pdf.byteLength);
@@ -187,7 +174,7 @@ router.post('/:datasett/dokument/:maalform/:dokumentApiNavn/pdf', async (req, re
     res.end(pdf);
   } catch (error) {
     if (error instanceof HttpError) {
-      res.status(error.code).send(error.message);
+      return res.status(error.code).send(error.message);
     }
     return res.status(500).send(`${error}`);
   }

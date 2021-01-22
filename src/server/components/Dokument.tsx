@@ -1,6 +1,6 @@
 import React from 'react';
 import { IDokumentData } from '../../typer/dokumentApi';
-import { hentEnkeltDokumentQuery } from '../sanity/hentDokumentQuery';
+import { hentDokumentQuery } from '../sanity/hentAvansertDokumentQuery';
 import { client, Datasett } from '../sanity/sanityClient';
 import useServerEffect from '../utils/useServerEffect';
 import flettefeltSerializer from './serializers/flettefeltSerializer';
@@ -11,18 +11,18 @@ import blockSerializer from './serializers/blockSerializer';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const BlockContent = require('@sanity/block-content-to-react');
 
-interface EnkeltDokumentProps {
+interface DokumentProps {
   dokumentApiNavn: string;
-  apiEnkeltDokument: IDokumentData;
+  dokumentData: IDokumentData;
   maalform: Maalform;
   datasett: Datasett;
 }
 
-function Dokument(dokumentProps: EnkeltDokumentProps) {
-  const { dokumentApiNavn, apiEnkeltDokument, maalform, datasett } = dokumentProps;
+function Dokument(dokumentProps: DokumentProps) {
+  const { dokumentApiNavn, dokumentData, maalform, datasett } = dokumentProps;
 
   const [dokument] = useServerEffect(undefined, dokumentApiNavn, () => {
-    const query = hentEnkeltDokumentQuery('dokument', dokumentApiNavn, maalform);
+    const query = hentDokumentQuery('dokument', dokumentApiNavn, maalform);
     return client(datasett)
       .fetch(query)
       .then((res: any) => {
@@ -34,7 +34,7 @@ function Dokument(dokumentProps: EnkeltDokumentProps) {
     return null;
   }
 
-  if (!apiEnkeltDokument) {
+  if (!dokumentData) {
     return (
       <BlockContent
         blocks={dokument}
@@ -53,14 +53,14 @@ function Dokument(dokumentProps: EnkeltDokumentProps) {
         serializers={{
           marks: {
             flettefelt: (props: any) =>
-              flettefeltSerializer(props, apiEnkeltDokument.flettefelter, dokumentApiNavn),
+              flettefeltSerializer(props, dokumentData.flettefelter, dokumentApiNavn),
           },
           types: {
             flettefelt: (props: any) =>
-              flettefeltSerializer(props, apiEnkeltDokument.flettefelter, dokumentApiNavn),
+              flettefeltSerializer(props, dokumentData.flettefelter, dokumentApiNavn),
             block: blockSerializer,
             undefined: (_: any) => <div />,
-            delmal: (props: any) => delmalSerializer(props, apiEnkeltDokument.delmalData, maalform),
+            delmal: (props: any) => delmalSerializer(props, dokumentData.delmalData, maalform),
           },
         }}
       />

@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios';
-import { IDokumentVariabler } from '../../typer/dokumentApi';
+import { IAvansertDokumentVariabler } from '../../typer/dokumentApi';
 import { Datasett } from '../../server/sanity/sanityClient';
 import { ISanityGrensesnitt, Maalform } from '../../typer/sanitygrensesnitt';
 
@@ -7,7 +7,7 @@ export const hentHtml = async (
   datasett: Datasett,
   maalform: Maalform,
   dokumentId: string,
-  dokumentVariabler: IDokumentVariabler,
+  dokumentVariabler: IAvansertDokumentVariabler,
 ): Promise<string> => {
   const url = `${process.env.REACT_APP_BACKEND}/api/${datasett}/${maalform}/${dokumentId}/html`;
   return (await axios.post<string>(url, dokumentVariabler)).data;

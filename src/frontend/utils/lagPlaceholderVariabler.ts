@@ -1,4 +1,4 @@
-import { IDokumentVariabler, IValg } from '../../typer/dokumentApi';
+import { IAvansertDokumentVariabler, IValg } from '../../typer/dokumentApi';
 import {
   ISanityDelmalGrensesnitt,
   ISanityGrensesnitt,
@@ -27,7 +27,7 @@ const lagPlaceholderVariabler = (
   });
 
   grensesnitt.delmaler.forEach((delmal: ISanityDelmalGrensesnitt) => {
-    let delmalDokumentVariabler: IDokumentVariabler[] = [];
+    let delmalDokumentVariabler: IAvansertDokumentVariabler[] = [];
 
     if (delmal.erGjentagende) {
       delmalDokumentVariabler = [
