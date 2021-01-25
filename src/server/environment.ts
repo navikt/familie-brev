@@ -12,7 +12,7 @@ export const hentMiljøvariabler = () => {
       };
     default:
       return {
-        FAMILIE_DOKUMENT_API_URL: 'localhost:8082',
+        FAMILIE_DOKUMENT_API_URL: 'http://localhost:8082',
       };
   }
 };

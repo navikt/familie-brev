@@ -1,51 +1,54 @@
-import formaterTilCamelCase from '../../sanity/formaterTilCamelCase';
 import React from 'react';
-import { IDelmal, IDelmaler } from '../../../typer/dokumentApi';
+import { IAvansertDokumentVariabler, IDelmaler } from '../../../typer/dokumentApi';
 import { Datasett } from '../../sanity/sanityClient';
 import AvansertDokument from '../AvansertDokument';
 import { Maalform } from '../../../typer/sanitygrensesnitt';
+import { validerDelmal } from '../../utils/valideringer';
 
-const delmalSerializer = (
+const AvansertDelmalSerializer = (
   props: any,
-  delmaler: IDelmaler,
+  delmaler: IDelmaler | undefined,
   maalform: Maalform,
   datasett: Datasett,
+  forelderDokumentApiNavn: string,
 ) => {
-  const { submal } = props.mark || props.node;
-  const dokumentId = formaterTilCamelCase(submal.id);
+  const { delmalReferanse, erGjentagende, skalAlltidMed } = props.mark || props.node;
+  const delmalApiNavn = delmalReferanse.apiNavn;
 
-  const delmal: IDelmal | undefined = delmaler[dokumentId];
+  validerDelmal(delmaler, delmalApiNavn, forelderDokumentApiNavn, erGjentagende);
+
   // Hvis ikke konsument har sendt inn delmalen rendrer vi heller ikke denne delen
-  if (!delmal) {
+  if (!skalAlltidMed && (!delmaler || !delmaler[delmalApiNavn])) {
     return '';
   }
-
-  const { dokumentVariabler } = delmaler[dokumentId];
+  const avanserteDokumentVariabler: IAvansertDokumentVariabler[] | undefined =
+    delmaler && delmaler[delmalApiNavn];
 
   const erInline = !!props.mark;
 
   return (
     <div className={`delmal ${erInline ? 'inline' : ''}`}>
-      {dokumentVariabler.length > 0 ? (
-        dokumentVariabler.map((variabler, index) => (
+      {avanserteDokumentVariabler ? (
+        avanserteDokumentVariabler.map((variabler, index) => (
           <AvansertDokument
             key={variabler + index.toString()}
-            apiNavn={submal.id}
-            avansertDokumentVariabler={variabler}
+            apiNavn={delmalApiNavn}
+            avanserteDokumentVariabler={variabler}
             maalform={maalform}
             datasett={datasett}
+            dokumentType={delmalReferanse._type}
           />
         ))
       ) : (
         <AvansertDokument
-          apiNavn={submal.id}
-          avansertDokumentVariabler={undefined}
+          apiNavn={delmalApiNavn}
           maalform={maalform}
           datasett={datasett}
+          dokumentType={delmalReferanse._type}
         />
       )}
     </div>
   );
 };
 
-export default delmalSerializer;
+export default AvansertDelmalSerializer;

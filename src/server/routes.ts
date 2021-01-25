@@ -2,10 +2,11 @@ import express from 'express';
 import { client, Datasett } from './sanity/sanityClient';
 import { ISanityGrensesnitt, Maalform } from '../typer/sanitygrensesnitt';
 import hentGrensesnitt from './sanity/hentGrenesnittFraDokument';
-import { IDokumentData } from '../typer/dokumentApi';
+import { IAvansertDokumentVariabler, IDokumentData } from '../typer/dokumentApi';
 import hentDokumentHtml from './hentDokumentHtml';
 import { genererPdf } from './utils/api';
 import { HttpError } from './utils/HttpError';
+import hentAvansertDokumentHtml from './hentAvansertDokumentHtml';
 
 const router = express.Router();
 
@@ -97,31 +98,11 @@ router.get('/:datasett/grensesnitt', async (req, res) => {
   res.send(grensesnitt);
 });
 
-router.post('/:datasett/:maalform/:dokumentId/html', async (req, res) => {
-  const datasett = req.params.datasett as Datasett;
-  const maalform = req.params.maalform as Maalform;
-  const dokumentId = req.params.dokumentId;
-  const dokumetVariabler = req.body;
-
-  if (!Object.values(Datasett).includes(datasett)) {
-    return res.status(404).send(`Datasettet "${datasett}" finnes ikke.`);
-  }
-  if (!Object.values(Maalform).includes(maalform)) {
-    return res.status(404).send(`Målformen "${maalform}" finnes ikke.`);
-  }
-  try {
-    const html = await hentDokumentHtml(dokumetVariabler, maalform, dokumentId, datasett);
-    res.send(html);
-  } catch (error) {
-    console.error(error);
-    return res.status(500).send(`${error}`);
-  }
-});
-
 const validerDokumentData = async (
   datasett: Datasett,
   maalform: Maalform,
   dokumentApiNavn: string,
+  dokumenttype: string,
 ) => {
   if (!Object.values(Datasett).includes(datasett)) {
     throw new HttpError(`Datasettet "${datasett}" finnes ikke.`, 404);
@@ -131,7 +112,7 @@ const validerDokumentData = async (
   }
 
   const sanityDokumenter = await client(datasett).fetch(
-    `*[_type == "dokument" && apiNavn == "${dokumentApiNavn}" ][]`,
+    `*[_type == "${dokumenttype}" && apiNavn == "${dokumentApiNavn}" ][]`,
   );
   if (sanityDokumenter.length === 0) {
     throw new HttpError(`Fant ikke dokument med apiNavn "${dokumentApiNavn}"`, 404);
@@ -146,7 +127,7 @@ router.post('/:datasett/dokument/:maalform/:dokumentApiNavn/html', async (req, r
   const dokument: IDokumentData = req.body as IDokumentData;
 
   try {
-    await validerDokumentData(datasett, maalform, dokumentApiNavn);
+    await validerDokumentData(datasett, maalform, dokumentApiNavn, 'dokument');
     const html = await hentDokumentHtml(dokument, maalform, dokumentApiNavn, datasett);
     res.send(html);
   } catch (error) {
@@ -165,7 +146,7 @@ router.post('/:datasett/dokument/:maalform/:dokumentApiNavn/pdf', async (req, re
   const dokument: IDokumentData = req.body as IDokumentData;
 
   try {
-    await validerDokumentData(datasett, maalform, dokumentApiNavn);
+    await validerDokumentData(datasett, maalform, dokumentApiNavn, 'dokument');
     const html = await hentDokumentHtml(dokument, maalform, dokumentApiNavn, datasett);
     const pdf = await genererPdf(html);
     res.setHeader('Content-Length', pdf.byteLength);
@@ -173,7 +154,58 @@ router.post('/:datasett/dokument/:maalform/:dokumentApiNavn/pdf', async (req, re
     res.setHeader('Content-Disposition', `attachment; filename=${dokumentApiNavn}.pdf`);
     res.end(pdf);
   } catch (error) {
-    console.log(error);
+    if (error instanceof HttpError) {
+      return res.status(error.code).send(error.message);
+    }
+    return res.status(500).send(`${error}`);
+  }
+});
+
+router.post('/:datasett/avansert-dokument/:maalform/:dokumentApiNavn/html', async (req, res) => {
+  const datasett = req.params.datasett as Datasett;
+  const maalform = req.params.maalform as Maalform;
+  const dokumentApiNavn = req.params.dokumentApiNavn;
+
+  const dokumentVariabler: IAvansertDokumentVariabler = req.body as IAvansertDokumentVariabler;
+
+  try {
+    await validerDokumentData(datasett, maalform, dokumentApiNavn, 'dokumentmal');
+    const html = await hentAvansertDokumentHtml(
+      dokumentVariabler,
+      maalform,
+      dokumentApiNavn,
+      datasett,
+    );
+    res.send(html);
+  } catch (error) {
+    if (error instanceof HttpError) {
+      return res.status(error.code).send(error.message);
+    }
+    return res.status(500).send(`${error}`);
+  }
+});
+
+router.post('/:datasett/avansert-dokument/:maalform/:dokumentApiNavn/pdf', async (req, res) => {
+  const datasett = req.params.datasett as Datasett;
+  const maalform = req.params.maalform as Maalform;
+  const dokumentApiNavn = req.params.dokumentApiNavn;
+
+  const dokumentVariabler: IAvansertDokumentVariabler = req.body as IAvansertDokumentVariabler;
+
+  try {
+    await validerDokumentData(datasett, maalform, dokumentApiNavn, 'dokumentmal');
+    const html = await hentAvansertDokumentHtml(
+      dokumentVariabler,
+      maalform,
+      dokumentApiNavn,
+      datasett,
+    );
+    const pdf = await genererPdf(html);
+    res.setHeader('Content-Length', pdf.byteLength);
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `attachment; filename=${dokumentApiNavn}.pdf`);
+    res.end(pdf);
+  } catch (error) {
     if (error instanceof HttpError) {
       return res.status(error.code).send(error.message);
     }

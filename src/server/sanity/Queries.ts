@@ -1,24 +1,24 @@
 export const hentAvansertDokumentQuery = (
   dokumentType: string,
-  dokumentNavn: string,
+  apiNavn: string,
   maalform: string,
 ) => `
-        *[_type == "${dokumentType}" && id == "${dokumentNavn}"][0]
-        {..., ${maalform}[]
-          {
-            _type == "block"=> {..., markDefs[]{
-              ..., 
-              felt->, 
-              skalMedFelt->, 
-              submal->, 
-              valgfelt->{..., valg[]{..., delmal->}}}
-            },
-            _type == "enkelDelmalBlock" => {..., submal->},
-            _type == "delmalBlock" => {..., submal->},
-            _type == "valgfeltBlock" => {..., valgfelt->{..., valg[]{..., delmal->}}},
-          }
-        }
-        `;
+*[_type == "${dokumentType}" && apiNavn == "${apiNavn}"][0]
+  {..., ${maalform}[]
+    { ...,
+  _type == "block"=> {..., markDefs[]{
+    ...,
+    flettefeltReferanse->,
+    delmalReferanse->,
+    valgReferanse->{..., valg[]{..., delmal->}}
+    }
+  },
+  _type == "valgBlock" => {..., valgReferanse->{..., valg[]{..., delmal->}}},
+  _type == "flettefelt" => {..., flettefeltReferanse->},
+  _type == "delmalBlock" => {..., delmalReferanse->}
+  },
+}
+`;
 
 export const hentDokumentQuery = (
   dokumentType: string,

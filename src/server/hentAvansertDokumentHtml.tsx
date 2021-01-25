@@ -16,11 +16,15 @@ enum HtmlLang {
 const hentAvansertDokumentHtml = async (
   dokumentVariabler: IAvansertDokumentVariabler,
   maalform: Maalform,
-  dokumentId: string,
+  dokumentApiNavn: string,
   datasett: Datasett,
 ): Promise<string> => {
   const tittel = (
-    await client(datasett).fetch(`*[_type == "dokumentmal" && id == "${dokumentId}" ][].id`)
+    await client(datasett).fetch(
+      `*[_type == "dokumentmal" && apiNavn == "${dokumentApiNavn}" ][].tittel${
+        maalform === Maalform.NB ? 'Bokmaal' : 'Nynorsk'
+      }`,
+    )
   )[0];
 
   const htmlLang = () => {
@@ -46,16 +50,16 @@ const hentAvansertDokumentHtml = async (
             <Header
               visLogo={true}
               tittel={tittel}
-              navn={dokumentVariabler.flettefelter.navn}
-              fodselsnummer={dokumentVariabler.flettefelter.fodselsnummer}
-              apiNavn={dokumentId}
-              dato={dokumentVariabler.flettefelter.dato}
+              navn={dokumentVariabler?.flettefelter?.navn}
+              fodselsnummer={dokumentVariabler?.flettefelter?.fodselsnummer}
+              apiNavn={dokumentApiNavn}
+              dato={dokumentVariabler?.flettefelter?.dato}
             />
             <AvansertDokument
-              apiNavn={dokumentId}
-              avansertDokumentVariabler={dokumentVariabler}
+              apiNavn={dokumentApiNavn}
+              avanserteDokumentVariabler={dokumentVariabler}
               maalform={maalform}
-              erDokumentmal={true}
+              dokumentType={'dokumentmal'}
               datasett={datasett}
             />
           </div>

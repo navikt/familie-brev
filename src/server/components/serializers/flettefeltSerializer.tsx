@@ -1,7 +1,7 @@
 import { Flettefelter } from '../../../typer/dokumentApi';
 import React from 'react';
-import { HttpError } from '../../utils/HttpError';
 import { validerFlettefelt } from '../../utils/valideringer';
+import { HttpError } from '../../utils/HttpError';
 
 const flettefeltSerializer = (
   props: any,
@@ -15,8 +15,8 @@ const flettefeltSerializer = (
 
   if (!flettefelter) {
     throw new HttpError(
-      `Flettefeltet ${flettefeltNavn} er påkrevd for dokument med Api-navn "${dokumentApiNavn}",` +
-        `men det ble ikke sendt med noen flettefelter for ${dokumentApiNavn}`,
+      `Flettefeltet "${flettefeltNavn}" er påkrevd for "${dokumentApiNavn}", ` +
+        `men det ble ikke sendt med noen flettefelter.`,
       400,
     );
   }

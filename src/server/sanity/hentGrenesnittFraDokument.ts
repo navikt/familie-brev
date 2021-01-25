@@ -1,5 +1,4 @@
 import { hentAvansertDokumentQuery } from './Queries';
-import formaterTilCamelCase from './formaterTilCamelCase';
 import {
   ISanityDelmalGrensesnitt,
   ISanityGrensesnitt,
@@ -30,8 +29,8 @@ async function hentSubmalGrensesnitt(
   const id = delmal.submal.id;
   return {
     grensesnitt: await hentGrensesnitt(id, maalform, datasett, false),
-    betingelse: skalMedFelt && formaterTilCamelCase(skalMedFelt),
-    id: formaterTilCamelCase(id),
+    betingelse: skalMedFelt && skalMedFelt,
+    id: id,
     erGjentagende: !!delmal.erGjentagende,
   };
 }
@@ -48,12 +47,12 @@ async function hentValgfeltGrensesnitt(
   const id = valgfelt.valgfelt.id;
   const valgmuigheter = Promise.all(
     valgfelt.valgfelt.valg.map(async valg => ({
-      valgnavn: formaterTilCamelCase(valg.valgmulighet),
+      valgnavn: valg.valgmulighet,
       grensesnitt: await hentGrensesnitt(valg.delmal.id, maalform, datasett, false),
     })),
   );
   return {
-    navn: formaterTilCamelCase(id),
+    navn: id,
     valgmuligheter: await valgmuigheter,
     erGjentagende: !!valgfelt.erGjentagende,
   };
@@ -92,7 +91,7 @@ const hentGrensesnitt = async (
                 if (!flettefelt.felt) {
                   throw new Error(`Flettefelt i ${dokumentId} er tomt for ${maalform} versjon`);
                 }
-                grensesnitt.flettefelter.push(formaterTilCamelCase(flettefelt.felt.felt));
+                grensesnitt.flettefelter.push(flettefelt.felt.felt);
                 break;
 
               case 'submal':
