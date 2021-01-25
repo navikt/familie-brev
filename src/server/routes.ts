@@ -5,7 +5,7 @@ import hentGrensesnitt from './sanity/hentGrenesnittFraDokument';
 import { IDokumentData } from '../typer/dokumentApi';
 import hentDokumentHtml from './hentDokumentHtml';
 import { genererPdf } from './utils/api';
-import FunksjonellFeil from './feil/FunksjonellFeil';
+import { byggFeiletApiRessurs, Feil } from './feil/feil';
 import { byggDataRessurs, byggFeiletRessurs } from '@navikt/familie-typer';
 
 const router = express.Router();
@@ -125,17 +125,20 @@ const validerDokumentData = async (
   dokumentApiNavn: string,
 ) => {
   if (!Object.values(Datasett).includes(datasett)) {
-    throw new FunksjonellFeil(`Datasettet "${datasett}" finnes ikke.`, 404);
+    throw new Feil(byggFeiletApiRessurs(`Datasettet "${datasett}" finnes ikke.`), 404);
   }
   if (!Object.values(Maalform).includes(maalform)) {
-    throw new FunksjonellFeil(`Målformen "${maalform}" finnes ikke.`, 404);
+    throw new Feil(byggFeiletApiRessurs(`Målformen "${maalform}" finnes ikke.`), 404);
   }
 
   const sanityDokumenter = await client(datasett).fetch(
     `*[_type == "dokument" && apiNavn == "${dokumentApiNavn}" ][]`,
   );
   if (sanityDokumenter.length === 0) {
-    throw new FunksjonellFeil(`Fant ikke dokument med apiNavn "${dokumentApiNavn}"`, 404);
+    throw new Feil(
+      byggFeiletApiRessurs(`Fant ikke dokument med apiNavn "${dokumentApiNavn}"`),
+      404,
+    );
   }
 };
 
@@ -151,8 +154,8 @@ router.post('/:datasett/dokument/:maalform/:dokumentApiNavn/html', async (req, r
     const html = await hentDokumentHtml(dokument, maalform, dokumentApiNavn, datasett);
     res.send(html);
   } catch (error) {
-    if (error instanceof FunksjonellFeil) {
-      return res.status(error.code).send(error.message);
+    if (error instanceof Feil) {
+      return res.status(error.httpStatus).send(error.message);
     }
     return res.status(500).send(`${error}`);
   }
@@ -173,10 +176,10 @@ router.post('/:datasett/dokument/:maalform/:dokumentApiNavn/pdf', async (req, re
     res.json(byggDataRessurs<ArrayBuffer>(pdf));
   } catch (error) {
     console.log(error);
-    if (error instanceof FunksjonellFeil) {
-      return res.status(400).send(byggFeiletRessurs(error.message));
+    if (error instanceof Feil) {
+      return res.status(error.httpStatus).send(error.apiRessurs);
     }
-    return res.status(500).send(byggFeiletRessurs(error));
+    return res.status(500).send(byggFeiletRessurs(error.message));
   }
 });
 

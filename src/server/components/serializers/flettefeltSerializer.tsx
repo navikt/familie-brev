@@ -1,6 +1,6 @@
 import { Flettefelter } from '../../../typer/dokumentApi';
 import React from 'react';
-import FunksjonellFeil from '../../feil/FunksjonellFeil';
+import { byggFeiletApiRessurs, Feil } from '../../feil/feil';
 import { validerFlettefelt } from '../../utils/valideringer';
 
 const flettefeltSerializer = (
@@ -14,9 +14,11 @@ const flettefeltSerializer = (
   const flettefeltNavn = flettefeltReferanse.felt;
 
   if (!flettefelter) {
-    throw new FunksjonellFeil(
-      `Flettefeltet ${flettefeltNavn} er påkrevd for dokument med Api-navn "${dokumentApiNavn}",` +
-        `men det ble ikke sendt med noen flettefelter for ${dokumentApiNavn}`,
+    throw new Feil(
+      byggFeiletApiRessurs(
+        `Flettefeltet ${flettefeltNavn} er påkrevd for dokument med Api-navn "${dokumentApiNavn}",` +
+          `men det ble ikke sendt med noen flettefelter for ${dokumentApiNavn}`,
+      ),
       400,
     );
   }
