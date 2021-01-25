@@ -5,7 +5,8 @@ import hentGrensesnitt from './sanity/hentGrenesnittFraDokument';
 import { IDokumentData } from '../typer/dokumentApi';
 import hentDokumentHtml from './hentDokumentHtml';
 import { genererPdf } from './utils/api';
-import { HttpError } from './utils/HttpError';
+import FunksjonellFeil from './feil/FunksjonellFeil';
+import { byggDataRessurs, byggFeiletRessurs } from '@navikt/familie-typer';
 
 const router = express.Router();
 
@@ -124,17 +125,17 @@ const validerDokumentData = async (
   dokumentApiNavn: string,
 ) => {
   if (!Object.values(Datasett).includes(datasett)) {
-    throw new HttpError(`Datasettet "${datasett}" finnes ikke.`, 404);
+    throw new FunksjonellFeil(`Datasettet "${datasett}" finnes ikke.`, 404);
   }
   if (!Object.values(Maalform).includes(maalform)) {
-    throw new HttpError(`Målformen "${maalform}" finnes ikke.`, 404);
+    throw new FunksjonellFeil(`Målformen "${maalform}" finnes ikke.`, 404);
   }
 
   const sanityDokumenter = await client(datasett).fetch(
     `*[_type == "dokument" && apiNavn == "${dokumentApiNavn}" ][]`,
   );
   if (sanityDokumenter.length === 0) {
-    throw new HttpError(`Fant ikke dokument med apiNavn "${dokumentApiNavn}"`, 404);
+    throw new FunksjonellFeil(`Fant ikke dokument med apiNavn "${dokumentApiNavn}"`, 404);
   }
 };
 
@@ -150,7 +151,7 @@ router.post('/:datasett/dokument/:maalform/:dokumentApiNavn/html', async (req, r
     const html = await hentDokumentHtml(dokument, maalform, dokumentApiNavn, datasett);
     res.send(html);
   } catch (error) {
-    if (error instanceof HttpError) {
+    if (error instanceof FunksjonellFeil) {
       return res.status(error.code).send(error.message);
     }
     return res.status(500).send(`${error}`);
@@ -166,18 +167,16 @@ router.post('/:datasett/dokument/:maalform/:dokumentApiNavn/pdf', async (req, re
 
   try {
     await validerDokumentData(datasett, maalform, dokumentApiNavn);
-    const html = await hentDokumentHtml(dokument, maalform, dokumentApiNavn, datasett);
-    const pdf = await genererPdf(html);
-    res.setHeader('Content-Length', pdf.byteLength);
-    res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', `attachment; filename=${dokumentApiNavn}.pdf`);
-    res.end(pdf);
+    const html: string = await hentDokumentHtml(dokument, maalform, dokumentApiNavn, datasett);
+    const pdf: ArrayBuffer = await genererPdf(html);
+
+    res.json(byggDataRessurs<ArrayBuffer>(pdf));
   } catch (error) {
     console.log(error);
-    if (error instanceof HttpError) {
-      return res.status(error.code).send(error.message);
+    if (error instanceof FunksjonellFeil) {
+      return res.status(400).send(byggFeiletRessurs(error.message));
     }
-    return res.status(500).send(`${error}`);
+    return res.status(500).send(byggFeiletRessurs(error));
   }
 });
 
