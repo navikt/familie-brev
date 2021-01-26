@@ -14,7 +14,6 @@ const valgfeltSerializer = (
   forelderDokumentApiNavn: string,
 ) => {
   const { valgReferanse, erGjentagende, skalAlltidMed } = props.mark || props.node;
-  console.log(forelderDokumentApiNavn);
   const { apiNavn, valg: muligeValg } = valgReferanse;
 
   validerValgfelt(valgfelter, apiNavn, skalAlltidMed, forelderDokumentApiNavn, erGjentagende);

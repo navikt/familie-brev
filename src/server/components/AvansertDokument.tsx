@@ -40,8 +40,6 @@ function AvansertDokument(avansertDokumentProps: AvansertDokumentProps) {
       });
   });
 
-  console.log(avansertDokument);
-
   if (!avansertDokument) {
     return null;
   }
