@@ -1,53 +1,54 @@
-import formaterTilCamelCase from '../../sanity/formaterTilCamelCase';
 import React from 'react';
-import { IValgfelt, IValgfelter } from '../../../typer/dokumentApi';
+import { IValg, IValgfelter } from '../../../typer/dokumentApi';
 import { Datasett } from '../../sanity/sanityClient';
 import AvansertDokument from '../AvansertDokument';
 import { Maalform } from '../../../typer/sanitygrensesnitt';
+import { validerValgfelt } from '../../utils/valideringer/validerValgfelt';
+import { Feil } from '../../utils/Feil';
 
 const valgfeltSerializer = (
   props: any,
-  valgfelter: IValgfelter,
+  valgfelter: IValgfelter | undefined,
   maalform: Maalform,
   datasett: Datasett,
+  forelderDokumentApiNavn: string,
 ) => {
-  const { valgfelt: santyValgfelt } = props.mark || props.node;
-  const { id, valg: muligeValg } = santyValgfelt;
-  const valgFeltId = formaterTilCamelCase(id);
+  const { valgReferanse, erGjentagende, skalAlltidMed } = props.mark || props.node;
+  const { apiNavn, valg: muligeValg } = valgReferanse;
 
-  const valgfelt: IValgfelt | undefined = valgfelter[valgFeltId];
+  validerValgfelt(valgfelter, apiNavn, skalAlltidMed, forelderDokumentApiNavn, erGjentagende);
+
   // Hvis ikke konsument har sendt inn valgfeltet rendrer vi heller ikke denne delen
-  if (!valgfelt) {
+  if (!valgfelter || !valgfelter[apiNavn]) {
     return '';
   }
 
-  const { valg, erGjentagende } = valgfelter[valgFeltId];
-
-  if (erGjentagende && valg.length === 0) {
-    throw new Error(`Gjentagende valgfelt ${valgFeltId} skal ha minst en dokumentVariabler`);
-  }
+  const valg: IValg[] = valgfelter[apiNavn];
 
   const erInline = !!props.mark;
 
   return valg.map(({ navn, dokumentVariabler }) => {
-    const riktigDokument = muligeValg.find(
-      (valg: any) => formaterTilCamelCase(valg.valgmulighet) === navn,
-    );
-    const dokumentId = riktigDokument?.delmal?.id;
+    const riktigDokument = muligeValg.find((valg: any) => valg.valgmulighet === navn);
+    const delmalApiNavn = riktigDokument?.delmal?.apiNavn;
 
-    if (dokumentId) {
+    if (delmalApiNavn) {
       return (
         <div className={`valgfelt ${erInline ? 'inline' : ''}`}>
           <AvansertDokument
-            apiNavn={dokumentId}
-            avansertDokumentVariabler={dokumentVariabler}
+            apiNavn={delmalApiNavn}
+            avanserteDokumentVariabler={dokumentVariabler}
             maalform={maalform}
             datasett={datasett}
+            dokumentType={riktigDokument._type}
           />
         </div>
       );
     } else {
-      throw new Error(`Gjentagende valgfelt ${valgFeltId} skal ha minst en dokumentVariabler`);
+      throw new Feil(
+        `Fant ikke "${navn}" blant valgene til valgfeltet "${apiNavn}" i "${forelderDokumentApiNavn}".` +
+          `\nMulige valg er ${muligeValg.map((valg: any) => `\n    - "${valg.valgmulighet}"`)}`,
+        404,
+      );
     }
   });
 };

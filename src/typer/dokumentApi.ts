@@ -5,21 +5,11 @@ export interface IAvansertDokumentVariabler {
 }
 
 export interface IDelmaler {
-  [delmalId: string]: IDelmal;
-}
-
-export interface IDelmal {
-  erGjentagende: boolean;
-  dokumentVariabler: IAvansertDokumentVariabler[];
+  [delmalId: string]: IAvansertDokumentVariabler[];
 }
 
 export interface IValgfelter {
-  [valgFeltId: string]: IValgfelt;
-}
-
-export interface IValgfelt {
-  valg: IValg[];
-  erGjentagende: boolean;
+  [valgFeltId: string]: IValg[];
 }
 
 export interface IValg {
