@@ -1,7 +1,7 @@
 import { Flettefelter } from '../../../typer/dokumentApi';
 import React from 'react';
-import { validerFlettefelt } from '../../utils/valideringer';
 import { HttpError } from '../../utils/HttpError';
+import { validerFlettefelt } from '../../utils/valideringer/validerFlettefelt';
 
 const flettefeltSerializer = (
   props: any,

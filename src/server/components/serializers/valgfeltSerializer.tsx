@@ -3,8 +3,8 @@ import { IValg, IValgfelter } from '../../../typer/dokumentApi';
 import { Datasett } from '../../sanity/sanityClient';
 import AvansertDokument from '../AvansertDokument';
 import { Maalform } from '../../../typer/sanitygrensesnitt';
-import { validerValgfelt } from '../../utils/valideringer';
 import { HttpError } from '../../utils/HttpError';
+import { validerValgfelt } from '../../utils/valideringer/validerValgfelt';
 
 const valgfeltSerializer = (
   props: any,

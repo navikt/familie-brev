@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavIkon } from './ikoner/navIkon';
 import { Flettefelt } from '../../typer/dokumentApi';
-import { validerFlettefelt } from '../utils/valideringer';
+import { validerFlettefelt } from '../utils/valideringer/validerFlettefelt';
 
 interface HeaderProps {
   tittel: string;
