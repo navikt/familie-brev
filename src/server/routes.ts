@@ -127,7 +127,7 @@ router.post('/:datasett/dokument/:maalform/:dokumentApiNavn/html', async (req, r
   const dokument: IDokumentData = req.body as IDokumentData;
 
   try {
-    await validerDokumentData(datasett, maalform, dokumentApiNavn, 'dokument');
+    await validerDokumentApiData(datasett, maalform, dokumentApiNavn, DokumentType.DOKUMENT);
     const html = await hentDokumentHtml(dokument, maalform, dokumentApiNavn, datasett);
     res.send(html);
   } catch (error) {
@@ -146,7 +146,7 @@ router.post('/:datasett/dokument/:maalform/:dokumentApiNavn/pdf', async (req, re
   const dokument: IDokumentData = req.body as IDokumentData;
 
   try {
-    await validerDokumentData(datasett, maalform, dokumentApiNavn, 'dokument');
+    await validerDokumentApiData(datasett, maalform, dokumentApiNavn, DokumentType.DOKUMENT);
     const html = await hentDokumentHtml(dokument, maalform, dokumentApiNavn, datasett);
     const pdf = await genererPdf(html);
     res.setHeader('Content-Length', pdf.byteLength);
@@ -169,7 +169,7 @@ router.post('/:datasett/avansert-dokument/:maalform/:dokumentApiNavn/html', asyn
   const dokumentVariabler: IAvansertDokumentVariabler = req.body as IAvansertDokumentVariabler;
 
   try {
-    await validerDokumentData(datasett, maalform, dokumentApiNavn, 'dokumentmal');
+    await validerDokumentApiData(datasett, maalform, dokumentApiNavn, DokumentType.DOKUMENTMAL);
     const html = await hentAvansertDokumentHtml(
       dokumentVariabler,
       maalform,
@@ -193,7 +193,7 @@ router.post('/:datasett/avansert-dokument/:maalform/:dokumentApiNavn/pdf', async
   const dokumentVariabler: IAvansertDokumentVariabler = req.body as IAvansertDokumentVariabler;
 
   try {
-    await validerDokumentData(datasett, maalform, dokumentApiNavn, 'dokumentmal');
+    await validerDokumentApiData(datasett, maalform, dokumentApiNavn, DokumentType.DOKUMENTMAL);
     const html = await hentAvansertDokumentHtml(
       dokumentVariabler,
       maalform,

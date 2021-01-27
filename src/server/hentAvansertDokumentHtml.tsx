@@ -7,6 +7,7 @@ import Context from './utils/Context';
 import css from './utils/css';
 import Header from './components/Header';
 import { Maalform } from '../typer/sanitygrensesnitt';
+import { DokumentType } from '../typer/dokumentType';
 
 enum HtmlLang {
   NB = 'nb',
@@ -59,7 +60,7 @@ const hentAvansertDokumentHtml = async (
               apiNavn={dokumentApiNavn}
               avanserteDokumentVariabler={dokumentVariabler}
               maalform={maalform}
-              dokumentType={'dokumentmal'}
+              dokumentType={DokumentType.DOKUMENTMAL}
               datasett={datasett}
             />
           </div>

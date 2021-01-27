@@ -4,11 +4,12 @@ import { hentAvansertDokumentQuery } from '../sanity/Queries';
 import { client, Datasett } from '../sanity/sanityClient';
 import useServerEffect from '../utils/useServerEffect';
 import valgfeltSerializer from './serializers/valgfeltSerializer';
-import AvansertDelmalSerializer from './serializers/avansertDelmalSerialaizer';
+import avansertDelmalSerializer from './serializers/avansertDelmalSerialaizer';
 import listItemSerializer from './serializers/listItemSerializer';
 import { Maalform } from '../../typer/sanitygrensesnitt';
 import blockSerializer from './serializers/blockSerializer';
 import flettefeltSerializer from './serializers/flettefeltSerializer';
+import { DokumentType } from '../../typer/dokumentType';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const BlockContent = require('@sanity/block-content-to-react');
@@ -19,7 +20,7 @@ interface AvansertDokumentProps {
   maalform: Maalform;
   erDokumentmal?: boolean;
   datasett: Datasett;
-  dokumentType: string;
+  dokumentType: DokumentType;
 }
 
 function AvansertDokument(avansertDokumentProps: AvansertDokumentProps) {
@@ -28,7 +29,7 @@ function AvansertDokument(avansertDokumentProps: AvansertDokumentProps) {
     avanserteDokumentVariabler,
     maalform,
     datasett,
-    dokumentType = 'dokumentmal',
+    dokumentType = DokumentType.DOKUMENTMAL,
   } = avansertDokumentProps;
 
   const [avansertDokument] = useServerEffect(undefined, apiNavn, () => {
@@ -52,7 +53,7 @@ function AvansertDokument(avansertDokumentProps: AvansertDokumentProps) {
           flettefelt: (props: any) =>
             flettefeltSerializer(props, avanserteDokumentVariabler?.flettefelter, apiNavn),
           delmal: (props: any) =>
-            AvansertDelmalSerializer(
+            avansertDelmalSerializer(
               props,
               avanserteDokumentVariabler?.delmaler,
               maalform,
@@ -72,7 +73,7 @@ function AvansertDokument(avansertDokumentProps: AvansertDokumentProps) {
           block: blockSerializer,
           undefined: (_: any) => <div />,
           delmalBlock: (props: any) =>
-            AvansertDelmalSerializer(
+            avansertDelmalSerializer(
               props,
               avanserteDokumentVariabler?.delmaler,
               maalform,
