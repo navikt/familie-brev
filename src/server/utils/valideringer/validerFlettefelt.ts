@@ -1,5 +1,5 @@
-import { Feil } from './Feil';
-import { Flettefelt } from '../../typer/dokumentApi';
+import { Feil } from '../Feil';
+import { Flettefelt } from '../../../typer/dokumentApi';
 
 export const validerFlettefelt = (
   flettefeltVerdi: Flettefelt | undefined,
