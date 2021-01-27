@@ -38,7 +38,7 @@ app.use(function (req, res, next) {
 
 app.use('/api', routes);
 
-const port = 8000;
+const port = 8001;
 console.log('checking port', port);
 app.listen(port, () => {
   console.log(`Server now listening on port: ${port}`);
