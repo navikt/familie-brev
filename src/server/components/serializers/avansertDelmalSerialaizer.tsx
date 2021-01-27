@@ -3,9 +3,9 @@ import { IAvansertDokumentVariabler, IDelmaler } from '../../../typer/dokumentAp
 import { Datasett } from '../../sanity/sanityClient';
 import AvansertDokument from '../AvansertDokument';
 import { Maalform } from '../../../typer/sanitygrensesnitt';
-import { validerDelmal } from '../../utils/valideringer';
+import validerAvansertDelmal from '../../utils/valideringer/validerAvansertDelmal';
 
-const AvansertDelmalSerializer = (
+const avansertDelmalSerializer = (
   props: any,
   delmaler: IDelmaler | undefined,
   maalform: Maalform,
@@ -15,7 +15,7 @@ const AvansertDelmalSerializer = (
   const { delmalReferanse, erGjentagende, skalAlltidMed } = props.mark || props.node;
   const delmalApiNavn = delmalReferanse.apiNavn;
 
-  validerDelmal(delmaler, delmalApiNavn, forelderDokumentApiNavn, erGjentagende);
+  validerAvansertDelmal(delmaler, delmalApiNavn, forelderDokumentApiNavn, erGjentagende);
 
   // Hvis ikke konsument har sendt inn delmalen rendrer vi heller ikke denne delen
   if (!skalAlltidMed && (!delmaler || !delmaler[delmalApiNavn])) {
@@ -51,4 +51,4 @@ const AvansertDelmalSerializer = (
   );
 };
 
-export default AvansertDelmalSerializer;
+export default avansertDelmalSerializer;
