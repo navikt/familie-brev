@@ -5,7 +5,7 @@ import hentGrensesnitt from './sanity/hentGrenesnittFraDokument';
 import { IDokumentData } from '../typer/dokumentApi';
 import hentDokumentHtml from './hentDokumentHtml';
 import { genererPdf } from './utils/api';
-import { HttpError } from './utils/HttpError';
+import { Feil } from './utils/Feil';
 
 const router = express.Router();
 
@@ -124,17 +124,17 @@ const validerDokumentData = async (
   dokumentApiNavn: string,
 ) => {
   if (!Object.values(Datasett).includes(datasett)) {
-    throw new HttpError(`Datasettet "${datasett}" finnes ikke.`, 404);
+    throw new Feil(`Datasettet "${datasett}" finnes ikke.`, 404);
   }
   if (!Object.values(Maalform).includes(maalform)) {
-    throw new HttpError(`Målformen "${maalform}" finnes ikke.`, 404);
+    throw new Feil(`Målformen "${maalform}" finnes ikke.`, 404);
   }
 
   const sanityDokumenter = await client(datasett).fetch(
     `*[_type == "dokument" && apiNavn == "${dokumentApiNavn}" ][]`,
   );
   if (sanityDokumenter.length === 0) {
-    throw new HttpError(`Fant ikke dokument med apiNavn "${dokumentApiNavn}"`, 404);
+    throw new Feil(`Fant ikke dokument med apiNavn "${dokumentApiNavn}"`, 404);
   }
 };
 
@@ -150,7 +150,7 @@ router.post('/:datasett/dokument/:maalform/:dokumentApiNavn/html', async (req, r
     const html = await hentDokumentHtml(dokument, maalform, dokumentApiNavn, datasett);
     res.send(html);
   } catch (error) {
-    if (error instanceof HttpError) {
+    if (error instanceof Feil) {
       return res.status(error.code).send(error.message);
     }
     return res.status(500).send(`${error}`);
@@ -174,7 +174,7 @@ router.post('/:datasett/dokument/:maalform/:dokumentApiNavn/pdf', async (req, re
     res.end(pdf);
   } catch (error) {
     console.log(error);
-    if (error instanceof HttpError) {
+    if (error instanceof Feil) {
       return res.status(error.code).send(error.message);
     }
     return res.status(500).send(`${error}`);
