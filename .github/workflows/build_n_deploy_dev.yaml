@@ -1,6 +1,7 @@
 name: Build, push, and deploy app to dev
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - '**'
