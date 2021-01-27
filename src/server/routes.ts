@@ -4,7 +4,7 @@ import { Maalform } from '../typer/sanitygrensesnitt';
 import { IAvansertDokumentVariabler, IDokumentData } from '../typer/dokumentApi';
 import hentDokumentHtml from './hentDokumentHtml';
 import { genererPdf } from './utils/api';
-import { HttpError } from './utils/HttpError';
+import { Feil } from './utils/Feil';
 import hentAvansertDokumentHtml from './hentAvansertDokumentHtml';
 import { DokumentType } from '../typer/dokumentType';
 import validerDokumentApiData from './utils/valideringer/validerDokumentApiData';
@@ -27,7 +27,7 @@ router.post('/:datasett/dokument/:maalform/:dokumentApiNavn/html', async (req, r
     const html = await hentDokumentHtml(dokument, maalform, dokumentApiNavn, datasett);
     res.send(html);
   } catch (error) {
-    if (error instanceof HttpError) {
+    if (error instanceof Feil) {
       return res.status(error.code).send(error.message);
     }
     return res.status(500).send(`${error}`);
@@ -49,7 +49,7 @@ router.post('/:datasett/dokument/:maalform/:dokumentApiNavn/pdf', async (req, re
     res.setHeader('Content-Disposition', `attachment; filename=${dokumentApiNavn}.pdf`);
     res.end(pdf);
   } catch (error) {
-    if (error instanceof HttpError) {
+    if (error instanceof Feil) {
       return res.status(error.code).send(error.message);
     }
     return res.status(500).send(`${error}`);
@@ -73,7 +73,7 @@ router.post('/:datasett/avansert-dokument/:maalform/:dokumentApiNavn/html', asyn
     );
     res.send(html);
   } catch (error) {
-    if (error instanceof HttpError) {
+    if (error instanceof Feil) {
       return res.status(error.code).send(error.message);
     }
     return res.status(500).send(`${error}`);
@@ -100,7 +100,8 @@ router.post('/:datasett/avansert-dokument/:maalform/:dokumentApiNavn/pdf', async
     res.setHeader('Content-Disposition', `attachment; filename=${dokumentApiNavn}.pdf`);
     res.end(pdf);
   } catch (error) {
-    if (error instanceof HttpError) {
+    console.log(error);
+    if (error instanceof Feil) {
       return res.status(error.code).send(error.message);
     }
     return res.status(500).send(`${error}`);

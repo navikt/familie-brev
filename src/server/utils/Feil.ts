@@ -1,4 +1,4 @@
-export class HttpError extends Error {
+export class Feil extends Error {
   public code: number;
   constructor(message: string, code: number) {
     super(message);
