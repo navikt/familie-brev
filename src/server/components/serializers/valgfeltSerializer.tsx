@@ -3,8 +3,8 @@ import { IValg, IValgfelter } from '../../../typer/dokumentApi';
 import { Datasett } from '../../sanity/sanityClient';
 import AvansertDokument from '../AvansertDokument';
 import { Maalform } from '../../../typer/sanitygrensesnitt';
-import { HttpError } from '../../utils/HttpError';
 import { validerValgfelt } from '../../utils/valideringer/validerValgfelt';
+import { Feil } from '../../utils/Feil';
 
 const valgfeltSerializer = (
   props: any,
@@ -44,7 +44,7 @@ const valgfeltSerializer = (
         </div>
       );
     } else {
-      throw new HttpError(
+      throw new Feil(
         `Fant ikke "${navn}" blant valgene til valgfeltet "${apiNavn}" i "${forelderDokumentApiNavn}".` +
           `\nMulige valg er ${muligeValg.map((valg: any) => `\n    - "${valg.valgmulighet}"`)}`,
         404,
