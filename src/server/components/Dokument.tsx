@@ -7,6 +7,7 @@ import flettefeltSerializer from './serializers/flettefeltSerializer';
 import { Maalform } from '../../typer/sanitygrensesnitt';
 import delmalSerializer from './serializers/delmalSerializer';
 import blockSerializer from './serializers/blockSerializer';
+import lenkeSerializer from './serializers/lenkeSerializer';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const BlockContent = require('@sanity/block-content-to-react');
@@ -54,6 +55,7 @@ function Dokument(dokumentProps: DokumentProps) {
           marks: {
             flettefelt: (props: any) =>
               flettefeltSerializer(props, dokumentData.flettefelter, dokumentApiNavn),
+            lenke: lenkeSerializer,
           },
           types: {
             flettefelt: (props: any) =>
