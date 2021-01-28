@@ -35,6 +35,10 @@ export default `
   .tittel-og-personinfo{
     margin-top: 200px;
   }
+  
+  .lenke {
+    white-space: nowrap;
+  }
 
   ul {
     margin: 0;
