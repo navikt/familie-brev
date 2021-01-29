@@ -5,7 +5,6 @@ import ValgfeltSerializer from './ValgfeltSerializer';
 import { Maalform } from '../../../typer/sanitygrensesnitt';
 import AvansertDelmalSerializer from './AvansertDelmalSerialaizer';
 import FlettefeltSerializer from './FlettefeltSerializer';
-import LenkeSerializer from './LenkeSerializer';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const BlockContent = require('@sanity/block-content-to-react');
 
@@ -44,7 +43,6 @@ const ListItemSerializer = (props: IListItemSerializerProps) => {
                 flettefelter: avanserteDokumentVariabler?.flettefelter,
                 dokumentApiNavn: apiNavn,
               }),
-            lenke: LenkeSerializer,
             delmal: (props: any) =>
               AvansertDelmalSerializer({
                 sanityProps: props,
