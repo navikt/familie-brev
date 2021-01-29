@@ -15,6 +15,7 @@ import {
   IValgfeltMark,
 } from '../../typer/sanity';
 import { client, Datasett } from './sanityClient';
+import { warning } from '@navikt/familie-logging';
 
 async function hentSubmalGrensesnitt(
   delmal: IDelmalMark | IDelmalBlock,
@@ -117,7 +118,7 @@ const hentGrensesnitt = async (
                 break;
 
               default:
-                console.warn(`Ukjent markfelt-type`, mark);
+                warning(`Ukjent markfelt-type: ${mark}`);
             }
           }
           break;
@@ -148,8 +149,8 @@ const hentGrensesnitt = async (
           break;
 
         default:
-          console.warn(`Ukjent type`, sanityElement);
-          throw new Error(`Ojda, noe gikk galt. kotakt systemansvarlig hvis problemet vedvarer`);
+          warning(`Ukjent sanityElement._type ${sanityElement}`);
+          throw new Error(`Ukjent sanityElement._type ${sanityElement}`);
       }
     }
   }
