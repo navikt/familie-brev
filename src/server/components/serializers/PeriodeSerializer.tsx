@@ -70,8 +70,6 @@ const Periode = (props: {
     return null;
   }
 
-  console.log('periode');
-
   return (
     <div className={`delmal`}>
       <BlockContent
