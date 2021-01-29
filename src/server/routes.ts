@@ -158,7 +158,11 @@ const logGenereringsrequestTilSecurelogger = <T>(
     `[${req.method} - ${req.originalUrl}] Genererer dokument ${dokumentApiNavn} i datasett ${datasett}.`,
   );
   logSecure(
-    `[${req.method} - ${req.originalUrl}] Genererer dokument ${dokumentApiNavn} i datasett ${datasett} med request-data: ${data}.`,
+    `[${req.method} - ${
+      req.originalUrl
+    }] Genererer dokument ${dokumentApiNavn} i datasett ${datasett} med request-data: ${JSON.stringify(
+      data,
+    )}.`,
   );
 };
 
