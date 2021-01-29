@@ -3,13 +3,13 @@ import { IAvansertDokumentVariabler } from '../../typer/dokumentApi';
 import { hentAvansertDokumentQuery } from '../sanity/Queries';
 import { client, Datasett } from '../sanity/sanityClient';
 import useServerEffect from '../utils/useServerEffect';
-import valgfeltSerializer from './serializers/valgfeltSerializer';
-import avansertDelmalSerializer from './serializers/avansertDelmalSerialaizer';
-import listItemSerializer from './serializers/listItemSerializer';
+import ValgfeltSerializer from './serializers/ValgfeltSerializer';
+import AvansertDelmalSerializer from './serializers/AvansertDelmalSerialaizer';
+import ListItemSerializer from './serializers/ListItemSerializer';
 import { Maalform } from '../../typer/sanitygrensesnitt';
-import blockSerializer from './serializers/blockSerializer';
-import flettefeltSerializer from './serializers/flettefeltSerializer';
 import { DokumentType } from '../../typer/dokumentType';
+import FlettefeltSerializer from './serializers/FlettefeltSerializer';
+import BlockSerializer from './serializers/BlockSerializer';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const BlockContent = require('@sanity/block-content-to-react');
@@ -51,46 +51,56 @@ function AvansertDokument(avansertDokumentProps: AvansertDokumentProps) {
       serializers={{
         marks: {
           flettefelt: (props: any) =>
-            flettefeltSerializer(props, avanserteDokumentVariabler?.flettefelter, apiNavn),
+            FlettefeltSerializer({
+              sanityProps: props,
+              flettefelter: avanserteDokumentVariabler?.flettefelter,
+              dokumentApiNavn: apiNavn,
+            }),
           delmal: (props: any) =>
-            avansertDelmalSerializer(
-              props,
-              avanserteDokumentVariabler?.delmaler,
+            AvansertDelmalSerializer({
+              sanityProps: props,
+              delmaler: avanserteDokumentVariabler?.delmaler,
               maalform,
               datasett,
-              apiNavn,
-            ),
+              forelderDokumentApiNavn: apiNavn,
+            }),
           valgfelt: (props: any) =>
-            valgfeltSerializer(
-              props,
-              avanserteDokumentVariabler?.valgfelter,
+            ValgfeltSerializer({
+              sanityProps: props,
+              valgfelter: avanserteDokumentVariabler?.valgfelter,
               maalform,
               datasett,
-              apiNavn,
-            ),
+              forelderDokumentApiNavn: apiNavn,
+            }),
         },
         types: {
-          block: blockSerializer,
+          block: BlockSerializer,
           undefined: (_: any) => <div />,
           delmalBlock: (props: any) =>
-            avansertDelmalSerializer(
-              props,
-              avanserteDokumentVariabler?.delmaler,
+            AvansertDelmalSerializer({
+              sanityProps: props,
+              delmaler: avanserteDokumentVariabler?.delmaler,
               maalform,
               datasett,
-              apiNavn,
-            ),
+              forelderDokumentApiNavn: apiNavn,
+            }),
           valgBlock: (props: any) =>
-            valgfeltSerializer(
-              props,
-              avanserteDokumentVariabler?.valgfelter,
+            ValgfeltSerializer({
+              sanityProps: props,
+              valgfelter: avanserteDokumentVariabler?.valgfelter,
               maalform,
               datasett,
-              apiNavn,
-            ),
+              forelderDokumentApiNavn: apiNavn,
+            }),
         },
         listItem: (props: any) =>
-          listItemSerializer(props, avanserteDokumentVariabler, maalform, datasett, apiNavn),
+          ListItemSerializer({
+            sanityProps: props,
+            avanserteDokumentVariabler,
+            maalform,
+            datasett,
+            apiNavn,
+          }),
       }}
     />
   );

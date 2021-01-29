@@ -10,14 +10,13 @@ const settTag = (node: any) => {
   return 'div';
 };
 
-const blockSerializer = (props: any) => {
+const BlockSerializer = (props: any) => {
   // Mellomrom på slutten av et inline html-element brekker rendringen i
   // openhtmltopdf som blir brukt til å produsere PDFene
   const children: any[] = props.children;
   if (typeof children[children.length - 1] === 'string') {
     children[children.length - 1] = children[children.length - 1].trimRight();
   }
-
   const Tag = settTag(props.node);
 
   return (
@@ -27,4 +26,4 @@ const blockSerializer = (props: any) => {
   );
 };
 
-export default blockSerializer;
+export default BlockSerializer;

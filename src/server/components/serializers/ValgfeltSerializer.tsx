@@ -6,14 +6,17 @@ import { Maalform } from '../../../typer/sanitygrensesnitt';
 import { validerValgfelt } from '../../utils/valideringer/validerValgfelt';
 import { Feil } from '../../utils/Feil';
 
-const valgfeltSerializer = (
-  props: any,
-  valgfelter: IValgfelter | undefined,
-  maalform: Maalform,
-  datasett: Datasett,
-  forelderDokumentApiNavn: string,
-) => {
-  const { valgReferanse, erGjentagende, skalAlltidMed } = props.mark || props.node;
+interface IValgfeltSerializer {
+  sanityProps: any;
+  valgfelter: IValgfelter | undefined;
+  maalform: Maalform;
+  datasett: Datasett;
+  forelderDokumentApiNavn: string;
+}
+
+const ValgfeltSerializer = (props: IValgfeltSerializer) => {
+  const { sanityProps, valgfelter, maalform, datasett, forelderDokumentApiNavn } = props;
+  const { valgReferanse, erGjentagende, skalAlltidMed } = sanityProps.mark || sanityProps.node;
   const { apiNavn, valg: muligeValg } = valgReferanse;
 
   validerValgfelt(valgfelter, apiNavn, skalAlltidMed, forelderDokumentApiNavn, erGjentagende);
@@ -25,7 +28,7 @@ const valgfeltSerializer = (
 
   const valg: IValg[] = valgfelter[apiNavn];
 
-  const erInline = !!props.mark;
+  const erInline = !!sanityProps.mark;
 
   return valg.map(({ navn, dokumentVariabler }) => {
     const riktigDokument = muligeValg.find((valg: any) => valg.valgmulighet === navn);
@@ -53,4 +56,4 @@ const valgfeltSerializer = (
   });
 };
 
-export default valgfeltSerializer;
+export default ValgfeltSerializer;

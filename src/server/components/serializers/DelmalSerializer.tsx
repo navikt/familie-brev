@@ -1,16 +1,23 @@
 import React from 'react';
 import { Flettefelter, IDelmalData } from '../../../typer/dokumentApi';
-import flettefeltSerializer from './flettefeltSerializer';
-import blockSerializer from './blockSerializer';
+import FlettefeltSerializer from './FlettefeltSerializer';
+import BlockSerializer from './BlockSerializer';
 import { Maalform } from '../../../typer/sanitygrensesnitt';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const BlockContent = require('@sanity/block-content-to-react');
 
-const delmalSerializer = (props: any, delmalData: IDelmalData | undefined, maalform: Maalform) => {
-  // Om delmalen hentes fra en annotering finnes den i props.mark.
-  // Om den hentes fra en delmalBlock finnes den i props.node.
-  const { delmalReferanse, skalAlltidMed } = props.mark || props.node;
+interface IDelmalSerializerProps {
+  sanityProps: any;
+  delmalData: IDelmalData | undefined;
+  maalform: Maalform;
+}
+
+const DelmalSerializer = (props: IDelmalSerializerProps) => {
+  const { sanityProps, delmalData, maalform } = props;
+  // Om delmalen hentes fra en annotering finnes den i sanityProps.mark.
+  // Om den hentes fra en delmalBlock finnes den i sanityProps.node.
+  const { delmalReferanse, skalAlltidMed } = sanityProps.mark || sanityProps.node;
   const apiNavn = delmalReferanse.apiNavn;
 
   // Hvis ikke konsument har sendt inn delmalen rendrer vi heller ikke denne delen
@@ -20,7 +27,7 @@ const delmalSerializer = (props: any, delmalData: IDelmalData | undefined, maalf
 
   const flettefelter: Flettefelter | undefined = delmalData && delmalData[apiNavn];
 
-  const erInline = !!props.mark;
+  const erInline = !!sanityProps.mark;
 
   return (
     <div className={`delmal ${erInline ? 'inline' : ''}`}>
@@ -28,10 +35,11 @@ const delmalSerializer = (props: any, delmalData: IDelmalData | undefined, maalf
         blocks={delmalReferanse[maalform]}
         serializers={{
           marks: {
-            flettefelt: (props: any) => flettefeltSerializer(props, flettefelter, apiNavn),
+            flettefelt: (props: any) =>
+              FlettefeltSerializer({ sanityProps: props, flettefelter, dokumentApiNavn: apiNavn }),
           },
           types: {
-            block: blockSerializer,
+            block: BlockSerializer,
             undefined: (_: any) => <div />,
           },
         }}
@@ -40,4 +48,4 @@ const delmalSerializer = (props: any, delmalData: IDelmalData | undefined, maalf
   );
 };
 
-export default delmalSerializer;
+export default DelmalSerializer;
