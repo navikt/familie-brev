@@ -1,31 +1,41 @@
 import React from 'react';
-import { IDokumentData } from '../../typer/dokumentApi';
+import { IDokumentData, IDokumentDataMedPeriode } from '../../typer/dokumentApi';
 import { hentDokumentQuery } from '../sanity/Queries';
 import { client, Datasett } from '../sanity/sanityClient';
 import useServerEffect from '../utils/useServerEffect';
-import flettefeltSerializer from './serializers/flettefeltSerializer';
 import { Maalform } from '../../typer/sanitygrensesnitt';
-import delmalSerializer from './serializers/delmalSerializer';
-import blockSerializer from './serializers/blockSerializer';
+import BlockSerializer from './serializers/BlockSerializer';
+import FlettefeltSerializer from './serializers/FlettefeltSerializer';
+import PeriodeSerializer from './serializers/PeriodeSerializer';
+import DelmalSerializer from './serializers/DelmalSerializer';
+import { DokumentType } from '../../typer/dokumentType';
+import { Feil } from '../utils/Feil';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const BlockContent = require('@sanity/block-content-to-react');
 
 interface DokumentProps {
   dokumentApiNavn: string;
-  dokumentData: IDokumentData;
+  dokumentData: IDokumentData | undefined;
   maalform: Maalform;
   datasett: Datasett;
 }
 
-function Dokument(dokumentProps: DokumentProps) {
+const Dokument = (dokumentProps: DokumentProps) => {
   const { dokumentApiNavn, dokumentData, maalform, datasett } = dokumentProps;
 
   const [dokument] = useServerEffect(undefined, dokumentApiNavn, () => {
-    const query = hentDokumentQuery('dokument', dokumentApiNavn, maalform);
+    const query = hentDokumentQuery(DokumentType.DOKUMENT, dokumentApiNavn, maalform);
     return client(datasett)
       .fetch(query)
       .then((res: any) => {
+        // eslint-disable-next-line no-constant-condition
+        if (!res[maalform]) {
+          throw new Feil(
+            `Fant ikke ${maalform} tekst for "${dokumentApiNavn}" i datasettet "${datasett}".`,
+            404,
+          );
+        }
         return res[maalform];
       });
   });
@@ -34,38 +44,45 @@ function Dokument(dokumentProps: DokumentProps) {
     return null;
   }
 
-  if (!dokumentData) {
-    return (
-      <BlockContent
-        blocks={dokument}
-        serializers={{
-          types: {
-            block: blockSerializer,
-            undefined: (_: any) => <div />,
-          },
-        }}
-      />
-    );
-  } else {
-    return (
-      <BlockContent
-        blocks={dokument}
-        serializers={{
-          marks: {
-            flettefelt: (props: any) =>
-              flettefeltSerializer(props, dokumentData.flettefelter, dokumentApiNavn),
-          },
-          types: {
-            flettefelt: (props: any) =>
-              flettefeltSerializer(props, dokumentData.flettefelter, dokumentApiNavn),
-            block: blockSerializer,
-            undefined: (_: any) => <div />,
-            delmal: (props: any) => delmalSerializer(props, dokumentData.delmalData, maalform),
-          },
-        }}
-      />
-    );
-  }
-}
+  return (
+    <BlockContent
+      blocks={dokument}
+      serializers={{
+        marks: {
+          flettefelt: (props: any) =>
+            FlettefeltSerializer({
+              sanityProps: props,
+              flettefelter: dokumentData?.flettefelter,
+              dokumentApiNavn,
+            }),
+        },
+        types: {
+          flettefelt: (props: any) =>
+            FlettefeltSerializer({
+              sanityProps: props,
+              flettefelter: dokumentData?.flettefelter,
+              dokumentApiNavn,
+            }),
+          block: BlockSerializer,
+          perioder: (props: any) =>
+            PeriodeSerializer({
+              sanityProps: props,
+              periodeData: (dokumentData as IDokumentDataMedPeriode)?.periodeData,
+              maalform,
+              datasett,
+              forelderApiNavn: dokumentApiNavn,
+            }),
+          undefined: (_: any) => <div />,
+          delmal: (props: any) =>
+            DelmalSerializer({
+              sanityProps: props,
+              delmalData: dokumentData?.delmalData,
+              maalform,
+            }),
+        },
+      }}
+    />
+  );
+};
 
 export default Dokument;

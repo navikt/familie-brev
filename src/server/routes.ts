@@ -6,7 +6,6 @@ import hentDokumentHtml from './hentDokumentHtml';
 import { genererPdf } from './utils/api';
 import { Feil } from './utils/Feil';
 import hentAvansertDokumentHtml from './hentAvansertDokumentHtml';
-import { DokumentType } from '../typer/dokumentType';
 import validerDokumentApiData from './utils/valideringer/validerDokumentApiData';
 
 const router = express.Router();
@@ -23,7 +22,7 @@ router.post('/:datasett/dokument/:maalform/:dokumentApiNavn/html', async (req, r
   const dokument: IDokumentData = req.body as IDokumentData;
 
   try {
-    await validerDokumentApiData(datasett, maalform, dokumentApiNavn, DokumentType.DOKUMENT);
+    await validerDokumentApiData(datasett, maalform);
     const html = await hentDokumentHtml(dokument, maalform, dokumentApiNavn, datasett);
     res.send(html);
   } catch (error) {
@@ -42,7 +41,7 @@ router.post('/:datasett/dokument/:maalform/:dokumentApiNavn/pdf', async (req, re
   const dokument: IDokumentData = req.body as IDokumentData;
 
   try {
-    await validerDokumentApiData(datasett, maalform, dokumentApiNavn, DokumentType.DOKUMENT);
+    await validerDokumentApiData(datasett, maalform);
     const html = await hentDokumentHtml(dokument, maalform, dokumentApiNavn, datasett);
     const pdf = await genererPdf(html);
     res.setHeader('Content-Type', 'application/pdf');
@@ -64,7 +63,7 @@ router.post('/:datasett/avansert-dokument/:maalform/:dokumentApiNavn/html', asyn
   const dokumentVariabler: IAvansertDokumentVariabler = req.body as IAvansertDokumentVariabler;
 
   try {
-    await validerDokumentApiData(datasett, maalform, dokumentApiNavn, DokumentType.DOKUMENTMAL);
+    await validerDokumentApiData(datasett, maalform);
     const html = await hentAvansertDokumentHtml(
       dokumentVariabler,
       maalform,
@@ -88,7 +87,7 @@ router.post('/:datasett/avansert-dokument/:maalform/:dokumentApiNavn/pdf', async
   const dokumentVariabler: IAvansertDokumentVariabler = req.body as IAvansertDokumentVariabler;
 
   try {
-    await validerDokumentApiData(datasett, maalform, dokumentApiNavn, DokumentType.DOKUMENTMAL);
+    await validerDokumentApiData(datasett, maalform);
     const html = await hentAvansertDokumentHtml(
       dokumentVariabler,
       maalform,

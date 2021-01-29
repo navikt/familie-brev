@@ -1,3 +1,16 @@
+export interface IDokumentData {
+  delmalData: IDelmalData;
+  flettefelter: Flettefelter;
+}
+
+export interface IDelmalData {
+  [key: string]: Flettefelter;
+}
+
+export type Flettefelter = { [key: string]: Flettefelt };
+export type Flettefelt = string[];
+
+//Avansert dokument
 export interface IAvansertDokumentVariabler {
   flettefelter: Flettefelter;
   delmaler: IDelmaler;
@@ -17,15 +30,11 @@ export interface IValg {
   dokumentVariabler: IAvansertDokumentVariabler;
 }
 
-// Enkelt dokument
-export interface IDokumentData {
-  delmalData: IDelmalData;
-  flettefelter: Flettefelter;
+// Periode
+export interface IDokumentDataMedPeriode extends IDokumentData {
+  periodeData: IPeriodeData;
 }
 
-export interface IDelmalData {
+export interface IPeriodeData {
   [key: string]: Flettefelter;
 }
-
-export type Flettefelter = { [key: string]: Flettefelt };
-export type Flettefelt = string[];

@@ -3,4 +3,5 @@ export enum DokumentType {
   DOKUMENTMAL = 'dokumentmal',
   DOKUMENT = 'dokument',
   AVANSERT_DELMAL = 'avansertDelmal',
+  PERIODE = 'periode',
 }
