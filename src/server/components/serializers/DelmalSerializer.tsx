@@ -3,6 +3,7 @@ import { Flettefelter, IDelmalData } from '../../../typer/dokumentApi';
 import FlettefeltSerializer from './FlettefeltSerializer';
 import BlockSerializer from './BlockSerializer';
 import { Maalform } from '../../../typer/sanitygrensesnitt';
+import LenkeSerializer from './LenkeSerializer';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const BlockContent = require('@sanity/block-content-to-react');
@@ -37,6 +38,7 @@ const DelmalSerializer = (props: IDelmalSerializerProps) => {
           marks: {
             flettefelt: (props: any) =>
               FlettefeltSerializer({ sanityProps: props, flettefelter, dokumentApiNavn: apiNavn }),
+            lenke: LenkeSerializer,
           },
           types: {
             block: BlockSerializer,

@@ -8,7 +8,7 @@ export const hentMiljøvariabler = () => {
   switch (NODE_ENV) {
     case 'production':
       return {
-        FAMILIE_DOKUMENT_API_URL: 'https://familie-dokument.dev.intern.nav.no',
+        FAMILIE_DOKUMENT_API_URL: 'http://familie-dokument',
       };
     default:
       return {

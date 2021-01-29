@@ -1,4 +1,5 @@
 import React from 'react';
+import { rightTrimLastProp } from '../../utils/openhtmltopdfBughåndtering';
 
 const settTag = (node: any) => {
   const style = node.style;
@@ -11,12 +12,8 @@ const settTag = (node: any) => {
 };
 
 const BlockSerializer = (props: any) => {
-  // Mellomrom på slutten av et inline html-element brekker rendringen i
-  // openhtmltopdf som blir brukt til å produsere PDFene
-  const children: any[] = props.children;
-  if (typeof children[children.length - 1] === 'string') {
-    children[children.length - 1] = children[children.length - 1].trimRight();
-  }
+  const children = rightTrimLastProp(props);
+
   const Tag = settTag(props.node);
 
   return (

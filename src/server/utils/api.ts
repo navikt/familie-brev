@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { hentMiljøvariabler } from '../environment';
+import { Feil } from './Feil';
 
 export const genererPdf = async (html: string): Promise<ArrayBuffer> => {
   const url = `${hentMiljøvariabler().FAMILIE_DOKUMENT_API_URL}/api/html-til-pdf`;
@@ -14,7 +15,10 @@ export const genererPdf = async (html: string): Promise<ArrayBuffer> => {
     })
     .then((res: AxiosResponse<ArrayBuffer>) => res.data)
     .catch(error => {
-      console.log(`Feil mot familie-dokument: ${error}`);
-      return error;
+      console.error('Error:');
+      console.error(error.message);
+      console.error(`linje ${error.lineNumber}, kolonne ${error.columnNumber}`);
+      console.error(`Stack trace: ${error.stack}`);
+      throw new Feil(`Feil mot familie-dokument: ${error.message}`, 500);
     });
 };

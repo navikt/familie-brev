@@ -10,6 +10,7 @@ import PeriodeSerializer from './serializers/PeriodeSerializer';
 import DelmalSerializer from './serializers/DelmalSerializer';
 import { DokumentType } from '../../typer/dokumentType';
 import { Feil } from '../utils/Feil';
+import LenkeSerializer from './serializers/LenkeSerializer';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const BlockContent = require('@sanity/block-content-to-react');
@@ -55,6 +56,7 @@ const Dokument = (dokumentProps: DokumentProps) => {
               flettefelter: dokumentData?.flettefelter,
               dokumentApiNavn,
             }),
+          lenke: LenkeSerializer,
         },
         types: {
           flettefelt: (props: any) =>

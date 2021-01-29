@@ -10,6 +10,7 @@ import { Maalform } from '../../typer/sanitygrensesnitt';
 import { DokumentType } from '../../typer/dokumentType';
 import FlettefeltSerializer from './serializers/FlettefeltSerializer';
 import BlockSerializer from './serializers/BlockSerializer';
+import LenkeSerializer from './serializers/LenkeSerializer';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const BlockContent = require('@sanity/block-content-to-react');
@@ -56,6 +57,7 @@ function AvansertDokument(avansertDokumentProps: AvansertDokumentProps) {
               flettefelter: avanserteDokumentVariabler?.flettefelter,
               dokumentApiNavn: apiNavn,
             }),
+          lenke: LenkeSerializer,
           delmal: (props: any) =>
             AvansertDelmalSerializer({
               sanityProps: props,
