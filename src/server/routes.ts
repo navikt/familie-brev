@@ -8,7 +8,7 @@ import { Feil } from './utils/Feil';
 import hentAvansertDokumentHtml from './hentAvansertDokumentHtml';
 import { DokumentType } from '../typer/dokumentType';
 import validerDokumentApiData from './utils/valideringer/validerDokumentApiData';
-import { error, secure, info } from '@navikt/familie-logging';
+import { logError, logInfo, logSecure } from '@navikt/familie-logging';
 
 const router = express.Router();
 
@@ -31,13 +31,13 @@ router.post(
       const html = await hentDokumentHtml(dokument, maalform, dokumentApiNavn, datasett);
       res.send(html);
     } catch (feil) {
-      error(`Generering av dokument (html) feilet: ${feil.message}`);
-      secure(`Generering av dokument (html) feilet: ${feil}`);
-
       if (feil instanceof Feil) {
         return res.status(feil.code).send(feil.message);
       }
-      return res.status(500).send(`${feil}`);
+
+      logError(`Generering av dokument (html) feilet: ${feil.message}`);
+      logSecure(`Generering av dokument (html) feilet: ${feil}`);
+      return res.status(500).send(`Generering av dokument (html) feilet: ${feil.message}`);
     }
   },
 );
@@ -60,13 +60,13 @@ router.post(
       res.setHeader('Content-Disposition', `attachment; filename=${dokumentApiNavn}.pdf`);
       res.end(pdf);
     } catch (feil) {
-      error(`Generering av dokument (pdf) feilet: ${feil.message}`);
-      secure(`Generering av dokument (pdf) feilet: ${feil}`);
-
       if (feil instanceof Feil) {
         return res.status(feil.code).send(feil.message);
       }
-      return res.status(500).send(`${feil}`);
+
+      logError(`Generering av dokument (pdf) feilet: ${feil.message}`);
+      logSecure(`Generering av dokument (pdf) feilet: ${feil}`);
+      return res.status(500).send(`Generering av dokument (pdf) feilet: ${feil.message}`);
     }
   },
 );
@@ -95,14 +95,16 @@ router.post(
         datasett,
       );
       res.send(html);
-    } catch (feil) {
-      error(`Generering av avansert dokument (html) feilet: ${feil.message}`);
-      secure(`Generering av avansert dokument (html) feilet: ${feil}`);
-
-      if (feil instanceof Feil) {
-        return res.status(feil.code).send(feil.message);
+    } catch (error) {
+      if (error instanceof Feil) {
+        return res.status(error.code).send(error.message);
       }
-      return res.status(500).send(`${feil}`);
+
+      logError(`Generering av avansert dokument (html) feilet: ${error.message}`);
+      logSecure(`Generering av avansert dokument (html) feilet: ${error}`);
+      return res
+        .status(500)
+        .send(`Generering av avansert dokument (html) feilet: ${error.message}`);
     }
   },
 );
@@ -134,13 +136,14 @@ router.post(
       res.setHeader('Content-Type', 'application/pdf');
       res.setHeader('Content-Disposition', `attachment; filename=${dokumentApiNavn}.pdf`);
       res.end(pdf);
-    } catch (feil) {
-      error(`Generering av avansert dokument (pdf) feilet: ${feil.message}`);
-      secure(`Generering av avansert dokument (pdf) feilet: ${feil}`);
-      if (feil instanceof Feil) {
-        return res.status(feil.code).send(feil.message);
+    } catch (error) {
+      if (error instanceof Feil) {
+        return res.status(error.code).send(error.message);
       }
-      return res.status(500).send(`${feil}`);
+
+      logError(`Generering av avansert dokument (pdf) feilet: ${error.message}`);
+      logSecure(`Generering av avansert dokument (pdf) feilet: ${error}`);
+      return res.status(500).send(`Generering av avansert dokument (pdf) feilet: ${error.message}`);
     }
   },
 );
@@ -151,10 +154,10 @@ const logGenereringsrequestTilSecurelogger = <T>(
   data: T,
   req: Request,
 ) => {
-  info(
+  logInfo(
     `[${req.method} - ${req.originalUrl}] Genererer dokument ${dokumentApiNavn} i datasett ${datasett}.`,
   );
-  secure(
+  logSecure(
     `[${req.method} - ${req.originalUrl}] Genererer dokument ${dokumentApiNavn} i datasett ${datasett} med request-data: ${data}.`,
   );
 };

@@ -39,6 +39,8 @@ spec:
       value: '{{version}}'
     - name: APPRES_CMS_URL
       value: https://appres.nav.no
+  secureLogs:
+    enabled: true
   resources:
     limits:
       cpu: 2000m

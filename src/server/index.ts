@@ -2,7 +2,7 @@ import express from 'express';
 import path from 'path';
 import routes from './routes';
 import dotenv from 'dotenv';
-import { info } from '@navikt/familie-logging';
+import { logInfo } from '@navikt/familie-logging';
 
 dotenv.config();
 export const { NODE_ENV } = process.env;
@@ -41,5 +41,5 @@ app.use('/api', routes);
 
 const port = 8000;
 app.listen(port, () => {
-  info(`Server now listening on port: ${port}`);
+  logInfo(`Server now listening on port: ${port}`);
 });

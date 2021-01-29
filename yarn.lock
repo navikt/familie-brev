@@ -1595,10 +1595,10 @@
     snyk "^1.336.0"
     winston "^3.2.1"
 
-"@navikt/familie-logging@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@navikt/familie-logging/-/familie-logging-1.0.1.tgz#f09de5d6b7a7b1c2be3f681bf2528e3350cd0f81"
-  integrity sha512-8IUgKyFJly1kECovd+/058Ytm/vaEjfr+vFvUEHOq4s2xoPUfoqeEKJd05k7OHuJlvwtLjyX4ll34obYOKcbcw==
+"@navikt/familie-logging@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@navikt/familie-logging/-/familie-logging-1.0.2.tgz#383db9ffd2993e9e3a84d404ed51858e052e9bd0"
+  integrity sha512-fW6qXQTke32fzqTWN/OXU3RjCxDzCzzYshNc4Ea4+DR0hdZvGW2IIzBxuKKDAp2G6mF7/rWBDn17VSB2rPeOYA==
   dependencies:
     winston "^3.2.1"
 
