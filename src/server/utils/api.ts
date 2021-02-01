@@ -1,10 +1,12 @@
 import axios, { AxiosResponse } from 'axios';
 import { hentMiljøvariabler } from '../environment';
 import { Feil } from './Feil';
+import { logInfo } from '@navikt/familie-logging';
 
 export const genererPdf = async (html: string): Promise<ArrayBuffer> => {
   const url = `${hentMiljøvariabler().FAMILIE_DOKUMENT_API_URL}/api/html-til-pdf`;
 
+  logInfo(`Generer pdf mot ${url}`);
   return axios
     .post(url, html, {
       responseType: 'arraybuffer',
@@ -15,10 +17,6 @@ export const genererPdf = async (html: string): Promise<ArrayBuffer> => {
     })
     .then((res: AxiosResponse<ArrayBuffer>) => res.data)
     .catch(error => {
-      console.error('Error:');
-      console.error(error.message);
-      console.error(`linje ${error.lineNumber}, kolonne ${error.columnNumber}`);
-      console.error(`Stack trace: ${error.stack}`);
-      throw new Feil(`Feil mot familie-dokument: ${error.message}`, 500);
+      throw new Feil(`Feil mot familie-dokument`, 500, error);
     });
 };

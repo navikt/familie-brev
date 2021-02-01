@@ -31,7 +31,6 @@ spec:
     outbound:
       rules:
         - application: familie-dokument
-          namespace: default
       external:
         - host: appres.nav.no
         - host: xsrv1mh6.api.sanity.io
@@ -40,7 +39,8 @@ spec:
       value: '{{version}}'
     - name: APPRES_CMS_URL
       value: https://appres.nav.no
-
+  secureLogs:
+    enabled: true
   resources:
     limits:
       cpu: 2000m

@@ -117,7 +117,7 @@ const hentGrensesnitt = async (
                 break;
 
               default:
-                console.warn(`Ukjent markfelt-type`, mark);
+                throw new Error(`Ukjent mark._type ${mark}`);
             }
           }
           break;
@@ -148,8 +148,7 @@ const hentGrensesnitt = async (
           break;
 
         default:
-          console.warn(`Ukjent type`, sanityElement);
-          throw new Error(`Ojda, noe gikk galt. kotakt systemansvarlig hvis problemet vedvarer`);
+          throw new Error(`Ukjent sanityElement._type ${sanityElement}`);
       }
     }
   }
