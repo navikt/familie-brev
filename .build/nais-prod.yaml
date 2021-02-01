@@ -31,7 +31,6 @@ spec:
     outbound:
       rules:
         - application: familie-dokument
-          namespace: default
       external:
         - host: appres.nav.no
         - host: xsrv1mh6.api.sanity.io
