@@ -22,7 +22,7 @@ const DelmalSerializer = (props: IDelmalSerializerProps) => {
   const apiNavn = delmalReferanse.apiNavn;
 
   // Hvis ikke konsument har sendt inn delmalen rendrer vi heller ikke denne delen
-  if (!delmalData && !skalAlltidMed) {
+  if (!skalAlltidMed && (!delmalData || !delmalData[apiNavn])) {
     return null;
   }
 
