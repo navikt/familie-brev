@@ -5,6 +5,7 @@ import ValgfeltSerializer from './ValgfeltSerializer';
 import { Maalform } from '../../../typer/sanitygrensesnitt';
 import AvansertDelmalSerializer from './AvansertDelmalSerialaizer';
 import FlettefeltSerializer from './FlettefeltSerializer';
+import { DokumentType } from '../../../typer/dokumentType';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const BlockContent = require('@sanity/block-content-to-react');
 
@@ -18,7 +19,7 @@ interface IListItemSerializerProps {
 
 const ListItemSerializer = (props: IListItemSerializerProps) => {
   const { sanityProps, avanserteDokumentVariabler, maalform, datasett, apiNavn } = props;
-  const erDelmal = (markDef: any) => markDef._type === 'delmal';
+  const erDelmal = (markDef: any) => markDef._type === DokumentType.DELMAL;
   const delmalSkalMed = (mark: any): boolean =>
     !mark.skalMedFelt || !!avanserteDokumentVariabler?.delmaler[mark.submal?.id];
 
