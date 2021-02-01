@@ -28,4 +28,4 @@ yarn-error.log*
 
 /.idea
 
-/secure.log
+secure.log
