@@ -6,7 +6,6 @@ import hentDokumentHtml from './hentDokumentHtml';
 import { genererPdf } from './utils/api';
 import { Feil } from './utils/Feil';
 import hentAvansertDokumentHtml from './hentAvansertDokumentHtml';
-import { DokumentType } from '../typer/dokumentType';
 import validerDokumentApiData from './utils/valideringer/validerDokumentApiData';
 import { logError, logInfo, logSecure } from '@navikt/familie-logging';
 
@@ -27,7 +26,7 @@ router.post(
 
     logGenereringsrequestTilSecurelogger<IDokumentData>(datasett, dokumentApiNavn, dokument, req);
     try {
-      await validerDokumentApiData(datasett, maalform, dokumentApiNavn, DokumentType.DOKUMENT);
+      await validerDokumentApiData(datasett, maalform);
       const html = await hentDokumentHtml(dokument, maalform, dokumentApiNavn, datasett);
       res.send(html);
     } catch (feil) {
@@ -53,7 +52,7 @@ router.post(
 
     logGenereringsrequestTilSecurelogger<IDokumentData>(datasett, dokumentApiNavn, dokument, req);
     try {
-      await validerDokumentApiData(datasett, maalform, dokumentApiNavn, DokumentType.DOKUMENT);
+      await validerDokumentApiData(datasett, maalform);
       const html = await hentDokumentHtml(dokument, maalform, dokumentApiNavn, datasett);
       const pdf = await genererPdf(html);
       res.setHeader('Content-Type', 'application/pdf');
@@ -87,7 +86,7 @@ router.post(
       req,
     );
     try {
-      await validerDokumentApiData(datasett, maalform, dokumentApiNavn, DokumentType.DOKUMENTMAL);
+      await validerDokumentApiData(datasett, maalform);
       const html = await hentAvansertDokumentHtml(
         dokumentVariabler,
         maalform,
@@ -125,7 +124,7 @@ router.post(
       req,
     );
     try {
-      await validerDokumentApiData(datasett, maalform, dokumentApiNavn, DokumentType.DOKUMENTMAL);
+      await validerDokumentApiData(datasett, maalform);
       const html = await hentAvansertDokumentHtml(
         dokumentVariabler,
         maalform,

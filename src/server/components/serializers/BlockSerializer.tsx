@@ -11,7 +11,7 @@ const settTag = (node: any) => {
   return 'div';
 };
 
-const blockSerializer = (props: any) => {
+const BlockSerializer = (props: any) => {
   const children = rightTrimLastProp(props);
 
   const Tag = settTag(props.node);
@@ -23,4 +23,4 @@ const blockSerializer = (props: any) => {
   );
 };
 
-export default blockSerializer;
+export default BlockSerializer;

@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { IDokumentData } from '../typer/dokumentApi';
 import Dokument from './components/Dokument';
-import { Datasett } from './sanity/sanityClient';
+import { client, Datasett } from './sanity/sanityClient';
 import { renderToStaticMarkup } from 'react-dom/server';
 import Context from './utils/Context';
 import css from './utils/css';
 import Header from './components/Header';
-import { client } from './sanity/sanityClient';
 import { Maalform } from '../typer/sanitygrensesnitt';
+import { Feil } from './utils/Feil';
 
 enum HtmlLang {
   NB = 'nb',
@@ -20,13 +20,18 @@ const hentDokumentHtml = async (
   dokumentApiNavn: string,
   datasett: Datasett,
 ): Promise<string> => {
-  const tittel = (
-    await client(datasett).fetch(
-      `*[_type == "dokument" && apiNavn == "${dokumentApiNavn}" ][].tittel${
-        maalform === Maalform.NB ? 'Bokmaal' : 'Nynorsk'
-      }`,
-    )
-  )[0];
+  const [tittel] = await client(datasett).fetch(
+    `*[_type == "dokument" && apiNavn == "${dokumentApiNavn}" ][].tittel${
+      maalform === Maalform.NB ? 'Bokmaal' : 'Nynorsk'
+    }`,
+  );
+
+  if (!tittel) {
+    throw new Feil(
+      `Fant ikke ${maalform}-tittel til "${dokumentApiNavn}" i datasettet "${datasett}".`,
+      404,
+    );
+  }
 
   const htmlLang = () => {
     switch (maalform) {

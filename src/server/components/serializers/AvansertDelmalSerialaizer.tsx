@@ -5,14 +5,17 @@ import AvansertDokument from '../AvansertDokument';
 import { Maalform } from '../../../typer/sanitygrensesnitt';
 import validerAvansertDelmal from '../../utils/valideringer/validerAvansertDelmal';
 
-const avansertDelmalSerializer = (
-  props: any,
-  delmaler: IDelmaler | undefined,
-  maalform: Maalform,
-  datasett: Datasett,
-  forelderDokumentApiNavn: string,
-) => {
-  const { delmalReferanse, erGjentagende, skalAlltidMed } = props.mark || props.node;
+interface IAvansertDelmalSerializerProps {
+  sanityProps: any;
+  delmaler: IDelmaler | undefined;
+  maalform: Maalform;
+  datasett: Datasett;
+  forelderDokumentApiNavn: string;
+}
+
+const AvansertDelmalSerializer = (props: IAvansertDelmalSerializerProps) => {
+  const { sanityProps, delmaler, maalform, datasett, forelderDokumentApiNavn } = props;
+  const { delmalReferanse, erGjentagende, skalAlltidMed } = sanityProps.mark || sanityProps.node;
   const delmalApiNavn = delmalReferanse.apiNavn;
 
   validerAvansertDelmal(delmaler, delmalApiNavn, forelderDokumentApiNavn, erGjentagende);
@@ -24,7 +27,7 @@ const avansertDelmalSerializer = (
   const avanserteDokumentVariabler: IAvansertDokumentVariabler[] | undefined =
     delmaler && delmaler[delmalApiNavn];
 
-  const erInline = !!props.mark;
+  const erInline = !!sanityProps.mark;
 
   return (
     <div className={`delmal ${erInline ? 'inline' : ''}`}>
@@ -51,4 +54,4 @@ const avansertDelmalSerializer = (
   );
 };
 
-export default avansertDelmalSerializer;
+export default AvansertDelmalSerializer;
