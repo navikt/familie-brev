@@ -43,4 +43,8 @@ export default `
   ul {
     margin: 0;
   }
+  
+  .block{
+    white-space: pre-wrap
+  }
 `;
