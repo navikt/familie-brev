@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flettefelter, IPeriodeData } from '../../../typer/dokumentApi';
+import { Flettefelter } from '../../../typer/dokumentApi';
 import FlettefeltSerializer from './FlettefeltSerializer';
 import BlockSerializer from './BlockSerializer';
 import { Maalform } from '../../../typer/sanitygrensesnitt';
@@ -15,7 +15,7 @@ const BlockContent = require('@sanity/block-content-to-react');
 
 interface IPeriodeProps {
   sanityProps: any;
-  periodeData: IPeriodeData;
+  periodeData: Flettefelter[];
   maalform: Maalform;
   datasett: Datasett;
   forelderApiNavn: string;
@@ -30,26 +30,21 @@ const PeriodeSerializer = (props: IPeriodeProps) => {
 
   return (
     <div className={`delmal`}>
-      {Object.keys(periodeData).map(periodeApiNavn => (
+      {periodeData.map((periode, index) => (
         <Periode
-          key={periodeApiNavn}
+          key={`${periode.type[0]}-${index}`}
           datasett={datasett}
           maalform={maalform}
-          periodeApiNavn={periodeApiNavn}
-          flettefelter={periodeData[periodeApiNavn]}
+          flettefelter={periode}
         />
       ))}
     </div>
   );
 };
 
-const Periode = (props: {
-  maalform: Maalform;
-  periodeApiNavn: string;
-  datasett: Datasett;
-  flettefelter: Flettefelter;
-}) => {
-  const { maalform, periodeApiNavn, datasett, flettefelter } = props;
+const Periode = (props: { maalform: Maalform; datasett: Datasett; flettefelter: Flettefelter }) => {
+  const { maalform, datasett, flettefelter } = props;
+  const periodeApiNavn = flettefelter.type[0];
 
   const [periode] = useServerEffect(undefined, periodeApiNavn, () => {
     const query = hentDokumentQuery(DokumentType.PERIODE, periodeApiNavn, maalform);

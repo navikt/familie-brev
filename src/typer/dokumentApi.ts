@@ -32,9 +32,5 @@ export interface IValg {
 
 // Periode
 export interface IDokumentDataMedPeriode extends IDokumentData {
-  periodeData: IPeriodeData;
-}
-
-export interface IPeriodeData {
-  [key: string]: Flettefelter;
+  periodeData: Flettefelter[];
 }
