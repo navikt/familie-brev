@@ -45,6 +45,6 @@ export default `
   }
   
   .block{
-    white-space: white-space: pre
+    white-space: pre-wrap
   }
 `;
