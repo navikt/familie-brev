@@ -1,10 +1,9 @@
-name: Build, push, and deploy app to dev
+name: Build and deploy dev
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - '**'
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
 
 env:
   IMAGE: docker.pkg.github.com/${{ github.repository }}/familie-brev:${{ github.sha }}

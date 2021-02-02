@@ -1,10 +1,9 @@
-name: Build, push, and deploy app to prod
+name: Build and deploy prod
 
 on:
   push:
     branches:
       - 'master'
-      - 'deploy-test'
 
 env:
   IMAGE: docker.pkg.github.com/${{ github.repository }}/familie-brev:${{ github.sha }}
