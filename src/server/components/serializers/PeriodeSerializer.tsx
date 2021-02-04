@@ -15,22 +15,22 @@ const BlockContent = require('@sanity/block-content-to-react');
 
 interface IPeriodeProps {
   sanityProps: any;
-  periodeData: Flettefelter[];
+  perioder: Flettefelter[];
   maalform: Maalform;
   datasett: Datasett;
   forelderApiNavn: string;
 }
 
 const PeriodeSerializer = (props: IPeriodeProps) => {
-  const { periodeData, maalform, datasett, forelderApiNavn } = props;
+  const { perioder, maalform, datasett, forelderApiNavn } = props;
   // Om delmalen hentes fra en annotering finnes den i props.mark.
   // Om den hentes fra en delmalBlock finnes den i props.node.
 
-  validerPeriode(forelderApiNavn, periodeData);
+  validerPeriode(forelderApiNavn, perioder);
 
   return (
     <div className={`delmal`}>
-      {periodeData.map((periode, index) => (
+      {perioder.map((periode, index) => (
         <Periode
           key={`${periode.type[0]}-${index}`}
           datasett={datasett}

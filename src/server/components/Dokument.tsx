@@ -69,7 +69,7 @@ const Dokument = (dokumentProps: DokumentProps) => {
           perioder: (props: any) =>
             PeriodeSerializer({
               sanityProps: props,
-              periodeData: (dokumentData as IDokumentDataMedPeriode)?.periodeData,
+              perioder: (dokumentData as IDokumentDataMedPeriode)?.perioder,
               maalform,
               datasett,
               forelderApiNavn: dokumentApiNavn,
