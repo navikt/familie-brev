@@ -7,7 +7,7 @@ Konsumenter kan få returnert html eller pdf/bytearray.
 
 # Kjør server lokalt
 * `familie-dokument` må kjøres med DevLauncher for at pdf-generering skal fungere
-* Kjør `yarn dev:server`
+* Kjør `yarn dev server`
 
 # Bygg og deploy
 Appen bygges hos github actions og gir beskjed til nais deploy om å deployere appen på gcp. 
