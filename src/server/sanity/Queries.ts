@@ -1,9 +1,9 @@
 export const hentAvansertDokumentQuery = (
   dokumentType: string,
-  dokumentNavn: string,
+  dokumentApiNavn: string,
   maalform: string,
 ) => `
-        *[_type == "${dokumentType}" && id == "${dokumentNavn}"][0]
+        *[_type == "${dokumentType}" && apiNavn == "${dokumentApiNavn}"][0]
         {..., ${maalform}[]
           {
             _type == "block"=> {..., markDefs[]{

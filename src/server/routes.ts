@@ -2,8 +2,9 @@ import express from 'express';
 import { client, Datasett } from './sanity/sanityClient';
 import { ISanityGrensesnitt, Maalform } from '../typer/sanitygrensesnitt';
 import hentGrensesnitt from './sanity/hentGrenesnittFraDokument';
-import { IDokumentData } from '../typer/dokumentApi';
+import { IDokumentData, IAvansertDokumentVariabler } from '../typer/dokumentApi';
 import hentDokumentHtml from './hentDokumentHtml';
+import hentAvansertDokumentHtml from './hentAvansertDokumentHtml';
 import { genererPdf } from './utils/api';
 import { HttpError } from './utils/HttpError';
 
@@ -138,6 +139,26 @@ const validerDokumentData = async (
   }
 };
 
+const validerAvansertDokumentData = async (
+  datasett: Datasett,
+  maalform: Maalform,
+  dokumentApiNavn: string,
+) => {
+  if (!Object.values(Datasett).includes(datasett)) {
+    throw new HttpError(`Datasettet "${datasett}" finnes ikke.`, 404);
+  }
+  if (!Object.values(Maalform).includes(maalform)) {
+    throw new HttpError(`Målformen "${maalform}" finnes ikke.`, 404);
+  }
+
+  const sanityDokumenter = await client(datasett).fetch(
+    `*[_type == "dokumentmal" && apiNavn == "${dokumentApiNavn}" ][]`,
+  );
+  if (sanityDokumenter.length === 0) {
+    throw new HttpError(`Fant ikke dokument med apiNavn "${dokumentApiNavn}"`, 404);
+  }
+};
+
 router.post('/:datasett/dokument/:maalform/:dokumentApiNavn/html', async (req, res) => {
   const datasett = req.params.datasett as Datasett;
   const maalform = req.params.maalform as Maalform;
@@ -148,6 +169,25 @@ router.post('/:datasett/dokument/:maalform/:dokumentApiNavn/html', async (req, r
   try {
     await validerDokumentData(datasett, maalform, dokumentApiNavn);
     const html = await hentDokumentHtml(dokument, maalform, dokumentApiNavn, datasett);
+    res.send(html);
+  } catch (error) {
+    if (error instanceof HttpError) {
+      return res.status(error.code).send(error.message);
+    }
+    return res.status(500).send(`${error}`);
+  }
+});
+
+router.post('/:datasett/avansertDokument/:maalform/:dokumentApiNavn/html', async (req, res) => {
+  const datasett = req.params.datasett as Datasett;
+  const maalform = req.params.maalform as Maalform;
+  const dokumentApiNavn = req.params.dokumentApiNavn;
+
+  const dokument: IAvansertDokumentVariabler = req.body as IAvansertDokumentVariabler;
+
+  try {
+    await validerAvansertDokumentData(datasett, maalform, dokumentApiNavn);
+    const html = await hentAvansertDokumentHtml(dokument, maalform, dokumentApiNavn, datasett);
     res.send(html);
   } catch (error) {
     if (error instanceof HttpError) {

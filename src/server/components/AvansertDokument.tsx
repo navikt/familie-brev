@@ -5,6 +5,7 @@ import { client, Datasett } from '../sanity/sanityClient';
 import useServerEffect from '../utils/useServerEffect';
 import valgfeltSerializer from './serializers/valgfeltSerializer';
 import avansertFlettefeltSerializer from './serializers/AvansertFlettefeltSerializer';
+import flettefeltSerializer from './serializers/flettefeltSerializer';
 import delmalSerializer from './serializers/avansertDelmalSerialaizer';
 import listItemSerializer from './serializers/listItemSerializer';
 import { Maalform } from '../../typer/sanitygrensesnitt';
@@ -33,16 +34,13 @@ function AvansertDokument(avansertDokumentProps: AvansertDokumentProps) {
 
   const [avansertDokument] = useServerEffect(undefined, apiNavn, () => {
     const query = hentAvansertDokumentQuery(dokumentType, apiNavn, maalform);
+
     return client(datasett)
       .fetch(query)
       .then((res: any) => {
         return res[maalform];
       });
   });
-
-  if (!avansertDokument) {
-    return null;
-  }
 
   if (!avansertDokumentVariabler) {
     return (
@@ -63,7 +61,7 @@ function AvansertDokument(avansertDokumentProps: AvansertDokumentProps) {
         serializers={{
           marks: {
             flettefelt: (props: any) =>
-              avansertFlettefeltSerializer(props, avansertDokumentVariabler.flettefelter, apiNavn),
+              flettefeltSerializer(props, avansertDokumentVariabler.flettefelter, apiNavn),
             submal: (props: any) =>
               delmalSerializer(props, avansertDokumentVariabler.delmaler, maalform, datasett),
             valgfelt: (props: any) =>
@@ -72,8 +70,7 @@ function AvansertDokument(avansertDokumentProps: AvansertDokumentProps) {
           types: {
             block: blockSerializer,
             undefined: (_: any) => <div />,
-            delmalBlock: (props: any) =>
-              delmalSerializer(props, avansertDokumentVariabler.delmaler, maalform, datasett),
+            delmalBlock: (props: any) => <h1>Delmal</h1>,
             valgfeltBlock: (props: any) =>
               valgfeltSerializer(props, avansertDokumentVariabler.valgfelter, maalform, datasett),
           },

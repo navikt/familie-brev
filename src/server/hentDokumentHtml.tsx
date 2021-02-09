@@ -22,7 +22,7 @@ const hentDokumentHtml = async (
 ): Promise<string> => {
   const tittel = (
     await client(datasett).fetch(
-      `*[_type == "dokument" && apiNavn == "${dokumentApiNavn}" ][].tittel${
+      `*[_type == "dokumentmal" && apiNavn == "${dokumentApiNavn}" ][].tittel${
         maalform === Maalform.NB ? 'Bokmaal' : 'Nynorsk'
       }`,
     )
