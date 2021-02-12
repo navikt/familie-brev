@@ -33,6 +33,7 @@ const ValgfeltSerializer = (props: IValgfeltSerializer) => {
   return valg.map(({ navn, dokumentVariabler }) => {
     const riktigDokument = muligeValg.find((valg: any) => valg.valgmulighet === navn);
     const delmalApiNavn = riktigDokument?.delmal?.apiNavn;
+    const delmalApiType = riktigDokument?.delmal?._type;
 
     if (delmalApiNavn) {
       return (
@@ -42,7 +43,7 @@ const ValgfeltSerializer = (props: IValgfeltSerializer) => {
             avanserteDokumentVariabler={dokumentVariabler}
             maalform={maalform}
             datasett={datasett}
-            dokumentType={riktigDokument._type}
+            dokumentType={delmalApiType}
           />
         </div>
       );
