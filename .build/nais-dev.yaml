@@ -28,6 +28,9 @@ spec:
   ingresses:
     - https://familie-brev.dev.intern.nav.no
   accessPolicy:
+    inbound:
+      rules:
+        - application: familie-ef-sak
     outbound:
       rules:
         - application: familie-dokument
