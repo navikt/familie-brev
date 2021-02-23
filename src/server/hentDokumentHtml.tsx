@@ -88,6 +88,11 @@ const hentDokumentHtml = async (
     dokument = await byggDokument();
   }
 
+  /*
+    "'" blir omgjort til "&#x27;" når vi bygger statisk html.
+    "'" brukes i CSSen når vi setter sidetall og må derfor omgjøres tilbake
+  */
+  dokument = dokument.replace(/&#x27;/g, "'");
   return dokument.replace(/(\r\n|\n|\r)/gm, '');
 };
 

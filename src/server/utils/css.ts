@@ -45,6 +45,12 @@ export default `
   }
   
   .block{
-    white-space: pre-wrap
+    white-space: pre-wrap;
+  }
+  
+  @page {
+    @bottom-right {
+      content: 'Side ' counter(page) ' av ' counter(pages);  
+    }
   }
 `;
