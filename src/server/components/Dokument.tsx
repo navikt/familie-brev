@@ -57,6 +57,7 @@ const Dokument = (dokumentProps: DokumentProps) => {
               dokumentApiNavn,
             }),
           lenke: LenkeSerializer,
+          hoyrestill: (props: any) => <span className={'høyrestill'}>{props.children}</span>,
         },
         types: {
           flettefelt: (props: any) =>

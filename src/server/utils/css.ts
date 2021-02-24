@@ -53,4 +53,8 @@ export default `
       content: 'Side ' counter(page) ' av ' counter(pages);  
     }
   }
+  
+  .høyrestill {
+    float: right;
+  }
 `;
