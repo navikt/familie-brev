@@ -25,7 +25,9 @@ const FlettefeltSerializer = (props: IFlettefeltSerializerProps) => {
   const flettefelt = flettefelter[flettefeltNavn];
 
   const høyrestill =
-    props.sanityProps.children && props.sanityProps.children[0].props?.node?.mark === 'hoyrestill';
+    Array.isArray(props.sanityProps.children) &&
+    props.sanityProps.children.length &&
+    props.sanityProps.children[0].props?.node?.mark === 'hoyrestill';
 
   validerFlettefelt(flettefelt, flettefeltNavn, dokumentApiNavn, erListe);
 
