@@ -56,11 +56,6 @@ export default `
   
   .høyrestill {
     float: right;
-    /* 
-      Openhtmltopdf sliter noen ganger med å beregne korrekt bredde for spans dersom man velger "width: auto;". 
-      Dette gjør at span-elementet brekker over i en ekstra linje. Setter width 50% for å unngå dette.
-    */   
-    width: 50%;
-    text-align: right;
+    white-space: normal;
   }
 `;
