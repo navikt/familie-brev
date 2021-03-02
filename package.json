@@ -84,7 +84,7 @@
     "nav-frontend-spinner": "^2.0.12",
     "nav-frontend-spinner-style": "^0.2.9",
     "nav-frontend-typografi": "^2.0.34",
-    "nav-frontend-typografi-style": "^1.0.29",
+    "nav-frontend-typografi-style": "^1.0.35",
     "nodemon": "^2.0.6",
     "prettier": "^2.0.5",
     "prop-types": "^15.7.2",

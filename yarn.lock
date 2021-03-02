@@ -9777,10 +9777,10 @@ nav-frontend-chevron-style@^0.3.9:
   resolved "https://registry.yarnpkg.com/nav-frontend-chevron-style/-/nav-frontend-chevron-style-0.3.10.tgz#ac4bb4689fb198475fea09ff15bd25fef5473c3f"
   integrity sha512-+GQ5zQYIFeZHNIaVVb/8PHKf/z9mFOtr8qPcwg4ERTu7xKYn1tecbJlhbiUYYDUmfJhzZTM0ZQoV8NS4vXz2Fg==
 
-nav-frontend-core@^5.0.8, nav-frontend-core@^5.0.9:
-  version "5.0.9"
-  resolved "https://registry.yarnpkg.com/nav-frontend-core/-/nav-frontend-core-5.0.9.tgz#f7ede40975e202e4d31a889b6dcc213c017edc39"
-  integrity sha512-tXuKUhjmZFNgaP3JpYpMBWArwzVyHpgan4c0YPZF1aeqruTmrkgNm0rUO8thX1nTnTXLP/dCvvMTCCR8N3yqkg==
+nav-frontend-core@^5.0.11, nav-frontend-core@^5.0.8:
+  version "5.0.11"
+  resolved "https://registry.yarnpkg.com/nav-frontend-core/-/nav-frontend-core-5.0.11.tgz#d2611a79f5f5372166a467a5f6e5eaccb8725086"
+  integrity sha512-5b1FMK1mPfnpsXgHMDLY8Tj4SiPXVFg9hXj//qTaO3W2lwMY4Df3dKh4R595OiuVu7IRutAIuocPtXv3ysmsag==
 
 nav-frontend-ekspanderbartpanel-style@^1.0.27:
   version "1.0.28"
@@ -9854,12 +9854,12 @@ nav-frontend-spinner@^2.0.12:
   resolved "https://registry.yarnpkg.com/nav-frontend-spinner/-/nav-frontend-spinner-2.0.12.tgz#0dfd71468dd213ba3bd214ec00878f4d0a6a4c23"
   integrity sha512-063FIvazOkTsF+mFzyMF/EgmK+Umv3ORyZ6zjbDZ5mYkNyzt7FMp8Ug115r7pgNe0cUarAEThVrdvBsX3sVsXQ==
 
-nav-frontend-typografi-style@^1.0.29:
-  version "1.0.30"
-  resolved "https://registry.yarnpkg.com/nav-frontend-typografi-style/-/nav-frontend-typografi-style-1.0.30.tgz#6378c02d35fca853e9031f67aed09e57485c3cd4"
-  integrity sha512-UIkXmszSh6OwO0r96cXFrn0APZkO7HwVwPEwIcGPXN+6CUVSYT+6yHWm7ak523cfDzE1gdeKkJUziQETuTsslw==
+nav-frontend-typografi-style@^1.0.35:
+  version "1.0.35"
+  resolved "https://registry.yarnpkg.com/nav-frontend-typografi-style/-/nav-frontend-typografi-style-1.0.35.tgz#6c39faa4bf3623dc77aaefe5615e53dfd3d0b28a"
+  integrity sha512-JfVPy9TDoHegW3tVEuvdbjcW1bgqCtwFzk/rVpvS27U4WMNr9dTIYeS5HACN5Rm0SfS+5rmhBJzxJudDCTjJTg==
   dependencies:
-    nav-frontend-core "^5.0.9"
+    nav-frontend-core "^5.0.11"
 
 nav-frontend-typografi@^2.0.34:
   version "2.0.35"
