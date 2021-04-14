@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 import { logInfo } from '@navikt/familie-logging';
 
 dotenv.config();
-export const { NODE_ENV } = process.env;
+export const { NODE_ENV, ENV } = process.env;
 
 const buildDir = path.join(process.cwd() + '/build');
 const app = express();
@@ -20,6 +20,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(function (req, res, next) {
   const acceptedOrigins = [
     'http://localhost:8000',
+    'http://localhost:8001',
+    'http://localhost:8089',
     'http://localhost:3000',
     'https://familie-brev.intern.nav.no',
   ];
@@ -39,7 +41,7 @@ app.use(function (req, res, next) {
 
 app.use('/api', routes);
 
-const port = 8000;
+const port = 8001;
 app.listen(port, () => {
   logInfo(`Server now listening on port: ${port}`);
 });
