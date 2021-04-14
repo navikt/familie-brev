@@ -1,10 +1,16 @@
-import { NODE_ENV } from './index';
+import { NODE_ENV, ENV } from './index';
 
 export interface IMiljøvariabler {
   FAMILIE_DOKUMENT_API_URL: string;
 }
 
 export const hentMiljøvariabler = () => {
+  if (ENV === 'e2e') {
+    return {
+      FAMILIE_DOKUMENT_API_URL: 'http://familie-dokument:8082',
+    };
+  }
+
   switch (NODE_ENV) {
     case 'production':
       return {
