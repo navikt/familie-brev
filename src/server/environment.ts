@@ -7,7 +7,7 @@ export interface IMiljøvariabler {
 export const hentMiljøvariabler = () => {
   if (ENV === 'e2e') {
     return {
-      FAMILIE_DOKUMENT_API_URL: 'http://localhost:8082',
+      FAMILIE_DOKUMENT_API_URL: 'http://familie-dokument:8082',
     };
   }
 
