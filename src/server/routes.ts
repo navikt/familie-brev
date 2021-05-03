@@ -115,29 +115,17 @@ router.get(
     const maalform = req.params.maalform as Maalform;
     const dokumentApiNavn = req.params.dokumentApiNavn;
 
-    const queryValgfelt = `*[apiNavn == "${dokumentApiNavn}"]{
-        "malNavn": apiNavn,
-        "valgFelt": *[_id in ^.${maalform}[].valgReferanse._ref]{apiNavn, valg}
-    }`;
-
-    const alt = `*[apiNavn == "${dokumentApiNavn}"]{
-        "malNavn": apiNavn,
-        "valgFelt": *[_id in ^.${maalform}[].valgReferanse._ref]{apiNavn, valg, "valgDelmal": valg[].delmal->[]{
-            apiNavn,
-            "flettefelt": ${maalform}[0].markDefs[].flettefeltReferanse->{felt}}
-        }
-    }`;
-
-    const altNested = `*[apiNavn == "${dokumentApiNavn}"]{
+    const query = `*[apiNavn == "${dokumentApiNavn}"]{
         "malNavn": apiNavn,
         "dokument": *[_id in ^.${maalform}[].valgReferanse._ref]{
-        "valgFeltKategori": apiNavn, 
-        "valgMuligheter": 
-            valg[].delmal->[]{
-                apiNavn,
-                "flettefelt": ${maalform}[0].markDefs[].flettefeltReferanse->{felt, _id}
+            visningsnavn,
+            "valgFeltKategori": apiNavn, 
+            "valgMuligheter":
+                valg[]{
+                    valgmulighet,
+                    "flettefelt": delmal->.${maalform}[0].markDefs[].flettefeltReferanse->{felt, _id}
                 }
-            }
+        }
     }`;
 
     const queryFlettefelt = `*[_id == "79c50ea4-310f-460e-aeb0-e943c542757d"]{
@@ -146,7 +134,7 @@ router.get(
     }`;
 
     const hovedDokument = await client(datasett)
-      .fetch(altNested)
+      .fetch(query)
       .then(res => {
         return res;
       })
