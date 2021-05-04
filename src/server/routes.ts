@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { client, Datasett } from './sanity/sanityClient';
+import { Datasett } from './sanity/sanityClient';
 import { Maalform } from '../typer/sanitygrensesnitt';
 import { IAvansertDokumentVariabler, IDokumentData } from '../typer/dokumentApi';
 import hentDokumentHtml from './hentDokumentHtml';
@@ -8,6 +8,7 @@ import { Feil } from './utils/Feil';
 import hentAvansertDokumentHtml from './hentAvansertDokumentHtml';
 import validerDokumentApiData from './utils/valideringer/validerDokumentApiData';
 import { logError, logInfo, logSecure } from '@navikt/familie-logging';
+import { hentAvansertDokumentFelter } from './hentAvansertDokumentFelter';
 
 const router = express.Router();
 
@@ -113,33 +114,17 @@ router.get(
   async (req: Request, res: Response) => {
     const datasett = req.params.datasett as Datasett;
     const maalform = req.params.maalform as Maalform;
-    const dokumentApiNavn = req.params.dokumentApiNavn;
+    const avansertDokumentNavn = req.params.dokumentApiNavn;
 
-    const query = `*[apiNavn == "${dokumentApiNavn}"]{
-        "malNavn": apiNavn,
-        "dokument": *[_id in ^.${maalform}[].valgReferanse._ref]{
-            visningsnavn,
-            "valgFeltKategori": apiNavn,
-            "valgMuligheter":
-                valg[]{
-                    valgmulighet,
-                    "visningsnavnValgmulighet": delmal->.visningsnavn,
-                    "flettefelt": delmal->.${maalform}[0].markDefs[].flettefeltReferanse->{felt, _id}
-                }
-        }
-    }`;
-
-    const hovedDokument = await client(datasett)
-      .fetch(query)
-      .then(res => {
-        return res;
-      })
-      .catch(err => {
-        res.status(500).send(err.message);
-      });
-    res.send(hovedDokument);
+    const felter = await hentAvansertDokumentFelter(datasett, maalform, avansertDokumentNavn).catch(
+      err => {
+        res.status(err.code).send(`Henting av felter feilet: ${err.message}`);
+      },
+    );
+    res.send(felter);
   },
 );
+
 router.post(
   '/:datasett/avansert-dokument/:maalform/:dokumentApiNavn/pdf',
   async (req: Request, res: Response) => {
