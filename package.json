@@ -92,7 +92,7 @@
     "react": "^17.0.1",
     "react-collapse": "^5.0.1",
     "react-dom": "^16.14.0",
-    "react-pdf": "^5.0.0",
+    "react-pdf": "^5.2.0",
     "react-scripts": "4.0.1",
     "styled-components": "^5.2.0",
     "ts-loader": "^8.0.11",
