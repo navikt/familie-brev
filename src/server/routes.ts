@@ -119,18 +119,14 @@ router.get(
         "malNavn": apiNavn,
         "dokument": *[_id in ^.${maalform}[].valgReferanse._ref]{
             visningsnavn,
-            "valgFeltKategori": apiNavn, 
+            "valgFeltKategori": apiNavn,
             "valgMuligheter":
                 valg[]{
                     valgmulighet,
+                    "visningsnavnValgmulighet": delmal->.visningsnavn,
                     "flettefelt": delmal->.${maalform}[0].markDefs[].flettefeltReferanse->{felt, _id}
                 }
         }
-    }`;
-
-    const queryFlettefelt = `*[_id == "79c50ea4-310f-460e-aeb0-e943c542757d"]{
-    "malNavn": apiNavn,
-    "fletteFelt": ${maalform}[0].markDefs[].flettefeltReferanse->{..., felt}
     }`;
 
     const hovedDokument = await client(datasett)
