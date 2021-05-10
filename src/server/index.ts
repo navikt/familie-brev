@@ -39,7 +39,7 @@ app.use(function (req, res, next) {
 
 app.use('/api', routes);
 
-const port = 8000;
+const port = 8001;
 app.listen(port, () => {
   logInfo(`Server now listening on port: ${port}`);
 });

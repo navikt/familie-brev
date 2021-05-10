@@ -19,7 +19,7 @@ export const hentAvansertDokumentFelter = async (
                     "flettefelt": delmal->.${maalform}[0].markDefs[].flettefeltReferanse->{felt, _id}
                 }
         }
-    }`;
+    }[0]`;
 
   return client(datasett)
     .fetch(query)

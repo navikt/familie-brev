@@ -121,7 +121,7 @@ router.get(
         res.status(err.code).send(`Henting av felter feilet: ${err.message}`);
       },
     );
-    res.send(felter);
+    res.send({ data: felter, status: 'SUKSESS' });
   },
 );
 
