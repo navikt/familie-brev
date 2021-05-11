@@ -1,0 +1,52 @@
+version: 2
+registries:
+  npm-registry-npm-pkg-github-com-navikt-data-catalog-components:
+    type: npm-registry
+    url: https://npm.pkg.github.com/@navikt/data-catalog-components
+    token: "${{secrets.NPM_REGISTRY_NPM_PKG_GITHUB_COM_NAVIKT_DATA_CATALOG_COMPONENTS_TOKEN}}"
+  npm-registry-npm-pkg-github-com-deetly-plotly-view:
+    type: npm-registry
+    url: https://npm.pkg.github.com/@deetly/plotly-view
+    token: "${{secrets.NPM_REGISTRY_NPM_PKG_GITHUB_COM_DEETLY_PLOTLY_VIEW_TOKEN}}"
+
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: weekly
+    time: "04:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: "@testing-library/jest-dom"
+    versions:
+    - 5.11.10
+    - 5.11.9
+  - dependency-name: eslint-config-prettier
+    versions:
+    - 8.1.0
+    - 8.2.0
+  - dependency-name: eslint-plugin-prettier
+    versions:
+    - 3.3.1
+  - dependency-name: concurrently
+    versions:
+    - 6.0.0
+    - 6.0.1
+  - dependency-name: y18n
+    versions:
+    - 4.0.1
+  - dependency-name: wait-on
+    versions:
+    - 5.2.1
+  - dependency-name: "@navikt/familie-backend"
+    versions:
+    - 5.0.22
+  - dependency-name: "@types/react-pdf"
+    versions:
+    - 5.0.1
+  - dependency-name: nav-frontend-typografi-style
+    versions:
+    - 1.0.35
+  registries:
+  - npm-registry-npm-pkg-github-com-navikt-data-catalog-components
+  - npm-registry-npm-pkg-github-com-deetly-plotly-view
