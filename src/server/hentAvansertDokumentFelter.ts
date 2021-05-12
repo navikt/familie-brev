@@ -7,8 +7,7 @@ export const hentFlettefelter = async (
   avansertDokumentNavn: string,
 ): Promise<string> => {
   const query = `*[apiNavn == "${avansertDokumentNavn}"]{
-    "malNavn": apiNavn,
-         "flettefeltReferanse" :  *[ _type=='flettefelt' ]
+     "flettefeltReferanse" :  *[ _type=='flettefelt' ]
     }[0]`;
   return client(datasett)
     .fetch(query)
@@ -25,7 +24,7 @@ export const hentAvansertDokumentFelter = async (
   const query = `*[apiNavn == "${avansertDokumentNavn}"]{
         "malNavn": apiNavn,
         "delmaler": *[_id in ^.${maalform}[].delmalReferanse._ref]{
-            "delmalFlettefelter": 
+            "flettefelter": 
                     ${maalform}[defined(markDefs[].flettefeltReferanse)] {
                         "flettefelt": markDefs[].flettefeltReferanse 
                     }, 
@@ -38,10 +37,9 @@ export const hentAvansertDokumentFelter = async (
                         valg[]{
                             valgmulighet,
                             "visningsnavnValgmulighet": delmal->.visningsnavn,
-                            "flettefeltAlle": delmal-> ${maalform}[defined(markDefs)] {           
-                                 "flettefelt": markDefs[]{
-                                    flettefeltReferanse 
-                                 }
+                            "flettefelter": delmal-> ${maalform}[defined(markDefs)] {           
+                                 "flettefelt": markDefs[].flettefeltReferanse 
+                                 
                             }  
                         }
                 }
