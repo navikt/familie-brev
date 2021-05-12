@@ -8,7 +8,7 @@ import { Feil } from './utils/Feil';
 import hentAvansertDokumentHtml from './hentAvansertDokumentHtml';
 import validerDokumentApiData from './utils/valideringer/validerDokumentApiData';
 import { logError, logInfo, logSecure } from '@navikt/familie-logging';
-import { hentAvansertDokumentFelter } from './hentAvansertDokumentFelter';
+import { hentAvansertDokumentFelter, hentFlettefelter } from './hentAvansertDokumentFelter';
 
 const router = express.Router();
 
@@ -121,6 +121,19 @@ router.get(
         res.status(err.code).send(`Henting av felter feilet: ${err.message}`);
       },
     );
+    res.send({ data: felter, status: 'SUKSESS' });
+  },
+);
+
+router.get(
+  '/:datasett/avansert-dokument/:maalform/:dokumentApiNavn/flettefelter',
+  async (req: Request, res: Response) => {
+    const datasett = req.params.datasett as Datasett;
+    const avansertDokumentNavn = req.params.dokumentApiNavn;
+
+    const felter = await hentFlettefelter(datasett, avansertDokumentNavn).catch(err => {
+      res.status(err.code).send(`Henting av flettefelter feilet: ${err.message}`);
+    });
     res.send({ data: felter, status: 'SUKSESS' });
   },
 );
