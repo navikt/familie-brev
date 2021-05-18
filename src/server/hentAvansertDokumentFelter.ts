@@ -24,7 +24,7 @@ export const hentAvansertDokumentFelter = async (
   const query = `*[apiNavn == "${avansertDokumentNavn}"]{
         "malNavn": apiNavn,
         "delmaler": *[_id in ^.${maalform}[].delmalReferanse._ref]{
-            "flettefelter": 
+            "delmalFlettefelter": 
                     ${maalform}[defined(markDefs[].flettefeltReferanse)] {
                         "flettefelt": markDefs[].flettefeltReferanse 
                     }, 
