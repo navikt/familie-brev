@@ -121,7 +121,12 @@ router.get(
         res.status(err.code).send(`Henting av felter feilet: ${err.message}`);
       },
     );
-    res.send({ data: felter, status: 'SUKSESS' });
+
+    const flettefelter = await hentFlettefelter(datasett, avansertDokumentNavn).catch(err => {
+      res.status(err.code).send(`Henting av flettefelter feilet: ${err.message}`);
+    });
+
+    res.send({ data: { dokument: felter, flettefelter }, status: 'SUKSESS' });
   },
 );
 
