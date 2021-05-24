@@ -23,6 +23,27 @@ export const hentAvansertDokumentFelter = async (
 ): Promise<string> => {
   const query = `*[apiNavn == "${avansertDokumentNavn}"]{
         "malNavn": apiNavn,
+        "delmalerSortert": ${maalform}[].delmalReferanse | [defined(@)]->{ 
+            "delmalApiNavn": apiNavn,
+            "delmalNavn": visningsnavn,
+            "delmalFlettefelter": 
+                    ${maalform}[defined(markDefs[].flettefeltReferanse)] {
+                        "flettefelt": markDefs[].flettefeltReferanse
+                    },
+            "delmalValgfelt":  *[_id in ^.${maalform}[].valgReferanse._ref]{
+                    "valgfeltVisningsnavn":visningsnavn,
+                    "valgFeltApiNavn": apiNavn,
+                    "valgMuligheter":
+                        valg[]{
+                            valgmulighet,
+                            "visningsnavnValgmulighet": delmal->.visningsnavn,
+                            "flettefelter": delmal-> ${maalform}[defined(markDefs)] {           
+                                 "flettefelt": markDefs[].flettefeltReferanse 
+                                 
+                            }  
+                        }
+                }
+         },
         "delmaler": *[_id in ^.${maalform}[].delmalReferanse._ref]{
             "delmalFlettefelter": 
                     ${maalform}[defined(markDefs[].flettefeltReferanse)] {
