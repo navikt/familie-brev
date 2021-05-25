@@ -90,6 +90,7 @@ const Periode = (props: { maalform: Maalform; datasett: Datasett; flettefelter: 
           },
         }}
       />
+      <div style={{ minHeight: '1rem' }} />
     </div>
   );
 };

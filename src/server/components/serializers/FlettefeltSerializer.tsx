@@ -24,6 +24,11 @@ const FlettefeltSerializer = (props: IFlettefeltSerializerProps) => {
 
   const flettefelt = flettefelter[flettefeltNavn];
 
+  const høyrestill =
+    Array.isArray(props.sanityProps.children) &&
+    props.sanityProps.children.length &&
+    props.sanityProps.children[0].props?.node?.mark === 'hoyrestill';
+
   validerFlettefelt(flettefelt, flettefeltNavn, dokumentApiNavn, erListe);
 
   if (erListe) {
@@ -37,7 +42,7 @@ const FlettefeltSerializer = (props: IFlettefeltSerializerProps) => {
       </ul>
     );
   } else {
-    return flettefelt[0];
+    return <span className={høyrestill ? 'høyrestill' : ''}>{flettefelt[0]}</span>;
   }
 };
 
