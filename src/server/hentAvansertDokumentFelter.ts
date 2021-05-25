@@ -26,6 +26,7 @@ export const hentAvansertDokumentFelter = async (
         "delmalerSortert": ${maalform}[].delmalReferanse | [defined(@)]->{ 
             "delmalApiNavn": apiNavn,
             "delmalNavn": visningsnavn,
+            "mappe": mappe[0],
             "delmalFlettefelter": 
                     ${maalform}[defined(markDefs[].flettefeltReferanse)] {
                         "flettefelt": markDefs[].flettefeltReferanse
@@ -44,7 +45,7 @@ export const hentAvansertDokumentFelter = async (
                         }
                 }
          },
-        "delmaler": *[_id in ^.${maalform}[].delmalReferanse._ref]{
+            "delmaler": *[_id in ^.${maalform}[].delmalReferanse._ref]{
             "delmalFlettefelter": 
                     ${maalform}[defined(markDefs[].flettefeltReferanse)] {
                         "flettefelt": markDefs[].flettefeltReferanse 
