@@ -130,19 +130,6 @@ router.get(
   },
 );
 
-router.get(
-  '/:datasett/avansert-dokument/:maalform/:dokumentApiNavn/flettefelter',
-  async (req: Request, res: Response) => {
-    const datasett = req.params.datasett as Datasett;
-    const avansertDokumentNavn = req.params.dokumentApiNavn;
-
-    const felter = await hentFlettefelter(datasett, avansertDokumentNavn).catch(err => {
-      res.status(err.code).send(`Henting av flettefelter feilet: ${err.message}`);
-    });
-    res.send({ data: felter, status: 'SUKSESS' });
-  },
-);
-
 router.post(
   '/:datasett/avansert-dokument/:maalform/:dokumentApiNavn/pdf',
   async (req: Request, res: Response) => {
