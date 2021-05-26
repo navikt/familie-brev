@@ -8,6 +8,7 @@ import { Feil } from './utils/Feil';
 import hentAvansertDokumentHtml from './hentAvansertDokumentHtml';
 import validerDokumentApiData from './utils/valideringer/validerDokumentApiData';
 import { logError, logInfo, logSecure } from '@navikt/familie-logging';
+import { hentAvansertDokumentFelter, hentFlettefelter } from './hentAvansertDokumentFelter';
 
 const router = express.Router();
 
@@ -105,6 +106,27 @@ router.post(
         .status(500)
         .send(`Generering av avansert dokument (html) feilet: ${error.message}`);
     }
+  },
+);
+
+router.get(
+  '/:datasett/avansert-dokument/:maalform/:dokumentApiNavn/felter',
+  async (req: Request, res: Response) => {
+    const datasett = req.params.datasett as Datasett;
+    const maalform = req.params.maalform as Maalform;
+    const avansertDokumentNavn = req.params.dokumentApiNavn;
+
+    const felter = await hentAvansertDokumentFelter(datasett, maalform, avansertDokumentNavn).catch(
+      err => {
+        res.status(err.code).send(`Henting av felter feilet: ${err.message}`);
+      },
+    );
+
+    const flettefelter = await hentFlettefelter(datasett, avansertDokumentNavn).catch(err => {
+      res.status(err.code).send(`Henting av flettefelter feilet: ${err.message}`);
+    });
+
+    res.send({ data: { dokument: felter, flettefelter }, status: 'SUKSESS' });
   },
 );
 

@@ -20,13 +20,10 @@ const hentAvansertDokumentHtml = async (
   dokumentApiNavn: string,
   datasett: Datasett,
 ): Promise<string> => {
-  const tittel = (
-    await client(datasett).fetch(
-      `*[_type == "dokumentmal" && apiNavn == "${dokumentApiNavn}" ][].tittel${
-        maalform === Maalform.NB ? 'Bokmaal' : 'Nynorsk'
-      }`,
-    )
-  )[0];
+  const tittelQuery = `*[_type == "dokumentmal" && apiNavn == "${dokumentApiNavn}" ][].tittel${
+    maalform === Maalform.NB ? 'Bokmaal' : 'Nynorsk'
+  }`;
+  const tittel = (await client(datasett).fetch(tittelQuery))[0];
 
   const htmlLang = () => {
     switch (maalform) {
