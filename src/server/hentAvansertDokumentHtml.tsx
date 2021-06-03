@@ -19,6 +19,8 @@ const hentAvansertDokumentHtml = async (
   maalform: Maalform,
   dokumentApiNavn: string,
   datasett: Datasett,
+  saksbehandlersignatur: string,
+  besluttersignatur?: string,
 ): Promise<string> => {
   const tittelQuery = `*[_type == "dokumentmal" && apiNavn == "${dokumentApiNavn}" ][].tittel${
     maalform === Maalform.NB ? 'Bokmaal' : 'Nynorsk'
@@ -60,6 +62,10 @@ const hentAvansertDokumentHtml = async (
               dokumentType={DokumentType.DOKUMENTMAL}
               datasett={datasett}
             />
+            <div>
+              <h3>{saksbehandlersignatur}</h3>
+              <h3>{besluttersignatur}</h3>
+            </div>
           </div>
         </body>
       </html>

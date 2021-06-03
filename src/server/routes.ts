@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import { Datasett } from './sanity/sanityClient';
 import { Maalform } from '../typer/sanitygrensesnitt';
-import { IAvansertDokumentVariabler, IDokumentData } from '../typer/dokumentApi';
+import { IAvansertDokumentVariabler, IBrevMedSignatur, IDokumentData } from '../typer/dokumentApi';
 import hentDokumentHtml from './hentDokumentHtml';
 import { genererPdf } from './utils/api';
 import { Feil } from './utils/Feil';
@@ -78,7 +78,10 @@ router.post(
     const maalform = req.params.maalform as Maalform;
     const dokumentApiNavn = req.params.dokumentApiNavn;
 
-    const dokumentVariabler: IAvansertDokumentVariabler = req.body as IAvansertDokumentVariabler;
+    const brevMedSignatur = req.body as IBrevMedSignatur;
+    const dokumentVariabler = brevMedSignatur.brevFraSaksbehandler;
+    const besluttersignatur = brevMedSignatur.besluttersignatur;
+    const saksbehandlersignatur = brevMedSignatur.saksbehandlersignatur;
 
     logGenereringsrequestTilSecurelogger<IAvansertDokumentVariabler>(
       datasett,
@@ -93,6 +96,8 @@ router.post(
         maalform,
         dokumentApiNavn,
         datasett,
+        saksbehandlersignatur,
+        besluttersignatur,
       );
       res.send(html);
     } catch (error) {
@@ -137,7 +142,10 @@ router.post(
     const maalform = req.params.maalform as Maalform;
     const dokumentApiNavn = req.params.dokumentApiNavn;
 
-    const dokumentVariabler: IAvansertDokumentVariabler = req.body as IAvansertDokumentVariabler;
+    const brevMedSignatur = req.body as IBrevMedSignatur;
+    const dokumentVariabler = brevMedSignatur.brevFraSaksbehandler;
+    const besluttersignatur = brevMedSignatur.besluttersignatur;
+    const saksbehandlersignatur = brevMedSignatur.saksbehandlersignatur;
 
     logGenereringsrequestTilSecurelogger<IAvansertDokumentVariabler>(
       datasett,
@@ -152,6 +160,8 @@ router.post(
         maalform,
         dokumentApiNavn,
         datasett,
+        saksbehandlersignatur,
+        besluttersignatur,
       );
       const pdf = await genererPdf(html);
       res.setHeader('Content-Type', 'application/pdf');
@@ -169,7 +179,7 @@ router.post(
   },
 );
 
-const logGenereringsrequestTilSecurelogger = <T>(
+export const logGenereringsrequestTilSecurelogger = <T>(
   datasett: string,
   dokumentApiNavn: string,
   data: T,

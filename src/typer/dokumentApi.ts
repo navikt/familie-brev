@@ -17,6 +17,12 @@ export interface IAvansertDokumentVariabler {
   valgfelter: IValgfelter;
 }
 
+export interface IBrevMedSignatur {
+  brevFraSaksbehandler: IAvansertDokumentVariabler;
+  besluttersignatur?: string;
+  saksbehandlersignatur: string;
+}
+
 export interface IDelmaler {
   [delmalId: string]: IAvansertDokumentVariabler[];
 }
