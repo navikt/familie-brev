@@ -9,12 +9,14 @@ export const hentAvansertDokumentQuery = (
   _type == "block"=> {..., markDefs[]{
     ...,
     flettefeltReferanse->,
+    htmlfeltReferanse->,
     delmalReferanse->,
     valgReferanse->{..., valg[]{..., delmal->}}
     }
   },
   _type == "valgBlock" => {..., valgReferanse->{..., valg[]{..., delmal->}}},
   _type == "flettefelt" => {..., flettefeltReferanse->},
+  _type == "htmlfelt" => {..., htmlfeltReferanse->},
   _type == "delmalBlock" => {..., delmalReferanse->}
   },
 }

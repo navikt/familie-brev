@@ -11,6 +11,7 @@ import { DokumentType } from '../../typer/dokumentType';
 import FlettefeltSerializer from './serializers/FlettefeltSerializer';
 import BlockSerializer from './serializers/BlockSerializer';
 import LenkeSerializer from './serializers/LenkeSerializer';
+import HtmlfeltSerializer from './serializers/HtmlfeltSerializer';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const BlockContent = require('@sanity/block-content-to-react');
@@ -93,6 +94,12 @@ function AvansertDokument(avansertDokumentProps: AvansertDokumentProps) {
               maalform,
               datasett,
               forelderDokumentApiNavn: apiNavn,
+            }),
+          htmlfelt: (props: any) =>
+            HtmlfeltSerializer({
+              sanityProps: props,
+              htmlfelter: avanserteDokumentVariabler?.htmlfelter,
+              dokumentApiNavn: apiNavn,
             }),
         },
         listItem: (props: any) =>
