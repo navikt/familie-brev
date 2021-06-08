@@ -15,7 +15,7 @@ const HtmlfeltSerializer = (props: IHtmlfeltSerializerProps) => {
   if (!htmlfelter) {
     throw new Feil(
       `Htmlfelt "${htmlfeltNavn}" er påkrevd for "${dokumentApiNavn}", ` +
-        `men det ble ikke sendt med noen flettefelter.`,
+        `men det ble ikke sendt med noen htmlfelter.`,
       400,
     );
   }
