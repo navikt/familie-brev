@@ -58,4 +58,8 @@ export default `
     float: right;
     white-space: normal;
   }
+  
+  .signatur {
+    clear: both;
+  }
 `;
