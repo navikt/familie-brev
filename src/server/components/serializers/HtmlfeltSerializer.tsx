@@ -12,7 +12,7 @@ const HtmlfeltSerializer = (props: IHtmlfeltSerializerProps) => {
   const { sanityProps, htmlfelter, dokumentApiNavn } = props;
   const htmlfeltNavn = hentFeltnavn(sanityProps);
 
-  if (!htmlfelter) {
+  if (!htmlfelter || !htmlfelter[htmlfeltNavn]) {
     throw new Feil(
       `Htmlfelt "${htmlfeltNavn}" er påkrevd for "${dokumentApiNavn}", ` +
         `men det ble ikke sendt med noen htmlfelter.`,
