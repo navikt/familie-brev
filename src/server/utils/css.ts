@@ -59,7 +59,4 @@ export default `
     white-space: normal;
   }
   
-  .signatur {
-    clear: both;
-  }
 `;

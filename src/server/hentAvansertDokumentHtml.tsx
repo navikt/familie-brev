@@ -62,7 +62,7 @@ const hentAvansertDokumentHtml = async (
               dokumentType={DokumentType.DOKUMENTMAL}
               datasett={datasett}
             />
-            <div className={'signatur'}>
+            <div>
               <p style={{ float: 'left' }}>
                 <span style={{ marginRight: '20px' }}>{saksbehandlersignatur}</span>
                 <span>&mdash;</span>
