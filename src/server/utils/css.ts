@@ -58,4 +58,5 @@ export default `
     float: right;
     white-space: normal;
   }
+  
 `;
