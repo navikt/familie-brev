@@ -63,8 +63,11 @@ const hentAvansertDokumentHtml = async (
               datasett={datasett}
             />
             <div>
-              <h3>{saksbehandlersignatur}</h3>
-              <h3>{besluttersignatur}</h3>
+              <p style={{ float: 'left' }}>
+                <span style={{ marginRight: '20px' }}>{saksbehandlersignatur}</span>
+                <span>&mdash;</span>
+                <span style={{ marginLeft: '20px' }}>{besluttersignatur}</span>
+              </p>
             </div>
           </div>
         </body>
