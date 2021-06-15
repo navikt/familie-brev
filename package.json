@@ -10,7 +10,7 @@
     "dev:client": "wait-on -l tcp:8001 && craco start",
     "dev:server": "concurrently -p name -c \"yellow,magenta\" -n \"webpack-server,nodemon-server\" \"yarn dev:server:webpack\" \"yarn dev:server:nodemon\"",
     "dev:server:webpack": "webpack --config webpack.config.server.js --watch",
-    "dev:server:nodemon": "rm -f build/server.js && wait-on -l build/backend/server.js && nodemon build/backend/server.js",
+    "dev:server:nodemon": "rm -f build/server.js && wait-on -l build/backend/server.js && nodemon build/backend/server.js --delay 500ms",
     "build": "yarn build:server",
     "build:client": "craco build",
     "build:server": "webpack --config webpack.config.server.js",
