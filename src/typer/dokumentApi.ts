@@ -15,6 +15,7 @@ export interface IAvansertDokumentVariabler {
   flettefelter: Flettefelter;
   delmaler: IDelmaler;
   valgfelter: IValgfelter;
+  htmlfelter: IHtmlfelter;
 }
 
 export interface IBrevMedSignatur {
@@ -25,6 +26,10 @@ export interface IBrevMedSignatur {
 
 export interface IDelmaler {
   [delmalId: string]: IAvansertDokumentVariabler[];
+}
+
+export interface IHtmlfelter {
+  [key: string]: string;
 }
 
 export interface IValgfelter {
