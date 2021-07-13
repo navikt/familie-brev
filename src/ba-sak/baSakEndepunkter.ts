@@ -8,6 +8,8 @@ import {
   hentBegrunnelseTekstQuery,
   hentHjemlerForBegrunnelseQuery,
 } from './queries';
+import begrunnelseSerializer from './begrunnelseSerializer';
+import { IBegrunnelseData } from './typer';
 
 const router = express.Router();
 const DATASETT = Datasett.TEST;
@@ -42,18 +44,17 @@ router.get('/begrunnelser/:begrunnelseApiNavn', async (req: Request, res: Respon
   res.status(200).send(await client(DATASETT).fetch(hentBegrunnelseQuery(begrunnelseApiNavn)));
 });
 
-router.get(
-  '/begrunnelser/:begrunnelseApiNavn/tekst/:maalform',
-  async (req: Request, res: Response) => {
-    const begrunnelseApiNavn = req.params.begrunnelseApiNavn;
-    const målform = req.params.maalform;
+router.post('/begrunnelser/:begrunnelseApiNavn/tekst/', async (req: Request, res: Response) => {
+  const begrunnelseApiNavn = req.params.begrunnelseApiNavn;
+  const data = req.body as IBegrunnelseData;
 
-    // TODO lag serlializers for begrunnelsene
+  const begrunnelseFraSanity = await client(DATASETT).fetch(
+    hentBegrunnelseTekstQuery(begrunnelseApiNavn, data.målform),
+  );
 
-    res
-      .status(200)
-      .send(await client(DATASETT).fetch(hentBegrunnelseTekstQuery(begrunnelseApiNavn, målform)));
-  },
-);
+  const begrunnelse = begrunnelseSerializer(begrunnelseFraSanity, data);
+
+  res.status(200).send(begrunnelse);
+});
 
 export default router;
