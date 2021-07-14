@@ -10,6 +10,9 @@ import {
 } from './queries';
 import begrunnelseSerializer from './begrunnelseSerializer';
 import { IBegrunnelseData } from './typer';
+import { validerBegrunnelse, validerBegrunnelseData } from './valideringer';
+import { Feil } from '../server/utils/Feil';
+import { logError, logSecure } from '@navikt/familie-logging';
 
 const router = express.Router();
 const DATASETT = Datasett.TEST;
@@ -47,14 +50,27 @@ router.get('/begrunnelser/:begrunnelseApiNavn', async (req: Request, res: Respon
 router.post('/begrunnelser/:begrunnelseApiNavn/tekst/', async (req: Request, res: Response) => {
   const begrunnelseApiNavn = req.params.begrunnelseApiNavn;
   const data = req.body as IBegrunnelseData;
+  try {
+    validerBegrunnelseData(data);
 
-  const begrunnelseFraSanity = await client(DATASETT).fetch(
-    hentBegrunnelseTekstQuery(begrunnelseApiNavn, data.målform),
-  );
+    const begrunnelseFraSanity = await client(DATASETT).fetch(
+      hentBegrunnelseTekstQuery(begrunnelseApiNavn, data.målform),
+    );
 
-  const begrunnelse = begrunnelseSerializer(begrunnelseFraSanity, data);
+    validerBegrunnelse(begrunnelseFraSanity, begrunnelseApiNavn);
 
-  res.status(200).send(begrunnelse);
+    const begrunnelse = begrunnelseSerializer(begrunnelseFraSanity, data);
+
+    res.status(200).send(begrunnelse);
+  } catch (error) {
+    if (error instanceof Feil) {
+      return res.status(error.code).send(error.message);
+    }
+
+    logError(`Generering av begrunnelse feilet: ${error.message}`);
+    logSecure(`Generering av begrunnelse feilet: ${error}`);
+    return res.status(500).send(`Generering av begrunnelse feilet: ${error.message}`);
+  }
 });
 
 export default router;

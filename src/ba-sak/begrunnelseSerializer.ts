@@ -1,12 +1,6 @@
 import { Formuleringstype, IBegrunnelseData } from './typer';
 import { Feil } from '../server/utils/Feil';
 
-const begrunnelseSerializer = (begrunnelse: any, data: IBegrunnelseData) => {
-  console.log(begrunnelse);
-
-  return toPlainText(begrunnelse, data);
-};
-
 interface SpanBlock {
   _type: 'span';
   text: string;
@@ -26,6 +20,12 @@ interface BegrunnelseBlock {
   _type: string;
   children: (SpanBlock | FormuleringBlock | FlettefeltBlock)[];
 }
+
+const begrunnelseSerializer = (begrunnelse: any, data: IBegrunnelseData) => {
+  console.log(begrunnelse);
+
+  return toPlainText(begrunnelse, data);
+};
 
 const toPlainText = (blocks: BegrunnelseBlock[] = [], data: IBegrunnelseData) =>
   blocks
@@ -69,7 +69,7 @@ const formaterFlettefelt = (flettefeltBlock: FlettefeltBlock, data: any) => {
 const formaterFormulering = (formuleringBlock: FormuleringBlock, data: IBegrunnelseData) => {
   switch (formuleringBlock.formulering) {
     case Formuleringstype.FOR_BARN_FØDT:
-      return data.antallBarn !== 0 ? `for barn født ${data.barnasFødselsdatoer}` : ' ';
+      return data.antallBarn !== 0 ? `for barn født ${data.barnasFødselsdatoer}` : '';
     case Formuleringstype.DU_OG_ELLER_BARNET_BARNA:
       return duOgEllerBarnetBarnaFormulering(data);
     default:
@@ -82,7 +82,7 @@ const formaterFormulering = (formuleringBlock: FormuleringBlock, data: IBegrunne
 
 const duOgEllerBarnetBarnaFormulering = (data: IBegrunnelseData): string => {
   const duOg = data.gjelderSøker && data.antallBarn !== 0 ? 'du og' : data.gjelderSøker ? 'du' : '';
-  const barnetBarna = data.antallBarn === 0 ? '' : data.antallBarn === 1 ? ' barnet' : 'barna';
+  const barnetBarna = data.antallBarn === 0 ? '' : data.antallBarn === 1 ? ' barnet' : ' barna';
   return duOg + barnetBarna;
 };
 

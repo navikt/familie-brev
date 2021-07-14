@@ -1,10 +1,10 @@
 import { Maalform } from '../typer/sanitygrensesnitt';
 
 export interface IBegrunnelseData {
-  gjelderSøker: boolean; //todo =false
-  barnasFødselsdatoer: string[]; // todo =[]
-  antallBarn: number; // todo =0
-  månedOgÅrBegrunnelsenGjelderFor: string; //todo = ""
+  gjelderSøker: boolean;
+  barnasFødselsdatoer: string;
+  antallBarn: number;
+  månedOgÅrBegrunnelsenGjelderFor: string;
   målform: Maalform;
 }
 
