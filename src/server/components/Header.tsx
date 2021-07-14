@@ -7,23 +7,23 @@ interface HeaderProps {
   tittel: string;
   navn: Flettefelt;
   fodselsnummer: Flettefelt;
-  dato: Flettefelt;
+  brevOpprettetDato: Flettefelt;
   visLogo?: boolean;
   apiNavn: string;
 }
 
 function Header(props: HeaderProps) {
-  const { tittel, navn, fodselsnummer, visLogo, dato, apiNavn } = props;
+  const { tittel, navn, fodselsnummer, visLogo, brevOpprettetDato, apiNavn } = props;
 
   validerFlettefelt(navn, 'navn', apiNavn, false);
   validerFlettefelt(fodselsnummer, 'fodselsnummer', apiNavn, false);
-  validerFlettefelt(dato, 'brevOpprettetDato', apiNavn, false);
+  validerFlettefelt(brevOpprettetDato, 'brevOpprettetDato', apiNavn, false);
 
   return (
     <div className={'header'}>
       <div className="ikon-og-dato">
         {visLogo && <NavIkon />}
-        <p>{dato[0]}</p>
+        <p>{brevOpprettetDato[0]}</p>
       </div>
       <div className={'tittel-og-personinfo'}>
         <h2 className="tittel">{tittel.toUpperCase()}</h2>
