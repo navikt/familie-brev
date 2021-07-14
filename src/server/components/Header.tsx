@@ -17,7 +17,7 @@ function Header(props: HeaderProps) {
 
   validerFlettefelt(navn, 'navn', apiNavn, false);
   validerFlettefelt(fodselsnummer, 'fodselsnummer', apiNavn, false);
-  validerFlettefelt(dato, 'dato', apiNavn, false);
+  validerFlettefelt(dato, 'brevOpprettetDato', apiNavn, false);
 
   return (
     <div className={'header'}>
