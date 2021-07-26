@@ -58,7 +58,9 @@ const hentDokumentHtml = async (
               tittel={tittel}
               navn={apiDokument?.flettefelter?.navn}
               fodselsnummer={apiDokument?.flettefelter?.fodselsnummer}
-              dato={apiDokument?.flettefelter?.dato}
+              brevOpprettetDato={
+                apiDokument?.flettefelter?.brevOpprettetDato || apiDokument?.flettefelter?.dato
+              }
               apiNavn={dokumentApiNavn}
             />
             <Dokument

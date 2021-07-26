@@ -53,7 +53,10 @@ const hentAvansertDokumentHtml = async (
               navn={dokumentVariabler?.flettefelter?.navn}
               fodselsnummer={dokumentVariabler?.flettefelter?.fodselsnummer}
               apiNavn={dokumentApiNavn}
-              dato={dokumentVariabler?.flettefelter?.dato}
+              brevOpprettetDato={
+                dokumentVariabler?.flettefelter?.brevOpprettetDato ||
+                dokumentVariabler?.flettefelter?.dato
+              }
             />
             <AvansertDokument
               apiNavn={dokumentApiNavn}
