@@ -1,14 +1,14 @@
 import { Feil } from '../Feil';
-import { Flettefelter } from '../../../typer/dokumentApi';
+import { IPeriodedata } from '../../../ba-sak/typer';
 
-export const validerPeriode = (forelderDokument: string, periodeData?: Flettefelter[]) => {
-  if (!periodeData || periodeData.length === 0) {
+export const validerPeriode = (forelderDokument: string, periodedata?: IPeriodedata[]) => {
+  if (!periodedata || periodedata.length === 0) {
     throw new Feil(
       `"${forelderDokument}" skal ha mist én periode, men hadde ingen perioder i perodeData.`,
       400,
     );
   }
-  periodeData.forEach(periode => {
+  periodedata.forEach(periode => {
     if (!periode.type) {
       throw new Feil(`"${forelderDokument}" fikk inn en periode uten type.`, 400);
     }

@@ -1,4 +1,4 @@
-import { Formuleringstype, IBegrunnelseData } from './typer';
+import { Formuleringstype, IBegrunnelsedata } from './typer';
 import { Feil } from '../server/utils/Feil';
 
 interface SpanBlock {
@@ -21,25 +21,19 @@ interface BegrunnelseBlock {
   children: (SpanBlock | FormuleringBlock | FlettefeltBlock)[];
 }
 
-const begrunnelseSerializer = (begrunnelse: any, data: IBegrunnelseData) => {
-  console.log(begrunnelse);
-
-  return toPlainText(begrunnelse, data);
-};
-
-const toPlainText = (blocks: BegrunnelseBlock[] = [], data: IBegrunnelseData) =>
+const begrunnelseSerializer = (blocks: BegrunnelseBlock[] = [], data: IBegrunnelsedata) =>
   blocks
     .map(block => {
       if (block._type === 'block' && block.children) {
-        return block.children.map(child => hmm(child, data)).join('');
+        return block.children.map(child => formaterSanityBlock(child, data)).join('');
       }
       return '';
     })
     .join('\n\n');
 
-const hmm = (
+const formaterSanityBlock = (
   childBlock: SpanBlock | FormuleringBlock | FlettefeltBlock | any,
-  data: IBegrunnelseData,
+  data: IBegrunnelsedata,
 ): string => {
   switch (childBlock._type) {
     case 'span':
@@ -66,10 +60,10 @@ const formaterFlettefelt = (flettefeltBlock: FlettefeltBlock, data: any) => {
   return flettefeltVerdi;
 };
 
-const formaterFormulering = (formuleringBlock: FormuleringBlock, data: IBegrunnelseData) => {
+const formaterFormulering = (formuleringBlock: FormuleringBlock, data: IBegrunnelsedata) => {
   switch (formuleringBlock.formulering) {
     case Formuleringstype.FOR_BARN_FØDT:
-      return data.antallBarn !== 0 ? `for barn født ${data.barnasFødselsdatoer}` : '';
+      return data.antallBarn !== 0 ? `for barn født ${data.barnasFodselsdatoer}` : '';
     case Formuleringstype.DU_OG_ELLER_BARNET_BARNA:
       return duOgEllerBarnetBarnaFormulering(data);
     default:
@@ -80,8 +74,8 @@ const formaterFormulering = (formuleringBlock: FormuleringBlock, data: IBegrunne
   }
 };
 
-const duOgEllerBarnetBarnaFormulering = (data: IBegrunnelseData): string => {
-  const duOg = data.gjelderSøker && data.antallBarn !== 0 ? 'du og' : data.gjelderSøker ? 'du' : '';
+const duOgEllerBarnetBarnaFormulering = (data: IBegrunnelsedata): string => {
+  const duOg = data.gjelderSoker && data.antallBarn !== 0 ? 'du og' : data.gjelderSoker ? 'du' : '';
   const barnetBarna = data.antallBarn === 0 ? '' : data.antallBarn === 1 ? ' barnet' : ' barna';
   return duOg + barnetBarna;
 };

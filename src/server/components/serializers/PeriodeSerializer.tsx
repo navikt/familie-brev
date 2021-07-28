@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flettefelter } from '../../../typer/dokumentApi';
+import { Flettefelt, Flettefelter } from '../../../typer/dokumentApi';
 import FlettefeltSerializer from './FlettefeltSerializer';
 import BlockSerializer from './BlockSerializer';
 import { Maalform } from '../../../typer/sanitygrensesnitt';
@@ -9,13 +9,17 @@ import { client, Datasett } from '../../sanity/sanityClient';
 import { DokumentType } from '../../../typer/dokumentType';
 import { validerPeriode } from '../../utils/valideringer/validerPeriode';
 import { Feil } from '../../utils/Feil';
+import { IBegrunnelsedata, IPeriodedata } from '../../../ba-sak/typer';
+import { validerBegrunnelse, validerBegrunnelsedata } from '../../../ba-sak/valideringer';
+import { hentBegrunnelseTekstQuery } from '../../../ba-sak/queries';
+import begrunnelseSerializer from '../../../ba-sak/begrunnelseSerializer';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const BlockContent = require('@sanity/block-content-to-react');
 
 interface IPeriodeProps {
   sanityProps: any;
-  perioder: Flettefelter[];
+  perioder: IPeriodedata[];
   maalform: Maalform;
   datasett: Datasett;
   forelderApiNavn: string;
@@ -32,19 +36,19 @@ const PeriodeSerializer = (props: IPeriodeProps) => {
     <div className={`delmal`}>
       {perioder.map((periode, index) => (
         <Periode
-          key={`${periode.type[0]}-${index}`}
+          key={`${(periode.type as Flettefelt)[0]}-${index}`}
           datasett={datasett}
           maalform={maalform}
-          flettefelter={periode}
+          periodedata={periode}
         />
       ))}
     </div>
   );
 };
 
-const Periode = (props: { maalform: Maalform; datasett: Datasett; flettefelter: Flettefelter }) => {
-  const { maalform, datasett, flettefelter } = props;
-  const periodeApiNavn = flettefelter.type[0];
+const Periode = (props: { maalform: Maalform; datasett: Datasett; periodedata: IPeriodedata }) => {
+  const { maalform, datasett, periodedata } = props;
+  const periodeApiNavn = (periodedata.type as Flettefelt)[0];
 
   const [periode] = useServerEffect(undefined, periodeApiNavn, () => {
     const query = hentDokumentQuery(DokumentType.PERIODE, periodeApiNavn, maalform);
@@ -61,6 +65,46 @@ const Periode = (props: { maalform: Maalform; datasett: Datasett; flettefelter: 
       });
   });
 
+  const hentBegrunnelsetekst = (begrunnelseApiNavn: string, målform: string): any => {
+    // eslint-disable-next-line react-app/react-hooks/rules-of-hooks
+    return useServerEffect(undefined, begrunnelseApiNavn, () =>
+      client(datasett)
+        .fetch(hentBegrunnelseTekstQuery(begrunnelseApiNavn, målform))
+        .then(begrunnelseFraSanity => {
+          validerBegrunnelse(begrunnelseFraSanity, begrunnelseApiNavn);
+          return begrunnelseFraSanity;
+        }),
+    )[0];
+  };
+
+  function byggBegrunnelse(begrunnelseData: IBegrunnelsedata) {
+    validerBegrunnelsedata(begrunnelseData);
+    const begrunnelsetekstFraSanity = hentBegrunnelsetekst(
+      begrunnelseData.apiNavn,
+      begrunnelseData.maalform,
+    );
+    return (
+      begrunnelsetekstFraSanity && begrunnelseSerializer(begrunnelsetekstFraSanity, begrunnelseData)
+    );
+  }
+
+  const byggBegrunnelser = (begrunnelser: IBegrunnelsedata[] | Flettefelt): string[] => {
+    const nyeBegrunnelser: string[] = [];
+    begrunnelser.forEach((begrunnelse: IBegrunnelsedata | string) => {
+      if (typeof begrunnelse === 'string') {
+        nyeBegrunnelser.push(begrunnelse);
+      } else {
+        nyeBegrunnelser.push(byggBegrunnelse(begrunnelse));
+      }
+    });
+    return nyeBegrunnelser;
+  };
+
+  const flettefelter = { ...periodedata };
+  if (periodedata.begrunnelser) {
+    flettefelter.begrunnelser = byggBegrunnelser(periodedata.begrunnelser);
+  }
+
   if (!periode) {
     return null;
   }
@@ -74,7 +118,7 @@ const Periode = (props: { maalform: Maalform; datasett: Datasett; flettefelter: 
             flettefelt: (props: any) =>
               FlettefeltSerializer({
                 sanityProps: props,
-                flettefelter,
+                flettefelter: flettefelter as Flettefelter,
                 dokumentApiNavn: periodeApiNavn,
               }),
           },
@@ -83,7 +127,7 @@ const Periode = (props: { maalform: Maalform; datasett: Datasett; flettefelter: 
             flettefelt: (props: any) =>
               FlettefeltSerializer({
                 sanityProps: props,
-                flettefelter,
+                flettefelter: flettefelter as Flettefelter,
                 dokumentApiNavn: periodeApiNavn,
               }),
             undefined: (_: any) => <div />,

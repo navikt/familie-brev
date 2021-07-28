@@ -9,8 +9,8 @@ import {
   hentHjemlerForBegrunnelseQuery,
 } from './queries';
 import begrunnelseSerializer from './begrunnelseSerializer';
-import { IBegrunnelseData } from './typer';
-import { validerBegrunnelse, validerBegrunnelseData } from './valideringer';
+import { IBegrunnelsedata } from './typer';
+import { validerBegrunnelse, validerBegrunnelsedata } from './valideringer';
 import { Feil } from '../server/utils/Feil';
 import { logError, logSecure } from '@navikt/familie-logging';
 
@@ -49,12 +49,12 @@ router.get('/begrunnelser/:begrunnelseApiNavn', async (req: Request, res: Respon
 
 router.post('/begrunnelser/:begrunnelseApiNavn/tekst/', async (req: Request, res: Response) => {
   const begrunnelseApiNavn = req.params.begrunnelseApiNavn;
-  const data = req.body as IBegrunnelseData;
+  const data = req.body as IBegrunnelsedata;
   try {
-    validerBegrunnelseData(data);
+    validerBegrunnelsedata(data);
 
     const begrunnelseFraSanity = await client(DATASETT).fetch(
-      hentBegrunnelseTekstQuery(begrunnelseApiNavn, data.målform),
+      hentBegrunnelseTekstQuery(begrunnelseApiNavn, data.maalform),
     );
 
     validerBegrunnelse(begrunnelseFraSanity, begrunnelseApiNavn);
