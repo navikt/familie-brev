@@ -9,6 +9,7 @@ import hentAvansertDokumentHtml from './hentAvansertDokumentHtml';
 import validerDokumentApiData from './utils/valideringer/validerDokumentApiData';
 import { logError, logInfo, logSecure } from '@navikt/familie-logging';
 import { hentAvansertDokumentFelter, hentFlettefelter } from './hentAvansertDokumentFelter';
+import { hentAvansertDokumentNavn } from './hentAvansertDokumentNavn';
 
 const router = express.Router();
 
@@ -134,6 +135,16 @@ router.get(
     res.send({ data: { dokument: felter, flettefelter }, status: 'SUKSESS' });
   },
 );
+
+router.get('/:datasett/avansert-dokument/navn', async (req: Request, res: Response) => {
+  const datasett = req.params.datasett as Datasett;
+
+  const navn = await hentAvansertDokumentNavn(datasett).catch(err => {
+    res.status(err.code).send(`Henting av avanserte dokumenter feilet: ${err.message}`);
+  });
+
+  res.send({ data: navn, status: 'SUKSESS' });
+});
 
 router.post(
   '/:datasett/avansert-dokument/:maalform/:dokumentApiNavn/pdf',
