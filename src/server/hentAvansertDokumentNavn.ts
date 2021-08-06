@@ -1,4 +1,3 @@
-import { Maalform } from '../typer/sanitygrensesnitt';
 import { client, Datasett } from './sanity/sanityClient';
 import { Feil } from './utils/Feil';
 
