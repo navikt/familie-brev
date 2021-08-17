@@ -100,7 +100,7 @@ const hentAvansertDokumentHtml = async (
     dokument = await byggDokumentAsynkront();
   }
 
-  return dokument.replace(/(\r\n|\n|\r)/gm, '');
+  return dokument;
 };
 
 export default hentAvansertDokumentHtml;
