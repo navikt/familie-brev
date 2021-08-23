@@ -1,4 +1,4 @@
-import { Formuleringstype, IBegrunnelsedata } from './typer';
+import { Valgfelttype, IBegrunnelsedata } from './typer';
 import { Feil } from '../server/utils/Feil';
 
 interface SpanBlock {
@@ -6,9 +6,15 @@ interface SpanBlock {
   text: string;
 }
 
-interface FormuleringBlock {
-  _type: 'formulering';
-  formulering: Formuleringstype;
+interface ValgfeltBlock {
+  _type: 'valgfelt';
+  apiNavn: Valgfelttype;
+  valg: ValgMulighet[];
+}
+
+interface ValgMulighet {
+  delmal: any;
+  valgmulighet: string;
 }
 
 interface FlettefeltBlock {
@@ -18,7 +24,7 @@ interface FlettefeltBlock {
 
 interface BegrunnelseBlock {
   _type: string;
-  children: (SpanBlock | FormuleringBlock | FlettefeltBlock)[];
+  children: (SpanBlock | ValgfeltBlock | FlettefeltBlock)[];
 }
 
 const begrunnelseSerializer = (blocks: BegrunnelseBlock[] = [], data: IBegrunnelsedata) =>
@@ -32,7 +38,7 @@ const begrunnelseSerializer = (blocks: BegrunnelseBlock[] = [], data: IBegrunnel
     .join('\n\n');
 
 const formaterSanityBlock = (
-  childBlock: SpanBlock | FormuleringBlock | FlettefeltBlock | any,
+  childBlock: SpanBlock | ValgfeltBlock | FlettefeltBlock | any,
   data: IBegrunnelsedata,
 ): string => {
   switch (childBlock._type) {
@@ -40,7 +46,7 @@ const formaterSanityBlock = (
       return childBlock.text;
     case 'flettefelt':
       return formaterFlettefelt(childBlock, data);
-    case 'formulering':
+    case 'valgfelt':
       return formaterFormulering(childBlock, data);
     default:
       throw new Feil(
@@ -60,17 +66,25 @@ const formaterFlettefelt = (flettefeltBlock: FlettefeltBlock, data: any) => {
   return flettefeltVerdi;
 };
 
-const formaterFormulering = (formuleringBlock: FormuleringBlock, data: IBegrunnelsedata) => {
-  switch (formuleringBlock.formulering) {
-    case Formuleringstype.FOR_BARN_FØDT:
+const formaterFormulering = (valgfeltBlock: ValgfeltBlock, data: IBegrunnelsedata) => {
+  switch (valgfeltBlock.apiNavn) {
+    case Valgfelttype.FOR_BARN_FØDT:
       return data.antallBarn !== 0 ? `for barn født ${data.barnasFodselsdatoer}` : '';
-    case Formuleringstype.DU_OG_ELLER_BARNET_BARNA:
+    case Valgfelttype.DU_OG_ELLER_BARNET_BARNA:
       return duOgEllerBarnetBarnaFormulering(data);
     default:
       throw new Feil(
-        `Ukjent formulering fra santity. Det er ikke laget noen funksjonalitet for ${formuleringBlock.formulering}`,
+        `Ukjent formulering fra santity. Det er ikke laget noen funksjonalitet for ${valgfeltBlock.apiNavn}`,
         400,
       );
+  }
+};
+
+const forBarnFodtFormulering = (valgfeltBlock: ValgfeltBlock, data: IBegrunnelsedata): string => {
+  if (data.antallBarn === 0) {
+    return valgfeltBlock.valg.find(valg => valg.valgmulighet === 'ingenBarn')?.delmal[
+      data.maalform
+    ];
   }
 };
 

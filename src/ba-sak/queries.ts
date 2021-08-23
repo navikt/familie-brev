@@ -1,3 +1,5 @@
+import { hentDelmalQuery } from '../server/sanity/Queries';
+
 export const hentBegrunnelserQuery = () => `
  *[_type == "begrunnelse"]{apiNavn, navnISystem}
 `;
@@ -20,5 +22,11 @@ export const hentBegrunnelseQuery = (apiNavn: string) => `
 `;
 
 export const hentBegrunnelseTekstQuery = (apiNavn: string, maalform: string) => `
- *[_type == "begrunnelse" && apiNavn=="${apiNavn}"][0].${maalform}
+ *[_type == "begrunnelse" && apiNavn=="${apiNavn}"][0].${maalform}[]{..., "children": 
+ {..., children[]
+   {..., 
+     _type == "valgReferanse"=>{...}->{..., valg[]{..., delmal->${hentDelmalQuery(maalform)}}}
+   }
+ }
+}
 `;

@@ -14,7 +14,8 @@ export interface IPeriodedata {
   [key: string]: IBegrunnelsedata[] | Flettefelt;
 }
 
-export enum Formuleringstype {
-  FOR_BARN_FØDT = 'forBarnFødt',
+export enum Valgfelttype {
+  FOR_BARN_FØDT = 'forBarnFodt',
   DU_OG_ELLER_BARNET_BARNA = 'duOgEllerBarnetBarna',
+  FRA_OG_TIL_FORMULERING = 'fraOgTilFormulering',
 }
