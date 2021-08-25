@@ -22,11 +22,10 @@ export const hentBegrunnelseQuery = (apiNavn: string) => `
 `;
 
 export const hentBegrunnelseTekstQuery = (apiNavn: string, maalform: string) => `
- *[_type == "begrunnelse" && apiNavn=="${apiNavn}"][0].${maalform}[]{..., "children": 
- {..., children[]
+ *[_type == "begrunnelse" && apiNavn=="${apiNavn}"][0].${maalform}[]{...,children[]
    {..., 
      _type == "valgReferanse"=>{...}->{..., valg[]{..., delmal->${hentDelmalQuery(maalform)}}}
    }
  }
-}
+
 `;
