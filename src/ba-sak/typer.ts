@@ -27,6 +27,8 @@ export enum ValgfeltMuligheter {
   ETT_ELLER_FLERE_BARN = 'ettEllerFlereBarn',
   ETT_BARN = 'ettBarn',
   FLERE_BARN = 'flereBarn',
+  ETT_BARN_IKKE_SØKER = 'ettBarnIkkeSoker',
+  FLERE_BARN_IKKE_SØKER = 'flereBarnIkkeSoker',
 }
 
 export interface SpanBlock {

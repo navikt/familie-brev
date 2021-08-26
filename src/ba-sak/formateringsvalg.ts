@@ -10,12 +10,25 @@ export const hentForBarnFodtValg = (data: IBegrunnelsedata): ValgfeltMuligheter 
 };
 
 export const hentDuOgEllerBarnetBarnaValg = (data: IBegrunnelsedata): ValgfeltMuligheter => {
-  if (data.antallBarn === 0) {
-    return ValgfeltMuligheter.INGEN_BARN;
-  } else if (data.antallBarn === 1) {
-    return ValgfeltMuligheter.ETT_BARN;
+  if (data.gjelderSoker) {
+    if (data.antallBarn === 0) {
+      return ValgfeltMuligheter.INGEN_BARN;
+    } else if (data.antallBarn === 1) {
+      return ValgfeltMuligheter.ETT_BARN;
+    } else {
+      return ValgfeltMuligheter.FLERE_BARN;
+    }
   } else {
-    return ValgfeltMuligheter.FLERE_BARN;
+    if (data.antallBarn === 0) {
+      throw new Feil(
+        `Må ha enten barn eller søker for å bruke 'du og/eller barnet/barna' formulering for begrunnelse med apiNavn=${data.apiNavn}`,
+        400,
+      );
+    } else if (data.antallBarn === 1) {
+      return ValgfeltMuligheter.ETT_BARN_IKKE_SØKER;
+    } else {
+      return ValgfeltMuligheter.FLERE_BARN_IKKE_SØKER;
+    }
   }
 };
 
