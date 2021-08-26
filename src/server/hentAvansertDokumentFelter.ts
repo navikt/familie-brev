@@ -26,7 +26,7 @@ export const hentAvansertDokumentFelter = async (
         "delmalerSortert": ${maalform}[].delmalReferanse | [defined(@)]->{ 
             "delmalApiNavn": apiNavn,
             "delmalNavn": visningsnavn,
-            "mappe": mappe[0],
+            gruppeVisningsnavn,
             "delmalFlettefelter": 
                     ${maalform}[defined(markDefs[].flettefeltReferanse)] {
                         "flettefelt": markDefs[].flettefeltReferanse
