@@ -75,19 +75,26 @@ const hentDokumentHtml = async (
     </Context.Provider>
   );
 
-  async function byggDokument() {
+  async function byggDokumentAsynkront() {
     const html = renderToStaticMarkup(asyncHtml());
     await Promise.all(contextValue.requests);
     return html;
   }
 
+  /* Følger denne guiden:
+   * https://medium.com/swlh/how-to-use-useeffect-on-server-side-654932c51b13
+   *
+   * Resultatet fra eksterne kall blir lagret i konteksten slik at man kan bruke asynkrone funksjoner med serverside rendering.
+   *
+   * Når man kjører byggDokumentAsynkront flere ganger vil dokumentene og underdokumentene til alt er hentet fra Sanity.
+   */
   let i = 0;
-  let dokument = await byggDokument();
-  while (dokument !== (await byggDokument())) {
+  let dokument = await byggDokumentAsynkront();
+  while (dokument !== (await byggDokumentAsynkront())) {
     if (i++ >= 100) {
       throw new Error('Dokumentet har en dybde på mer enn 100');
     }
-    dokument = await byggDokument();
+    dokument = await byggDokumentAsynkront();
   }
 
   /*
