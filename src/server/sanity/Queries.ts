@@ -42,7 +42,7 @@ export const hentDokumentQuery = (
   }
  `;
 
-const hentDelmalQuery = (maalform: string) =>
+export const hentDelmalQuery = (maalform: string) =>
   `{
     ..., ${maalform}[]{
       ..., 
