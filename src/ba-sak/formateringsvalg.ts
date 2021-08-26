@@ -31,3 +31,16 @@ export const hentBarnetBarnaValg = (data: IBegrunnelsedata): ValgfeltMuligheter 
     return ValgfeltMuligheter.FLERE_BARN;
   }
 };
+
+export const hentBarnetBarnaDineDitt = (data: IBegrunnelsedata): ValgfeltMuligheter => {
+  if (data.antallBarn < 1) {
+    throw new Feil(
+      `Må ha barn for å bruke barnet/barna dine/ditt formulering, men antall barn var ${data.antallBarn} for begrunnelse med apiNavn=${data.apiNavn}`,
+      400,
+    );
+  } else if (data.antallBarn === 1) {
+    return ValgfeltMuligheter.ETT_BARN;
+  } else {
+    return ValgfeltMuligheter.FLERE_BARN;
+  }
+};

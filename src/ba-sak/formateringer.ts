@@ -8,6 +8,7 @@ import {
   Valgfelttype,
 } from './typer';
 import {
+  hentBarnetBarnaDineDitt,
   hentBarnetBarnaValg,
   hentDuOgEllerBarnetBarnaValg,
   hentForBarnFodtValg,
@@ -21,6 +22,8 @@ export const formaterValgfelt = (valgfeltBlock: ValgfeltBlock, data: IBegrunnels
       return valgfeltSerializer(valgfeltBlock, hentDuOgEllerBarnetBarnaValg(data), data);
     case Valgfelttype.BARNET_BARNA:
       return valgfeltSerializer(valgfeltBlock, hentBarnetBarnaValg(data), data);
+    case Valgfelttype.BARNET_BARNA_DINE_DITT:
+      return valgfeltSerializer(valgfeltBlock, hentBarnetBarnaDineDitt(data), data);
     default:
       throw new Feil(
         `Ukjent formulering fra santity. Det er ikke laget noen funksjonalitet for ${valgfeltBlock.apiNavn}`,

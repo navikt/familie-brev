@@ -18,6 +18,7 @@ export enum Valgfelttype {
   FOR_BARN_FØDT = 'forBarnFodt',
   DU_OG_ELLER_BARNET_BARNA = 'duOgEllerBarnetBarna',
   BARNET_BARNA = 'barnetBarna',
+  BARNET_BARNA_DINE_DITT = 'barnetBarnaDineDitt',
   FRA_OG_TIL_FORMULERING = 'fraOgTilFormulering',
 }
 
