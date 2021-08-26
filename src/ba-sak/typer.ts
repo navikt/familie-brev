@@ -6,7 +6,7 @@ export interface IBegrunnelsedata {
   gjelderSoker: boolean;
   barnasFodselsdatoer: string;
   antallBarn: number;
-  maanedOgÅrBegrunnelsenGjelderFor: string;
+  maanedOgAarBegrunnelsenGjelderFor: string;
   maalform: Maalform;
 }
 
@@ -17,6 +17,7 @@ export interface IPeriodedata {
 export enum Valgfelttype {
   FOR_BARN_FØDT = 'forBarnFodt',
   DU_OG_ELLER_BARNET_BARNA = 'duOgEllerBarnetBarna',
+  BARNET_BARNA = 'barnetBarna',
   FRA_OG_TIL_FORMULERING = 'fraOgTilFormulering',
 }
 
