@@ -57,3 +57,22 @@ export const hentBarnetBarnaDineDitt = (data: IBegrunnelsedata): ValgfeltMulighe
     return ValgfeltMuligheter.FLERE_BARN;
   }
 };
+
+export const hentDuOgEllerBarnFodt = (data: IBegrunnelsedata): ValgfeltMuligheter => {
+  if (data.gjelderSoker) {
+    if (data.antallBarn === 0) {
+      return ValgfeltMuligheter.INGEN_BARN;
+    } else {
+      return ValgfeltMuligheter.SØKER_OG_BARN;
+    }
+  } else {
+    if (data.antallBarn === 0) {
+      throw new Feil(
+        `Må ha enten barn eller søker for å bruke 'du og/eller barn født' formulering for begrunnelse med apiNavn=${data.apiNavn}`,
+        400,
+      );
+    } else {
+      return ValgfeltMuligheter.KUN_BARN;
+    }
+  }
+};

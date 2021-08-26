@@ -20,6 +20,7 @@ export enum Valgfelttype {
   BARNET_BARNA = 'barnetBarna',
   BARNET_BARNA_DINE_DITT = 'barnetBarnaDineDitt',
   FRA_OG_TIL_FORMULERING = 'fraOgTilFormulering',
+  DU_OG_ELLER_BARN_FØDT = 'duOgEllerBarnFodt',
 }
 
 export enum ValgfeltMuligheter {
@@ -29,6 +30,8 @@ export enum ValgfeltMuligheter {
   FLERE_BARN = 'flereBarn',
   ETT_BARN_IKKE_SØKER = 'ettBarnIkkeSoker',
   FLERE_BARN_IKKE_SØKER = 'flereBarnIkkeSoker',
+  SØKER_OG_BARN = 'sokerOgBarn',
+  KUN_BARN = 'kunBarn',
 }
 
 export interface SpanBlock {

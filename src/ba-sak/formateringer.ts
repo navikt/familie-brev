@@ -11,6 +11,7 @@ import {
   hentBarnetBarnaDineDitt,
   hentBarnetBarnaValg,
   hentDuOgEllerBarnetBarnaValg,
+  hentDuOgEllerBarnFodt,
   hentForBarnFodtValg,
 } from './formateringsvalg';
 
@@ -24,6 +25,8 @@ export const formaterValgfelt = (valgfeltBlock: ValgfeltBlock, data: IBegrunnels
       return valgfeltSerializer(valgfeltBlock, hentBarnetBarnaValg(data), data);
     case Valgfelttype.BARNET_BARNA_DINE_DITT:
       return valgfeltSerializer(valgfeltBlock, hentBarnetBarnaDineDitt(data), data);
+    case Valgfelttype.DU_OG_ELLER_BARN_FØDT:
+      return valgfeltSerializer(valgfeltBlock, hentDuOgEllerBarnFodt(data), data);
     default:
       throw new Feil(
         `Ukjent formulering fra santity. Det er ikke laget noen funksjonalitet for ${valgfeltBlock.apiNavn}`,
