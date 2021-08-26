@@ -15,12 +15,12 @@ export interface IPeriodedata {
 }
 
 export enum Valgfelttype {
-  FOR_BARN_FØDT = 'forBarnFodt',
-  DU_OG_ELLER_BARNET_BARNA = 'duOgEllerBarnetBarna',
   BARNET_BARNA = 'barnetBarna',
   BARNET_BARNA_DINE_DITT = 'barnetBarnaDineDitt',
-  FRA_OG_TIL_FORMULERING = 'fraOgTilFormulering',
   DU_OG_ELLER_BARN_FØDT = 'duOgEllerBarnFodt',
+  DU_OG_ELLER_BARNET_BARNA = 'duOgEllerBarnetBarna',
+  FOR_BARN_FØDT = 'forBarnFodt',
+  FRA_DATO = 'fraDato',
 }
 
 export enum ValgfeltMuligheter {
@@ -32,6 +32,8 @@ export enum ValgfeltMuligheter {
   FLERE_BARN_IKKE_SØKER = 'flereBarnIkkeSoker',
   SØKER_OG_BARN = 'sokerOgBarn',
   KUN_BARN = 'kunBarn',
+  INGEN_FRA_DATO = 'ingenFraDato',
+  HAR_FRA_DATO = 'harFraDato',
 }
 
 export interface SpanBlock {

@@ -45,7 +45,7 @@ export const hentBarnetBarnaValg = (data: IBegrunnelsedata): ValgfeltMuligheter 
   }
 };
 
-export const hentBarnetBarnaDineDitt = (data: IBegrunnelsedata): ValgfeltMuligheter => {
+export const hentBarnetBarnaDineDittValg = (data: IBegrunnelsedata): ValgfeltMuligheter => {
   if (data.antallBarn < 1) {
     throw new Feil(
       `Må ha barn for å bruke barnet/barna dine/ditt formulering, men antall barn var ${data.antallBarn} for begrunnelse med apiNavn=${data.apiNavn}`,
@@ -58,7 +58,7 @@ export const hentBarnetBarnaDineDitt = (data: IBegrunnelsedata): ValgfeltMulighe
   }
 };
 
-export const hentDuOgEllerBarnFodt = (data: IBegrunnelsedata): ValgfeltMuligheter => {
+export const hentDuOgEllerBarnFodtValg = (data: IBegrunnelsedata): ValgfeltMuligheter => {
   if (data.gjelderSoker) {
     if (data.antallBarn === 0) {
       return ValgfeltMuligheter.INGEN_BARN;
@@ -74,5 +74,13 @@ export const hentDuOgEllerBarnFodt = (data: IBegrunnelsedata): ValgfeltMulighete
     } else {
       return ValgfeltMuligheter.KUN_BARN;
     }
+  }
+};
+
+export const hentFraDatoValg = (data: IBegrunnelsedata): ValgfeltMuligheter => {
+  if (!data.maanedOgAarBegrunnelsenGjelderFor || data.maanedOgAarBegrunnelsenGjelderFor === '') {
+    return ValgfeltMuligheter.INGEN_FRA_DATO;
+  } else {
+    return ValgfeltMuligheter.HAR_FRA_DATO;
   }
 };
