@@ -8,7 +8,13 @@ import {
 import { Feil } from '../server/utils/Feil';
 import { formaterFlettefelt, formaterValgfelt } from './formateringer';
 
-const begrunnelseSerializer = (blocks: BegrunnelseBlock[] = [], data: IBegrunnelsedata) => {
+const begrunnelseSerializer = (
+  blocks: BegrunnelseBlock[] | Record<string, never>,
+  data: IBegrunnelsedata,
+) => {
+  if (!Array.isArray(blocks)) {
+    throw new Feil(`Fant ikke begrunnelse med apiNavn=${data.apiNavn}`, 404);
+  }
   return blocks
     .map(block => {
       if (block._type === 'block' && block.children) {
