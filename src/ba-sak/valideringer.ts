@@ -27,7 +27,7 @@ export const validerBegrunnelsedata = (data: IBegrunnelsedata) => {
       400,
     );
   }
-  if (!data.barnasFodselsdatoer) {
+  if (data.barnasFodselsdatoer === undefined) {
     throw new Feil(
       `barnasFodselsdatoer ble ikke sendt med dataene til begrunnelsenmed apiNavn="${data.apiNavn}"`,
       400,
