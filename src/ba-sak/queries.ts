@@ -10,6 +10,7 @@ export const hentBegrunnelserQuery = () => `
      lovligOppholdTriggere,
      bosattIRiketTriggere,
      giftPartnerskapTriggere,
+     borMedSokerTriggere,
      ovrigeTriggere
  }
 `;
