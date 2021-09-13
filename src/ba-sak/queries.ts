@@ -7,7 +7,7 @@ export const hentBegrunnelserQuery = () => `
      hjemler,
      vilkaar,  
      rolle,   
-     LovligOppholdTriggere,
+     lovligOppholdTriggere,
      bosattIRiketTriggere,
      giftPartnerskapTriggere,
      ovrigeTriggere
