@@ -17,7 +17,7 @@ export const lagManueltBrevHtml = (brev: IManueltBrev) => {
           tittel={brev.overskrift}
           navn={'Dette er et navn'}
           fodselsnummer={'1234'}
-          brevOpprettetDato={'12.12.12'}
+          brevOpprettetDato={brev.brevdato || 'Dato ikke satt'}
         />
         {brev.avsnitt?.map(avsnitt => (
           <>
