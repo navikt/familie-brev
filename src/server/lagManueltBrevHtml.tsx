@@ -37,6 +37,8 @@ export const lagManueltBrevHtml = (brev: IManueltBrev) => {
         ))}
         <div>
           <p style={{ float: 'left' }}>
+            <div>Med vennlig hilsen </div>
+            <div>NAV Arbeid og ytelser</div>
             <span style={{ marginRight: '20px' }}>{brev.saksbehandlersignatur}</span>
           </p>
         </div>
