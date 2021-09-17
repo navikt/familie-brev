@@ -34,6 +34,8 @@ export interface IManueltBrev {
   avsnitt?: IAvsnitt[];
   saksbehandlersignatur?: string;
   brevdato?: string;
+  ident: string;
+  navn: string;
 }
 
 export interface IDelmaler {
