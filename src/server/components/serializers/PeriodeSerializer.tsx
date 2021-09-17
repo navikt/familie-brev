@@ -79,7 +79,7 @@ const Periode = (props: { maalform: Maalform; datasett: Datasett; periodedata: I
     )[0];
   };
 
-  function byggBegrunnelse(begrunnelseData: IBegrunnelsedata) {
+  const byggBegrunnelse = (begrunnelseData: IBegrunnelsedata) => {
     validerBegrunnelsedata(begrunnelseData);
     const begrunnelsetekstFraSanity = hentBegrunnelsetekst(
       begrunnelseData.apiNavn,
@@ -88,7 +88,7 @@ const Periode = (props: { maalform: Maalform; datasett: Datasett; periodedata: I
     return (
       begrunnelsetekstFraSanity && begrunnelseSerializer(begrunnelsetekstFraSanity, begrunnelseData)
     );
-  }
+  };
 
   const byggBegrunnelser = (begrunnelser: IBegrunnelsedata[] | Flettefelt): string[] => {
     const nyeBegrunnelser: string[] = [];

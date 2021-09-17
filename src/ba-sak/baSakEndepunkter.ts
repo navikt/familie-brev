@@ -15,7 +15,7 @@ import { Feil } from '../server/utils/Feil';
 import { logError, logSecure } from '@navikt/familie-logging';
 
 const router = express.Router();
-const DATASETT = Datasett.TEST;
+const DATASETT = Datasett.BA;
 
 router.get('/status', (_, res) => {
   res.status(200).end();
