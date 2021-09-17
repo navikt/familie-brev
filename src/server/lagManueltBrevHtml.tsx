@@ -4,6 +4,16 @@ import { IManueltBrev } from '../typer/dokumentApi';
 import { Brevhode } from './components/Brevhode';
 import css from './utils/css';
 
+export const datoFormat = {
+  day: '2-digit',
+  month: '2-digit',
+  year: 'numeric',
+} as const;
+
+export const dagensDatoFormatert = (): string => {
+  return new Date().toLocaleDateString('no-NO', datoFormat);
+};
+
 export const lagManueltBrevHtml = (brev: IManueltBrev) => {
   return renderToStaticMarkup(
     <html lang={'nb'}>
@@ -17,7 +27,7 @@ export const lagManueltBrevHtml = (brev: IManueltBrev) => {
           tittel={brev.overskrift}
           navn={'Dette er et navn'}
           fodselsnummer={'1234'}
-          brevOpprettetDato={brev.brevdato || 'Dato ikke satt'}
+          brevOpprettetDato={brev.brevdato || dagensDatoFormatert()}
         />
         {brev.avsnitt?.map(avsnitt => (
           <>
