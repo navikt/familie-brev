@@ -1,7 +1,18 @@
 import { hentDelmalQuery } from '../server/sanity/Queries';
 
 export const hentBegrunnelserQuery = () => `
- *[_type == "begrunnelse"]{apiNavn, navnISystem}
+ *[_type == "begrunnelse"]{
+     apiNavn,
+     navnISystem,
+     hjemler,
+     vilkaar,  
+     rolle,   
+     lovligOppholdTriggere,
+     bosattIRiketTriggere,
+     giftPartnerskapTriggere,
+     borMedSokerTriggere,
+     ovrigeTriggere
+ }
 `;
 
 export const hentBegrunnelserAvTypeQuery = (type: string) => `
