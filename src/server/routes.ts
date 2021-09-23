@@ -1,7 +1,12 @@
 import express, { Request, Response } from 'express';
 import { Datasett } from './sanity/sanityClient';
 import { Maalform } from '../typer/sanitygrensesnitt';
-import { IAvansertDokumentVariabler, IBrevMedSignatur, IDokumentData } from '../typer/dokumentApi';
+import {
+  IAvansertDokumentVariabler,
+  IBrevMedSignatur,
+  IDokumentData,
+  IManueltBrev,
+} from '../typer/dokumentApi';
 import hentDokumentHtml from './hentDokumentHtml';
 import { genererPdf } from './utils/api';
 import { Feil } from './utils/Feil';
@@ -10,6 +15,7 @@ import validerDokumentApiData from './utils/valideringer/validerDokumentApiData'
 import { logError, logInfo, logSecure } from '@navikt/familie-logging';
 import { hentAvansertDokumentFelter, hentFlettefelter } from './hentAvansertDokumentFelter';
 import { hentAvansertDokumentNavn } from './hentAvansertDokumentNavn';
+import { lagManueltBrevHtml } from './lagManueltBrevHtml';
 
 const router = express.Router();
 
@@ -189,6 +195,24 @@ router.post(
     }
   },
 );
+
+router.post('/manuelt-brev', async (req: Request, res: Response) => {
+  const brev = req.body as IManueltBrev;
+  try {
+    const html = lagManueltBrevHtml(brev);
+    const pdf = await genererPdf(html);
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `attachment; filename=brev.pdf`);
+    res.end(pdf);
+  } catch (error) {
+    if (error instanceof Feil) {
+      return res.status(error.code).send(error.message);
+    }
+    logError(`Generering av avansert dokument (pdf) feilet: ${error.message}`);
+    logSecure(`Generering av avansert dokument (pdf) feilet: ${error}`);
+    return res.status(500).send(`Generering av avansert dokument (pdf) feilet: ${error.message}`);
+  }
+});
 
 export const logGenereringsrequestTilSecurelogger = <T>(
   datasett: string,
