@@ -196,8 +196,7 @@ router.post(
   },
 );
 
-//TODO finn bedre url
-router.post('/json2pdf', async (req: Request, res: Response) => {
+router.post('/manuelt-brev', async (req: Request, res: Response) => {
   const brev = req.body as IManueltBrev;
   try {
     const html = lagManueltBrevHtml(brev);
