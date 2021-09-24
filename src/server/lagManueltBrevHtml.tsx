@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { IManueltBrev } from '../typer/dokumentApi';
+import { IFritekstbrev } from '../typer/dokumentApi';
 import { Brevhode } from './components/Brevhode';
 import { dagensDatoFormatert } from '../utils/dato';
 import css from './utils/css';
 
-export const lagManueltBrevHtml = (brev: IManueltBrev) => {
+export const lagManueltBrevHtml = (brev: IFritekstbrev) => {
   return renderToStaticMarkup(
     <html lang={'nb'}>
       <head>

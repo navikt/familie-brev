@@ -5,7 +5,7 @@ import {
   IAvansertDokumentVariabler,
   IBrevMedSignatur,
   IDokumentData,
-  IManueltBrev,
+  IFritekstbrevMedSignatur,
 } from '../typer/dokumentApi';
 import hentDokumentHtml from './hentDokumentHtml';
 import { genererPdf } from './utils/api';
@@ -196,8 +196,8 @@ router.post(
   },
 );
 
-router.post('/manuelt-brev', async (req: Request, res: Response) => {
-  const brev = req.body as IManueltBrev;
+router.post('/fritekst-brev', async (req: Request, res: Response) => {
+  const brev = req.body as IFritekstbrevMedSignatur;
   try {
     const html = lagManueltBrevHtml(brev);
     const pdf = await genererPdf(html);
