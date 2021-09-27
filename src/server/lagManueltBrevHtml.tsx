@@ -1,11 +1,12 @@
 import * as React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { IFritekstbrev } from '../typer/dokumentApi';
+import { IFritekstbrevMedSignatur } from '../typer/dokumentApi';
 import { Brevhode } from './components/Brevhode';
 import { dagensDatoFormatert } from '../utils/dato';
 import css from './utils/css';
 
-export const lagManueltBrevHtml = (brev: IFritekstbrev) => {
+export const lagManueltBrevHtml = (brevMedSignatur: IFritekstbrevMedSignatur) => {
+  const brev = brevMedSignatur.brevFraSaksbehandler;
   return renderToStaticMarkup(
     <html lang={'nb'}>
       <head>
@@ -30,7 +31,10 @@ export const lagManueltBrevHtml = (brev: IFritekstbrev) => {
           <p style={{ float: 'left' }}>
             <div>Med vennlig hilsen </div>
             <div>NAV Arbeid og ytelser</div>
-            <span style={{ marginRight: '20px' }}>{brev.saksbehandlersignatur}</span>
+            <span style={{ marginRight: '20px' }}>
+              {brevMedSignatur.saksbehandlersignatur}{' '}
+              {brevMedSignatur.besluttersignatur && <>- {brevMedSignatur.besluttersignatur}</>}
+            </span>
           </p>
         </div>
       </body>
