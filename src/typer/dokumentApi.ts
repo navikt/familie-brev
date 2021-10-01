@@ -39,7 +39,7 @@ export interface IFritekstbrev {
   overskrift: string;
   avsnitt?: IAvsnitt[];
   brevdato?: string;
-  ident: string;
+  personIdent: string;
   navn: string;
 }
 
