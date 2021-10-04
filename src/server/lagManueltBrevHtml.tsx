@@ -26,7 +26,7 @@ export const lagManueltBrevHtml = (brevMedSignatur: IFritekstbrevMedSignatur) =>
         {brev.avsnitt?.map(avsnitt => (
           <p>
             {avsnitt.deloverskrift && <strong>{avsnitt.deloverskrift} </strong>}
-            <br />
+            {avsnitt.deloverskrift && <br />}
             {avsnitt.innhold}{' '}
           </p>
         ))}
