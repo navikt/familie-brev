@@ -24,10 +24,11 @@ export const lagManueltBrevHtml = (brevMedSignatur: IFritekstbrevMedSignatur) =>
           }
         />
         {brev.avsnitt?.map(avsnitt => (
-          <>
-            <h2>{avsnitt.deloverskrift} </h2>
-            <p> {avsnitt.innhold} </p>
-          </>
+          <p>
+            {avsnitt.deloverskrift && <strong>{avsnitt.deloverskrift} </strong>}
+            {avsnitt.deloverskrift && <br />}
+            {avsnitt.innhold}{' '}
+          </p>
         ))}
         <div>
           <p style={{ float: 'left' }}>
