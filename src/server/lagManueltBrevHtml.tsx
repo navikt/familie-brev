@@ -23,23 +23,13 @@ export const lagManueltBrevHtml = (brevMedSignatur: IFritekstbrevMedSignatur) =>
             (brev.brevdato && formaterIsoDato(brev.brevdato)) || dagensDatoFormatert()
           }
         />
-        {brev.avsnitt?.map(avsnitt => {
-          const htmlLinjeskift = new RegExp('\r?\n', 'g');
-
-          return (
-            <p>
-              {avsnitt.deloverskrift && <strong>{avsnitt.deloverskrift} </strong>}
-              {avsnitt.deloverskrift && <br />}
-              {avsnitt.innhold && (
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: avsnitt.innhold.replace(htmlLinjeskift, '<br />'),
-                  }}
-                />
-              )}
-            </p>
-          );
-        })}
+        {brev.avsnitt?.map(avsnitt => (
+          <p>
+            {avsnitt.deloverskrift && <strong>{avsnitt.deloverskrift} </strong>}
+            {avsnitt.deloverskrift && <br />}
+            {avsnitt.innhold && <div style={{ whiteSpace: 'pre-wrap' }}>{avsnitt.innhold}</div>}
+          </p>
+        ))}
         <div>
           <p style={{ float: 'left' }}>
             <div>Med vennlig hilsen </div>
