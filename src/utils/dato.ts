@@ -7,3 +7,7 @@ export const datoFormat = {
 export const dagensDatoFormatert = (): string => {
   return new Date().toLocaleDateString('no-NO', datoFormat);
 };
+
+export const formaterIsoDato = (dato: string): string => {
+  return new Date(dato).toLocaleString('no-NO', datoFormat);
+};
