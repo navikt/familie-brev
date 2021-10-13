@@ -12,7 +12,7 @@ export const hentBegrunnelserQuery = () => `
      giftPartnerskapTriggere,
      borMedSokerTriggere,
      ovrigeTriggere,
-     endringsårsaker
+     endringsaarsaker
  }
 `;
 
