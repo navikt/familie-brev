@@ -11,7 +11,8 @@ export const hentBegrunnelserQuery = () => `
      bosattIRiketTriggere,
      giftPartnerskapTriggere,
      borMedSokerTriggere,
-     ovrigeTriggere
+     ovrigeTriggere,
+     endringsårsaker
  }
 `;
 
