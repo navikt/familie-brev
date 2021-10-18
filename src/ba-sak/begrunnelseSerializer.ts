@@ -4,9 +4,11 @@ import {
   ValgfeltBlock,
   FlettefeltBlock,
   SpanBlock,
+  ValgfeltV2Block,
 } from './typer';
 import { Feil } from '../server/utils/Feil';
 import { formaterFlettefelt, formaterValgfelt } from './formateringer';
+import { lagStorForbokstav } from '../utils/strenghåndtering';
 
 const begrunnelseSerializer = (
   blocks: BegrunnelseBlock[] | Record<string, never>,
@@ -26,19 +28,23 @@ const begrunnelseSerializer = (
 };
 
 const formaterSanityBlock = (
-  childBlock: SpanBlock | ValgfeltBlock | FlettefeltBlock | any,
+  block: SpanBlock | ValgfeltBlock | FlettefeltBlock | ValgfeltV2Block | any,
   data: IBegrunnelsedata,
 ): string => {
-  switch (childBlock._type) {
+  switch (block._type) {
     case 'span':
-      return childBlock.text;
+      return block.text;
     case 'flettefelt':
-      return formaterFlettefelt(childBlock, data);
+      return formaterFlettefelt(block, data);
     case 'valgfelt':
-      return formaterValgfelt(childBlock, data);
+      return formaterValgfelt(block, data);
+    case 'valgfeltV2':
+      const tekst = formaterValgfelt(block.valgReferanse, data);
+      const førsteBokstavSkalVæreStor = block.skalHaStorForbokstav;
+      return førsteBokstavSkalVæreStor ? lagStorForbokstav(tekst) : tekst;
     default:
       throw new Feil(
-        `Ukjent block fra santity. Det er ikke laget noen funksjonalitet for ${childBlock._type}`,
+        `Ukjent block fra santity. Det er ikke laget noen funksjonalitet for ${block._type}`,
         400,
       );
   }

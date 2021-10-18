@@ -24,6 +24,25 @@ export interface IBrevMedSignatur {
   saksbehandlersignatur: string;
 }
 
+export interface IFritekstbrevMedSignatur {
+  brevFraSaksbehandler: IFritekstbrev;
+  besluttersignatur?: string;
+  saksbehandlersignatur: string;
+}
+
+export interface IAvsnitt {
+  deloverskrift?: string;
+  innhold?: string;
+}
+
+export interface IFritekstbrev {
+  overskrift: string;
+  avsnitt?: IAvsnitt[];
+  brevdato?: string;
+  personIdent: string;
+  navn: string;
+}
+
 export interface IDelmaler {
   [delmalId: string]: IAvansertDokumentVariabler[];
 }
