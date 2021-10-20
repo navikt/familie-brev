@@ -8,6 +8,7 @@ import css from './utils/css';
 import Header from './components/Header';
 import { Maalform } from '../typer/sanitygrensesnitt';
 import { DokumentType } from '../typer/dokumentType';
+import { dagensDatoFormatert } from '../utils/dato';
 
 enum HtmlLang {
   NB = 'nb',
@@ -53,10 +54,7 @@ const hentAvansertDokumentHtml = async (
               navn={dokumentVariabler?.flettefelter?.navn}
               fodselsnummer={dokumentVariabler?.flettefelter?.fodselsnummer}
               apiNavn={dokumentApiNavn}
-              brevOpprettetDato={
-                dokumentVariabler?.flettefelter?.brevOpprettetDato ||
-                dokumentVariabler?.flettefelter?.dato
-              }
+              brevOpprettetDato={[dagensDatoFormatert()]}
             />
             <AvansertDokument
               apiNavn={dokumentApiNavn}
