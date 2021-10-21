@@ -12,6 +12,8 @@ export const hentBegrunnelserQuery = () => `
      giftPartnerskapTriggere,
      borMedSokerTriggere,
      ovrigeTriggere,
+     endretUtbetalingsperiodeTriggere,
+     endretUtbetalingsperiodeDeltBostedTriggere,
      endringsaarsaker
  }
 `;
