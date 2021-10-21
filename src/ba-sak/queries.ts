@@ -13,7 +13,8 @@ export const hentBegrunnelserQuery = () => `
      borMedSokerTriggere,
      ovrigeTriggere,
      endretUtbetalingsperiodeTriggere,
-     endretUtbetalingsperiodeDeltBostedTriggere
+     endretUtbetalingsperiodeDeltBostedTriggere,
+     endringsaarsaker
  }
 `;
 
