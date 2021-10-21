@@ -11,7 +11,10 @@ export const hentBegrunnelserQuery = () => `
      bosattIRiketTriggere,
      giftPartnerskapTriggere,
      borMedSokerTriggere,
-     ovrigeTriggere
+     ovrigeTriggere,
+     endretUtbetalingsperiodeTriggere,
+     endretUtbetalingsperiodeDeltBostedTriggere,
+     endringsaarsaker
  }
 `;
 
@@ -35,7 +38,10 @@ export const hentBegrunnelseQuery = (apiNavn: string) => `
 export const hentBegrunnelseTekstQuery = (apiNavn: string, maalform: string) => `
  *[_type == "begrunnelse" && apiNavn=="${apiNavn}"][0].${maalform}[]{...,children[]
    {..., 
-     _type == "valgReferanse"=>{...}->{..., valg[]{..., delmal->${hentDelmalQuery(maalform)}}}
+     _type == "valgReferanse"=>{...}->{..., valg[]{..., delmal->${hentDelmalQuery(maalform)}}},
+     _type == "valgfeltV2"=>{..., valgReferanse->{..., valg[]{..., delmal->${hentDelmalQuery(
+       maalform,
+     )}}}}
    }
  }
 

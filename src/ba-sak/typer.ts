@@ -47,6 +47,12 @@ export interface ValgfeltBlock {
   valg: ValgMulighet[];
 }
 
+export interface ValgfeltV2Block {
+  _type: 'valgFeltV2';
+  skalHaStorForbokstav: ValgfeltBlock;
+  storForbokstav: boolean;
+}
+
 export interface ValgMulighet {
   delmal: any;
   valgmulighet: string;
