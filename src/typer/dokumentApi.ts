@@ -38,7 +38,6 @@ export interface IAvsnitt {
 export interface IFritekstbrev {
   overskrift: string;
   avsnitt?: IAvsnitt[];
-  brevdato?: string;
   personIdent: string;
   navn: string;
 }
