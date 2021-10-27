@@ -1,24 +1,26 @@
-import { NODE_ENV, ENV } from './index';
+import { Datasett } from './sanity/sanityClient';
+
+const { NODE_ENV } = process.env;
 
 export interface IMiljøvariabler {
   FAMILIE_DOKUMENT_API_URL: string;
+  BA_DATASETT: Datasett;
+  EF_DATASETT: Datasett;
 }
 
-export const hentMiljøvariabler = () => {
-  if (ENV === 'e2e') {
-    return {
-      FAMILIE_DOKUMENT_API_URL: 'http://familie-dokument:8082',
-    };
-  }
-
+export const hentMiljøvariabler = (): IMiljøvariabler => {
   switch (NODE_ENV) {
     case 'production':
       return {
         FAMILIE_DOKUMENT_API_URL: 'http://familie-dokument',
+        BA_DATASETT: Datasett.BA,
+        EF_DATASETT: Datasett.EF,
       };
     default:
       return {
         FAMILIE_DOKUMENT_API_URL: 'http://localhost:8082',
+        BA_DATASETT: Datasett.BA_TEST,
+        EF_DATASETT: Datasett.EF_TEST,
       };
   }
 };

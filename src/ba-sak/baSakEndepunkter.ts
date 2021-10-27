@@ -1,5 +1,5 @@
-import express, { Request, Response } from 'express';
-import { client, Datasett } from '../server/sanity/sanityClient';
+import { Request, Response } from 'express';
+import { client } from '../server/sanity/sanityClient';
 import {
   hentBegrunnelseQuery,
   hentBegrunnelserAvTypeQuery,
@@ -13,38 +13,39 @@ import { IBegrunnelsedata } from './typer';
 import { validerBegrunnelse, validerBegrunnelsedata } from './valideringer';
 import { Feil } from '../server/utils/Feil';
 import { logError, logSecure } from '@navikt/familie-logging';
+import { hentMiljøvariabler } from '../server/environment';
+import router from '../server/routes';
 
-const router = express.Router();
-const DATASETT = Datasett.BA;
+const { BA_DATASETT } = hentMiljøvariabler();
 
 router.get('/status', (_, res) => {
   res.status(200).end();
 });
 
 router.get('/begrunnelser', async (_: Request, res: Response) => {
-  res.status(200).send(await client(DATASETT).fetch(hentBegrunnelserQuery()));
+  res.status(200).send(await client(BA_DATASETT).fetch(hentBegrunnelserQuery()));
 });
 
 router.get('/begrunnelser/av-type/:type', async (req: Request, res: Response) => {
   const type = req.params.type;
-  res.status(200).send(await client(DATASETT).fetch(hentBegrunnelserAvTypeQuery(type)));
+  res.status(200).send(await client(BA_DATASETT).fetch(hentBegrunnelserAvTypeQuery(type)));
 });
 
 router.get('/begrunnelser/for-vilkaar/:vilkaar', async (req: Request, res: Response) => {
   const vilkår = req.params.vilkaar;
-  res.status(200).send(await client(DATASETT).fetch(hentBegrunnelserForVilkårQuery(vilkår)));
+  res.status(200).send(await client(BA_DATASETT).fetch(hentBegrunnelserForVilkårQuery(vilkår)));
 });
 
 router.get('/begrunnelser/:begrunnelseApiNavn/hjemler', async (req: Request, res: Response) => {
   const begrunnelseApiNavn = req.params.begrunnelseApiNavn;
   res
     .status(200)
-    .send(await client(DATASETT).fetch(hentHjemlerForBegrunnelseQuery(begrunnelseApiNavn)));
+    .send(await client(BA_DATASETT).fetch(hentHjemlerForBegrunnelseQuery(begrunnelseApiNavn)));
 });
 
 router.get('/begrunnelser/:begrunnelseApiNavn', async (req: Request, res: Response) => {
   const begrunnelseApiNavn = req.params.begrunnelseApiNavn;
-  res.status(200).send(await client(DATASETT).fetch(hentBegrunnelseQuery(begrunnelseApiNavn)));
+  res.status(200).send(await client(BA_DATASETT).fetch(hentBegrunnelseQuery(begrunnelseApiNavn)));
 });
 
 router.post('/begrunnelser/:begrunnelseApiNavn/tekst/', async (req: Request, res: Response) => {
@@ -53,7 +54,7 @@ router.post('/begrunnelser/:begrunnelseApiNavn/tekst/', async (req: Request, res
   try {
     validerBegrunnelsedata(data);
 
-    const begrunnelseFraSanity = await client(DATASETT).fetch(
+    const begrunnelseFraSanity = await client(BA_DATASETT).fetch(
       hentBegrunnelseTekstQuery(begrunnelseApiNavn, data.maalform),
     );
 
