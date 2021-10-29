@@ -2,7 +2,7 @@ import * as React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { IFritekstbrevMedSignatur } from '../typer/dokumentApi';
 import { Brevhode } from './components/Brevhode';
-import { dagensDatoFormatert, formaterIsoDato } from '../utils/dato';
+import { dagensDatoFormatert } from '../utils/dato';
 import css from './utils/css';
 
 export const lagManueltBrevHtml = (brevMedSignatur: IFritekstbrevMedSignatur) => {
@@ -19,9 +19,7 @@ export const lagManueltBrevHtml = (brevMedSignatur: IFritekstbrevMedSignatur) =>
           tittel={brev.overskrift}
           navn={brev.navn}
           fodselsnummer={brev.personIdent}
-          brevOpprettetDato={
-            (brev.brevdato && formaterIsoDato(brev.brevdato)) || dagensDatoFormatert()
-          }
+          brevOpprettetDato={dagensDatoFormatert()}
         />
         {brev.avsnitt?.map(avsnitt => (
           <p>
