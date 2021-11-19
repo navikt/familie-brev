@@ -14,7 +14,8 @@ export const hentBegrunnelserQuery = () => `
      ovrigeTriggere,
      endretUtbetalingsperiodeTriggere,
      endretUtbetalingsperiodeDeltBostedTriggere,
-     endringsaarsaker
+     endringsaarsaker,
+     utvidetBarnetrygdTriggere
  }
 `;
 
