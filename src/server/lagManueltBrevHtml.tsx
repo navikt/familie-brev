@@ -2,7 +2,7 @@ import * as React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { IFritekstbrevMedSignatur } from '../typer/dokumentApi';
 import { Brevhode } from './components/Brevhode';
-import { dagensDatoFormatert, formaterIsoDato } from '../utils/dato';
+import { dagensDatoFormatert } from '../utils/dato';
 import css from './utils/css';
 
 export const lagManueltBrevHtml = (brevMedSignatur: IFritekstbrevMedSignatur) => {
@@ -19,25 +19,24 @@ export const lagManueltBrevHtml = (brevMedSignatur: IFritekstbrevMedSignatur) =>
           tittel={brev.overskrift}
           navn={brev.navn}
           fodselsnummer={brev.personIdent}
-          brevOpprettetDato={
-            (brev.brevdato && formaterIsoDato(brev.brevdato)) || dagensDatoFormatert()
-          }
+          brevOpprettetDato={dagensDatoFormatert()}
         />
         {brev.avsnitt?.map(avsnitt => (
           <p>
             {avsnitt.deloverskrift && <strong>{avsnitt.deloverskrift} </strong>}
             {avsnitt.deloverskrift && <br />}
-            {avsnitt.innhold && <div style={{ whiteSpace: 'pre-wrap' }}>{avsnitt.innhold}</div>}
+            {avsnitt.innhold && <span style={{ whiteSpace: 'pre-wrap' }}>{avsnitt.innhold}</span>}
           </p>
         ))}
         <div>
           <p style={{ float: 'left' }}>
             <div>Med vennlig hilsen </div>
             <div>NAV Arbeid og ytelser</div>
-            <span style={{ marginRight: '20px' }}>
+            <br />
+            <div style={{ marginRight: '20px' }}>
               {brevMedSignatur.saksbehandlersignatur}{' '}
               {brevMedSignatur.besluttersignatur && <>- {brevMedSignatur.besluttersignatur}</>}
-            </span>
+            </div>
           </p>
         </div>
       </body>
