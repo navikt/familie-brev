@@ -23,7 +23,7 @@ export default `
   }
   h3 {
     font-size: 16px;
-    margin-top: 10px;
+    margin-top: 5px;
   }
   h4 {
     font-size: 16px;
