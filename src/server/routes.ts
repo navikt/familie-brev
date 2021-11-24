@@ -6,6 +6,7 @@ import {
   IBrevMedSignatur,
   IDokumentData,
   IFritekstbrevMedSignatur,
+  ISøknad,
 } from '../typer/dokumentApi';
 import hentDokumentHtml from './hentDokumentHtml';
 import { genererPdf } from './utils/api';
@@ -16,6 +17,7 @@ import { logError, logInfo, logSecure } from '@navikt/familie-logging';
 import { hentAvansertDokumentFelter, hentFlettefelter } from './hentAvansertDokumentFelter';
 import { hentAvansertDokumentNavn } from './hentAvansertDokumentNavn';
 import { lagManueltBrevHtml } from './lagManueltBrevHtml';
+import { genererSøknadHtml } from './søknadgenerator';
 
 const router = express.Router();
 
@@ -211,6 +213,24 @@ router.post('/fritekst-brev', async (req: Request, res: Response) => {
     logError(`Generering av avansert dokument (pdf) feilet: ${error.message}`);
     logSecure(`Generering av avansert dokument (pdf) feilet: ${error}`);
     return res.status(500).send(`Generering av avansert dokument (pdf) feilet: ${error.message}`);
+  }
+});
+
+router.post('/generer-soknad', async (req: Request, res: Response) => {
+  const søknad = req.body as ISøknad;
+  try {
+    const html = genererSøknadHtml(søknad);
+    const pdf = await genererPdf(html);
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `attachment; filename=soknad.pdf`);
+    res.end(pdf);
+  } catch (error) {
+    if (error instanceof Feil) {
+      return res.status(error.code).send(error.message);
+    }
+    logError(`Generering av søknad (pdf) feilet: ${error.message}`);
+    logSecure(`Generering av søknad (pdf) feilet: ${error}`);
+    return res.status(500).send(`Generering av søknad (pdf) feilet: ${error.message}`);
   }
 });
 

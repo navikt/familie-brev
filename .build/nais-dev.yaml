@@ -35,6 +35,7 @@ spec:
     inbound:
       rules:
         - application: familie-ef-sak
+        - application: familie-ef-mottak
         - application: familie-ef-sak-frontend
     outbound:
       rules:

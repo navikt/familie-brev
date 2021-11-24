@@ -63,3 +63,15 @@ export interface IValg {
 export interface IDokumentDataMedPeriode extends IDokumentData {
   perioder: Flettefelter[];
 }
+
+export interface ISøknad {
+  label: string;
+  verdiliste: IVerdiliste[];
+}
+
+export interface IVerdiliste {
+  label: string;
+  verdi?: string;
+  verdiliste?: IVerdiliste[];
+  alternativer?: string;
+}
