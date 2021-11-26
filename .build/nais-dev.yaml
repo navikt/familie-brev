@@ -37,6 +37,7 @@ spec:
         - application: familie-ef-sak
         - application: familie-ef-mottak
         - application: familie-ef-sak-frontend
+        - application: familie-ba-sak
     outbound:
       rules:
         - application: familie-dokument
