@@ -1,0 +1,16 @@
+name: Bygg PR
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+jobs:
+  build:
+    name: Bygg PR
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Yarn build
+        run: |
+          yarn
+          yarn build
