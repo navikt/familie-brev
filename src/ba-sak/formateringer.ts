@@ -38,10 +38,10 @@ export const formaterValgfelt = (valgfeltBlock: ValgfeltBlock, data: IBegrunnels
   }
 };
 
-export const formaterFlettefelt = (flettefeltBlock: FlettefeltBlock, data: any) => {
+export const formaterFlettefelt = (flettefeltBlock: FlettefeltBlock, data: any): string => {
   const flettefeltVerdi = data[flettefeltBlock.flettefelt];
 
-  if (flettefeltVerdi === undefined) {
+  if (flettefeltVerdi === undefined || flettefeltVerdi === '') {
     throw new Feil(
       `Flettefeltet "${flettefeltBlock.flettefelt}" mangler for begrunnelse ${data.apiNavn}`,
       400,
