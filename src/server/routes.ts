@@ -154,6 +154,21 @@ router.get('/:datasett/avansert-dokument/navn', async (req: Request, res: Respon
   res.send({ data: navn, status: 'SUKSESS' });
 });
 
+router.get(
+  '/:datasett/avansert-dokument/navn/:hentUpubliserte',
+  async (req: Request, res: Response) => {
+    const datasett = req.params.datasett as Datasett;
+    const hentUpubliserte = req.params.hentUpubliserte;
+    console.log('');
+
+    const navn = await hentAvansertDokumentNavn(datasett, hentUpubliserte).catch(err => {
+      res.status(err.code).send(`Henting av avanserte dokumenter feilet: ${err.message}`);
+    });
+
+    res.send({ data: navn, status: 'SUKSESS' });
+  },
+);
+
 router.post(
   '/:datasett/avansert-dokument/:maalform/:dokumentApiNavn/pdf',
   async (req: Request, res: Response) => {
