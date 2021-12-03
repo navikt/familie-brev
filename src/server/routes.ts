@@ -158,7 +158,8 @@ router.get(
   '/:datasett/avansert-dokument/navn/:hentUpubliserte',
   async (req: Request, res: Response) => {
     const datasett = req.params.datasett as Datasett;
-    const hentUpubliserte = req.params.hentUpubliserte as unknown as boolean;
+    const hentUpubliserte = req.params.hentUpubliserte;
+    console.log('');
 
     const navn = await hentAvansertDokumentNavn(datasett, hentUpubliserte).catch(err => {
       res.status(err.code).send(`Henting av avanserte dokumenter feilet: ${err.message}`);
