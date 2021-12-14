@@ -62,7 +62,7 @@
     "eslint-plugin-react-app": "^6.2.2",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
-    "html-react-parser": "^0.14.2",
+    "html-react-parser": "^1.4.3",
     "husky": "^4.2.5",
     "is-promise": "^4.0.0",
     "jest": "^27.4.3",
