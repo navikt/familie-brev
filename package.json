@@ -28,7 +28,7 @@
     "@navikt/familie-backend": "^5.0.24",
     "@navikt/familie-logging": "^1.0.2",
     "@sanity/block-content-to-react": "^3.0.0",
-    "@sanity/client": "^2.0.1",
+    "@sanity/client": "^2.23.2",
     "@testing-library/jest-dom": "^5.15.1",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^13.5.0",
