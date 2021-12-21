@@ -55,6 +55,7 @@ const hentAvansertDokumentHtml = async (
               fodselsnummer={dokumentVariabler?.flettefelter?.fodselsnummer}
               apiNavn={dokumentApiNavn}
               brevOpprettetDato={[dagensDatoFormatert()]}
+              maalform={maalform}
             />
             <AvansertDokument
               apiNavn={dokumentApiNavn}
