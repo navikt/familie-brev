@@ -62,6 +62,7 @@ const hentDokumentHtml = async (
                 apiDokument?.flettefelter?.brevOpprettetDato || apiDokument?.flettefelter?.dato
               }
               apiNavn={dokumentApiNavn}
+              maalform={maalform}
             />
             <Dokument
               dokumentApiNavn={dokumentApiNavn}
