@@ -7,6 +7,7 @@ import css from './utils/css';
 
 export const lagManueltBrevHtml = (brevMedSignatur: IFritekstbrevMedSignatur) => {
   const brev = brevMedSignatur.brevFraSaksbehandler;
+
   return renderToStaticMarkup(
     <html lang={'nb'}>
       <head>
@@ -31,7 +32,7 @@ export const lagManueltBrevHtml = (brevMedSignatur: IFritekstbrevMedSignatur) =>
         <div>
           <p style={{ float: 'left' }}>
             <div>Med vennlig hilsen </div>
-            <div>NAV Arbeid og ytelser</div>
+            <div>{brevMedSignatur.enhet || 'NAV Arbeid og ytelser'}</div>
             <br />
             <div style={{ marginRight: '20px' }}>
               {brevMedSignatur.saksbehandlersignatur}{' '}

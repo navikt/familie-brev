@@ -28,6 +28,7 @@ export interface IFritekstbrevMedSignatur {
   brevFraSaksbehandler: IFritekstbrev;
   besluttersignatur?: string;
   saksbehandlersignatur: string;
+  enhet?: string;
 }
 
 export interface IAvsnitt {
