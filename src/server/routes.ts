@@ -91,6 +91,7 @@ router.post(
     const dokumentVariabler = brevMedSignatur.brevFraSaksbehandler;
     const besluttersignatur = brevMedSignatur.besluttersignatur;
     const saksbehandlersignatur = brevMedSignatur.saksbehandlersignatur;
+    const enhet = brevMedSignatur.enhet;
 
     logGenereringsrequestTilSecurelogger<IAvansertDokumentVariabler>(
       datasett,
@@ -107,6 +108,7 @@ router.post(
         datasett,
         saksbehandlersignatur,
         besluttersignatur,
+        enhet,
       );
       res.send(html);
     } catch (error) {
@@ -180,6 +182,7 @@ router.post(
     const dokumentVariabler = brevMedSignatur.brevFraSaksbehandler;
     const besluttersignatur = brevMedSignatur.besluttersignatur;
     const saksbehandlersignatur = brevMedSignatur.saksbehandlersignatur;
+    const enhet = brevMedSignatur.enhet;
 
     logGenereringsrequestTilSecurelogger<IAvansertDokumentVariabler>(
       datasett,
@@ -196,6 +199,7 @@ router.post(
         datasett,
         saksbehandlersignatur,
         besluttersignatur,
+        enhet,
       );
       const pdf = await genererPdf(html);
       res.setHeader('Content-Type', 'application/pdf');
