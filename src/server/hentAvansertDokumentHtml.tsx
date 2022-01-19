@@ -23,6 +23,7 @@ const hentAvansertDokumentHtml = async (
   saksbehandlersignatur: string,
   besluttersignatur?: string,
   enhet?: string,
+  skjulBeslutterSignatur?: boolean,
 ): Promise<string> => {
   const tittelQuery = `*[_type == "dokumentmal" && apiNavn == "${dokumentApiNavn}" ][].tittel${
     maalform === Maalform.NB ? 'Bokmaal' : 'Nynorsk'
@@ -69,8 +70,12 @@ const hentAvansertDokumentHtml = async (
               <div>{enhet || 'NAV Arbeid og ytelser'}</div>
               <p style={{ float: 'left' }}>
                 <span style={{ marginRight: '20px' }}>{saksbehandlersignatur}</span>
-                <span>&mdash;</span>
-                <span style={{ marginLeft: '20px' }}>{besluttersignatur}</span>
+                {!skjulBeslutterSignatur && (
+                  <>
+                    <span>&mdash;</span>
+                    <span style={{ marginLeft: '20px' }}>{besluttersignatur}</span>
+                  </>
+                )}
               </p>
             </div>
           </div>

@@ -183,6 +183,7 @@ router.post(
     const besluttersignatur = brevMedSignatur.besluttersignatur;
     const saksbehandlersignatur = brevMedSignatur.saksbehandlersignatur;
     const enhet = brevMedSignatur.enhet;
+    const skjulBeslutterSignatur = brevMedSignatur.skjulBeslutterSignatur;
 
     logGenereringsrequestTilSecurelogger<IAvansertDokumentVariabler>(
       datasett,
@@ -200,6 +201,7 @@ router.post(
         saksbehandlersignatur,
         besluttersignatur,
         enhet,
+        skjulBeslutterSignatur,
       );
       const pdf = await genererPdf(html);
       res.setHeader('Content-Type', 'application/pdf');

@@ -23,6 +23,7 @@ export interface IBrevMedSignatur {
   besluttersignatur?: string;
   saksbehandlersignatur: string;
   enhet?: string;
+  skjulBeslutterSignatur?: boolean;
 }
 
 export interface IFritekstbrevMedSignatur {
