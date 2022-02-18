@@ -14,7 +14,11 @@ import { Feil } from './utils/Feil';
 import hentAvansertDokumentHtml from './hentAvansertDokumentHtml';
 import validerDokumentApiData from './utils/valideringer/validerDokumentApiData';
 import { logError, logInfo, logSecure } from '@navikt/familie-logging';
-import { hentAvansertDokumentFelter, hentFlettefelter } from './hentAvansertDokumentFelter';
+import {
+  hentAvansertDokumentFelter,
+  hentFlettefelter,
+  hentHtmlfelter,
+} from './hentAvansertDokumentFelter';
 import { hentAvansertDokumentNavn } from './hentAvansertDokumentNavn';
 import { lagManueltBrevHtml } from './lagManueltBrevHtml';
 import { genererSøknadHtml } from './søknadgenerator';
@@ -142,7 +146,11 @@ router.get(
       res.status(err.code).send(`Henting av flettefelter feilet: ${err.message}`);
     });
 
-    res.send({ data: { dokument: felter, flettefelter }, status: 'SUKSESS' });
+    const htmlfelter = await hentHtmlfelter(datasett, avansertDokumentNavn).catch(err => {
+      res.status(err.code).send(`Henting av Htmlfetler feilet: ${err.message}`);
+    });
+
+    res.send({ data: { dokument: felter, flettefelter, htmlfelter }, status: 'SUKSESS' });
   },
 );
 
