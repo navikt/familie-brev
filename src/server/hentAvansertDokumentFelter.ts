@@ -16,6 +16,20 @@ export const hentFlettefelter = async (
     });
 };
 
+export const hentHtmlfelter = async (
+  datasett: Datasett,
+  avansertDokumentNavn: string,
+): Promise<string> => {
+  const query = `*[apiNavn == "${avansertDokumentNavn}"]{
+     "htmlfeltReferanse" :  *[ _type=='htmlfelt' ]
+    }[0]`;
+  return client(datasett)
+    .fetch(query)
+    .catch(error => {
+      throw new Feil(error.message, error.statusCode);
+    });
+};
+
 export const hentAvansertDokumentFelter = async (
   datasett: Datasett,
   maalform: Maalform,
@@ -23,6 +37,7 @@ export const hentAvansertDokumentFelter = async (
 ): Promise<string> => {
   const query = `*[apiNavn == "${avansertDokumentNavn}"]{
         "malNavn": apiNavn,
+        "dokumentHtmlfelter": ${maalform}[].htmlfeltReferanse | [defined(@)]->{felt},
         "delmalerSortert": ${maalform}[].delmalReferanse | [defined(@)]->{ 
             "delmalApiNavn": apiNavn,
             "delmalNavn": visningsnavn,
