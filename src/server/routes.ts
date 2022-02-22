@@ -147,7 +147,7 @@ router.get(
     });
 
     const htmlfelter = await hentHtmlfelter(datasett, avansertDokumentNavn).catch(err => {
-      res.status(err.code).send(`Henting av Htmlfetler feilet: ${err.message}`);
+      res.status(err.code).send(`Henting av Htmlfelter feilet: ${err.message}`);
     });
 
     res.send({ data: { dokument: felter, flettefelter, htmlfelter }, status: 'SUKSESS' });
