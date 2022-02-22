@@ -9,7 +9,6 @@ interface IHtmlfeltSerializerProps {
 }
 
 const HtmlfeltSerializer = (props: IHtmlfeltSerializerProps) => {
-  console.log('PROPS', props);
   const { sanityProps, htmlfelter, dokumentApiNavn } = props;
   const htmlfeltNavn = hentFeltnavn(sanityProps);
 
