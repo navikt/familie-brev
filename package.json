@@ -25,7 +25,7 @@
     ]
   },
   "dependencies": {
-    "@navikt/familie-backend": "^5.0.24",
+    "@navikt/familie-backend": "^5.0.31",
     "@navikt/familie-logging": "^1.0.2",
     "@sanity/block-content-to-react": "^3.0.0",
     "@sanity/client": "^2.0.1",
