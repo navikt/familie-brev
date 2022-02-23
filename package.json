@@ -28,7 +28,7 @@
     "@navikt/familie-backend": "^5.0.31",
     "@navikt/familie-logging": "^1.0.2",
     "@sanity/block-content-to-react": "^3.0.0",
-    "@sanity/client": "^2.0.1",
+    "@sanity/client": "^3.1.0",
     "@testing-library/jest-dom": "^5.15.1",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^13.5.0",
@@ -63,7 +63,7 @@
     "react-scripts": "^5.0.0",
     "ts-jest": "^27.0.5",
     "ts-loader": "^8.3.0",
-    "typescript": "~3.7.2",
+    "typescript": "^4.5.5",
     "wait-on": "^5.3.0",
     "webpack-cli": "^4.2.0",
     "webpack-node-externals": "^2.5.2"
