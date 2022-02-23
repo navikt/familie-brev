@@ -22,6 +22,8 @@ export interface IBrevMedSignatur {
   brevFraSaksbehandler: IAvansertDokumentVariabler;
   besluttersignatur?: string;
   saksbehandlersignatur: string;
+  enhet?: string;
+  skjulBeslutterSignatur?: boolean;
 }
 
 export interface IFritekstbrevMedSignatur {
