@@ -39,7 +39,7 @@ router.post(
       await validerDokumentApiData(datasett, maalform);
       const html = await hentDokumentHtml(dokument, maalform, dokumentApiNavn, datasett);
       res.send(html);
-    } catch (feil) {
+    } catch (feil: any) {
       if (feil instanceof Feil) {
         return res.status(feil.code).send(feil.message);
       }
@@ -68,7 +68,7 @@ router.post(
       res.setHeader('Content-Type', 'application/pdf');
       res.setHeader('Content-Disposition', `attachment; filename=${dokumentApiNavn}.pdf`);
       res.end(pdf);
-    } catch (feil) {
+    } catch (feil: any) {
       if (feil instanceof Feil) {
         return res.status(feil.code).send(feil.message);
       }
@@ -111,7 +111,7 @@ router.post(
         enhet,
       );
       res.send(html);
-    } catch (error) {
+    } catch (error: any) {
       if (error instanceof Feil) {
         return res.status(error.code).send(error.message);
       }
@@ -207,7 +207,7 @@ router.post(
       res.setHeader('Content-Type', 'application/pdf');
       res.setHeader('Content-Disposition', `attachment; filename=${dokumentApiNavn}.pdf`);
       res.end(pdf);
-    } catch (error) {
+    } catch (error: any) {
       if (error instanceof Feil) {
         return res.status(error.code).send(error.message);
       }
@@ -227,7 +227,7 @@ router.post('/fritekst-brev', async (req: Request, res: Response) => {
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Disposition', `attachment; filename=brev.pdf`);
     res.end(pdf);
-  } catch (error) {
+  } catch (error: any) {
     if (error instanceof Feil) {
       return res.status(error.code).send(error.message);
     }
@@ -245,7 +245,7 @@ router.post('/generer-soknad', async (req: Request, res: Response) => {
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Disposition', `attachment; filename=soknad.pdf`);
     res.end(pdf);
-  } catch (error) {
+  } catch (error: any) {
     if (error instanceof Feil) {
       return res.status(error.code).send(error.message);
     }
