@@ -7,6 +7,7 @@ Konsumenter kan få returnert html eller pdf/bytearray.
 
 # Kjør server lokalt
 * `familie-dokument` må kjøres med DevLauncher for at pdf-generering skal fungere
+* Pass på at du har instalert alle NPM-avhengighetene `yarn`
 * Kjør `yarn start:dev`
 
 # Bygg og deploy
