@@ -109,6 +109,7 @@ router.post(
         saksbehandlersignatur,
         besluttersignatur,
         enhet,
+        brevMedSignatur.skjulBeslutterSignatur,
       );
       res.send(html);
     } catch (error: any) {
@@ -231,8 +232,24 @@ router.post('/fritekst-brev', async (req: Request, res: Response) => {
     if (error instanceof Feil) {
       return res.status(error.code).send(error.message);
     }
-    logError(`Generering av avansert dokument (pdf) feilet: ${error.message}`);
-    logSecure(`Generering av avansert dokument (pdf) feilet: ${error}`);
+    logError(`Generering av fritekstbrev (pdf) feilet: ${error.message}`);
+    logSecure(`Generering av fritekstbrev (pdf) feilet: ${error}`);
+    return res.status(500).send(`Generering av avansert dokument (pdf) feilet: ${error.message}`);
+  }
+});
+
+router.post('/fritekst-brev/html', async (req: Request, res: Response) => {
+  const brev = req.body as IFritekstbrevMedSignatur;
+  try {
+    const html = lagManueltBrevHtml(brev);
+
+    res.send(html);
+  } catch (error: any) {
+    if (error instanceof Feil) {
+      return res.status(error.code).send(error.message);
+    }
+    logError(`Generering av fritekstbrev (pdf) feilet: ${error.message}`);
+    logSecure(`Generering av fritekstbrev (pdf) feilet: ${error}`);
     return res.status(500).send(`Generering av avansert dokument (pdf) feilet: ${error.message}`);
   }
 });
