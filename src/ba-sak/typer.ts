@@ -25,7 +25,7 @@ export enum Valgfelttype {
   DU_OG_ELLER_BARNET_BARNA = 'duOgEllerBarnetBarna',
   FOR_BARN_FØDT = 'forBarnFodt',
   FRA_DATO = 'fraDato',
-  DU_FÅR_OG_ELLER_HAR_RETT_PÅ = 'duFårOgEllerHarRettPå',
+  DU_FÅR_OG_ELLER_HAR_RETT_PÅ = 'duFarOgEllerHarRettPa',
 }
 
 export enum ValgfeltMuligheter {
