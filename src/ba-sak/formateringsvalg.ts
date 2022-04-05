@@ -21,7 +21,8 @@ export const hentDuOgEllerBarnetBarnaValg = (data: IBegrunnelsedata): ValgfeltMu
   } else {
     if (data.antallBarn === 0) {
       throw new Feil(
-        `Må ha enten barn eller søker for å bruke 'du og/eller barnet/barna' formulering for begrunnelse med apiNavn=${data.apiNavn}`,
+        `Må ha enten barn eller søker for å bruke 'du og/eller barnet/barna' 
+        formulering for begrunnelse med apiNavn=${data.apiNavn}`,
         400,
       );
     } else if (data.antallBarn === 1) {
@@ -35,7 +36,8 @@ export const hentDuOgEllerBarnetBarnaValg = (data: IBegrunnelsedata): ValgfeltMu
 export const hentBarnetBarnaValg = (data: IBegrunnelsedata): ValgfeltMuligheter => {
   if (data.antallBarn < 1) {
     throw new Feil(
-      `Må ha barn for å bruke barnet/barna formulering, men antall barn var ${data.antallBarn} for begrunnelse med apiNavn=${data.apiNavn}`,
+      `Må ha barn for å bruke barnet/barna formulering, men antall barn var 
+      ${data.antallBarn} for begrunnelse med apiNavn=${data.apiNavn}`,
       400,
     );
   } else if (data.antallBarn === 1) {
@@ -82,5 +84,24 @@ export const hentFraDatoValg = (data: IBegrunnelsedata): ValgfeltMuligheter => {
     return ValgfeltMuligheter.INGEN_FRA_DATO;
   } else {
     return ValgfeltMuligheter.HAR_FRA_DATO;
+  }
+};
+
+export const hentDuFårOgEllerHarRettPåValg = (data: IBegrunnelsedata): ValgfeltMuligheter => {
+  if (
+    data.antallBarnOppfyllerTriggereOgHarUtbetaling > 0 &&
+    data.antallBarnOppfyllerTriggereOgHarNullutbetaling > 0
+  ) {
+    return ValgfeltMuligheter.DU_FÅR_OG_HAR_RETT;
+  } else if (data.antallBarnOppfyllerTriggereOgHarNullutbetaling > 0) {
+    return ValgfeltMuligheter.DU_HAR_RETT;
+  } else if (data.antallBarnOppfyllerTriggereOgHarUtbetaling > 0) {
+    return ValgfeltMuligheter.DU_FÅR;
+  } else {
+    throw new Feil(
+      `Må ha barn som oppfyller triggere for begrunnelse og har utbetaling eller nullutbetaling for å bruke 
+      'du får og/eller har rett på' formulering for begrunnelse med apiNavn=${data.apiNavn}`,
+      400,
+    );
   }
 };
