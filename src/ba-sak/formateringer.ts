@@ -10,7 +10,7 @@ import {
 import {
   hentBarnetBarnaDineDittValg,
   hentBarnetBarnaValg,
-  hentDuFårOgEllerHarRettPåValg,
+  hentDuFårEllerHarRettTilValg,
   hentDuOgEllerBarnetBarnaValg,
   hentDuOgEllerBarnFodtValg,
   hentForBarnFodtValg,
@@ -31,8 +31,8 @@ export const formaterValgfelt = (valgfeltBlock: ValgfeltBlock, data: IBegrunnels
       return valgfeltSerializer(valgfeltBlock, hentDuOgEllerBarnFodtValg(data), data);
     case Valgfelttype.FRA_DATO:
       return valgfeltSerializer(valgfeltBlock, hentFraDatoValg(data), data);
-    case Valgfelttype.DU_FÅR_OG_ELLER_HAR_RETT_PÅ:
-      return valgfeltSerializer(valgfeltBlock, hentDuFårOgEllerHarRettPåValg(data), data);
+    case Valgfelttype.DU_FÅR_ELLER_HAR_RETT_TIL:
+      return valgfeltSerializer(valgfeltBlock, hentDuFårEllerHarRettTilValg(data), data);
     default:
       throw new Feil(
         `Ukjent formulering fra santity. Det er ikke laget noen funksjonalitet for ${valgfeltBlock.apiNavn}`,
