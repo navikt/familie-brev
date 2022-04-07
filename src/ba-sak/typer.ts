@@ -25,7 +25,7 @@ export enum Valgfelttype {
   DU_OG_ELLER_BARNET_BARNA = 'duOgEllerBarnetBarna',
   FOR_BARN_FØDT = 'forBarnFodt',
   FRA_DATO = 'fraDato',
-  DU_FÅR_OG_ELLER_HAR_RETT_PÅ = 'duFaarOgEllerHarRettPaa',
+  DU_FÅR_ELLER_HAR_RETT_TIL = 'duFaarEllerHarRettTil',
 }
 
 export enum ValgfeltMuligheter {
@@ -40,8 +40,7 @@ export enum ValgfeltMuligheter {
   INGEN_FRA_DATO = 'ingenFraDato',
   HAR_FRA_DATO = 'harFraDato',
   DU_FÅR = 'duFaar',
-  DU_FÅR_OG_HAR_RETT = 'duFaarOgHarRett',
-  DU_HAR_RETT = 'duHarRett',
+  DU_HAR_RETT_TIL = 'duHarRettTil',
 }
 
 export interface SpanBlock {

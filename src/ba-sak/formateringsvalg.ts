@@ -1,5 +1,5 @@
 import { Feil } from '../server/utils/Feil';
-import { ValgfeltMuligheter, IBegrunnelsedata } from './typer';
+import { IBegrunnelsedata, ValgfeltMuligheter } from './typer';
 
 export const hentForBarnFodtValg = (data: IBegrunnelsedata): ValgfeltMuligheter => {
   if (data.antallBarn === 0) {
@@ -87,20 +87,15 @@ export const hentFraDatoValg = (data: IBegrunnelsedata): ValgfeltMuligheter => {
   }
 };
 
-export const hentDuFårOgEllerHarRettPåValg = (data: IBegrunnelsedata): ValgfeltMuligheter => {
-  if (
-    data.antallBarnOppfyllerTriggereOgHarUtbetaling > 0 &&
-    data.antallBarnOppfyllerTriggereOgHarNullutbetaling > 0
-  ) {
-    return ValgfeltMuligheter.DU_FÅR_OG_HAR_RETT;
-  } else if (data.antallBarnOppfyllerTriggereOgHarNullutbetaling > 0) {
-    return ValgfeltMuligheter.DU_HAR_RETT;
-  } else if (data.antallBarnOppfyllerTriggereOgHarUtbetaling > 0) {
+export const hentDuFårEllerHarRettTilValg = (data: IBegrunnelsedata): ValgfeltMuligheter => {
+  if (data.antallBarnOppfyllerTriggereOgHarUtbetaling > 0) {
     return ValgfeltMuligheter.DU_FÅR;
+  } else if (data.antallBarnOppfyllerTriggereOgHarNullutbetaling > 0) {
+    return ValgfeltMuligheter.DU_HAR_RETT_TIL;
   } else {
     throw new Feil(
       `Må ha barn som oppfyller triggere for begrunnelse og har utbetaling eller nullutbetaling for å bruke 
-      'du får og/eller har rett på' formulering for begrunnelse med apiNavn=${data.apiNavn}`,
+      'du får eller har rett til' formulering for begrunnelse med apiNavn=${data.apiNavn}`,
       400,
     );
   }
