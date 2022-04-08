@@ -12,6 +12,10 @@ export interface IBegrunnelsedata {
   antallBarnOppfyllerTriggereOgHarNullutbetaling: number;
   maanedOgAarBegrunnelsenGjelderFor: string;
   maalform: Maalform;
+  soknadstidspunkt: string;
+  avtaletidspunktDeltBosted: string;
+  belop: string;
+  belopUtbetaltPaaSokerIPerioden: string;
 }
 
 export interface IPeriodedata {

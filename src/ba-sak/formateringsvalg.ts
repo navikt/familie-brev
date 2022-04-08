@@ -88,9 +88,10 @@ export const hentFraDatoValg = (data: IBegrunnelsedata): ValgfeltMuligheter => {
 };
 
 export const hentDuFårEllerHarRettTilValg = (data: IBegrunnelsedata): ValgfeltMuligheter => {
-  if (data.antallBarnOppfyllerTriggereOgHarUtbetaling > 0) {
+  const søkerBeløp = parseInt(data.belopUtbetaltPaaSokerIPerioden);
+  if (data.antallBarnOppfyllerTriggereOgHarUtbetaling > 0 || søkerBeløp > 0) {
     return ValgfeltMuligheter.DU_FÅR;
-  } else if (data.antallBarnOppfyllerTriggereOgHarNullutbetaling > 0) {
+  } else if (data.antallBarnOppfyllerTriggereOgHarNullutbetaling > 0 && søkerBeløp == 0) {
     return ValgfeltMuligheter.DU_HAR_RETT_TIL;
   } else {
     throw new Feil(
