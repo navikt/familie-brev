@@ -13,7 +13,6 @@ export const hentBegrunnelserQuery = () => `
      borMedSokerTriggere,
      ovrigeTriggere,
      endretUtbetalingsperiodeTriggere,
-     endretUtbetalingsperiodeDeltBostedTriggere,
      endretUtbetalingsperiodeDeltBostedUtbetalingTrigger,
      endringsaarsaker,
      utvidetBarnetrygdTriggere
