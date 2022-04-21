@@ -14,6 +14,7 @@ export const hentBegrunnelserQuery = () => `
      ovrigeTriggere,
      endretUtbetalingsperiodeTriggere,
      endretUtbetalingsperiodeDeltBostedTriggere,
+     endretUtbetalingsperiodeDeltBostedUtbetalingTrigger,
      endringsaarsaker,
      utvidetBarnetrygdTriggere
  }
