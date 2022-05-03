@@ -11,12 +11,8 @@
     "dev:server:webpack": "webpack --config webpack.config.server.js --watch",
     "dev:server:nodemon": "rm -f build/server.js && wait-on -l build/backend/server.js && nodemon build/backend/server.js --delay 500ms",
     "build": "yarn build:server",
-    "build:server": "webpack --config webpack.config.server.js"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+    "build:server": "webpack --config webpack.config.server.js",
+    "prepare": "husky install"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,css}": [
@@ -53,7 +49,7 @@
     "eslint-plugin-react-app": "^6.2.2",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
-    "husky": "^7.0.4",
+    "husky": "7",
     "jest": "^27.4.3",
     "lint-staged": "^10.5.3",
     "nodemon": "^2.0.6",
@@ -82,6 +78,7 @@
   },
   "devDependencies": {
     "@types/react": "^16.9.52",
-    "gh-pages": "^3.2.3"
+    "gh-pages": "^3.2.3",
+    "husky": "^7.0.0"
   }
 }
