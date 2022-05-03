@@ -15,7 +15,7 @@ export interface IBegrunnelsedata {
   soknadstidspunkt: string;
   avtaletidspunktDeltBosted: string;
   belop: string;
-  belopUtbetaltPaaSokerIPerioden: string;
+  sokerFaarUtbetaltUtvidetIPerioden: boolean;
 }
 
 export interface IPeriodedata {
