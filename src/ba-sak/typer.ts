@@ -15,7 +15,13 @@ export interface IBegrunnelsedata {
   soknadstidspunkt: string;
   avtaletidspunktDeltBosted: string;
   belop: string;
-  sokerFaarUtbetaltUtvidetIPerioden: boolean;
+  sokerFaarUtbetaltUtvidetIPerioden: UtvidetPåSøker;
+}
+
+export enum UtvidetPåSøker {
+  SØKER_FÅR_UTVIDET = 'sokerFaarUtvidet',
+  SØKER_HAR_RETT_MEN_FÅR_IKKE = 'sokerHarRettMenFaarIkke',
+  SØKER_HAR_IKKE_RETT = 'sokerHarIkkeRett',
 }
 
 export interface IPeriodedata {
@@ -29,7 +35,7 @@ export enum Valgfelttype {
   DU_OG_ELLER_BARNET_BARNA = 'duOgEllerBarnetBarna',
   FOR_BARN_FØDT = 'forBarnFodt',
   FRA_DATO = 'fraDato',
-  DU_FÅR_ELLER_HAR_RETT_TIL = 'duFaarEllerHarRettTil',
+  DU_FÅR_ELLER_HAR_RETT_TIL_UTVIDET = 'duFaarEllerHarRettTilUtvidet',
 }
 
 export enum ValgfeltMuligheter {

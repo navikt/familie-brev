@@ -1,5 +1,5 @@
 import { Feil } from '../server/utils/Feil';
-import { IBegrunnelsedata, ValgfeltMuligheter } from './typer';
+import { IBegrunnelsedata, UtvidetPåSøker, ValgfeltMuligheter } from './typer';
 
 export const hentForBarnFodtValg = (data: IBegrunnelsedata): ValgfeltMuligheter => {
   if (data.antallBarn === 0) {
@@ -87,21 +87,17 @@ export const hentFraDatoValg = (data: IBegrunnelsedata): ValgfeltMuligheter => {
   }
 };
 
-export const hentDuFårEllerHarRettTilValg = (data: IBegrunnelsedata): ValgfeltMuligheter => {
-  if (
-    data.antallBarnOppfyllerTriggereOgHarUtbetaling > 0 ||
-    data.sokerFaarUtbetaltUtvidetIPerioden
-  ) {
+export const hentDuFårEllerHarRettTilUtvidetValg = (data: IBegrunnelsedata): ValgfeltMuligheter => {
+  if (data.sokerFaarUtbetaltUtvidetIPerioden === UtvidetPåSøker.SØKER_FÅR_UTVIDET) {
     return ValgfeltMuligheter.DU_FÅR;
   } else if (
-    data.antallBarnOppfyllerTriggereOgHarNullutbetaling > 0 &&
-    !data.sokerFaarUtbetaltUtvidetIPerioden
+    data.sokerFaarUtbetaltUtvidetIPerioden === UtvidetPåSøker.SØKER_HAR_RETT_MEN_FÅR_IKKE
   ) {
     return ValgfeltMuligheter.DU_HAR_RETT_TIL;
   } else {
     throw new Feil(
-      `Må ha barn som oppfyller triggere for begrunnelse og har utbetaling eller nullutbetaling for å bruke 
-      'du får eller har rett til' formulering for begrunnelse med apiNavn=${data.apiNavn}`,
+      `Søker må ha rett til utvidet for å bruke 
+      'du får eller har rett til utvidet' formulering for begrunnelse med apiNavn=${data.apiNavn}`,
       400,
     );
   }
