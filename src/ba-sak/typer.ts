@@ -15,10 +15,10 @@ export interface IBegrunnelsedata {
   soknadstidspunkt: string;
   avtaletidspunktDeltBosted: string;
   belop: string;
-  sokerFaarUtbetaltUtvidetIPerioden: UtvidetPåSøker;
+  sokersRettTilUtvidet: SøkersRettTilUtvidet;
 }
 
-export enum UtvidetPåSøker {
+export enum SøkersRettTilUtvidet {
   SØKER_FÅR_UTVIDET = 'sokerFaarUtvidet',
   SØKER_HAR_RETT_MEN_FÅR_IKKE = 'sokerHarRettMenFaarIkke',
   SØKER_HAR_IKKE_RETT = 'sokerHarIkkeRett',

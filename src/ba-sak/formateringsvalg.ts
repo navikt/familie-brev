@@ -1,5 +1,5 @@
 import { Feil } from '../server/utils/Feil';
-import { IBegrunnelsedata, UtvidetPåSøker, ValgfeltMuligheter } from './typer';
+import { IBegrunnelsedata, SøkersRettTilUtvidet, ValgfeltMuligheter } from './typer';
 
 export const hentForBarnFodtValg = (data: IBegrunnelsedata): ValgfeltMuligheter => {
   if (data.antallBarn === 0) {
@@ -88,11 +88,9 @@ export const hentFraDatoValg = (data: IBegrunnelsedata): ValgfeltMuligheter => {
 };
 
 export const hentDuFårEllerHarRettTilUtvidetValg = (data: IBegrunnelsedata): ValgfeltMuligheter => {
-  if (data.sokerFaarUtbetaltUtvidetIPerioden === UtvidetPåSøker.SØKER_FÅR_UTVIDET) {
+  if (data.sokersRettTilUtvidet === SøkersRettTilUtvidet.SØKER_FÅR_UTVIDET) {
     return ValgfeltMuligheter.DU_FÅR;
-  } else if (
-    data.sokerFaarUtbetaltUtvidetIPerioden === UtvidetPåSøker.SØKER_HAR_RETT_MEN_FÅR_IKKE
-  ) {
+  } else if (data.sokersRettTilUtvidet === SøkersRettTilUtvidet.SØKER_HAR_RETT_MEN_FÅR_IKKE) {
     return ValgfeltMuligheter.DU_HAR_RETT_TIL;
   } else {
     throw new Feil(
