@@ -1,7 +1,7 @@
 import { Feil } from '../server/utils/Feil';
 import {
   FlettefeltBlock,
-  IBegrunnelsedata,
+  IStandardbegrunnelsedata,
   MarkDef,
   ValgfeltBlock,
   ValgfeltMuligheter,
@@ -17,7 +17,7 @@ import {
   hentFraDatoValg,
 } from './formateringsvalg';
 
-export const formaterValgfelt = (valgfeltBlock: ValgfeltBlock, data: IBegrunnelsedata) => {
+export const formaterValgfelt = (valgfeltBlock: ValgfeltBlock, data: IStandardbegrunnelsedata) => {
   switch (valgfeltBlock.apiNavn) {
     case Valgfelttype.FOR_BARN_FØDT:
       return valgfeltSerializer(valgfeltBlock, hentForBarnFodtValg(data), data);
@@ -54,7 +54,7 @@ export const formaterFlettefelt = (flettefeltBlock: FlettefeltBlock, data: any):
   return flettefeltVerdi;
 };
 
-const flettefeltSerializer = (delmalblokk: any[], block: any, data: IBegrunnelsedata) => {
+const flettefeltSerializer = (delmalblokk: any[], block: any, data: IStandardbegrunnelsedata) => {
   const markDef: MarkDef = delmalblokk[0].markDefs.find(
     (markDef: MarkDef) => markDef._key === block.marks[0],
   );
@@ -84,7 +84,7 @@ const validerFormulering = (
   }
 };
 
-const settSammenBlokkerTilTekst = (delmalblokk: any[], data: IBegrunnelsedata) =>
+const settSammenBlokkerTilTekst = (delmalblokk: any[], data: IStandardbegrunnelsedata) =>
   delmalblokk[0].children
     .map((block: any) => {
       if (block.marks.length > 1) {
@@ -101,7 +101,7 @@ const settSammenBlokkerTilTekst = (delmalblokk: any[], data: IBegrunnelsedata) =
 const valgfeltSerializer = (
   valgfeltBlock: ValgfeltBlock,
   ønsketValgmulighet: ValgfeltMuligheter,
-  data: IBegrunnelsedata,
+  data: IStandardbegrunnelsedata,
 ) => {
   const delmalblokk: any[] | undefined = valgfeltBlock.valg.find(
     valg => valg.valgmulighet === ønsketValgmulighet,

@@ -1,7 +1,7 @@
 import { Feil } from '../server/utils/Feil';
-import { IBegrunnelsedata, SøkersRettTilUtvidet, ValgfeltMuligheter } from './typer';
+import { IStandardbegrunnelsedata, SøkersRettTilUtvidet, ValgfeltMuligheter } from './typer';
 
-export const hentForBarnFodtValg = (data: IBegrunnelsedata): ValgfeltMuligheter => {
+export const hentForBarnFodtValg = (data: IStandardbegrunnelsedata): ValgfeltMuligheter => {
   if (data.antallBarn === 0) {
     return ValgfeltMuligheter.INGEN_BARN;
   } else {
@@ -9,7 +9,9 @@ export const hentForBarnFodtValg = (data: IBegrunnelsedata): ValgfeltMuligheter 
   }
 };
 
-export const hentDuOgEllerBarnetBarnaValg = (data: IBegrunnelsedata): ValgfeltMuligheter => {
+export const hentDuOgEllerBarnetBarnaValg = (
+  data: IStandardbegrunnelsedata,
+): ValgfeltMuligheter => {
   if (data.gjelderSoker) {
     if (data.antallBarn === 0) {
       return ValgfeltMuligheter.INGEN_BARN;
@@ -33,7 +35,7 @@ export const hentDuOgEllerBarnetBarnaValg = (data: IBegrunnelsedata): ValgfeltMu
   }
 };
 
-export const hentBarnetBarnaValg = (data: IBegrunnelsedata): ValgfeltMuligheter => {
+export const hentBarnetBarnaValg = (data: IStandardbegrunnelsedata): ValgfeltMuligheter => {
   if (data.antallBarn < 1) {
     throw new Feil(
       `Må ha barn for å bruke barnet/barna formulering, men antall barn var 
@@ -47,7 +49,7 @@ export const hentBarnetBarnaValg = (data: IBegrunnelsedata): ValgfeltMuligheter 
   }
 };
 
-export const hentBarnetBarnaDineDittValg = (data: IBegrunnelsedata): ValgfeltMuligheter => {
+export const hentBarnetBarnaDineDittValg = (data: IStandardbegrunnelsedata): ValgfeltMuligheter => {
   if (data.antallBarn < 1) {
     throw new Feil(
       `Må ha barn for å bruke barnet/barna dine/ditt formulering, men antall barn var ${data.antallBarn} for begrunnelse med apiNavn=${data.apiNavn}`,
@@ -60,7 +62,7 @@ export const hentBarnetBarnaDineDittValg = (data: IBegrunnelsedata): ValgfeltMul
   }
 };
 
-export const hentDuOgEllerBarnFodtValg = (data: IBegrunnelsedata): ValgfeltMuligheter => {
+export const hentDuOgEllerBarnFodtValg = (data: IStandardbegrunnelsedata): ValgfeltMuligheter => {
   if (data.gjelderSoker) {
     if (data.antallBarn === 0) {
       return ValgfeltMuligheter.INGEN_BARN;
@@ -79,7 +81,7 @@ export const hentDuOgEllerBarnFodtValg = (data: IBegrunnelsedata): ValgfeltMulig
   }
 };
 
-export const hentFraDatoValg = (data: IBegrunnelsedata): ValgfeltMuligheter => {
+export const hentFraDatoValg = (data: IStandardbegrunnelsedata): ValgfeltMuligheter => {
   if (!data.maanedOgAarBegrunnelsenGjelderFor || data.maanedOgAarBegrunnelsenGjelderFor === '') {
     return ValgfeltMuligheter.INGEN_FRA_DATO;
   } else {
@@ -87,7 +89,9 @@ export const hentFraDatoValg = (data: IBegrunnelsedata): ValgfeltMuligheter => {
   }
 };
 
-export const hentDuFårEllerHarRettTilUtvidetValg = (data: IBegrunnelsedata): ValgfeltMuligheter => {
+export const hentDuFårEllerHarRettTilUtvidetValg = (
+  data: IStandardbegrunnelsedata,
+): ValgfeltMuligheter => {
   if (data.sokersRettTilUtvidet === SøkersRettTilUtvidet.SØKER_FÅR_UTVIDET) {
     return ValgfeltMuligheter.DU_FÅR;
   } else if (data.sokersRettTilUtvidet === SøkersRettTilUtvidet.SØKER_HAR_RETT_MEN_FÅR_IKKE) {

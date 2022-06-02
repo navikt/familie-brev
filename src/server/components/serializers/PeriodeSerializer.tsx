@@ -9,8 +9,13 @@ import { client, Datasett } from '../../sanity/sanityClient';
 import { DokumentType } from '../../../typer/dokumentType';
 import { validerPeriode } from '../../utils/valideringer/validerPeriode';
 import { Feil } from '../../utils/Feil';
-import { IBegrunnelsedata, IPeriodedata } from '../../../ba-sak/typer';
-import { validerBegrunnelse, validerBegrunnelsedata } from '../../../ba-sak/valideringer';
+import {
+  IBegrunnelseData,
+  Begrunnelsetype,
+  IStandardbegrunnelsedata,
+  IPeriodedata,
+} from '../../../ba-sak/typer';
+import { validerBegrunnelse, validerStandardbegrunnelsedata } from '../../../ba-sak/valideringer';
 import { hentBegrunnelseTekstQuery } from '../../../ba-sak/queries';
 import begrunnelseSerializer from '../../../ba-sak/begrunnelseSerializer';
 
@@ -79,8 +84,8 @@ const Periode = (props: { maalform: Maalform; datasett: Datasett; periodedata: I
     )[0];
   };
 
-  const byggBegrunnelse = (begrunnelseData: IBegrunnelsedata) => {
-    validerBegrunnelsedata(begrunnelseData);
+  const byggBegrunnelse = (begrunnelseData: IStandardbegrunnelsedata) => {
+    validerStandardbegrunnelsedata(begrunnelseData);
     const begrunnelsetekstFraSanity = hentBegrunnelsetekst(
       begrunnelseData.apiNavn,
       begrunnelseData.maalform,
@@ -90,16 +95,21 @@ const Periode = (props: { maalform: Maalform; datasett: Datasett; periodedata: I
     );
   };
 
-  const byggBegrunnelser = (begrunnelser: IBegrunnelsedata[] | Flettefelt): string[] => {
-    const nyeBegrunnelser: string[] = [];
-    begrunnelser.forEach((begrunnelse: IBegrunnelsedata | string) => {
+  const byggBegrunnelser = (begrunnelser: IBegrunnelseData[] | Flettefelt): string[] => {
+    return begrunnelser.map((begrunnelse: IBegrunnelseData | string) => {
+      // Todo Kan fjernes etter at vi får inn endring i ba-sak
       if (typeof begrunnelse === 'string') {
-        nyeBegrunnelser.push(begrunnelse);
+        return begrunnelse;
+      } else if (begrunnelse.type === Begrunnelsetype.FRITEKST) {
+        return begrunnelse.fritekst;
+      } else if (begrunnelse.type === Begrunnelsetype.STANDARD_BEGRUNNELSE) {
+        return byggBegrunnelse(begrunnelse);
+      } else if (begrunnelse.type === Begrunnelsetype.EØS_BEGRUNNELSE) {
+        throw new Feil('Ikke implementert', 400);
       } else {
-        nyeBegrunnelser.push(byggBegrunnelse(begrunnelse));
+        return byggBegrunnelse(begrunnelse);
       }
     });
-    return nyeBegrunnelser;
   };
 
   const flettefelter = { ...periodedata };

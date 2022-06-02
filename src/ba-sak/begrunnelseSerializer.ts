@@ -1,5 +1,5 @@
 import {
-  IBegrunnelsedata,
+  IStandardbegrunnelsedata,
   BegrunnelseBlock,
   ValgfeltBlock,
   FlettefeltBlock,
@@ -12,7 +12,7 @@ import { lagStorForbokstav } from '../utils/strenghåndtering';
 
 const begrunnelseSerializer = (
   blocks: BegrunnelseBlock[] | Record<string, never>,
-  data: IBegrunnelsedata,
+  data: IStandardbegrunnelsedata,
 ) => {
   if (!Array.isArray(blocks)) {
     throw new Feil(`Fant ikke begrunnelse med apiNavn=${data.apiNavn}`, 404);
@@ -29,7 +29,7 @@ const begrunnelseSerializer = (
 
 const formaterSanityBlock = (
   block: SpanBlock | ValgfeltBlock | FlettefeltBlock | ValgfeltV2Block | any,
-  data: IBegrunnelsedata,
+  data: IStandardbegrunnelsedata,
 ): string => {
   switch (block._type) {
     case 'span':

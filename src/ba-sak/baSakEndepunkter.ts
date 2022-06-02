@@ -9,8 +9,8 @@ import {
   hentHjemlerForBegrunnelseQuery,
 } from './queries';
 import begrunnelseSerializer from './begrunnelseSerializer';
-import { IBegrunnelsedata } from './typer';
-import { validerBegrunnelse, validerBegrunnelsedata } from './valideringer';
+import { IStandardbegrunnelsedata } from './typer';
+import { validerBegrunnelse, validerStandardbegrunnelsedata } from './valideringer';
 import { Feil } from '../server/utils/Feil';
 import { logError, logSecure } from '@navikt/familie-logging';
 import { hentMiljøvariabler } from '../server/environment';
@@ -50,9 +50,9 @@ router.get('/begrunnelser/:begrunnelseApiNavn', async (req: Request, res: Respon
 
 router.post('/begrunnelser/:begrunnelseApiNavn/tekst/', async (req: Request, res: Response) => {
   const begrunnelseApiNavn = req.params.begrunnelseApiNavn;
-  const data = req.body as IBegrunnelsedata;
+  const data = req.body as IStandardbegrunnelsedata;
   try {
-    validerBegrunnelsedata(data);
+    validerStandardbegrunnelsedata(data);
 
     const begrunnelseFraSanity = await client(BA_DATASETT).fetch(
       hentBegrunnelseTekstQuery(begrunnelseApiNavn, data.maalform),

@@ -1,8 +1,8 @@
-import { IBegrunnelsedata } from './typer';
+import { IStandardbegrunnelsedata } from './typer';
 import { Feil } from '../server/utils/Feil';
 import { Maalform } from '../typer/sanitygrensesnitt';
 
-export const validerBegrunnelsedata = (data: IBegrunnelsedata) => {
+export const validerStandardbegrunnelsedata = (data: IStandardbegrunnelsedata) => {
   if (data === null) {
     throw new Feil('Det ble ikke sendt med data til begrunnelsen.', 400);
   }
