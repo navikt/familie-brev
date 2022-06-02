@@ -1,7 +1,8 @@
 import { Maalform } from '../typer/sanitygrensesnitt';
 import { Flettefelt } from '../typer/dokumentApi';
 
-export type IBegrunnelseData = IStandardbegrunnelsedata | IEØSBegrunnelsedata | IFritekstData;
+export type Begrunnelse = IStandardbegrunnelsedata | IEØSBegrunnelsedata | IFritekst;
+export type BegrunnelseMedData = IStandardbegrunnelsedata | IEØSBegrunnelsedata;
 
 export interface IStandardbegrunnelsedata {
   apiNavn: string;
@@ -28,11 +29,11 @@ export interface IEØSBegrunnelsedata {
   barnetsBostedsland: string;
   barnasFodselsdatoer: string;
   antallBarn: number;
-  maalform: string;
+  maalform: Maalform;
   type: Begrunnelsetype.EØS_BEGRUNNELSE;
 }
 
-export interface IFritekstData {
+export interface IFritekst {
   fritekst: string;
   type: Begrunnelsetype.FRITEKST;
 }

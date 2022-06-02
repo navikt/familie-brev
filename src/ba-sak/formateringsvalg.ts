@@ -1,7 +1,13 @@
 import { Feil } from '../server/utils/Feil';
-import { IStandardbegrunnelsedata, SøkersRettTilUtvidet, ValgfeltMuligheter } from './typer';
+import {
+  BegrunnelseMedData,
+  Begrunnelsetype,
+  IEØSBegrunnelsedata,
+  SøkersRettTilUtvidet,
+  ValgfeltMuligheter,
+} from './typer';
 
-export const hentForBarnFodtValg = (data: IStandardbegrunnelsedata): ValgfeltMuligheter => {
+export const hentForBarnFodtValg = (data: BegrunnelseMedData): ValgfeltMuligheter => {
   if (data.antallBarn === 0) {
     return ValgfeltMuligheter.INGEN_BARN;
   } else {
@@ -9,9 +15,13 @@ export const hentForBarnFodtValg = (data: IStandardbegrunnelsedata): ValgfeltMul
   }
 };
 
-export const hentDuOgEllerBarnetBarnaValg = (
-  data: IStandardbegrunnelsedata,
-): ValgfeltMuligheter => {
+export const hentDuOgEllerBarnetBarnaValg = (data: BegrunnelseMedData): ValgfeltMuligheter => {
+  const valgfeltNavn = `'du og/eller barnet/barna'`;
+
+  if (data.type === Begrunnelsetype.EØS_BEGRUNNELSE) {
+    throw lagFeilSøttesIkkeForEØS(valgfeltNavn, data);
+  }
+
   if (data.gjelderSoker) {
     if (data.antallBarn === 0) {
       return ValgfeltMuligheter.INGEN_BARN;
@@ -23,7 +33,7 @@ export const hentDuOgEllerBarnetBarnaValg = (
   } else {
     if (data.antallBarn === 0) {
       throw new Feil(
-        `Må ha enten barn eller søker for å bruke 'du og/eller barnet/barna' 
+        `Må ha enten barn eller søker for å bruke ${valgfeltNavn} 
         formulering for begrunnelse med apiNavn=${data.apiNavn}`,
         400,
       );
@@ -35,7 +45,7 @@ export const hentDuOgEllerBarnetBarnaValg = (
   }
 };
 
-export const hentBarnetBarnaValg = (data: IStandardbegrunnelsedata): ValgfeltMuligheter => {
+export const hentBarnetBarnaValg = (data: BegrunnelseMedData): ValgfeltMuligheter => {
   if (data.antallBarn < 1) {
     throw new Feil(
       `Må ha barn for å bruke barnet/barna formulering, men antall barn var 
@@ -49,10 +59,11 @@ export const hentBarnetBarnaValg = (data: IStandardbegrunnelsedata): ValgfeltMul
   }
 };
 
-export const hentBarnetBarnaDineDittValg = (data: IStandardbegrunnelsedata): ValgfeltMuligheter => {
+export const hentBarnetBarnaDineDittValg = (data: BegrunnelseMedData): ValgfeltMuligheter => {
   if (data.antallBarn < 1) {
     throw new Feil(
-      `Må ha barn for å bruke barnet/barna dine/ditt formulering, men antall barn var ${data.antallBarn} for begrunnelse med apiNavn=${data.apiNavn}`,
+      `Må ha barn for å bruke barnet/barna dine/ditt formulering, men antall barn var 
+      ${data.antallBarn} for begrunnelse med apiNavn=${data.apiNavn}`,
       400,
     );
   } else if (data.antallBarn === 1) {
@@ -62,7 +73,13 @@ export const hentBarnetBarnaDineDittValg = (data: IStandardbegrunnelsedata): Val
   }
 };
 
-export const hentDuOgEllerBarnFodtValg = (data: IStandardbegrunnelsedata): ValgfeltMuligheter => {
+export const hentDuOgEllerBarnFodtValg = (data: BegrunnelseMedData): ValgfeltMuligheter => {
+  const valgfeltNavn = `'du og/eller barn født'`;
+
+  if (data.type === Begrunnelsetype.EØS_BEGRUNNELSE) {
+    throw lagFeilSøttesIkkeForEØS(valgfeltNavn, data);
+  }
+
   if (data.gjelderSoker) {
     if (data.antallBarn === 0) {
       return ValgfeltMuligheter.INGEN_BARN;
@@ -72,7 +89,7 @@ export const hentDuOgEllerBarnFodtValg = (data: IStandardbegrunnelsedata): Valgf
   } else {
     if (data.antallBarn === 0) {
       throw new Feil(
-        `Må ha enten barn eller søker for å bruke 'du og/eller barn født' formulering for begrunnelse med apiNavn=${data.apiNavn}`,
+        `Må ha enten barn eller søker for å bruke ${valgfeltNavn} formulering for begrunnelse med apiNavn=${data.apiNavn}`,
         400,
       );
     } else {
@@ -81,7 +98,13 @@ export const hentDuOgEllerBarnFodtValg = (data: IStandardbegrunnelsedata): Valgf
   }
 };
 
-export const hentFraDatoValg = (data: IStandardbegrunnelsedata): ValgfeltMuligheter => {
+export const hentFraDatoValg = (data: BegrunnelseMedData): ValgfeltMuligheter => {
+  const valgfeltNavn = `'hent fra dato'`;
+
+  if (data.type === Begrunnelsetype.EØS_BEGRUNNELSE) {
+    throw lagFeilSøttesIkkeForEØS(valgfeltNavn, data);
+  }
+
   if (!data.maanedOgAarBegrunnelsenGjelderFor || data.maanedOgAarBegrunnelsenGjelderFor === '') {
     return ValgfeltMuligheter.INGEN_FRA_DATO;
   } else {
@@ -90,8 +113,14 @@ export const hentFraDatoValg = (data: IStandardbegrunnelsedata): ValgfeltMulighe
 };
 
 export const hentDuFårEllerHarRettTilUtvidetValg = (
-  data: IStandardbegrunnelsedata,
+  data: BegrunnelseMedData,
 ): ValgfeltMuligheter => {
+  const valgfeltNavn = `'du får eller har rett til utvidet'`;
+
+  if (data.type === Begrunnelsetype.EØS_BEGRUNNELSE) {
+    throw lagFeilSøttesIkkeForEØS(valgfeltNavn, data);
+  }
+
   if (data.sokersRettTilUtvidet === SøkersRettTilUtvidet.SØKER_FÅR_UTVIDET) {
     return ValgfeltMuligheter.DU_FÅR;
   } else if (data.sokersRettTilUtvidet === SøkersRettTilUtvidet.SØKER_HAR_RETT_MEN_FÅR_IKKE) {
@@ -99,8 +128,14 @@ export const hentDuFårEllerHarRettTilUtvidetValg = (
   } else {
     throw new Feil(
       `Søker må ha rett til utvidet for å bruke 
-      'du får eller har rett til utvidet' formulering for begrunnelse med apiNavn=${data.apiNavn}`,
+      ${valgfeltNavn} formulering for begrunnelse med apiNavn=${data.apiNavn}`,
       400,
     );
   }
 };
+
+const lagFeilSøttesIkkeForEØS = (valgfeltNavn: string, data: IEØSBegrunnelsedata): Feil =>
+  new Feil(
+    `${valgfeltNavn} støttes ikke for EØS-begrunnelser, men brukes i begrunnelse med apiNavn=${data.apiNavn}`,
+    400,
+  );

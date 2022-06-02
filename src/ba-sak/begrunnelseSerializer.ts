@@ -1,9 +1,9 @@
 import {
-  IStandardbegrunnelsedata,
   BegrunnelseBlock,
-  ValgfeltBlock,
+  BegrunnelseMedData,
   FlettefeltBlock,
   SpanBlock,
+  ValgfeltBlock,
   ValgfeltV2Block,
 } from './typer';
 import { Feil } from '../server/utils/Feil';
@@ -12,7 +12,7 @@ import { lagStorForbokstav } from '../utils/strenghåndtering';
 
 const begrunnelseSerializer = (
   blocks: BegrunnelseBlock[] | Record<string, never>,
-  data: IStandardbegrunnelsedata,
+  data: BegrunnelseMedData,
 ) => {
   if (!Array.isArray(blocks)) {
     throw new Feil(`Fant ikke begrunnelse med apiNavn=${data.apiNavn}`, 404);
@@ -29,7 +29,7 @@ const begrunnelseSerializer = (
 
 const formaterSanityBlock = (
   block: SpanBlock | ValgfeltBlock | FlettefeltBlock | ValgfeltV2Block | any,
-  data: IStandardbegrunnelsedata,
+  data: BegrunnelseMedData,
 ): string => {
   switch (block._type) {
     case 'span':

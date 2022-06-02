@@ -10,12 +10,16 @@ import { DokumentType } from '../../../typer/dokumentType';
 import { validerPeriode } from '../../utils/valideringer/validerPeriode';
 import { Feil } from '../../utils/Feil';
 import {
-  IBegrunnelseData,
+  Begrunnelse,
+  BegrunnelseMedData,
   Begrunnelsetype,
-  IStandardbegrunnelsedata,
   IPeriodedata,
 } from '../../../ba-sak/typer';
-import { validerBegrunnelse, validerStandardbegrunnelsedata } from '../../../ba-sak/valideringer';
+import {
+  validerBegrunnelse,
+  validerEøsbegrunnelsedata,
+  validerStandardbegrunnelsedata,
+} from '../../../ba-sak/valideringer';
 import { hentBegrunnelseTekstQuery } from '../../../ba-sak/queries';
 import begrunnelseSerializer from '../../../ba-sak/begrunnelseSerializer';
 
@@ -84,8 +88,13 @@ const Periode = (props: { maalform: Maalform; datasett: Datasett; periodedata: I
     )[0];
   };
 
-  const byggBegrunnelse = (begrunnelseData: IStandardbegrunnelsedata) => {
-    validerStandardbegrunnelsedata(begrunnelseData);
+  const byggBegrunnelse = (begrunnelseData: BegrunnelseMedData) => {
+    if (begrunnelseData.type === Begrunnelsetype.STANDARD_BEGRUNNELSE) {
+      validerStandardbegrunnelsedata(begrunnelseData);
+    } else if (begrunnelseData.type === Begrunnelsetype.EØS_BEGRUNNELSE) {
+      validerEøsbegrunnelsedata(begrunnelseData);
+    }
+
     const begrunnelsetekstFraSanity = hentBegrunnelsetekst(
       begrunnelseData.apiNavn,
       begrunnelseData.maalform,
@@ -95,8 +104,8 @@ const Periode = (props: { maalform: Maalform; datasett: Datasett; periodedata: I
     );
   };
 
-  const byggBegrunnelser = (begrunnelser: IBegrunnelseData[] | Flettefelt): string[] => {
-    return begrunnelser.map((begrunnelse: IBegrunnelseData | string) => {
+  const byggBegrunnelser = (begrunnelser: Begrunnelse[] | Flettefelt): string[] => {
+    return begrunnelser.map((begrunnelse: Begrunnelse | string) => {
       // Todo Kan fjernes etter at vi får inn endring i ba-sak
       if (typeof begrunnelse === 'string') {
         return begrunnelse;
