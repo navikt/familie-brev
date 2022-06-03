@@ -19,7 +19,7 @@ export const hentDuOgEllerBarnetBarnaValg = (data: BegrunnelseMedData): Valgfelt
   const valgfeltNavn = `'du og/eller barnet/barna'`;
 
   if (data.type === Begrunnelsetype.EØS_BEGRUNNELSE) {
-    throw lagFeilSøttesIkkeForEØS(valgfeltNavn, data);
+    throw lagFeilStøttesIkkeForEØS(valgfeltNavn, data);
   }
 
   if (data.gjelderSoker) {
@@ -77,7 +77,7 @@ export const hentDuOgEllerBarnFodtValg = (data: BegrunnelseMedData): ValgfeltMul
   const valgfeltNavn = `'du og/eller barn født'`;
 
   if (data.type === Begrunnelsetype.EØS_BEGRUNNELSE) {
-    throw lagFeilSøttesIkkeForEØS(valgfeltNavn, data);
+    throw lagFeilStøttesIkkeForEØS(valgfeltNavn, data);
   }
 
   if (data.gjelderSoker) {
@@ -102,7 +102,7 @@ export const hentFraDatoValg = (data: BegrunnelseMedData): ValgfeltMuligheter =>
   const valgfeltNavn = `'hent fra dato'`;
 
   if (data.type === Begrunnelsetype.EØS_BEGRUNNELSE) {
-    throw lagFeilSøttesIkkeForEØS(valgfeltNavn, data);
+    throw lagFeilStøttesIkkeForEØS(valgfeltNavn, data);
   }
 
   if (!data.maanedOgAarBegrunnelsenGjelderFor || data.maanedOgAarBegrunnelsenGjelderFor === '') {
@@ -118,7 +118,7 @@ export const hentDuFårEllerHarRettTilUtvidetValg = (
   const valgfeltNavn = `'du får eller har rett til utvidet'`;
 
   if (data.type === Begrunnelsetype.EØS_BEGRUNNELSE) {
-    throw lagFeilSøttesIkkeForEØS(valgfeltNavn, data);
+    throw lagFeilStøttesIkkeForEØS(valgfeltNavn, data);
   }
 
   if (data.sokersRettTilUtvidet === SøkersRettTilUtvidet.SØKER_FÅR_UTVIDET) {
@@ -134,7 +134,7 @@ export const hentDuFårEllerHarRettTilUtvidetValg = (
   }
 };
 
-const lagFeilSøttesIkkeForEØS = (valgfeltNavn: string, data: IEØSBegrunnelsedata): Feil =>
+const lagFeilStøttesIkkeForEØS = (valgfeltNavn: string, data: IEØSBegrunnelsedata): Feil =>
   new Feil(
     `${valgfeltNavn} støttes ikke for EØS-begrunnelser, men brukes i begrunnelse med apiNavn=${data.apiNavn}`,
     400,
