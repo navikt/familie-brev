@@ -1,7 +1,10 @@
 import { Maalform } from '../typer/sanitygrensesnitt';
 import { Flettefelt } from '../typer/dokumentApi';
 
-export interface IBegrunnelsedata {
+export type Begrunnelse = IStandardbegrunnelsedata | IEØSBegrunnelsedata | IFritekst;
+export type BegrunnelseMedData = IStandardbegrunnelsedata | IEØSBegrunnelsedata;
+
+export interface IStandardbegrunnelsedata {
   apiNavn: string;
   gjelderSoker: boolean;
   barnasFodselsdatoer: string;
@@ -16,6 +19,23 @@ export interface IBegrunnelsedata {
   avtaletidspunktDeltBosted: string;
   belop: string;
   sokersRettTilUtvidet: SøkersRettTilUtvidet;
+  type: Begrunnelsetype.STANDARD_BEGRUNNELSE;
+}
+
+export interface IEØSBegrunnelsedata {
+  apiNavn: string;
+  annenForeldersAktivitet: string;
+  annenForeldersAktivitetsland: string;
+  barnetsBostedsland: string;
+  barnasFodselsdatoer: string;
+  antallBarn: number;
+  maalform: Maalform;
+  type: Begrunnelsetype.EØS_BEGRUNNELSE;
+}
+
+export interface IFritekst {
+  fritekst: string;
+  type: Begrunnelsetype.FRITEKST;
 }
 
 export enum SøkersRettTilUtvidet {
@@ -25,7 +45,7 @@ export enum SøkersRettTilUtvidet {
 }
 
 export interface IPeriodedata {
-  [key: string]: IBegrunnelsedata[] | Flettefelt;
+  [key: string]: IStandardbegrunnelsedata[] | Flettefelt;
 }
 
 export enum Valgfelttype {
@@ -92,4 +112,10 @@ export interface MarkDef {
     _type: 'flettefelt';
     felt: string;
   };
+}
+
+export enum Begrunnelsetype {
+  STANDARD_BEGRUNNELSE = 'STANDARD_BEGRUNNELSE',
+  EØS_BEGRUNNELSE = 'EØS_BEGRUNNELSE',
+  FRITEKST = 'FRITEKST',
 }

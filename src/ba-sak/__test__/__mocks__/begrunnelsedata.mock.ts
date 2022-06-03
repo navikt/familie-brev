@@ -1,5 +1,5 @@
 import { Maalform } from '../../../typer/sanitygrensesnitt';
-import { IBegrunnelsedata } from '../../typer';
+import { IStandardbegrunnelsedata } from '../../typer';
 
 interface IMockBegrunnelsedata {
   apiNavn?: string;
@@ -17,11 +17,12 @@ export const mockBegrunnelsedata = ({
   antallBarn = 1,
   maanedOgAarBegrunnelsenGjelderFor = '2. mai',
   maalform = Maalform.NB,
-}: IMockBegrunnelsedata = {}): IBegrunnelsedata => ({
-  apiNavn,
-  gjelderSoker,
-  barnasFodselsdatoer,
-  antallBarn,
-  maanedOgAarBegrunnelsenGjelderFor,
-  maalform,
-});
+}: IMockBegrunnelsedata = {}): IStandardbegrunnelsedata =>
+  ({
+    apiNavn,
+    gjelderSoker,
+    barnasFodselsdatoer,
+    antallBarn,
+    maanedOgAarBegrunnelsenGjelderFor,
+    maalform,
+  } as IStandardbegrunnelsedata);
