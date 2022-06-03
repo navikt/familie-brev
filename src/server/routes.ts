@@ -38,6 +38,7 @@ router.post(
     try {
       await validerDokumentApiData(datasett, maalform);
       const html = await hentDokumentHtml(dokument, maalform, dokumentApiNavn, datasett);
+      logFerdigstilt(req);
       res.send(html);
     } catch (feil: any) {
       if (feil instanceof Feil) {
@@ -111,6 +112,7 @@ router.post(
         enhet,
         brevMedSignatur.skjulBeslutterSignatur,
       );
+      logFerdigstilt(req);
       res.send(html);
     } catch (error: any) {
       if (error instanceof Feil) {
@@ -142,7 +144,7 @@ router.get(
     const flettefelter = await hentFlettefelter(datasett, avansertDokumentNavn).catch(err => {
       res.status(err.code).send(`Henting av flettefelter feilet: ${err.message}`);
     });
-
+    logFerdigstilt(req);
     res.send({ data: { dokument: felter, flettefelter }, status: 'SUKSESS' });
   },
 );
@@ -153,7 +155,7 @@ router.get('/:datasett/avansert-dokument/navn', async (req: Request, res: Respon
   const navn = await hentAvansertDokumentNavn(datasett).catch(err => {
     res.status(err.code).send(`Henting av avanserte dokumenter feilet: ${err.message}`);
   });
-
+  logFerdigstilt(req);
   res.send({ data: navn, status: 'SUKSESS' });
 });
 
@@ -162,14 +164,13 @@ router.get(
   async (req: Request, res: Response) => {
     const datasett = req.params.datasett as Datasett;
     const hentUpubliserte = req.params.hentUpubliserte;
-    console.log('');
 
     const navn = await hentAvansertDokumentNavn(datasett, hentUpubliserte).catch(err => {
       res.status(err.code).send(`Henting av avanserte dokumenter feilet: ${err.message}`);
     });
-
+    logFerdigstilt(req);
     res.send({ data: navn, status: 'SUKSESS' });
-  },
+  }
 );
 
 router.post(
@@ -242,7 +243,7 @@ router.post('/fritekst-brev/html', async (req: Request, res: Response) => {
   const brev = req.body as IFritekstbrevMedSignatur;
   try {
     const html = lagManueltBrevHtml(brev);
-
+    logFerdigstilt(req);
     res.send(html);
   } catch (error: any) {
     if (error instanceof Feil) {
@@ -272,14 +273,27 @@ router.post('/generer-soknad', async (req: Request, res: Response) => {
   }
 });
 
+function genererMetadata(req: Request) {
+  const callId = req.header('nav-call-id');
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  return callId ? {x_callId: callId} : {};
+}
+
+export const logFerdigstilt = (req: Request) => {
+  const meta = genererMetadata(req);
+  logInfo(`[${req.method} - ${req.originalUrl}] Request ferdigstilt`, meta)
+}
+
 export const logGenereringsrequestTilSecurelogger = <T>(
   datasett: string,
   dokumentApiNavn: string,
   data: T,
   req: Request,
 ) => {
+  const meta = genererMetadata(req);
   logInfo(
     `[${req.method} - ${req.originalUrl}] Genererer dokument ${dokumentApiNavn} i datasett ${datasett}.`,
+    meta
   );
   logSecure(
     `[${req.method} - ${
@@ -287,6 +301,7 @@ export const logGenereringsrequestTilSecurelogger = <T>(
     }] Genererer dokument ${dokumentApiNavn} i datasett ${datasett} med request-data: ${JSON.stringify(
       data,
     )}.`,
+    meta
   );
 };
 
