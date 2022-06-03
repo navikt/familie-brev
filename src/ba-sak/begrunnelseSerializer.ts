@@ -36,6 +36,8 @@ const formaterSanityBlock = (
       return block.text;
     case 'flettefelt':
       return formaterFlettefelt(block, data);
+    case 'eosFlettefelt':
+      return formaterFlettefelt(block, data);
     case 'valgfelt':
       return formaterValgfelt(block, data);
     case 'valgfeltV2':
