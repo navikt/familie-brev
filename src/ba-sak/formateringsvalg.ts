@@ -3,6 +3,7 @@ import {
   BegrunnelseMedData,
   Begrunnelsetype,
   IEØSBegrunnelsedata,
+  SøkersAktivitet,
   SøkersRettTilUtvidet,
   ValgfeltMuligheter,
 } from './typer';
@@ -128,6 +129,41 @@ export const hentDuFårEllerHarRettTilUtvidetValg = (
   } else {
     throw new Feil(
       `Søker må ha rett til utvidet for å bruke 
+      ${valgfeltNavn} formulering for begrunnelse med apiNavn=${data.apiNavn}`,
+      400,
+    );
+  }
+};
+
+export const søkersAktivitetValg = (data: BegrunnelseMedData): ValgfeltMuligheter => {
+  const valgfeltNavn = `'søkers aktivitet'`;
+
+  if (data.type !== Begrunnelsetype.EØS_BEGRUNNELSE) {
+    throw new Feil(
+      `${valgfeltNavn} støttes kun for EØS-begrunnelser, men brukes i begrunnelse med apiNavn=${data.apiNavn}`,
+      400,
+    );
+  }
+
+  if (
+    [SøkersAktivitet.ARBEIDER_I_NORGE, SøkersAktivitet.SELVSTENDIG_NÆRINGSDRIVENDE].includes(
+      data.sokersAktivitet,
+    )
+  ) {
+    return ValgfeltMuligheter.ARBEIDER_I_NORGE;
+  } else if (
+    [
+      SøkersAktivitet.MOTTAR_UFØRETRYGD_FRA_NORGE,
+      SøkersAktivitet.MOTTAR_UTBETALING_FRA_NAV_SOM_ERSTATTER_LØNN,
+      SøkersAktivitet.MOTTAR_PENSJON_FRA_NORGE,
+    ].includes(data.sokersAktivitet)
+  ) {
+    return ValgfeltMuligheter.UTBETALING_FRA_NAV;
+  } else if ([SøkersAktivitet.UTSENDT_ARBEIDSTAKER_FRA_NORGE].includes(data.sokersAktivitet)) {
+    return ValgfeltMuligheter.UTSENDT_ARBEIDSTAKER_FRA_NORGE;
+  } else {
+    throw new Feil(
+      `Ingen valg for søkers aktivitet="${data.sokersAktivitet}" ved bruk av
       ${valgfeltNavn} formulering for begrunnelse med apiNavn=${data.apiNavn}`,
       400,
     );

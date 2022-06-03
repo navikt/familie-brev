@@ -24,6 +24,7 @@ export interface IStandardbegrunnelsedata {
 
 export interface IEØSBegrunnelsedata {
   apiNavn: string;
+  sokersAktivitet: SøkersAktivitet;
   annenForeldersAktivitet: string;
   annenForeldersAktivitetsland: string;
   barnetsBostedsland: string;
@@ -56,6 +57,9 @@ export enum Valgfelttype {
   FOR_BARN_FØDT = 'forBarnFodt',
   FRA_DATO = 'fraDato',
   DU_FÅR_ELLER_HAR_RETT_TIL_UTVIDET = 'duFaarEllerHarRettTilUtvidet',
+
+  EOS_SOKERS_AKTIVITET_1 = 'eosSokersAktivitet1',
+  EOS_SOKERS_AKTIVITET_2 = 'eosSokersAktivitet2',
 }
 
 export enum ValgfeltMuligheter {
@@ -71,6 +75,10 @@ export enum ValgfeltMuligheter {
   HAR_FRA_DATO = 'harFraDato',
   DU_FÅR = 'duFaar',
   DU_HAR_RETT_TIL = 'duHarRettTil',
+
+  ARBEIDER_I_NORGE = 'arbeiderINorge',
+  UTBETALING_FRA_NAV = 'utbetalingFraNav',
+  UTSENDT_ARBEIDSTAKER_FRA_NORGE = 'utsendtArbeidstakerFraNorge',
 }
 
 export interface SpanBlock {
@@ -118,4 +126,14 @@ export enum Begrunnelsetype {
   STANDARD_BEGRUNNELSE = 'STANDARD_BEGRUNNELSE',
   EØS_BEGRUNNELSE = 'EØS_BEGRUNNELSE',
   FRITEKST = 'FRITEKST',
+}
+
+export enum SøkersAktivitet {
+  ARBEIDER_I_NORGE = 'ARBEIDER_I_NORGE',
+  SELVSTENDIG_NÆRINGSDRIVENDE = 'SELVSTENDIG_NÆRINGSDRIVENDE',
+  MOTTAR_UTBETALING_FRA_NAV_SOM_ERSTATTER_LØNN = 'MOTTAR_UTBETALING_FRA_NAV_SOM_ERSTATTER_LØNN',
+  UTSENDT_ARBEIDSTAKER_FRA_NORGE = 'UTSENDT_ARBEIDSTAKER_FRA_NORGE',
+  MOTTAR_UFØRETRYGD_FRA_NORGE = 'MOTTAR_UFØRETRYGD_FRA_NORGE',
+  MOTTAR_PENSJON_FRA_NORGE = 'MOTTAR_PENSJON_FRA_NORGE',
+  INAKTIV = 'INAKTIV',
 }
