@@ -15,6 +15,7 @@ import {
   hentDuOgEllerBarnFodtValg,
   hentForBarnFodtValg,
   hentFraDatoValg,
+  søkersAktivitetValg,
 } from './formateringsvalg';
 
 export const formaterValgfelt = (valgfeltBlock: ValgfeltBlock, data: BegrunnelseMedData) => {
@@ -33,6 +34,9 @@ export const formaterValgfelt = (valgfeltBlock: ValgfeltBlock, data: Begrunnelse
       return valgfeltSerializer(valgfeltBlock, hentFraDatoValg(data), data);
     case Valgfelttype.DU_FÅR_ELLER_HAR_RETT_TIL_UTVIDET:
       return valgfeltSerializer(valgfeltBlock, hentDuFårEllerHarRettTilUtvidetValg(data), data);
+    case Valgfelttype.EOS_SOKERS_AKTIVITET_1:
+    case Valgfelttype.EOS_SOKERS_AKTIVITET_2:
+      return valgfeltSerializer(valgfeltBlock, søkersAktivitetValg(data), data);
     default:
       throw new Feil(
         `Ukjent formulering fra santity. Det er ikke laget noen funksjonalitet for ${valgfeltBlock.apiNavn}`,
