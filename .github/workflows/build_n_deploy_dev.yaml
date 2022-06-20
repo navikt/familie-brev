@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 env:
-  IMAGE: docker.pkg.github.com/${{ github.repository }}/familie-brev:${{ github.sha }}
+  IMAGE: ghcr.io/navikt/familie-brev:${{ github.sha }}
 
 jobs:
   build:
@@ -19,7 +19,7 @@ jobs:
           yarn
           yarn build
           docker build . -t ${IMAGE}
-          docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
+          docker login ghcr.io -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
           docker push ${IMAGE}
   deploy-dev:
     name: Deploy to dev-gcp
