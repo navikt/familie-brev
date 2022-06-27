@@ -1,8 +1,10 @@
 import { Feil } from '../server/utils/Feil';
 import {
+  AnnenForeldersAktivitet,
   BegrunnelseMedData,
   Begrunnelsetype,
   IEØSBegrunnelsedata,
+  IStandardbegrunnelsedata,
   SøkersAktivitet,
   SøkersRettTilUtvidet,
   ValgfeltMuligheter,
@@ -139,10 +141,7 @@ export const søkersAktivitetValg = (data: BegrunnelseMedData): ValgfeltMulighet
   const valgfeltNavn = `'søkers aktivitet'`;
 
   if (data.type !== Begrunnelsetype.EØS_BEGRUNNELSE) {
-    throw new Feil(
-      `${valgfeltNavn} støttes kun for EØS-begrunnelser, men brukes i begrunnelse med apiNavn=${data.apiNavn}`,
-      400,
-    );
+    throw lagFeilStøttesKunForEØS(valgfeltNavn, data);
   }
 
   if (
@@ -186,8 +185,41 @@ export const søkersAktivitetValg = (data: BegrunnelseMedData): ValgfeltMulighet
   }
 };
 
+export const annenForeldersAktivitetValg = (data: BegrunnelseMedData): ValgfeltMuligheter => {
+  const valgfeltNavn = 'annen forelders aktivitet';
+
+  if (data.type !== Begrunnelsetype.EØS_BEGRUNNELSE) {
+    throw lagFeilStøttesKunForEØS(valgfeltNavn, data);
+  }
+  switch (data.annenForeldersAktivitet) {
+    case AnnenForeldersAktivitet.I_ARBEID:
+      return ValgfeltMuligheter.EOS_ANNEN_FORELDER_I_ARBEID;
+    case AnnenForeldersAktivitet.MOTTAR_UTBETALING_SOM_ERSTATTER_LØNN:
+      return ValgfeltMuligheter.EOS_ANNEN_FORELDER_MOTTAR_UTBETALING;
+    case AnnenForeldersAktivitet.MOTTAR_PENSJON:
+      return ValgfeltMuligheter.EOS_ANNEN_FORELDER_MOTTAR_PENSJON;
+    case AnnenForeldersAktivitet.FORSIKRET_I_BOSTEDSLAND:
+      return ValgfeltMuligheter.EOS_ANNEN_FORELDER_FORSIKRET;
+    case AnnenForeldersAktivitet.INAKTIV:
+      return ValgfeltMuligheter.EOS_ANNEN_FORELDER_INAKTIV;
+    case AnnenForeldersAktivitet.IKKE_AKTUELT:
+    default:
+      throw new Feil(
+        `Ingen valg for søkers aktivitet="${data.sokersAktivitet}" ved bruk av
+        ${valgfeltNavn} formulering for begrunnelse med apiNavn=${data.apiNavn}`,
+        400,
+      );
+  }
+};
+
 const lagFeilStøttesIkkeForEØS = (valgfeltNavn: string, data: IEØSBegrunnelsedata): Feil =>
   new Feil(
     `${valgfeltNavn} støttes ikke for EØS-begrunnelser, men brukes i begrunnelse med apiNavn=${data.apiNavn}`,
+    400,
+  );
+
+const lagFeilStøttesKunForEØS = (valgfeltNavn: string, data: IStandardbegrunnelsedata): Feil =>
+  new Feil(
+    `${valgfeltNavn} støttes kun for EØS-begrunnelser, men brukes i begrunnelse med apiNavn=${data.apiNavn}`,
     400,
   );
