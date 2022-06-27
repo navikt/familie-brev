@@ -60,6 +60,7 @@ export enum Valgfelttype {
 
   EOS_SOKERS_AKTIVITET_1 = 'eosSokersAktivitet1',
   EOS_SOKERS_AKTIVITET_2 = 'eosSokersAktivitet2',
+  EOS_ANNEN_FORELDERS_AKTIVITET = 'eosAnnenForeldersAktivitet',
 }
 
 export enum ValgfeltMuligheter {
@@ -84,6 +85,12 @@ export enum ValgfeltMuligheter {
   ARBEIDER_FOR_NORSK_FLYSELSKAP = 'arbeiderForNorskFlyselskap',
   ARBEIDER_VED_UTENLANDSK_UTENRIKSSTASJON = 'arbeiderVedUtenlandskUtenriksstasjon',
   UTBETALING_FRA_NAV_I_UTLANDET = 'utbetalingFraNavUnderOppholdIUtlandet',
+
+  EOS_ANNEN_FORELDER_I_ARBEID = 'eosAnnenForelderIArbeid',
+  EOS_ANNEN_FORELDER_MOTTAR_UTBETALING = 'eosAnnenForelderMottarUtbetalingSomErstatterLonn',
+  EOS_ANNEN_FORELDER_MOTTAR_PENSJON = 'eosAnnenForelderMottarPensjon',
+  EOS_ANNEN_FORELDER_FORSIKRET = 'eosAnnenForelderForsikretIBostedsland',
+  EOS_ANNEN_FORELDER_INAKTIV = 'eosAnnenForelderInaktiv',
 }
 
 export interface SpanBlock {
@@ -148,4 +155,13 @@ export enum SøkersAktivitet {
   MOTTAR_UFØRETRYGD_FRA_NAV_UNDER_OPPHOLD_I_UTLANDET = 'MOTTAR_UFØRETRYGD_FRA_NAV_UNDER_OPPHOLD_I_UTLANDET',
   MOTTAR_PENSJON_FRA_NAV_UNDER_OPPHOLD_I_UTLANDET = 'MOTTAR_PENSJON_FRA_NAV_UNDER_OPPHOLD_I_UTLANDET',
   INAKTIV = 'INAKTIV',
+}
+
+export enum AnnenForeldersAktivitet {
+  I_ARBEID = 'I_ARBEID',
+  MOTTAR_UTBETALING_SOM_ERSTATTER_LØNN = 'MOTTAR_UTBETALING_SOM_ERSTATTER_LØNN',
+  FORSIKRET_I_BOSTEDSLAND = 'FORSIKRET_I_BOSTEDSLAND',
+  MOTTAR_PENSJON = 'MOTTAR_PENSJON',
+  INAKTIV = 'INAKTIV',
+  IKKE_AKTUELT = 'IKKE_AKTUELT',
 }
