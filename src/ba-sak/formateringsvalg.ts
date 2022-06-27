@@ -205,7 +205,7 @@ export const annenForeldersAktivitetValg = (data: BegrunnelseMedData): ValgfeltM
     case AnnenForeldersAktivitet.IKKE_AKTUELT:
     default:
       throw new Feil(
-        `Ingen valg for søkers aktivitet="${data.sokersAktivitet}" ved bruk av
+        `Ingen valg for annen forelders aktivitet="${data.annenForeldersAktivitet}" ved bruk av
         ${valgfeltNavn} formulering for begrunnelse med apiNavn=${data.apiNavn}`,
         400,
       );
