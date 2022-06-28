@@ -8,6 +8,7 @@ import {
   Valgfelttype,
 } from './typer';
 import {
+  annenForeldersAktivitetValg,
   hentBarnetBarnaDineDittValg,
   hentBarnetBarnaValg,
   hentDuFårEllerHarRettTilUtvidetValg,
@@ -37,9 +38,11 @@ export const formaterValgfelt = (valgfeltBlock: ValgfeltBlock, data: Begrunnelse
     case Valgfelttype.EOS_SOKERS_AKTIVITET_1:
     case Valgfelttype.EOS_SOKERS_AKTIVITET_2:
       return valgfeltSerializer(valgfeltBlock, søkersAktivitetValg(data), data);
+    case Valgfelttype.EOS_ANNEN_FORELDERS_AKTIVITET:
+      return valgfeltSerializer(valgfeltBlock, annenForeldersAktivitetValg(data), data);
     default:
       throw new Feil(
-        `Ukjent formulering fra santity. Det er ikke laget noen funksjonalitet for ${valgfeltBlock.apiNavn}`,
+        `Ukjent formulering fra sanity. Det er ikke laget noen funksjonalitet for ${valgfeltBlock.apiNavn}`,
         400,
       );
   }
