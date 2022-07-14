@@ -22,8 +22,8 @@ export const lagManueltBrevHtml = (brevMedSignatur: IFritekstbrevMedSignatur) =>
           fodselsnummer={brev.personIdent}
           brevOpprettetDato={dagensDatoFormatert()}
         />
-        {brev.avsnitt?.map(avsnitt => (
-          <p>
+        {brev.avsnitt?.map((avsnitt, index) => (
+          <p key={index}>
             {avsnitt.deloverskrift && <strong>{avsnitt.deloverskrift} </strong>}
             {avsnitt.deloverskrift && <br />}
             {avsnitt.innhold && <span style={{ whiteSpace: 'pre-wrap' }}>{avsnitt.innhold}</span>}

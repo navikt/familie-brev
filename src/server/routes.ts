@@ -170,7 +170,7 @@ router.get(
     });
     logFerdigstilt(req);
     res.send({ data: navn, status: 'SUKSESS' });
-  }
+  },
 );
 
 router.post(
@@ -275,14 +275,13 @@ router.post('/generer-soknad', async (req: Request, res: Response) => {
 
 function genererMetadata(req: Request) {
   const callId = req.header('nav-call-id');
-  // eslint-disable-next-line @typescript-eslint/camelcase
-  return callId ? {x_callId: callId} : {};
+  return callId ? { x_callId: callId } : {};
 }
 
 export const logFerdigstilt = (req: Request) => {
   const meta = genererMetadata(req);
-  logInfo(`[${req.method} - ${req.originalUrl}] Request ferdigstilt`, meta)
-}
+  logInfo(`[${req.method} - ${req.originalUrl}] Request ferdigstilt`, meta);
+};
 
 export const logGenereringsrequestTilSecurelogger = <T>(
   datasett: string,
@@ -293,7 +292,7 @@ export const logGenereringsrequestTilSecurelogger = <T>(
   const meta = genererMetadata(req);
   logInfo(
     `[${req.method} - ${req.originalUrl}] Genererer dokument ${dokumentApiNavn} i datasett ${datasett}.`,
-    meta
+    meta,
   );
   logSecure(
     `[${req.method} - ${
@@ -301,7 +300,7 @@ export const logGenereringsrequestTilSecurelogger = <T>(
     }] Genererer dokument ${dokumentApiNavn} i datasett ${datasett} med request-data: ${JSON.stringify(
       data,
     )}.`,
-    meta
+    meta,
   );
 };
 

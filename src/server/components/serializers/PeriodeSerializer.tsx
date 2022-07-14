@@ -77,7 +77,6 @@ const Periode = (props: { maalform: Maalform; datasett: Datasett; periodedata: I
   const hentBegrunnelsetekst = (begrunnelseApiNavn: string, målform: string): any => {
     const query = hentBegrunnelseTekstQuery(begrunnelseApiNavn, målform);
 
-    // eslint-disable-next-line react-app/react-hooks/rules-of-hooks
     return useServerEffect(undefined, query, () =>
       client(datasett)
         .fetch(query)
