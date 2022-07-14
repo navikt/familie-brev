@@ -114,7 +114,7 @@ const Periode = (props: { maalform: Maalform; datasett: Datasett; periodedata: I
       } else if (begrunnelse.type === Begrunnelsetype.STANDARD_BEGRUNNELSE) {
         return byggBegrunnelse(begrunnelse);
       } else if (begrunnelse.type === Begrunnelsetype.EØS_BEGRUNNELSE) {
-        throw new Feil('Ikke implementert', 400);
+        return byggBegrunnelse(begrunnelse);
       } else {
         return byggBegrunnelse(begrunnelse);
       }
