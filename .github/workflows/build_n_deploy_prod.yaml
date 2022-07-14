@@ -6,8 +6,8 @@ on:
       - 'master'
 
 env:
-  IMAGE: docker.pkg.github.com/${{ github.repository }}/familie-brev:${{ github.sha }}
-  IMAGE_LATEST: docker.pkg.github.com/${{ github.repository }}/familie-brev:latest
+  IMAGE: ghcr.io/navikt/familie-brev:${{ github.sha }}
+  IMAGE_LATEST: ghcr.io/navikt/familie-brev:latest
 jobs:
   build:
     name: Build and push Docker container
@@ -21,7 +21,7 @@ jobs:
           yarn
           yarn build
           docker build -t ${IMAGE} -t ${IMAGE_LATEST} .
-          docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
+          docker login ghcr.io -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
           docker push ${IMAGE}
           docker push ${IMAGE_LATEST}
   deploy-dev:
