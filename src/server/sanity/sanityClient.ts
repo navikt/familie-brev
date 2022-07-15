@@ -13,5 +13,5 @@ export const client = (dataset: Datasett) =>
   sanityClient({
     projectId: 'xsrv1mh6',
     dataset,
-    useCdn: NODE_ENV !== 'production',
+    useCdn: NODE_ENV === 'production',
   });
