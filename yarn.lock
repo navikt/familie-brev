@@ -1437,10 +1437,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@navikt/familie-backend@^7.0.2":
-  version "7.0.2"
-  resolved "https://npm.pkg.github.com/download/@navikt/familie-backend/7.0.2/cb1d06a87ae256fbcc4d490623425a439979750d2f9ca455be10a2656237524f#3505f9a852b88d339751d7fb718eae79b01906b7"
-  integrity sha512-CUH/LLIvy8p/76qiXxVRDpmzPbI8agjamxWkOkwL3bhtxT5UssqTnSOOWxSQrgjSye01GOpigehN9bPLVwHl9A==
+"@navikt/familie-backend@^7.0.3":
+  version "7.0.3"
+  resolved "https://npm.pkg.github.com/download/@navikt/familie-backend/7.0.3/e9ac4f20717f4ed9ff8bb2461230e772834fb84d4d000a1cdf7656cfa87fb87f#a7db1ffba36ae465e94f173368a5da3873eadc3c"
+  integrity sha512-/dPOks4o3sZxuMnKopDAVPe8izhRgMtmsRxgjyovhqt0GIsRZGaGMAtoH0lV7XSX4gGzXHffrWLu7WkWJdxctA==
   dependencies:
     "@navikt/familie-logging" "^3.0.1"
     "@types/connect-redis" "~0.0.18"
@@ -1459,7 +1459,6 @@
     express-http-proxy "^1.6.0"
     express-session "^1.17.1"
     https-proxy-agent "^5.0.0"
-    moment-timezone "^0.5.27"
     openid-client "^4.7.2"
     passport "^0.4.0"
     prom-client "^13.1.0"
@@ -7589,18 +7588,6 @@ mkdirp@^0.5.5, mkdirp@~0.5.1:
   integrity sha512-NKmAlESf6jMGym1++R0Ra7wvhV+wFW63FaSOFPwRahvea0gMUcGUhVeAg/0BC0wiv9ih5NYPB1Wn1UEI1/L+xQ==
   dependencies:
     minimist "^1.2.5"
-
-moment-timezone@^0.5.27:
-  version "0.5.34"
-  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.34.tgz#a75938f7476b88f155d3504a9343f7519d9a405c"
-  integrity sha512-3zAEHh2hKUs3EXLESx/wsgw6IQdusOT8Bxm3D9UrHPQR7zlMmzwybC8zHEM1tQ4LJwP7fcxrWr8tuBg05fFCbg==
-  dependencies:
-    moment ">= 2.9.0"
-
-"moment@>= 2.9.0":
-  version "2.29.1"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.1.tgz#b2be769fa31940be9eeea6469c075e35006fa3d3"
-  integrity sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==
 
 ms@2.0.0:
   version "2.0.0"
