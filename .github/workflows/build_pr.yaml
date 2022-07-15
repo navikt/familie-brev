@@ -16,9 +16,10 @@ jobs:
           cache: npm
           registry-url: "https://npm.pkg.github.com"
       - uses: ./.github/yarn-cache
-      - name: Yarn build
+      - name: Yarn install
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+        run: yarn --prefer-offline --frozen-lockfile
+      - name: Yarn build
         run: |
-          yarn
           yarn build
