@@ -14,10 +14,9 @@ jobs:
         with:
           node-version: '14'
           registry-url: "https://npm.pkg.github.com"
-      - name: Yarn install
+      - name: Yarn build
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-        run: yarn --prefer-offline --frozen-lockfile
-      - name: Yarn build
         run: |
+          yarn
           yarn build
