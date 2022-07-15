@@ -17,6 +17,7 @@ jobs:
           node-version: '14'
           cache: npm
           registry-url: "https://npm.pkg.github.com"
+      - uses: ./.github/yarn-cache
       - name: Build and publish Docker image
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

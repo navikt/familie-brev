@@ -15,6 +15,7 @@ jobs:
           node-version: '14'
           cache: npm
           registry-url: "https://npm.pkg.github.com"
+      - uses: ./.github/yarn-cache
       - name: Yarn build
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
