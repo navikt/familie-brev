@@ -1,4 +1,5 @@
-import axios, { AxiosResponse } from 'axios';
+import type { AxiosResponse } from 'axios';
+import axios from 'axios';
 import { hentMiljøvariabler } from '../environment';
 import { Feil } from './Feil';
 import { logInfo } from '@navikt/familie-logging';

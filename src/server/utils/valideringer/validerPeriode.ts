@@ -1,5 +1,5 @@
 import { Feil } from '../Feil';
-import { IPeriodedata } from '../../../ba-sak/typer';
+import type { IPeriodedata } from '../../../ba-sak/typer';
 
 export const validerPeriode = (forelderDokument: string, periodedata?: IPeriodedata[]) => {
   if (!periodedata || periodedata.length === 0) {

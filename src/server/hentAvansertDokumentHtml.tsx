@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { IAvansertDokumentVariabler } from '../typer/dokumentApi';
+import type { IAvansertDokumentVariabler } from '../typer/dokumentApi';
 import AvansertDokument from './components/AvansertDokument';
-import { client, Datasett } from './sanity/sanityClient';
+import type { Datasett } from './sanity/sanityClient';
+import { client } from './sanity/sanityClient';
 import { renderToStaticMarkup } from 'react-dom/server';
 import Context from './utils/Context';
 import css from './utils/css';

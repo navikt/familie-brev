@@ -1,4 +1,4 @@
-import { IValgfelter } from '../../../typer/dokumentApi';
+import type { IValgfelter } from '../../../typer/dokumentApi';
 import { Feil } from '../Feil';
 
 export const validerValgfelt = (

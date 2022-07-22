@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { IFritekstbrevMedSignatur } from '../typer/dokumentApi';
+import type { IFritekstbrevMedSignatur } from '../typer/dokumentApi';
 import { Brevhode } from './components/Brevhode';
 import { dagensDatoFormatert } from '../utils/dato';
 import css from './utils/css';

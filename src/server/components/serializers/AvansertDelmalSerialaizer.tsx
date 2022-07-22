@@ -1,8 +1,8 @@
 import React from 'react';
-import { IAvansertDokumentVariabler, IDelmaler } from '../../../typer/dokumentApi';
-import { Datasett } from '../../sanity/sanityClient';
+import type { IAvansertDokumentVariabler, IDelmaler } from '../../../typer/dokumentApi';
+import type { Datasett } from '../../sanity/sanityClient';
 import AvansertDokument from '../AvansertDokument';
-import { Maalform } from '../../../typer/sanitygrensesnitt';
+import type { Maalform } from '../../../typer/sanitygrensesnitt';
 import validerAvansertDelmal from '../../utils/valideringer/validerAvansertDelmal';
 
 interface IAvansertDelmalSerializerProps {

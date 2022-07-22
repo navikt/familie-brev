@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavIkon } from './ikoner/navIkon';
-import { Flettefelt } from '../../typer/dokumentApi';
+import type { Flettefelt } from '../../typer/dokumentApi';
 import { validerFlettefelt } from '../utils/valideringer/validerFlettefelt';
 import { Maalform } from '../../typer/sanitygrensesnitt';
 

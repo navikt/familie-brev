@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { IDokumentData } from '../typer/dokumentApi';
+import type { IDokumentData } from '../typer/dokumentApi';
 import Dokument from './components/Dokument';
-import { client, Datasett } from './sanity/sanityClient';
+import type { Datasett } from './sanity/sanityClient';
+import { client } from './sanity/sanityClient';
 import { renderToStaticMarkup } from 'react-dom/server';
 import Context from './utils/Context';
 import css from './utils/css';
