@@ -1,4 +1,4 @@
-FROM navikt/node-express:14-alpine
+FROM navikt/node-express:16
 ADD ./ /var/server
 
 EXPOSE 8001
