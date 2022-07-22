@@ -1,12 +1,12 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "target": "es6",
+    "module": "es6",
     "outDir": "../../dist",
     "noEmit": false,
     "sourceMap": true,
-    "module": "esnext",
     "strict": true,
-    "target": "es2018",
     "moduleResolution": "node",
     "noUnusedLocals": true,
     "noUnusedParameters": true
