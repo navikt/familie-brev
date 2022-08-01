@@ -13,7 +13,7 @@ import { lagStorForbokstav } from '../utils/strenghåndtering';
 const begrunnelseSerializer = (
   blocks: BegrunnelseBlock[] | Record<string, never>,
   data: BegrunnelseMedData,
-) => {
+): string => {
   if (!Array.isArray(blocks)) {
     throw new Feil(`Fant ikke begrunnelse med apiNavn=${data.apiNavn}`, 404);
   }

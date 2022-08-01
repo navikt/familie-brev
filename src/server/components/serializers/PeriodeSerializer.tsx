@@ -23,8 +23,7 @@ import {
 import { hentBegrunnelseTekstQuery } from '../../../ba-sak/queries';
 import begrunnelseSerializer from '../../../ba-sak/begrunnelseSerializer';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const BlockContent = require('@sanity/block-content-to-react');
+import { PortableText } from '@portabletext/react';
 
 interface IPeriodeProps {
   sanityProps: any;
@@ -36,8 +35,6 @@ interface IPeriodeProps {
 
 const PeriodeSerializer = (props: IPeriodeProps) => {
   const { perioder, maalform, datasett, forelderApiNavn } = props;
-  // Om delmalen hentes fra en annotering finnes den i props.mark.
-  // Om den hentes fra en delmalBlock finnes den i props.node.
 
   validerPeriode(forelderApiNavn, perioder);
 
@@ -131,29 +128,32 @@ const Periode = (props: { maalform: Maalform; datasett: Datasett; periodedata: I
 
   return (
     <div className={`delmal`}>
-      <BlockContent
-        blocks={periode}
-        serializers={{
+      <PortableText
+        value={periode}
+        components={{
+          block: BlockSerializer,
           marks: {
-            flettefelt: (props: any) =>
+            flettefelt: (sanityProps: any) =>
               FlettefeltSerializer({
-                sanityProps: props,
+                sanityProps: sanityProps,
                 flettefelter: flettefelter as Flettefelter,
                 dokumentApiNavn: periodeApiNavn,
+                erListe: sanityProps?.value?.felt === 'begrunnelser',
               }),
           },
           types: {
-            block: BlockSerializer,
-            flettefelt: (props: any) =>
+            flettefelt: (sanityProps: any) =>
               FlettefeltSerializer({
-                sanityProps: props,
+                sanityProps: sanityProps,
                 flettefelter: flettefelter as Flettefelter,
                 dokumentApiNavn: periodeApiNavn,
+                erListe: sanityProps?.value?.felt === 'begrunnelser',
               }),
             undefined: (_: any) => <div />,
           },
         }}
       />
+
       <div style={{ minHeight: '1rem' }} />
     </div>
   );

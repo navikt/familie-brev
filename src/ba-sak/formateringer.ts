@@ -94,10 +94,10 @@ const validerFormulering = (
 const settSammenBlokkerTilTekst = (delmalblokk: any[], data: BegrunnelseMedData) =>
   delmalblokk[0].children
     .map((block: any) => {
-      if (block.marks.length > 1) {
-        throw new Feil(`Mer enn ett mark`, 500);
+      if (block.value.length > 1) {
+        throw new Feil(`Mer enn én verdi`, 500);
       }
-      if (block.marks.length === 1) {
+      if (block.value.length === 1) {
         return flettefeltSerializer(delmalblokk, block, data);
       } else {
         return block.text;

@@ -13,8 +13,7 @@ import BlockSerializer from './serializers/BlockSerializer';
 import LenkeSerializer from './serializers/LenkeSerializer';
 import HtmlfeltSerializer from './serializers/HtmlfeltSerializer';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const BlockContent = require('@sanity/block-content-to-react');
+import { PortableText } from '@portabletext/react';
 
 interface AvansertDokumentProps {
   apiNavn: string;
@@ -48,9 +47,10 @@ function AvansertDokument(avansertDokumentProps: AvansertDokumentProps) {
   }
 
   return (
-    <BlockContent
-      blocks={avansertDokument}
-      serializers={{
+    <PortableText
+      value={avansertDokument}
+      components={{
+        block: BlockSerializer,
         marks: {
           flettefelt: (props: any) =>
             FlettefeltSerializer({
@@ -77,7 +77,6 @@ function AvansertDokument(avansertDokumentProps: AvansertDokumentProps) {
             }),
         },
         types: {
-          block: BlockSerializer,
           undefined: (_: any) => <div />,
           delmalBlock: (props: any) =>
             AvansertDelmalSerializer({

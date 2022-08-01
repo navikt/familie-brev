@@ -11,10 +11,10 @@ const settTag = (node: any) => {
   return 'div';
 };
 
-const BlockSerializer = (props: any) => {
+const BlockSerializer = (props: any): JSX.Element => {
   const children = rightTrimLastProp(props);
 
-  const Tag = settTag(props.node);
+  const Tag = settTag(props.value);
 
   return (
     <Tag style={{ minHeight: '1rem' }} className={`block`}>

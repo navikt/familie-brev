@@ -23,7 +23,7 @@
   "dependencies": {
     "@navikt/familie-backend": "^7.0.4",
     "@navikt/familie-logging": "^1.0.2",
-    "@sanity/block-content-to-react": "^3.0.0",
+    "@portabletext/react": "^1.0.6",
     "@sanity/client": "^3.3.2",
     "axios": "^0.27.2",
     "concurrently": "^7.0.0",
@@ -36,7 +36,6 @@
     "wait-on": "^6.0.1"
   },
   "devDependencies": {
-    "@types/react": "^16.9.52",
     "@testing-library/jest-dom": "^5.15.1",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
@@ -45,6 +44,7 @@
     "@types/express-session": "^1.17.3",
     "@types/jest": "^27.4.1",
     "@types/node": "^18.0.6",
+    "@types/react": "^16.9.52",
     "@types/react-dom": "^16.9.0",
     "@types/styled-components": "^5.1.4",
     "@typescript-eslint/eslint-plugin": "^5.30.5",
