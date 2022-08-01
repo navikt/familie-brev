@@ -1,5 +1,5 @@
 import { Maalform } from '../../../typer/sanitygrensesnitt';
-import { IStandardbegrunnelsedata } from '../../typer';
+import type { IStandardbegrunnelsedata } from '../../typer';
 
 interface IMockBegrunnelsedata {
   apiNavn?: string;

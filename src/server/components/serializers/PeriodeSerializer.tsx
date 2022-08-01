@@ -1,20 +1,17 @@
 import React from 'react';
-import { Flettefelt, Flettefelter } from '../../../typer/dokumentApi';
+import type { Flettefelt, Flettefelter } from '../../../typer/dokumentApi';
 import FlettefeltSerializer from './FlettefeltSerializer';
 import BlockSerializer from './BlockSerializer';
-import { Maalform } from '../../../typer/sanitygrensesnitt';
+import type { Maalform } from '../../../typer/sanitygrensesnitt';
 import useServerEffect from '../../utils/useServerEffect';
 import { hentDokumentQuery } from '../../sanity/Queries';
-import { client, Datasett } from '../../sanity/sanityClient';
+import type { Datasett } from '../../sanity/sanityClient';
+import { client } from '../../sanity/sanityClient';
 import { DokumentType } from '../../../typer/dokumentType';
 import { validerPeriode } from '../../utils/valideringer/validerPeriode';
 import { Feil } from '../../utils/Feil';
-import {
-  Begrunnelse,
-  BegrunnelseMedData,
-  Begrunnelsetype,
-  IPeriodedata,
-} from '../../../ba-sak/typer';
+import type { Begrunnelse, BegrunnelseMedData, IPeriodedata } from '../../../ba-sak/typer';
+import { Begrunnelsetype } from '../../../ba-sak/typer';
 import {
   validerBegrunnelse,
   validerEøsbegrunnelsedata,

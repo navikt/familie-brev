@@ -1,9 +1,10 @@
 import React from 'react';
-import { IDokumentData, IDokumentDataMedPeriode } from '../../typer/dokumentApi';
+import type { IDokumentData, IDokumentDataMedPeriode } from '../../typer/dokumentApi';
 import { hentDokumentQuery } from '../sanity/Queries';
-import { client, Datasett } from '../sanity/sanityClient';
+import type { Datasett } from '../sanity/sanityClient';
+import { client } from '../sanity/sanityClient';
 import useServerEffect from '../utils/useServerEffect';
-import { Maalform } from '../../typer/sanitygrensesnitt';
+import type { Maalform } from '../../typer/sanitygrensesnitt';
 import BlockSerializer from './serializers/BlockSerializer';
 import FlettefeltSerializer from './serializers/FlettefeltSerializer';
 import PeriodeSerializer from './serializers/PeriodeSerializer';

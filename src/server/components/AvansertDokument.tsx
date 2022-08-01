@@ -1,12 +1,13 @@
 import React from 'react';
-import { IAvansertDokumentVariabler } from '../../typer/dokumentApi';
+import type { IAvansertDokumentVariabler } from '../../typer/dokumentApi';
 import { hentAvansertDokumentQuery } from '../sanity/Queries';
-import { client, Datasett } from '../sanity/sanityClient';
+import type { Datasett } from '../sanity/sanityClient';
+import { client } from '../sanity/sanityClient';
 import useServerEffect from '../utils/useServerEffect';
 import ValgfeltSerializer from './serializers/ValgfeltSerializer';
 import AvansertDelmalSerializer from './serializers/AvansertDelmalSerialaizer';
 import ListItemSerializer from './serializers/ListItemSerializer';
-import { Maalform } from '../../typer/sanitygrensesnitt';
+import type { Maalform } from '../../typer/sanitygrensesnitt';
 import { DokumentType } from '../../typer/dokumentType';
 import FlettefeltSerializer from './serializers/FlettefeltSerializer';
 import BlockSerializer from './serializers/BlockSerializer';

@@ -1,8 +1,8 @@
 import React from 'react';
-import { IValg, IValgfelter } from '../../../typer/dokumentApi';
-import { Datasett } from '../../sanity/sanityClient';
+import type { IValg, IValgfelter } from '../../../typer/dokumentApi';
+import type { Datasett } from '../../sanity/sanityClient';
 import AvansertDokument from '../AvansertDokument';
-import { Maalform } from '../../../typer/sanitygrensesnitt';
+import type { Maalform } from '../../../typer/sanitygrensesnitt';
 import { validerValgfelt } from '../../utils/valideringer/validerValgfelt';
 import { Feil } from '../../utils/Feil';
 

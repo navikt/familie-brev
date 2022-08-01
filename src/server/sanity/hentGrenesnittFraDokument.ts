@@ -1,11 +1,11 @@
 import { hentAvansertDokumentQuery } from './Queries';
-import {
+import type {
   ISanityDelmalGrensesnitt,
   ISanityGrensesnitt,
   ISanityValgfeltGrensesnitt,
   Maalform,
 } from '../../typer/sanitygrensesnitt';
-import {
+import type {
   IDelmalBlock,
   IDelmalMark,
   IDokumentInnhold,
@@ -14,7 +14,8 @@ import {
   IValfeltBlock,
   IValgfeltMark,
 } from '../../typer/sanity';
-import { client, Datasett } from './sanityClient';
+import type { Datasett } from './sanityClient';
+import { client } from './sanityClient';
 
 async function hentSubmalGrensesnitt(
   delmal: IDelmalMark | IDelmalBlock,

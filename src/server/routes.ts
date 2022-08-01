@@ -1,7 +1,8 @@
-import express, { Request, Response } from 'express';
-import { Datasett } from './sanity/sanityClient';
-import { Maalform } from '../typer/sanitygrensesnitt';
-import {
+import type { Request, Response } from 'express';
+import express from 'express';
+import type { Datasett } from './sanity/sanityClient';
+import type { Maalform } from '../typer/sanitygrensesnitt';
+import type {
   IAvansertDokumentVariabler,
   IBrevMedSignatur,
   IDokumentData,

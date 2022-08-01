@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { ISøknad, IVerdiliste } from '../typer/dokumentApi';
+import type { ISøknad, IVerdiliste } from '../typer/dokumentApi';
 import { dagensDatoFormatert } from '../utils/dato';
 import css from './utils/css';
 import søknadCSS from './utils/soknad-css';
