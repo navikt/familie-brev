@@ -1,4 +1,5 @@
-import axios, { AxiosResponse } from 'axios';
+import type { AxiosResponse } from 'axios';
+import axios from 'axios';
 
 export async function genererPdf(html: string): Promise<Uint8Array | Blob> {
   const url = `${process.env.REACT_APP_FAMILIE_DOKUMENT}/api/html-til-pdf`;

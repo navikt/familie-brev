@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 import { client } from '../server/sanity/sanityClient';
 import {
   hentBegrunnelseQuery,
@@ -9,7 +9,8 @@ import {
   hentHjemlerForBegrunnelseQuery,
 } from './queries';
 import begrunnelseSerializer from './begrunnelseSerializer';
-import { BegrunnelseMedData, Begrunnelsetype } from './typer';
+import type { BegrunnelseMedData } from './typer';
+import { Begrunnelsetype } from './typer';
 import {
   validerBegrunnelse,
   validerEøsbegrunnelsedata,

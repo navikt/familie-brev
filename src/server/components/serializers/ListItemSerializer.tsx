@@ -1,8 +1,8 @@
 import React from 'react';
-import { IAvansertDokumentVariabler } from '../../../typer/dokumentApi';
-import { Datasett } from '../../sanity/sanityClient';
+import type { IAvansertDokumentVariabler } from '../../../typer/dokumentApi';
+import type { Datasett } from '../../sanity/sanityClient';
 import ValgfeltSerializer from './ValgfeltSerializer';
-import { Maalform } from '../../../typer/sanitygrensesnitt';
+import type { Maalform } from '../../../typer/sanitygrensesnitt';
 import AvansertDelmalSerializer from './AvansertDelmalSerialaizer';
 import FlettefeltSerializer from './FlettefeltSerializer';
 import { DokumentType } from '../../../typer/dokumentType';

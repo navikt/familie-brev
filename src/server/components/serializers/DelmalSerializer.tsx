@@ -1,8 +1,8 @@
 import React from 'react';
-import { Flettefelter, IDelmalData } from '../../../typer/dokumentApi';
+import type { Flettefelter, IDelmalData } from '../../../typer/dokumentApi';
 import FlettefeltSerializer from './FlettefeltSerializer';
 import BlockSerializer from './BlockSerializer';
-import { Maalform } from '../../../typer/sanitygrensesnitt';
+import type { Maalform } from '../../../typer/sanitygrensesnitt';
 import LenkeSerializer from './LenkeSerializer';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires

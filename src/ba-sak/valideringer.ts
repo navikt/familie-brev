@@ -1,4 +1,4 @@
-import { IEØSBegrunnelsedata, IStandardbegrunnelsedata } from './typer';
+import type { IEØSBegrunnelsedata, IStandardbegrunnelsedata } from './typer';
 import { Feil } from '../server/utils/Feil';
 import { Maalform } from '../typer/sanitygrensesnitt';
 

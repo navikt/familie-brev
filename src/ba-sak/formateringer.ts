@@ -1,12 +1,12 @@
 import { Feil } from '../server/utils/Feil';
-import {
+import type {
   BegrunnelseMedData,
   FlettefeltBlock,
   MarkDef,
   ValgfeltBlock,
   ValgfeltMuligheter,
-  Valgfelttype,
 } from './typer';
+import { Valgfelttype } from './typer';
 import {
   annenForeldersAktivitetValg,
   hentBarnetBarnaDineDittValg,

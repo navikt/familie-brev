@@ -1,4 +1,4 @@
-import { Flettefelter } from '../../../typer/dokumentApi';
+import type { Flettefelter } from '../../../typer/dokumentApi';
 import React from 'react';
 import { Feil } from '../../utils/Feil';
 import { validerFlettefelt } from '../../utils/valideringer/validerFlettefelt';
