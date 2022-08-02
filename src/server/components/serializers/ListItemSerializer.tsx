@@ -6,8 +6,7 @@ import type { Maalform } from '../../../typer/sanitygrensesnitt';
 import AvansertDelmalSerializer from './AvansertDelmalSerialaizer';
 import FlettefeltSerializer from './FlettefeltSerializer';
 import { DokumentType } from '../../../typer/dokumentType';
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const BlockContent = require('@sanity/block-content-to-react');
+import { PortableText } from '@portabletext/react';
 
 interface IListItemSerializerProps {
   sanityProps: any;
@@ -17,15 +16,15 @@ interface IListItemSerializerProps {
   apiNavn: string;
 }
 
-const ListItemSerializer = (props: IListItemSerializerProps) => {
+const ListItemSerializer = (props: IListItemSerializerProps): JSX.Element | null => {
   const { sanityProps, avanserteDokumentVariabler, maalform, datasett, apiNavn } = props;
   const erDelmal = (markDef: any) => markDef._type === DokumentType.DELMAL;
   const delmalSkalMed = (mark: any): boolean =>
     !mark.skalMedFelt || !!avanserteDokumentVariabler?.delmaler[mark.submal?.id];
 
-  const erKunText = sanityProps.node.markDefs.length === 0;
+  const erKunText = sanityProps.value.markDefs.length === 0;
 
-  const markDefSkalMed = sanityProps.node.markDefs?.reduce(
+  const markDefSkalMed = sanityProps.value.markDefs?.reduce(
     (acc: boolean, markDef: any) => acc || !erDelmal(markDef) || delmalSkalMed(markDef),
     false,
   );
@@ -34,9 +33,9 @@ const ListItemSerializer = (props: IListItemSerializerProps) => {
     return <li>{sanityProps.children}</li>;
   } else if (markDefSkalMed) {
     return (
-      <BlockContent
-        blocks={{ ...sanityProps.node, level: undefined, listItem: undefined }}
-        serializers={{
+      <PortableText
+        value={{ ...sanityProps.value, level: undefined, listItem: undefined }}
+        components={{
           marks: {
             flettefelt: (props: any) =>
               FlettefeltSerializer({
@@ -68,7 +67,7 @@ const ListItemSerializer = (props: IListItemSerializerProps) => {
       />
     );
   } else {
-    return '';
+    return null;
   }
 };
 

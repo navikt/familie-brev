@@ -14,47 +14,49 @@ interface IValgfeltSerializer {
   forelderDokumentApiNavn: string;
 }
 
-const ValgfeltSerializer = (props: IValgfeltSerializer) => {
+const ValgfeltSerializer = (props: IValgfeltSerializer): JSX.Element => {
   const { sanityProps, valgfelter, maalform, datasett, forelderDokumentApiNavn } = props;
-  const { valgReferanse, erGjentagende, skalAlltidMed } = sanityProps.mark || sanityProps.node;
+  const { valgReferanse, erGjentagende, skalAlltidMed } = sanityProps.value;
   const { apiNavn, valg: muligeValg } = valgReferanse;
 
   validerValgfelt(valgfelter, apiNavn, skalAlltidMed, forelderDokumentApiNavn, erGjentagende);
 
   // Hvis ikke konsument har sendt inn valgfeltet rendrer vi heller ikke denne delen
   if (!valgfelter || !valgfelter[apiNavn]) {
-    return '';
+    return <></>;
   }
 
   const valg: IValg[] = valgfelter[apiNavn];
 
-  const erInline = !!sanityProps.mark;
+  return (
+    <>
+      {valg.map(({ navn, dokumentVariabler }) => {
+        const riktigDokument = muligeValg.find((valg: any) => valg.valgmulighet === navn);
+        const delmalApiNavn = riktigDokument?.delmal?.apiNavn;
+        const delmalApiType = riktigDokument?.delmal?._type;
 
-  return valg.map(({ navn, dokumentVariabler }) => {
-    const riktigDokument = muligeValg.find((valg: any) => valg.valgmulighet === navn);
-    const delmalApiNavn = riktigDokument?.delmal?.apiNavn;
-    const delmalApiType = riktigDokument?.delmal?._type;
-
-    if (delmalApiNavn) {
-      return (
-        <div className={`valgfelt ${erInline ? 'inline' : ''}`}>
-          <AvansertDokument
-            apiNavn={delmalApiNavn}
-            avanserteDokumentVariabler={dokumentVariabler}
-            maalform={maalform}
-            datasett={datasett}
-            dokumentType={delmalApiType}
-          />
-        </div>
-      );
-    } else {
-      throw new Feil(
-        `Fant ikke "${navn}" blant valgene til valgfeltet "${apiNavn}" i "${forelderDokumentApiNavn}".` +
-          `\nMulige valg er ${muligeValg.map((valg: any) => `\n    - "${valg.valgmulighet}"`)}`,
-        404,
-      );
-    }
-  });
+        if (delmalApiNavn) {
+          return (
+            <div className={'valgfelt'}>
+              <AvansertDokument
+                apiNavn={delmalApiNavn}
+                avanserteDokumentVariabler={dokumentVariabler}
+                maalform={maalform}
+                datasett={datasett}
+                dokumentType={delmalApiType}
+              />
+            </div>
+          );
+        } else {
+          throw new Feil(
+            `Fant ikke "${navn}" blant valgene til valgfeltet "${apiNavn}" i "${forelderDokumentApiNavn}".` +
+              `\nMulige valg er ${muligeValg.map((valg: any) => `\n    - "${valg.valgmulighet}"`)}`,
+            404,
+          );
+        }
+      })}
+    </>
+  );
 };
 
 export default ValgfeltSerializer;

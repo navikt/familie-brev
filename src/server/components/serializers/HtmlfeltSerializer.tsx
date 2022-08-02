@@ -26,9 +26,7 @@ const HtmlfeltSerializer = (props: IHtmlfeltSerializerProps) => {
 };
 
 const hentFeltnavn = (sanityProps: any) => {
-  // Om flettefeltet hentes fra en annotering finnes den i props.mark.
-  // Om den hentes fra en block finnes den i props.node.
-  const { htmlfeltReferanse, felt } = sanityProps.mark || sanityProps.node;
+  const { htmlfeltReferanse, felt } = sanityProps.value;
 
   // Dersom flettefeltet er en referanse ligger det i flettefeltReferanse og må hentes derifra
   return felt ? felt : htmlfeltReferanse.felt;

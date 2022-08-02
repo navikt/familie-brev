@@ -13,24 +13,22 @@ interface IAvansertDelmalSerializerProps {
   forelderDokumentApiNavn: string;
 }
 
-const AvansertDelmalSerializer = (props: IAvansertDelmalSerializerProps) => {
+const AvansertDelmalSerializer = (props: IAvansertDelmalSerializerProps): JSX.Element | null => {
   const { sanityProps, delmaler, maalform, datasett, forelderDokumentApiNavn } = props;
-  const { delmalReferanse, erGjentagende, skalAlltidMed } = sanityProps.mark || sanityProps.node;
+  const { delmalReferanse, erGjentagende, skalAlltidMed } = sanityProps.value;
   const delmalApiNavn = delmalReferanse.apiNavn;
 
   validerAvansertDelmal(delmaler, delmalApiNavn, forelderDokumentApiNavn, erGjentagende);
 
   // Hvis ikke konsument har sendt inn delmalen rendrer vi heller ikke denne delen
   if (!skalAlltidMed && (!delmaler || !delmaler[delmalApiNavn])) {
-    return '';
+    return <></>;
   }
   const avanserteDokumentVariabler: IAvansertDokumentVariabler[] | undefined =
     delmaler && delmaler[delmalApiNavn];
 
-  const erInline = !!sanityProps.mark;
-
   return (
-    <div className={`delmal ${erInline ? 'inline' : ''}`}>
+    <div className={'delmal'}>
       {avanserteDokumentVariabler ? (
         avanserteDokumentVariabler.map((variabler, index) => (
           <AvansertDokument

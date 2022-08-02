@@ -4,9 +4,7 @@ import FlettefeltSerializer from './FlettefeltSerializer';
 import BlockSerializer from './BlockSerializer';
 import type { Maalform } from '../../../typer/sanitygrensesnitt';
 import LenkeSerializer from './LenkeSerializer';
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const BlockContent = require('@sanity/block-content-to-react');
+import { PortableText } from '@portabletext/react';
 
 interface IDelmalSerializerProps {
   sanityProps: any;
@@ -16,9 +14,7 @@ interface IDelmalSerializerProps {
 
 const DelmalSerializer = (props: IDelmalSerializerProps) => {
   const { sanityProps, delmalData, maalform } = props;
-  // Om delmalen hentes fra en annotering finnes den i sanityProps.mark.
-  // Om den hentes fra en delmalBlock finnes den i sanityProps.node.
-  const { delmalReferanse, skalAlltidMed } = sanityProps.mark || sanityProps.node;
+  const { delmalReferanse, skalAlltidMed } = sanityProps.value;
   const apiNavn = delmalReferanse.apiNavn;
 
   // Hvis ikke konsument har sendt inn delmalen rendrer vi heller ikke denne delen
@@ -28,20 +24,22 @@ const DelmalSerializer = (props: IDelmalSerializerProps) => {
 
   const flettefelter: Flettefelter | undefined = delmalData && delmalData[apiNavn];
 
-  const erInline = !!sanityProps.mark;
-
   return (
-    <div className={`delmal ${erInline ? 'inline' : ''}`}>
-      <BlockContent
-        blocks={delmalReferanse[maalform]}
-        serializers={{
+    <div className={'delmal'}>
+      <PortableText
+        value={delmalReferanse[maalform]}
+        components={{
+          block: BlockSerializer,
           marks: {
             flettefelt: (props: any) =>
-              FlettefeltSerializer({ sanityProps: props, flettefelter, dokumentApiNavn: apiNavn }),
+              FlettefeltSerializer({
+                sanityProps: props,
+                flettefelter,
+                dokumentApiNavn: apiNavn,
+              }),
             lenke: LenkeSerializer,
           },
           types: {
-            block: BlockSerializer,
             undefined: (_: any) => <div />,
           },
         }}

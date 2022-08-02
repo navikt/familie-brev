@@ -13,8 +13,7 @@ import { DokumentType } from '../../typer/dokumentType';
 import { Feil } from '../utils/Feil';
 import LenkeSerializer from './serializers/LenkeSerializer';
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const BlockContent = require('@sanity/block-content-to-react');
+import { PortableText } from '@portabletext/react';
 
 interface DokumentProps {
   dokumentApiNavn: string;
@@ -47,9 +46,10 @@ const Dokument = (dokumentProps: DokumentProps) => {
   }
 
   return (
-    <BlockContent
-      blocks={dokument}
-      serializers={{
+    <PortableText
+      value={dokument}
+      components={{
+        block: BlockSerializer,
         marks: {
           flettefelt: (props: any) =>
             FlettefeltSerializer({
@@ -67,7 +67,6 @@ const Dokument = (dokumentProps: DokumentProps) => {
               flettefelter: dokumentData?.flettefelter,
               dokumentApiNavn,
             }),
-          block: BlockSerializer,
           perioder: (props: any) =>
             PeriodeSerializer({
               sanityProps: props,

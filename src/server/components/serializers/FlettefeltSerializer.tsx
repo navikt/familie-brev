@@ -7,12 +7,13 @@ interface IFlettefeltSerializerProps {
   sanityProps: any;
   flettefelter: Flettefelter | undefined;
   dokumentApiNavn: string;
+  erListe?: boolean;
 }
 
 const FlettefeltSerializer = (props: IFlettefeltSerializerProps) => {
-  const { sanityProps, flettefelter, dokumentApiNavn } = props;
+  const { sanityProps, flettefelter, dokumentApiNavn, erListe } = props;
   const flettefeltNavn = hentFlettefeltNavn(sanityProps);
-  const erListe = hentFlettefeltErListe(sanityProps);
+  const erFlettefeltListe = hentFlettefeltErListe(sanityProps, erListe);
 
   if (!flettefelter) {
     throw new Feil(
@@ -27,11 +28,11 @@ const FlettefeltSerializer = (props: IFlettefeltSerializerProps) => {
   const høyrestill =
     Array.isArray(props.sanityProps.children) &&
     props.sanityProps.children.length &&
-    props.sanityProps.children[0].props?.node?.mark === 'hoyrestill';
+    props.sanityProps.children[0].props?.markType === 'hoyrestill';
 
-  validerFlettefelt(flettefelt, flettefeltNavn, dokumentApiNavn, erListe);
+  validerFlettefelt(flettefelt, flettefeltNavn, dokumentApiNavn, erFlettefeltListe);
 
-  if (erListe) {
+  if (erFlettefeltListe) {
     return (
       <ul>
         {flettefelt.map((felt, index) => (
@@ -47,20 +48,16 @@ const FlettefeltSerializer = (props: IFlettefeltSerializerProps) => {
 };
 
 const hentFlettefeltNavn = (sanityProps: any) => {
-  // Om flettefeltet hentes fra en annotering finnes den i props.mark.
-  // Om den hentes fra en block finnes den i props.node.
-  const { flettefeltReferanse, felt } = sanityProps.mark || sanityProps.node;
+  const { flettefeltReferanse, felt } = sanityProps.value;
 
   // Dersom flettefeltet er en referanse ligger det i flettefeltReferanse og må hentes derifra
   const flettefeltNavn = felt ? felt : flettefeltReferanse.felt;
   return flettefeltNavn;
 };
 
-const hentFlettefeltErListe = (sanityProps: any) => {
-  // Om flettefeltet hentes fra en annotering finnes den i props.mark.
-  // Om den hentes fra en block finnes den i props.node.
-  const { flettefeltReferanse } = sanityProps.mark || sanityProps.node;
-  return flettefeltReferanse ? flettefeltReferanse.erListe : !!sanityProps.node;
+const hentFlettefeltErListe = (sanityProps: any, erBegrunnelse?: boolean) => {
+  const { flettefeltReferanse } = sanityProps.value;
+  return !!(flettefeltReferanse?.erListe || erBegrunnelse);
 };
 
 export default FlettefeltSerializer;
