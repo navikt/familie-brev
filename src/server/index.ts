@@ -8,7 +8,7 @@ import { logInfo } from '@navikt/familie-logging';
 dotenv.config();
 export const { NODE_ENV } = process.env;
 
-const buildDir = path.join(process.cwd() + '/build');
+const buildDir = path.join(process.cwd() + '/public');
 const app = express();
 
 if (NODE_ENV === 'production') {

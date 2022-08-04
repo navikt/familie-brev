@@ -1,17 +1,16 @@
 {
   "name": "famile-brev",
+  "type": "module",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "NODE_ENV=production node build/backend/server.js",
-    "start:dev": "yarn dev:server",
+    "start": "NODE_ENV=production node --es-module-specifier-resolution=node dist/src/server/index.js",
+    "build": "tsc -p tsconfig.json && NODE_ENV=production",
+    "start:dev": "nodemon -e ts --exec \"yarn build:dev && yarn run:dev\"",
+    "build:dev": "tsc -p tsconfig.json",
+    "run:dev": "node --es-module-specifier-resolution=node dist/src/server/index.js",
     "test": "jest --watchAll --no-cache",
     "eject": "react-scripts eject",
-    "dev:server": "concurrently -p name -c \"yellow,magenta\" -n \"webpack-server,nodemon-server\" \"yarn dev:server:webpack\" \"yarn dev:server:nodemon\"",
-    "dev:server:webpack": "webpack --config webpack.config.server.js --watch",
-    "dev:server:nodemon": "rm -f build/server.js && wait-on -l build/backend/server.js && nodemon build/backend/server.js --delay 500ms",
-    "build": "yarn build:server",
-    "build:server": "webpack --config webpack.config.server.js",
     "prepare": "husky install"
   },
   "lint-staged": {
@@ -67,10 +66,7 @@
     "prettier": "^2.0.5",
     "react-scripts": "^5.0.0",
     "ts-jest": "^27.0.5",
-    "ts-loader": "^9.3.1",
-    "typescript": "^4.7.4",
-    "webpack-cli": "^4.2.0",
-    "webpack-node-externals": "^3.0.0"
+    "typescript": "^4.7.4"
   },
   "browserslist": {
     "production": [

@@ -9,8 +9,7 @@
 /coverage
 
 # production
-/build
-/node_dist
+/dist
 
 # etc
 .eslintcache
