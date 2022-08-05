@@ -9,7 +9,7 @@
     "start:dev": "nodemon -e ts --exec \"yarn build:dev && yarn run:dev\"",
     "build:dev": "tsc -p tsconfig.json",
     "run:dev": "node --es-module-specifier-resolution=node dist/src/server/index.js",
-    "test": "jest",
+    "test": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
     "prepare": "husky install"
   },
@@ -71,6 +71,11 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "jest": {
+    "transformIgnorePatterns": [
+      "node_modules/(?!@ngrx|(?!deck.gl)|ng-dynamic)"
     ]
   }
 }
