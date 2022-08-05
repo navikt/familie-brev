@@ -8,7 +8,7 @@ import { NavIkon } from './components/ikoner/navIkon';
 
 interface HeaderProps {
   nivå: number;
-  children: React.ReactNode | React.ReactChild | React.ReactChildren;
+  children: React.ReactNode;
   className: string;
 }
 
