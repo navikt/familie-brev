@@ -14,5 +14,9 @@
     "esModuleInterop": true,
     "importsNotUsedAsValues": "error"
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": [
+    "src/**/*.test.ts",
+    "src/**/*.mock.ts",
+  ]
 }
