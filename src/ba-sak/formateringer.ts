@@ -12,10 +12,10 @@ import {
   hentBarnetBarnaDineDittValg,
   hentBarnetBarnaValg,
   hentDuFårEllerHarRettTilUtvidetValg,
-  hentDuOgEllerBarnetBarnaValg,
   hentDuOgEllerBarnFodtValg,
   hentForBarnFodtValg,
   hentFraDatoValg,
+  hentSøkerOgEllerBarnetBarnaValg,
   søkersAktivitetValg,
 } from './formateringsvalg';
 
@@ -24,7 +24,8 @@ export const formaterValgfelt = (valgfeltBlock: ValgfeltBlock, data: Begrunnelse
     case Valgfelttype.FOR_BARN_FØDT:
       return valgfeltSerializer(valgfeltBlock, hentForBarnFodtValg(data), data);
     case Valgfelttype.DU_OG_ELLER_BARNET_BARNA:
-      return valgfeltSerializer(valgfeltBlock, hentDuOgEllerBarnetBarnaValg(data), data);
+    case Valgfelttype.DEG_OG_ELLER_BARNET_BARNA:
+      return valgfeltSerializer(valgfeltBlock, hentSøkerOgEllerBarnetBarnaValg(data), data);
     case Valgfelttype.BARNET_BARNA:
       return valgfeltSerializer(valgfeltBlock, hentBarnetBarnaValg(data), data);
     case Valgfelttype.BARNET_BARNA_DINE_DITT:

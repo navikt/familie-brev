@@ -54,6 +54,7 @@ export enum Valgfelttype {
   BARNET_BARNA_DINE_DITT = 'barnetBarnaDineDitt',
   DU_OG_ELLER_BARN_FØDT = 'duOgEllerBarnFodt',
   DU_OG_ELLER_BARNET_BARNA = 'duOgEllerBarnetBarna',
+  DEG_OG_ELLER_BARNET_BARNA = 'degOgEllerBarnetBarna',
   FOR_BARN_FØDT = 'forBarnFodt',
   FRA_DATO = 'fraDato',
   DU_FÅR_ELLER_HAR_RETT_TIL_UTVIDET = 'duFaarEllerHarRettTilUtvidet',
