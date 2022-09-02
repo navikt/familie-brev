@@ -16,8 +16,8 @@ export const hentForBarnFodtValg = (data: BegrunnelseMedData): ValgfeltMulighete
   }
 };
 
-export const hentDuOgEllerBarnetBarnaValg = (data: BegrunnelseMedData): ValgfeltMuligheter => {
-  const valgfeltNavn = `'du og/eller barnet/barna'`;
+export const hentSøkerOgEllerBarnetBarnaValg = (data: BegrunnelseMedData): ValgfeltMuligheter => {
+  const valgfeltNavn = `'du/deg og/eller barnet/barna'`;
 
   if (data.type === Begrunnelsetype.EØS_BEGRUNNELSE) {
     throw lagFeilStøttesIkkeForEØS(valgfeltNavn, data);
