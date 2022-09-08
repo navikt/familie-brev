@@ -40,7 +40,6 @@ spec:
         - application: familie-ba-sak
           cluster: prod-gcp
         - application: familie-ks-sak
-          cluster: prod-gcp
     outbound:
       rules:
         - application: familie-dokument
