@@ -39,6 +39,7 @@ spec:
         - application: familie-ef-sak-frontend
         - application: familie-ba-sak
           cluster: prod-gcp
+        - application: familie-ks-sak
     outbound:
       rules:
         - application: familie-dokument
