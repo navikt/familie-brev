@@ -26,7 +26,8 @@ export interface IEØSBegrunnelsedata {
   apiNavn: string;
   sokersAktivitet: SøkersAktivitet;
   annenForeldersAktivitet: AnnenForeldersAktivitet;
-  annenForeldersAktivitetsland: string;
+  annenForeldersAktivitetsland?: string;
+  sokersAktivitetsland?: string;
   barnetsBostedsland: string;
   barnasFodselsdatoer: string;
   antallBarn: number;
@@ -54,6 +55,7 @@ export enum Valgfelttype {
   BARNET_BARNA_DINE_DITT = 'barnetBarnaDineDitt',
   DU_OG_ELLER_BARN_FØDT = 'duOgEllerBarnFodt',
   DU_OG_ELLER_BARNET_BARNA = 'duOgEllerBarnetBarna',
+  DEG_OG_ELLER_BARNET_BARNA = 'degOgEllerBarnetBarna',
   FOR_BARN_FØDT = 'forBarnFodt',
   FRA_DATO = 'fraDato',
   DU_FÅR_ELLER_HAR_RETT_TIL_UTVIDET = 'duFaarEllerHarRettTilUtvidet',
@@ -77,8 +79,10 @@ export enum ValgfeltMuligheter {
   DU_FÅR = 'duFaar',
   DU_HAR_RETT_TIL = 'duHarRettTil',
 
-  ARBEIDER_I_NORGE = 'arbeiderINorge',
-  UTBETALING_FRA_NAV = 'utbetalingFraNav',
+  ARBEIDER_I_NORGE = 'arbeiderINorge', // TODO DEPRECATED skal bruke ARBEIDER
+  ARBEIDER = 'arbeider',
+  UTBETALING_FRA_NAV = 'utbetalingFraNav', // TODO DEPRECATED skal bruke FÅR_PENGER_SOM_ERSTATTER_LØNN
+  FÅR_PENGER_SOM_ERSTATTER_LØNN = 'faarPengerSomErstatterLonn',
   UTSENDT_ARBEIDSTAKER_FRA_NORGE = 'utsendtArbeidstakerFraNorge',
   ARBEIDER_PÅ_NORSKREGISTRERT_SKIP = 'arbeiderPaNorskregistrertSkip',
   ARBEIDER_PÅ_NORSK_SOKKEL = 'arbeiderPaNorskSokkel',
@@ -141,12 +145,26 @@ export enum Begrunnelsetype {
 }
 
 export enum SøkersAktivitet {
+  // Deprecated: Skal bruke ARBEIDER"
   ARBEIDER_I_NORGE = 'ARBEIDER_I_NORGE',
+  ARBEIDER = 'ARBEIDER',
+
   SELVSTENDIG_NÆRINGSDRIVENDE = 'SELVSTENDIG_NÆRINGSDRIVENDE',
+
+  // Deprecated: Skal bruke MOTTAR_UTBETALING_SOM_ERSTATTER_LØNN"
   MOTTAR_UTBETALING_FRA_NAV_SOM_ERSTATTER_LØNN = 'MOTTAR_UTBETALING_FRA_NAV_SOM_ERSTATTER_LØNN',
+  MOTTAR_UTBETALING_SOM_ERSTATTER_LØNN = 'MOTTAR_UTBETALING_SOM_ERSTATTER_LØNN',
+
   UTSENDT_ARBEIDSTAKER_FRA_NORGE = 'UTSENDT_ARBEIDSTAKER_FRA_NORGE',
+
+  // Deprecated: Skal bruke MOTTAR_UFØRETRYGD"
   MOTTAR_UFØRETRYGD_FRA_NORGE = 'MOTTAR_UFØRETRYGD_FRA_NORGE',
+  MOTTAR_UFØRETRYGD = 'MOTTAR_UFØRETRYGD',
+
+  // Deprecated: Skal bruke MOTTAR_PENSJON"
   MOTTAR_PENSJON_FRA_NORGE = 'MOTTAR_PENSJON_FRA_NORGE',
+  MOTTAR_PENSJON = 'MOTTAR_PENSJON',
+
   ARBEIDER_PÅ_NORSKREGISTRERT_SKIP = 'ARBEIDER_PÅ_NORSKREGISTRERT_SKIP',
   ARBEIDER_PÅ_NORSK_SOKKEL = 'ARBEIDER_PÅ_NORSK_SOKKEL',
   ARBEIDER_FOR_ET_NORSK_FLYSELSKAP = 'ARBEIDER_FOR_ET_NORSK_FLYSELSKAP',

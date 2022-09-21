@@ -16,8 +16,8 @@ export const hentForBarnFodtValg = (data: BegrunnelseMedData): ValgfeltMulighete
   }
 };
 
-export const hentDuOgEllerBarnetBarnaValg = (data: BegrunnelseMedData): ValgfeltMuligheter => {
-  const valgfeltNavn = `'du og/eller barnet/barna'`;
+export const hentSøkerOgEllerBarnetBarnaValg = (data: BegrunnelseMedData): ValgfeltMuligheter => {
+  const valgfeltNavn = `'du/deg og/eller barnet/barna'`;
 
   if (data.type === Begrunnelsetype.EØS_BEGRUNNELSE) {
     throw lagFeilStøttesIkkeForEØS(valgfeltNavn, data);
@@ -142,44 +142,48 @@ export const søkersAktivitetValg = (data: BegrunnelseMedData): ValgfeltMulighet
     throw lagFeilStøttesKunForEØS(valgfeltNavn, data);
   }
 
-  if (
-    [SøkersAktivitet.ARBEIDER_I_NORGE, SøkersAktivitet.SELVSTENDIG_NÆRINGSDRIVENDE].includes(
-      data.sokersAktivitet,
-    )
-  ) {
-    return ValgfeltMuligheter.ARBEIDER_I_NORGE;
-  } else if (
-    [
-      SøkersAktivitet.MOTTAR_UFØRETRYGD_FRA_NORGE,
-      SøkersAktivitet.MOTTAR_UTBETALING_FRA_NAV_SOM_ERSTATTER_LØNN,
-      SøkersAktivitet.MOTTAR_PENSJON_FRA_NORGE,
-    ].includes(data.sokersAktivitet)
-  ) {
-    return ValgfeltMuligheter.UTBETALING_FRA_NAV;
-  } else if ([SøkersAktivitet.UTSENDT_ARBEIDSTAKER_FRA_NORGE].includes(data.sokersAktivitet)) {
-    return ValgfeltMuligheter.UTSENDT_ARBEIDSTAKER_FRA_NORGE;
-  } else if (data.sokersAktivitet === SøkersAktivitet.ARBEIDER_PÅ_NORSKREGISTRERT_SKIP) {
-    return ValgfeltMuligheter.ARBEIDER_PÅ_NORSKREGISTRERT_SKIP;
-  } else if (data.sokersAktivitet === SøkersAktivitet.ARBEIDER_PÅ_NORSK_SOKKEL) {
-    return ValgfeltMuligheter.ARBEIDER_PÅ_NORSK_SOKKEL;
-  } else if (data.sokersAktivitet === SøkersAktivitet.ARBEIDER_FOR_ET_NORSK_FLYSELSKAP) {
-    return ValgfeltMuligheter.ARBEIDER_FOR_NORSK_FLYSELSKAP;
-  } else if (data.sokersAktivitet === SøkersAktivitet.ARBEIDER_VED_UTENLANDSK_UTENRIKSSTASJON) {
-    return ValgfeltMuligheter.ARBEIDER_VED_UTENLANDSK_UTENRIKSSTASJON;
-  } else if (
-    [
-      SøkersAktivitet.MOTTAR_PENSJON_FRA_NAV_UNDER_OPPHOLD_I_UTLANDET,
-      SøkersAktivitet.MOTTAR_UTBETALING_FRA_NAV_UNDER_OPPHOLD_I_UTLANDET,
-      SøkersAktivitet.MOTTAR_UFØRETRYGD_FRA_NAV_UNDER_OPPHOLD_I_UTLANDET,
-    ].includes(data.sokersAktivitet)
-  ) {
-    return ValgfeltMuligheter.UTBETALING_FRA_NAV_I_UTLANDET;
-  } else {
-    throw new Feil(
-      `Ingen valg for søkers aktivitet="${data.sokersAktivitet}" ved bruk av
+  switch (data.sokersAktivitet) {
+    case SøkersAktivitet.ARBEIDER_I_NORGE:
+    case SøkersAktivitet.ARBEIDER:
+    case SøkersAktivitet.SELVSTENDIG_NÆRINGSDRIVENDE:
+      if (data.sokersAktivitetsland === undefined) {
+        return ValgfeltMuligheter.ARBEIDER_I_NORGE;
+      } else {
+        return ValgfeltMuligheter.ARBEIDER;
+      }
+
+    case SøkersAktivitet.MOTTAR_UFØRETRYGD_FRA_NORGE:
+    case SøkersAktivitet.MOTTAR_UTBETALING_FRA_NAV_SOM_ERSTATTER_LØNN:
+    case SøkersAktivitet.MOTTAR_PENSJON_FRA_NORGE:
+    case SøkersAktivitet.MOTTAR_UFØRETRYGD:
+    case SøkersAktivitet.MOTTAR_UTBETALING_SOM_ERSTATTER_LØNN:
+    case SøkersAktivitet.MOTTAR_PENSJON:
+      if (data.sokersAktivitetsland === undefined) {
+        return ValgfeltMuligheter.UTBETALING_FRA_NAV;
+      } else {
+        return ValgfeltMuligheter.FÅR_PENGER_SOM_ERSTATTER_LØNN;
+      }
+
+    case SøkersAktivitet.UTSENDT_ARBEIDSTAKER_FRA_NORGE:
+      return ValgfeltMuligheter.UTSENDT_ARBEIDSTAKER_FRA_NORGE;
+    case SøkersAktivitet.ARBEIDER_PÅ_NORSKREGISTRERT_SKIP:
+      return ValgfeltMuligheter.ARBEIDER_PÅ_NORSKREGISTRERT_SKIP;
+    case SøkersAktivitet.ARBEIDER_PÅ_NORSK_SOKKEL:
+      return ValgfeltMuligheter.ARBEIDER_PÅ_NORSK_SOKKEL;
+    case SøkersAktivitet.ARBEIDER_FOR_ET_NORSK_FLYSELSKAP:
+      return ValgfeltMuligheter.ARBEIDER_FOR_NORSK_FLYSELSKAP;
+    case SøkersAktivitet.ARBEIDER_VED_UTENLANDSK_UTENRIKSSTASJON:
+      return ValgfeltMuligheter.ARBEIDER_VED_UTENLANDSK_UTENRIKSSTASJON;
+    case SøkersAktivitet.MOTTAR_PENSJON_FRA_NAV_UNDER_OPPHOLD_I_UTLANDET:
+    case SøkersAktivitet.MOTTAR_UTBETALING_FRA_NAV_UNDER_OPPHOLD_I_UTLANDET:
+    case SøkersAktivitet.MOTTAR_UFØRETRYGD_FRA_NAV_UNDER_OPPHOLD_I_UTLANDET:
+      return ValgfeltMuligheter.UTBETALING_FRA_NAV_I_UTLANDET;
+    default:
+      throw new Feil(
+        `Ingen valg for søkers aktivitet="${data.sokersAktivitet}" ved bruk av
       ${valgfeltNavn} formulering for begrunnelse med apiNavn=${data.apiNavn}`,
-      400,
-    );
+        400,
+      );
   }
 };
 
