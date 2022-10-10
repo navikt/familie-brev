@@ -38,7 +38,8 @@ spec:
         - application: familie-ef-mottak
         - application: familie-ef-sak-frontend
         - application: familie-ba-sak
-          cluster: dev-gcp
+        - application: familie-ks-sak
+        - application: familie-klage
     outbound:
       rules:
         - application: familie-dokument
