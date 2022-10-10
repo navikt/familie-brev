@@ -143,27 +143,13 @@ export const søkersAktivitetValg = (data: BegrunnelseMedData): ValgfeltMulighet
   }
 
   switch (data.sokersAktivitet) {
-    case SøkersAktivitet.ARBEIDER_I_NORGE:
     case SøkersAktivitet.ARBEIDER:
     case SøkersAktivitet.SELVSTENDIG_NÆRINGSDRIVENDE:
-      if (data.sokersAktivitetsland === undefined) {
-        return ValgfeltMuligheter.ARBEIDER_I_NORGE;
-      } else {
-        return ValgfeltMuligheter.ARBEIDER;
-      }
-
-    case SøkersAktivitet.MOTTAR_UFØRETRYGD_FRA_NORGE:
-    case SøkersAktivitet.MOTTAR_UTBETALING_FRA_NAV_SOM_ERSTATTER_LØNN:
-    case SøkersAktivitet.MOTTAR_PENSJON_FRA_NORGE:
+      return ValgfeltMuligheter.ARBEIDER;
     case SøkersAktivitet.MOTTAR_UFØRETRYGD:
     case SøkersAktivitet.MOTTAR_UTBETALING_SOM_ERSTATTER_LØNN:
     case SøkersAktivitet.MOTTAR_PENSJON:
-      if (data.sokersAktivitetsland === undefined) {
-        return ValgfeltMuligheter.UTBETALING_FRA_NAV;
-      } else {
-        return ValgfeltMuligheter.FÅR_PENGER_SOM_ERSTATTER_LØNN;
-      }
-
+      return ValgfeltMuligheter.FÅR_PENGER_SOM_ERSTATTER_LØNN;
     case SøkersAktivitet.UTSENDT_ARBEIDSTAKER_FRA_NORGE:
       return ValgfeltMuligheter.UTSENDT_ARBEIDSTAKER_FRA_NORGE;
     case SøkersAktivitet.ARBEIDER_PÅ_NORSKREGISTRERT_SKIP:
