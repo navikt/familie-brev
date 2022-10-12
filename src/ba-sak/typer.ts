@@ -24,6 +24,7 @@ export interface IStandardbegrunnelsedata {
 
 export interface IEØSBegrunnelsedata {
   apiNavn: string;
+  gjelderSoker?: boolean;
   sokersAktivitet: SøkersAktivitet;
   annenForeldersAktivitet: AnnenForeldersAktivitet;
   annenForeldersAktivitetsland?: string;

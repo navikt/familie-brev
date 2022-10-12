@@ -19,10 +19,6 @@ export const hentForBarnFodtValg = (data: BegrunnelseMedData): ValgfeltMulighete
 export const hentSøkerOgEllerBarnetBarnaValg = (data: BegrunnelseMedData): ValgfeltMuligheter => {
   const valgfeltNavn = `'du/deg og/eller barnet/barna'`;
 
-  if (data.type === Begrunnelsetype.EØS_BEGRUNNELSE) {
-    throw lagFeilStøttesIkkeForEØS(valgfeltNavn, data);
-  }
-
   if (data.gjelderSoker) {
     if (data.antallBarn === 0) {
       return ValgfeltMuligheter.INGEN_BARN;
