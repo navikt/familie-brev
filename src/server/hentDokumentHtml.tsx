@@ -64,6 +64,8 @@ const hentDokumentHtml = async (
               }
               apiNavn={dokumentApiNavn}
               maalform={maalform}
+              organisasjonsnummer={apiDokument?.flettefelter?.organisasjonsnummer}
+              gjelder={apiDokument?.flettefelter?.gjelder}
             />
             <Dokument
               dokumentApiNavn={dokumentApiNavn}
