@@ -12,14 +12,30 @@ interface HeaderProps {
   visLogo?: boolean;
   apiNavn: string;
   maalform: Maalform;
+  organisasjonsnummer?: Flettefelt;
+  gjelder?: Flettefelt;
 }
 
 function Header(props: HeaderProps) {
-  const { tittel, navn, fodselsnummer, visLogo, brevOpprettetDato, apiNavn, maalform } = props;
+  const {
+    tittel,
+    navn,
+    fodselsnummer,
+    visLogo,
+    brevOpprettetDato,
+    apiNavn,
+    maalform,
+    organisasjonsnummer,
+    gjelder,
+  } = props;
 
   validerFlettefelt(navn, 'navn', apiNavn, false);
   validerFlettefelt(fodselsnummer, 'fodselsnummer', apiNavn, false);
   validerFlettefelt(brevOpprettetDato, 'brevOpprettetDato', apiNavn, false);
+
+  organisasjonsnummer &&
+    validerFlettefelt(organisasjonsnummer, 'organisasjonsnummer', apiNavn, false);
+  gjelder && validerFlettefelt(gjelder, 'gjelder', apiNavn, false);
 
   return (
     <div className={'header'}>
@@ -34,6 +50,12 @@ function Header(props: HeaderProps) {
             <div>
               {navnTittel(maalform)}: {navn}
             </div>
+            {organisasjonsnummer && <div>Organisasjonsnummer: {organisasjonsnummer}</div>}
+            {gjelder && (
+              <div>
+                {gjelderTittel(maalform)}: {gjelder}
+              </div>
+            )}
             <div>Fødselsnummer: {fodselsnummer}</div>
           </div>
         </div>
@@ -48,6 +70,15 @@ const navnTittel = (maalform: Maalform): string => {
       return 'Navn';
     case Maalform.NN:
       return 'Namn';
+  }
+};
+
+const gjelderTittel = (maalform: Maalform): string => {
+  switch (maalform) {
+    case Maalform.NB:
+      return 'Gjelder';
+    case Maalform.NN:
+      return 'Gjeld';
   }
 };
 
