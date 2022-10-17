@@ -87,7 +87,6 @@ export enum ValgfeltMuligheter {
   ARBEIDER_FOR_NORSK_FLYSELSKAP = 'arbeiderForNorskFlyselskap',
   ARBEIDER_VED_UTENLANDSK_UTENRIKSSTASJON = 'arbeiderVedUtenlandskUtenriksstasjon',
   UTBETALING_FRA_NAV_I_UTLANDET = 'utbetalingFraNavUnderOppholdIUtlandet',
-  IKKE_I_ARBEIDSAKTIVITET = 'ikkeIArbeidsaktivitet',
 
   EOS_ANNEN_FORELDER_I_ARBEID = 'eosAnnenForelderIArbeid',
   EOS_ANNEN_FORELDER_MOTTAR_UTBETALING = 'eosAnnenForelderMottarUtbetalingSomErstatterLonn',
