@@ -164,6 +164,8 @@ export const søkersAktivitetValg = (data: BegrunnelseMedData): ValgfeltMulighet
     case SøkersAktivitet.MOTTAR_UTBETALING_FRA_NAV_UNDER_OPPHOLD_I_UTLANDET:
     case SøkersAktivitet.MOTTAR_UFØRETRYGD_FRA_NAV_UNDER_OPPHOLD_I_UTLANDET:
       return ValgfeltMuligheter.UTBETALING_FRA_NAV_I_UTLANDET;
+    case SøkersAktivitet.INAKTIV:
+      return ValgfeltMuligheter.IKKE_I_ARBEIDSAKTIVITET;
     default:
       throw new Feil(
         `Ingen valg for søkers aktivitet="${data.sokersAktivitet}" ved bruk av
