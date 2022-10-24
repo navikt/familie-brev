@@ -20,7 +20,7 @@ export const lagManueltBrevHtml = (brevMedSignatur: IFritekstbrevMedSignatur) =>
           tittel={brev.overskrift}
           navn={brev.navn}
           fodselsnummer={brev.personIdent}
-          brevOpprettetDato={dagensDatoFormatert()}
+          brevOpprettetDato={brevMedSignatur.datoPlaceholder || dagensDatoFormatert()}
         />
         {brev.avsnitt?.map((avsnitt, index) => (
           <p key={index}>

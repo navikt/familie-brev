@@ -14,6 +14,7 @@ interface HeaderProps {
   maalform: Maalform;
   organisasjonsnummer?: Flettefelt;
   gjelder?: Flettefelt;
+  datoPlaceholder?: string;
 }
 
 function Header(props: HeaderProps) {
@@ -27,6 +28,7 @@ function Header(props: HeaderProps) {
     maalform,
     organisasjonsnummer,
     gjelder,
+    datoPlaceholder,
   } = props;
 
   validerFlettefelt(navn, 'navn', apiNavn, false);
@@ -41,7 +43,7 @@ function Header(props: HeaderProps) {
     <div className={'header'}>
       <div className="ikon-og-dato">
         {visLogo && <NavIkon />}
-        <p>{brevOpprettetDato[0]}</p>
+        <p>{datoPlaceholder || brevOpprettetDato[0]}</p>
       </div>
       <div className={'tittel-og-personinfo'}>
         <h2 className="tittel">{tittel.toUpperCase()}</h2>

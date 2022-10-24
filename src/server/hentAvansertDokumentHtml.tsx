@@ -33,6 +33,7 @@ const hentAvansertDokumentHtml = async (
     saksbehandlersignatur,
     enhet,
     skjulBeslutterSignatur,
+    datoPlaceholder,
   } = brevMedSignatur;
 
   const htmlLang = () => {
@@ -63,6 +64,7 @@ const hentAvansertDokumentHtml = async (
               apiNavn={dokumentApiNavn}
               brevOpprettetDato={[dagensDatoFormatert()]}
               maalform={maalform}
+              datoPlaceholder={datoPlaceholder}
             />
             <AvansertDokument
               apiNavn={dokumentApiNavn}
