@@ -30,14 +30,14 @@ const ValgfeltSerializer = (props: IValgfeltSerializer): JSX.Element => {
 
   return (
     <>
-      {valg.map(({ navn, dokumentVariabler }) => {
+      {valg.map(({ navn, dokumentVariabler }, index) => {
         const riktigDokument = muligeValg.find((valg: any) => valg.valgmulighet === navn);
         const delmalApiNavn = riktigDokument?.delmal?.apiNavn;
         const delmalApiType = riktigDokument?.delmal?._type;
 
         if (delmalApiNavn) {
           return (
-            <div className={'valgfelt'}>
+            <div key={index} className={'valgfelt'}>
               <AvansertDokument
                 apiNavn={delmalApiNavn}
                 avanserteDokumentVariabler={dokumentVariabler}

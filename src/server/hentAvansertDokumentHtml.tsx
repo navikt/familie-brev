@@ -1,5 +1,5 @@
 import * as React from 'react';
-import type { IAvansertDokumentVariabler } from '../typer/dokumentApi';
+import type { IBrevMedSignatur } from '../typer/dokumentApi';
 import AvansertDokument from './components/AvansertDokument';
 import type { Datasett } from './sanity/sanityClient';
 import { client } from './sanity/sanityClient';
@@ -17,19 +17,23 @@ enum HtmlLang {
 }
 
 const hentAvansertDokumentHtml = async (
-  dokumentVariabler: IAvansertDokumentVariabler,
+  brevMedSignatur: IBrevMedSignatur,
   maalform: Maalform,
   dokumentApiNavn: string,
   datasett: Datasett,
-  saksbehandlersignatur: string,
-  besluttersignatur?: string,
-  enhet?: string,
-  skjulBeslutterSignatur?: boolean,
 ): Promise<string> => {
   const tittelQuery = `*[_type == "dokumentmal" && apiNavn == "${dokumentApiNavn}" ][].tittel${
     maalform === Maalform.NB ? 'Bokmaal' : 'Nynorsk'
   }`;
   const tittel = (await client(datasett).fetch(tittelQuery))[0];
+
+  const {
+    brevFraSaksbehandler: dokumentVariabler,
+    besluttersignatur,
+    saksbehandlersignatur,
+    enhet,
+    skjulBeslutterSignatur,
+  } = brevMedSignatur;
 
   const htmlLang = () => {
     switch (maalform) {
