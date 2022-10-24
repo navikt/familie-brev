@@ -24,6 +24,7 @@ export interface IBrevMedSignatur {
   saksbehandlersignatur: string;
   enhet?: string;
   skjulBeslutterSignatur?: boolean;
+  datoPlaceholder?: string;
 }
 
 export interface IFritekstbrevMedSignatur {
@@ -31,6 +32,7 @@ export interface IFritekstbrevMedSignatur {
   besluttersignatur?: string;
   saksbehandlersignatur: string;
   enhet?: string;
+  datoPlaceholder?: string;
 }
 
 export interface IAvsnitt {

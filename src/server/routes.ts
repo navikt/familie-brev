@@ -90,28 +90,20 @@ router.post(
     const dokumentApiNavn = req.params.dokumentApiNavn;
 
     const brevMedSignatur = req.body as IBrevMedSignatur;
-    const dokumentVariabler = brevMedSignatur.brevFraSaksbehandler;
-    const besluttersignatur = brevMedSignatur.besluttersignatur;
-    const saksbehandlersignatur = brevMedSignatur.saksbehandlersignatur;
-    const enhet = brevMedSignatur.enhet;
 
     logGenereringsrequestTilSecurelogger<IAvansertDokumentVariabler>(
       datasett,
       dokumentApiNavn,
-      dokumentVariabler,
+      brevMedSignatur.brevFraSaksbehandler,
       req,
     );
     try {
       await validerDokumentApiData(datasett, maalform);
       const html = await hentAvansertDokumentHtml(
-        dokumentVariabler,
+        brevMedSignatur,
         maalform,
         dokumentApiNavn,
         datasett,
-        saksbehandlersignatur,
-        besluttersignatur,
-        enhet,
-        brevMedSignatur.skjulBeslutterSignatur,
       );
       logFerdigstilt(req);
       res.send(html);
@@ -182,29 +174,20 @@ router.post(
     const dokumentApiNavn = req.params.dokumentApiNavn;
 
     const brevMedSignatur = req.body as IBrevMedSignatur;
-    const dokumentVariabler = brevMedSignatur.brevFraSaksbehandler;
-    const besluttersignatur = brevMedSignatur.besluttersignatur;
-    const saksbehandlersignatur = brevMedSignatur.saksbehandlersignatur;
-    const enhet = brevMedSignatur.enhet;
-    const skjulBeslutterSignatur = brevMedSignatur.skjulBeslutterSignatur;
 
     logGenereringsrequestTilSecurelogger<IAvansertDokumentVariabler>(
       datasett,
       dokumentApiNavn,
-      dokumentVariabler,
+      brevMedSignatur.brevFraSaksbehandler,
       req,
     );
     try {
       await validerDokumentApiData(datasett, maalform);
       const html = await hentAvansertDokumentHtml(
-        dokumentVariabler,
+        brevMedSignatur,
         maalform,
         dokumentApiNavn,
         datasett,
-        saksbehandlersignatur,
-        besluttersignatur,
-        enhet,
-        skjulBeslutterSignatur,
       );
       const pdf = await genererPdf(html);
       res.setHeader('Content-Type', 'application/pdf');
