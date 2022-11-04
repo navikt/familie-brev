@@ -39,7 +39,6 @@ spec:
         - application: familie-ef-sak-frontend
         - application: familie-ba-sak
         - application: familie-ks-sak
-        - application: familie-brev
         - application: familie-klage
     outbound:
       rules:
