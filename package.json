@@ -20,8 +20,7 @@
     ]
   },
   "dependencies": {
-    "@navikt/familie-backend": "^7.0.4",
-    "@navikt/familie-logging": "^3.0.1",
+    "@navikt/familie-logging": "^3.0.2",
     "@portabletext/react": "^1.0.6",
     "@sanity/client": "^3.4.1",
     "axios": "^1.1.3",
