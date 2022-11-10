@@ -10,7 +10,6 @@ export interface IMiljøvariabler {
 }
 
 export const hentMiljøvariabler = (): IMiljøvariabler => {
-  console.log('NODE_ENV: ', NODE_ENV);
   switch (NODE_ENV) {
     case 'production':
       return {
