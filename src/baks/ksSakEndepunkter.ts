@@ -39,7 +39,7 @@ router.post('/begrunnelser/:begrunnelseApiNavn/tekst/', async (req: Request, res
 
     const begrunnelse = begrunnelseSerializer(begrunnelseFraSanity, data);
 
-    res.status(200).send(escape(begrunnelse));
+    res.status(200).send(begrunnelse);
   } catch (error: any) {
     if (error instanceof Feil) {
       return res.status(error.code).send(escape(error.message));
