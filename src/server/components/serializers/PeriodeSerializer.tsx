@@ -10,15 +10,15 @@ import { client } from '../../sanity/sanityClient';
 import { DokumentType } from '../../../typer/dokumentType';
 import { validerPeriode } from '../../utils/valideringer/validerPeriode';
 import { Feil } from '../../utils/Feil';
-import type { Begrunnelse, BegrunnelseMedData, IPeriodedata } from '../../../ba-sak/typer';
-import { Begrunnelsetype } from '../../../ba-sak/typer';
+import type { Begrunnelse, BegrunnelseMedData, IPeriodedata } from '../../../baks/typer';
+import { Begrunnelsetype } from '../../../baks/typer';
 import {
   validerBegrunnelse,
   validerEøsbegrunnelsedata,
   validerStandardbegrunnelsedata,
-} from '../../../ba-sak/valideringer';
-import { hentBegrunnelseTekstQuery } from '../../../ba-sak/queries';
-import begrunnelseSerializer from '../../../ba-sak/begrunnelseSerializer';
+} from '../../../baks/valideringer';
+import { hentBegrunnelseTekstQuery } from '../../../baks/queries';
+import begrunnelseSerializer from '../../../baks/begrunnelseSerializer';
 
 import { PortableText } from '@portabletext/react';
 
@@ -69,8 +69,7 @@ const Periode = (props: { maalform: Maalform; datasett: Datasett; periodedata: I
   });
 
   const hentBegrunnelsetekst = (begrunnelseApiNavn: string, målform: string): any => {
-    const query = hentBegrunnelseTekstQuery(begrunnelseApiNavn, målform);
-
+    const query = hentBegrunnelseTekstQuery(begrunnelseApiNavn, målform, datasett);
     return useServerEffect(undefined, query, () =>
       client(datasett)
         .fetch(query)
@@ -92,6 +91,7 @@ const Periode = (props: { maalform: Maalform; datasett: Datasett; periodedata: I
       begrunnelseData.apiNavn,
       begrunnelseData.maalform,
     );
+
     return (
       begrunnelsetekstFraSanity && begrunnelseSerializer(begrunnelsetekstFraSanity, begrunnelseData)
     );
@@ -99,7 +99,6 @@ const Periode = (props: { maalform: Maalform; datasett: Datasett; periodedata: I
 
   const byggBegrunnelser = (begrunnelser: Begrunnelse[] | Flettefelt): string[] => {
     return begrunnelser.map((begrunnelse: Begrunnelse | string) => {
-      // Todo Kan fjernes etter at vi får inn endring i ba-sak
       if (typeof begrunnelse === 'string') {
         return begrunnelse;
       } else if (begrunnelse.type === Begrunnelsetype.FRITEKST) {

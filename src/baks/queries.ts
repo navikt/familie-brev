@@ -1,6 +1,7 @@
 import { hentDelmalQuery } from '../server/sanity/Queries';
+import { Datasett } from '../server/sanity/sanityClient';
 
-export const hentBegrunnelserQuery = () => `
+export const hentBaBegrunnelserQuery = () => `
  *[_type == "begrunnelse"]{
      apiNavn,
      navnISystem,
@@ -17,6 +18,10 @@ export const hentBegrunnelserQuery = () => `
      endringsaarsaker,
      utvidetBarnetrygdTriggere
  }
+`;
+
+export const hentKsBegrunnelserQuery = () => `
+ *[_type == "ksBegrunnelse"]
 `;
 
 export const hentBegrunnelserAvTypeQuery = (type: string) => `
@@ -36,8 +41,14 @@ export const hentBegrunnelseQuery = (apiNavn: string) => `
   {apiNavn, begrunnelsetype, navnISystem, vilkaar, visningsnavn}
 `;
 
-export const hentBegrunnelseTekstQuery = (apiNavn: string, maalform: string) => `
- *[_type == "begrunnelse" && apiNavn=="${apiNavn}"][0].${maalform}[]{...,children[]
+export const hentBegrunnelseTekstQuery = (
+  apiNavn: string,
+  maalform: string,
+  datasett: Datasett,
+) => `
+ *[_type == "${
+   erKsDatasett(datasett) ? 'ksBegrunnelse' : 'begrunnelse'
+ }" && apiNavn=="${apiNavn}"][0].${maalform}[]{...,children[]
    {..., 
      _type == "valgReferanse"=>{...}->{..., valg[]{..., delmal->${hentDelmalQuery(maalform)}}},
      _type == "valgfeltV2"=>{..., valgReferanse->{..., valg[]{..., delmal->${hentDelmalQuery(
@@ -47,3 +58,6 @@ export const hentBegrunnelseTekstQuery = (apiNavn: string, maalform: string) => 
  }
 
 `;
+
+const erKsDatasett = (datasett: Datasett) =>
+  datasett == Datasett.KS || datasett == Datasett.KS_TEST;

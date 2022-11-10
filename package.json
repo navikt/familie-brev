@@ -6,7 +6,7 @@
   "scripts": {
     "start": "NODE_ENV=production node --es-module-specifier-resolution=node dist/src/server/index.js",
     "build": "tsc -p tsconfig.json",
-    "start:dev": "nodemon -e ts --exec \"yarn build:dev && yarn run:dev\"",
+    "start:dev": "nodemon -e ts,tsx --exec \"yarn build:dev && yarn run:dev\"",
     "build:dev": "tsc -p tsconfig.json",
     "run:dev": "node --es-module-specifier-resolution=node dist/src/server/index.js",
     "test": "react-scripts test --watchAll=false",

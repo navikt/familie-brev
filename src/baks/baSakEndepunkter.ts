@@ -1,10 +1,10 @@
 import type { Request, Response } from 'express';
 import { client } from '../server/sanity/sanityClient';
 import {
+  hentBaBegrunnelserQuery,
   hentBegrunnelseQuery,
   hentBegrunnelserAvTypeQuery,
   hentBegrunnelserForVilkårQuery,
-  hentBegrunnelserQuery,
   hentBegrunnelseTekstQuery,
   hentHjemlerForBegrunnelseQuery,
 } from './queries';
@@ -28,7 +28,7 @@ router.get('/status', (_, res) => {
 });
 
 router.get('/begrunnelser', async (_: Request, res: Response) => {
-  res.status(200).send(await client(BA_DATASETT).fetch(hentBegrunnelserQuery()));
+  res.status(200).send(await client(BA_DATASETT).fetch(hentBaBegrunnelserQuery()));
 });
 
 router.get('/begrunnelser/av-type/:type', async (req: Request, res: Response) => {
@@ -64,7 +64,7 @@ router.post('/begrunnelser/:begrunnelseApiNavn/tekst/', async (req: Request, res
     }
 
     const begrunnelseFraSanity = await client(BA_DATASETT).fetch(
-      hentBegrunnelseTekstQuery(begrunnelseApiNavn, data.maalform),
+      hentBegrunnelseTekstQuery(begrunnelseApiNavn, data.maalform, BA_DATASETT),
     );
 
     validerBegrunnelse(begrunnelseFraSanity, begrunnelseApiNavn);

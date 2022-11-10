@@ -1,7 +1,8 @@
 import express from 'express';
 import path from 'path';
 import routes from './routes';
-import baSakEndepunkter from '../ba-sak/baSakEndepunkter';
+import ksSakEndepunkter from '../baks/ksSakEndepunkter';
+import baSakEndepunkter from '../baks/baSakEndepunkter';
 import dotenv from 'dotenv';
 import { logInfo } from '@navikt/familie-logging';
 
@@ -20,6 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api', routes);
 app.use('/ba-sak', baSakEndepunkter);
+app.use('/ks-sak', ksSakEndepunkter);
 
 const port = 8001;
 app.listen(port, () => {
