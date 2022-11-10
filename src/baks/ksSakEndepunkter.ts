@@ -13,6 +13,7 @@ import { Feil } from '../server/utils/Feil';
 import { logError, logSecure } from '@navikt/familie-logging';
 import { hentMiljøvariabler } from '../server/environment';
 import router from '../server/routes';
+import { escape } from '../utils/escapeString';
 
 const { KS_DATASETT } = hentMiljøvariabler();
 
@@ -38,15 +39,15 @@ router.post('/begrunnelser/:begrunnelseApiNavn/tekst/', async (req: Request, res
 
     const begrunnelse = begrunnelseSerializer(begrunnelseFraSanity, data);
 
-    res.status(200).send(begrunnelse);
+    res.status(200).send(escape(begrunnelse));
   } catch (error: any) {
     if (error instanceof Feil) {
-      return res.status(error.code).send(error.message);
+      return res.status(error.code).send(escape(error.message));
     }
 
     logError(`Generering av begrunnelse feilet: ${error.message}`);
     logSecure(`Generering av begrunnelse feilet: ${error}`);
-    return res.status(500).send(`Generering av begrunnelse feilet: ${error.message}`);
+    return res.status(500).send(`Generering av begrunnelse feilet: ${escape(error.message)}`);
   }
 });
 
