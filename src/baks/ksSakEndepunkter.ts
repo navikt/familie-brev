@@ -1,4 +1,5 @@
 import type { Request, Response } from 'express';
+import express from 'express';
 import { client } from '../server/sanity/sanityClient';
 import { hentBegrunnelseTekstQuery, hentKsBegrunnelserQuery } from './queries';
 import begrunnelseSerializer from './begrunnelseSerializer';
@@ -12,8 +13,9 @@ import {
 import { Feil } from '../server/utils/Feil';
 import { logError, logSecure } from '@navikt/familie-logging';
 import { hentMiljøvariabler } from '../server/environment';
-import router from '../server/routes';
 import { escape } from '../utils/escapeString';
+
+const router = express.Router();
 
 const { KS_DATASETT } = hentMiljøvariabler();
 
