@@ -10,15 +10,15 @@ import { client } from '../../sanity/sanityClient';
 import { DokumentType } from '../../../typer/dokumentType';
 import { validerPeriode } from '../../utils/valideringer/validerPeriode';
 import { Feil } from '../../utils/Feil';
-import type { Begrunnelse, BegrunnelseMedData, IPeriodedata } from '../../../ba-sak/typer';
-import { Begrunnelsetype } from '../../../ba-sak/typer';
+import type { Begrunnelse, BegrunnelseMedData, IPeriodedata } from '../../../baks/typer';
+import { Begrunnelsetype } from '../../../baks/typer';
 import {
   validerBegrunnelse,
   validerEøsbegrunnelsedata,
   validerStandardbegrunnelsedata,
-} from '../../../ba-sak/valideringer';
-import { hentBegrunnelseTekstQuery } from '../../../ba-sak/queries';
-import begrunnelseSerializer from '../../../ba-sak/begrunnelseSerializer';
+} from '../../../baks/valideringer';
+import { hentBegrunnelseTekstQuery } from '../../../baks/queries';
+import begrunnelseSerializer from '../../../baks/begrunnelseSerializer';
 
 import { PortableText } from '@portabletext/react';
 

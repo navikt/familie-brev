@@ -1,8 +1,8 @@
 import express from 'express';
 import path from 'path';
 import routes from './routes';
-import ksSakEndepunkter from '../ba-sak/ksSakEndepunkter';
-import baSakEndepunkter from '../ba-sak/baSakEndepunkter';
+import ksSakEndepunkter from '../baks/ksSakEndepunkter';
+import baSakEndepunkter from '../baks/baSakEndepunkter';
 import dotenv from 'dotenv';
 import { logInfo } from '@navikt/familie-logging';
 
