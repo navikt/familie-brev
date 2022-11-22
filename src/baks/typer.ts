@@ -1,6 +1,8 @@
 import type { Maalform } from '../typer/sanitygrensesnitt';
 import type { Flettefelt } from '../typer/dokumentApi';
 
+export type YearMonth = string; // Format YYYY-MM (ISO)
+
 export type Begrunnelse = IStandardbegrunnelsedata | IEØSBegrunnelsedata | IFritekst;
 export type BegrunnelseMedData = IStandardbegrunnelsedata | IEØSBegrunnelsedata;
 
@@ -33,6 +35,7 @@ export interface IEØSBegrunnelsedata {
   antallBarn: number;
   maalform: Maalform;
   type: Begrunnelsetype.EØS_BEGRUNNELSE;
+  tom?: YearMonth;
 }
 
 export interface IFritekst {
@@ -63,6 +66,7 @@ export enum Valgfelttype {
   EOS_SOKERS_AKTIVITET_1 = 'eosSokersAktivitet1',
   EOS_SOKERS_AKTIVITET_2 = 'eosSokersAktivitet2',
   EOS_ANNEN_FORELDERS_AKTIVITET = 'eosAnnenForeldersAktivitet',
+  EOS_UTEN_TOM_DATO = 'eosUtenTomDato',
 }
 
 export enum ValgfeltMuligheter {
@@ -94,6 +98,8 @@ export enum ValgfeltMuligheter {
   EOS_ANNEN_FORELDER_MOTTAR_PENSJON = 'eosAnnenForelderMottarPensjon',
   EOS_ANNEN_FORELDER_FORSIKRET = 'eosAnnenForelderForsikretIBostedsland',
   EOS_ANNEN_FORELDER_INAKTIV = 'eosAnnenForelderInaktiv',
+  EOSPERIODE_UTEN_TOMDATO = 'eosUtenTomdato',
+  IKKE_EOSPERIODE_UTEN_TOMDATO = 'ikkeEosUtenTomdato',
 }
 
 export interface SpanBlock {

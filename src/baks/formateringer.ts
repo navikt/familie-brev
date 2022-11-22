@@ -9,6 +9,7 @@ import type {
 import { Valgfelttype } from './typer';
 import {
   annenForeldersAktivitetValg,
+  eosUtenTomdatoValg,
   hentBarnetBarnaDineDittValg,
   hentBarnetBarnaValg,
   hentDuFårEllerHarRettTilUtvidetValg,
@@ -41,6 +42,8 @@ export const formaterValgfelt = (valgfeltBlock: ValgfeltBlock, data: Begrunnelse
       return valgfeltSerializer(valgfeltBlock, søkersAktivitetValg(data), data);
     case Valgfelttype.EOS_ANNEN_FORELDERS_AKTIVITET:
       return valgfeltSerializer(valgfeltBlock, annenForeldersAktivitetValg(data), data);
+    case Valgfelttype.EOS_UTEN_TOM_DATO:
+      return valgfeltSerializer(valgfeltBlock, eosUtenTomdatoValg(data), data);
     default:
       throw new Feil(
         `Ukjent formulering fra sanity. Det er ikke laget noen funksjonalitet for ${valgfeltBlock.apiNavn}`,

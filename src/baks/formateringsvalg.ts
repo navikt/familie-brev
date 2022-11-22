@@ -202,6 +202,12 @@ export const annenForeldersAktivitetValg = (data: BegrunnelseMedData): ValgfeltM
   }
 };
 
+export const eosUtenTomdatoValg = (data: BegrunnelseMedData): ValgfeltMuligheter => {
+  return data.type !== Begrunnelsetype.EØS_BEGRUNNELSE || data.tom
+    ? ValgfeltMuligheter.IKKE_EOSPERIODE_UTEN_TOMDATO
+    : ValgfeltMuligheter.EOSPERIODE_UTEN_TOMDATO;
+};
+
 const lagFeilStøttesIkkeForEØS = (valgfeltNavn: string, data: IEØSBegrunnelsedata): Feil =>
   new Feil(
     `${valgfeltNavn} støttes ikke for EØS-begrunnelser, men brukes i begrunnelse med apiNavn=${data.apiNavn}`,
