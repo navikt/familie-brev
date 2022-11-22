@@ -66,7 +66,7 @@ export enum Valgfelttype {
   EOS_SOKERS_AKTIVITET_1 = 'eosSokersAktivitet1',
   EOS_SOKERS_AKTIVITET_2 = 'eosSokersAktivitet2',
   EOS_ANNEN_FORELDERS_AKTIVITET = 'eosAnnenForeldersAktivitet',
-  EOS_UTEN_TOM_DATO = 'eosUtenTomDato',
+  EOSPERIODE_UTEN_TIL_OG_MEDDATO = 'eosPeriodeUtenTilOgMedDato',
 }
 
 export enum ValgfeltMuligheter {

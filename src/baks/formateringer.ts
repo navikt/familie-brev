@@ -42,7 +42,7 @@ export const formaterValgfelt = (valgfeltBlock: ValgfeltBlock, data: Begrunnelse
       return valgfeltSerializer(valgfeltBlock, søkersAktivitetValg(data), data);
     case Valgfelttype.EOS_ANNEN_FORELDERS_AKTIVITET:
       return valgfeltSerializer(valgfeltBlock, annenForeldersAktivitetValg(data), data);
-    case Valgfelttype.EOS_UTEN_TOM_DATO:
+    case Valgfelttype.EOSPERIODE_UTEN_TIL_OG_MEDDATO:
       return valgfeltSerializer(valgfeltBlock, eosUtenTomdatoValg(data), data);
     default:
       throw new Feil(
