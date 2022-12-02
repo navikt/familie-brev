@@ -10,7 +10,7 @@ Konsumenter kan få returnert html eller pdf/bytearray.
 # Kjør server lokalt
 
 * `familie-dokument` må kjøres med DevLauncher for at pdf-generering skal fungere
-* Pass på at du har instalert alle NPM-avhengighetene `yarn`
+* Pass på at du har installert alle NPM-avhengighetene `yarn`
 * Kjør `yarn start:dev`
 
 # Bygg og deploy
@@ -19,10 +19,7 @@ Appen bygges hos github actions og gir beskjed til nais deploy om å deployere a
 
 # Henvendelser
 
-Spørsmål knyttet til koden eller prosjektet kan rettes til:
-
-* Halvor Mundal, `halvor.mundal@nav.no`
-* Asbjørn Ottesen Steinskog, `asbjorn.ottesen.steinskog@nav.no`
+Spørsmål knyttet til koden eller prosjektet kan rettes som issues her på GitHub-repoet.
 
 ## For NAV-ansatte
 
