@@ -4,7 +4,7 @@ import type { IPeriodedata } from '../../../baks/typer';
 export const validerPeriode = (forelderDokument: string, periodedata?: IPeriodedata[]) => {
   if (!periodedata || periodedata.length === 0) {
     throw new Feil(
-      `"${forelderDokument}" skal ha mist én periode, men hadde ingen perioder i perodeData.`,
+      `"${forelderDokument}" skal ha minst én periode, men hadde ingen perioder i periodeData.`,
       400,
     );
   }
