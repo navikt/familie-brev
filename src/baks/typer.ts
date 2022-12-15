@@ -33,6 +33,7 @@ export interface IEØSBegrunnelsedata {
   antallBarn: number;
   maalform: Maalform;
   type: Begrunnelsetype.EØS_BEGRUNNELSE;
+  gjelderSoker?: boolean;
 }
 
 export interface IFritekst {
