@@ -19,6 +19,13 @@ export const hentForBarnFodtValg = (data: BegrunnelseMedData): ValgfeltMulighete
 export const hentSøkerOgEllerBarnetBarnaValg = (data: BegrunnelseMedData): ValgfeltMuligheter => {
   const valgfeltNavn = `'du/deg og/eller barnet/barna'`;
 
+  if (data.gjelderSoker === undefined) {
+    throw new Feil(
+      `Valgfelt ${valgfeltNavn} er avhengig av "gjelderSoker", men verdien ble ikke sendt med`,
+      400,
+    );
+  }
+
   if (data.gjelderSoker) {
     if (data.antallBarn === 0) {
       return ValgfeltMuligheter.INGEN_BARN;
