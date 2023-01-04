@@ -10,7 +10,8 @@ import { Valgfelttype } from './typer';
 import {
   annenForeldersAktivitetValg,
   hentBarnetBarnaDineDittValg,
-  hentBarnetBarnaValg, hentDuEllerDuOgDenAndreForelderenValg,
+  hentBarnetBarnaValg,
+  hentDuEllerDuOgDenAndreForelderenValg,
   hentDuFårEllerHarRettTilUtvidetValg,
   hentDuOgEllerBarnFodtValg,
   hentForBarnFodtValg,
