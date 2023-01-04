@@ -110,7 +110,7 @@ export const hentDuEllerDuOgDenAndreForelderenValg = (data: BegrunnelseMedData):
     }
 
     if (data.gjelderSoker && data.gjelderAndreForelder) {
-        return ValgfeltMuligheter.SØKER_OG_ANNEN_FORELDER
+        return ValgfeltMuligheter.SØKER_OG_ANDRE_FORELDER
     } else if (data.gjelderSoker) {
         return ValgfeltMuligheter.KUN_SØKER
     } else throw new Feil(

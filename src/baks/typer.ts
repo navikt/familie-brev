@@ -76,7 +76,7 @@ export enum ValgfeltMuligheter {
   ETT_BARN_IKKE_SØKER = 'ettBarnIkkeSoker',
   FLERE_BARN_IKKE_SØKER = 'flereBarnIkkeSoker',
   SØKER_OG_BARN = 'sokerOgBarn',
-  SØKER_OG_ANNEN_FORELDER = 'sokerOgAnnenForelder',
+  SØKER_OG_ANDRE_FORELDER = 'sokerOgAnnenForelder',
   KUN_BARN = 'kunBarn',
   KUN_SØKER = 'kunSoker',
   INGEN_FRA_DATO = 'ingenFraDato',
