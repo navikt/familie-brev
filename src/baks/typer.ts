@@ -19,6 +19,7 @@ export interface IStandardbegrunnelsedata {
   avtaletidspunktDeltBosted: string;
   belop: string;
   sokersRettTilUtvidet: SøkersRettTilUtvidet;
+  gjelderAndreForelder: boolean;
   type: Begrunnelsetype.STANDARD_BEGRUNNELSE;
 }
 
@@ -60,7 +61,7 @@ export enum Valgfelttype {
   FOR_BARN_FØDT = 'forBarnFodt',
   FRA_DATO = 'fraDato',
   DU_FÅR_ELLER_HAR_RETT_TIL_UTVIDET = 'duFaarEllerHarRettTilUtvidet',
-
+  DU_ELLER_DU_OG_DEN_ANDRE_FORELDEREN = 'duEllerDuOgDenAndreForelderen',
   EOS_SOKERS_AKTIVITET_1 = 'eosSokersAktivitet1',
   EOS_SOKERS_AKTIVITET_2 = 'eosSokersAktivitet2',
   EOS_ANNEN_FORELDERS_AKTIVITET = 'eosAnnenForeldersAktivitet',
@@ -74,7 +75,9 @@ export enum ValgfeltMuligheter {
   ETT_BARN_IKKE_SØKER = 'ettBarnIkkeSoker',
   FLERE_BARN_IKKE_SØKER = 'flereBarnIkkeSoker',
   SØKER_OG_BARN = 'sokerOgBarn',
+  SØKER_OG_ANNEN_FORELDER = 'SØKER_OG_ANNEN_FORELDER',
   KUN_BARN = 'kunBarn',
+  KUN_SØKER = 'kunSoker',
   INGEN_FRA_DATO = 'ingenFraDato',
   HAR_FRA_DATO = 'harFraDato',
   DU_FÅR = 'duFaar',

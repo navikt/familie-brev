@@ -102,6 +102,23 @@ export const hentDuOgEllerBarnFodtValg = (data: BegrunnelseMedData): ValgfeltMul
   }
 };
 
+export const hentDuEllerDuOgDenAndreForelderenValg = (data: BegrunnelseMedData): ValgfeltMuligheter => {
+    const valgfeltNavn = `'du/du og den andre forelderen'`;
+
+    if (data.type === Begrunnelsetype.EØS_BEGRUNNELSE) {
+        throw lagFeilStøttesIkkeForEØS(valgfeltNavn, data);
+    }
+
+    if (data.gjelderSoker && data.gjelderAndreForelder) {
+        return ValgfeltMuligheter.SØKER_OG_ANNEN_FORELDER
+    } else if (data.gjelderSoker) {
+        return ValgfeltMuligheter.KUN_SØKER
+    } else throw new Feil(
+        `Begrunnelsen må gjelde enten søker eller søker og annen forelder for å bruke ${valgfeltNavn} formulering for begrunnelse med apiNavn=${data.apiNavn}`,
+        400,
+    );
+};
+
 export const hentFraDatoValg = (data: BegrunnelseMedData): ValgfeltMuligheter => {
   const valgfeltNavn = `'hent fra dato'`;
 
