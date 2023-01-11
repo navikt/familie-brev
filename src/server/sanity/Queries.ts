@@ -29,28 +29,18 @@ export const hentDokumentQuery = (
 *[_type == "${dokumentType}" && apiNavn == "${dokumentApiNavn}"][0]
   {..., ${maalform}[]
     { ...,
-      _type == "block"=> {..., markDefs[]{
-        ...,
-        flettefeltReferanse->
-        }
-      },
+      _type == "block" => {..., markDefs[]{..., flettefeltReferanse->}},
       _type == "flettefelt" => {..., flettefeltReferanse->},
-      _type == "delmal" => {..., 
-        delmalReferanse->${hentDelmalQuery(maalform)}
-      },
+      _type == "delmal" => {..., delmalReferanse->${hentDelmalQuery(maalform)}},
     }
   }
  `;
 
-export const hentDelmalQuery = (maalform: string) =>
-  `{
-    ..., ${maalform}[]{
-      ..., 
-      _type == "block"=> {..., markDefs[]{
-          ...,
-          flettefeltReferanse->
-        },
+export const hentDelmalQuery = (maalform: string) => `
+  {..., ${maalform}[]
+    { ..., 
+      _type == "block" => {..., markDefs[]{..., flettefeltReferanse->}},
       _type == "flettefelt" => {..., flettefeltReferanse->}
-      },
     }
-  }`;
+  }
+ `;

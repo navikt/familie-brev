@@ -98,7 +98,7 @@ const Periode = (props: { maalform: Maalform; datasett: Datasett; periodedata: I
   };
 
   const byggBegrunnelser = (begrunnelser: Begrunnelse[] | Flettefelt): string[] => {
-    return begrunnelser.map((begrunnelse: Begrunnelse | string) => {
+    const bygdeBegrunnelser = begrunnelser.map((begrunnelse: Begrunnelse | string) => {
       if (typeof begrunnelse === 'string') {
         return begrunnelse;
       } else if (begrunnelse.type === Begrunnelsetype.FRITEKST) {
@@ -111,6 +111,9 @@ const Periode = (props: { maalform: Maalform; datasett: Datasett; periodedata: I
         return byggBegrunnelse(begrunnelse);
       }
     });
+
+    // Fjerner duplikate begrunnelser
+    return [...new Set(bygdeBegrunnelser)];
   };
 
   const flettefelter = { ...periodedata };

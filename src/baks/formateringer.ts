@@ -11,6 +11,7 @@ import {
   annenForeldersAktivitetValg,
   hentBarnetBarnaDineDittValg,
   hentBarnetBarnaValg,
+  hentDuEllerDuOgDenAndreForelderenValg,
   hentDuFårEllerHarRettTilUtvidetValg,
   hentDuOgEllerBarnFodtValg,
   hentForBarnFodtValg,
@@ -32,6 +33,8 @@ export const formaterValgfelt = (valgfeltBlock: ValgfeltBlock, data: Begrunnelse
       return valgfeltSerializer(valgfeltBlock, hentBarnetBarnaDineDittValg(data), data);
     case Valgfelttype.DU_OG_ELLER_BARN_FØDT:
       return valgfeltSerializer(valgfeltBlock, hentDuOgEllerBarnFodtValg(data), data);
+    case Valgfelttype.DU_ELLER_DU_OG_DEN_ANDRE_FORELDEREN:
+      return valgfeltSerializer(valgfeltBlock, hentDuEllerDuOgDenAndreForelderenValg(data), data);
     case Valgfelttype.FRA_DATO:
       return valgfeltSerializer(valgfeltBlock, hentFraDatoValg(data), data);
     case Valgfelttype.DU_FÅR_ELLER_HAR_RETT_TIL_UTVIDET:
