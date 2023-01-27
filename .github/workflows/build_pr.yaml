@@ -13,11 +13,20 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '16'
+          cache: npm
+          registry-url: "https://npm.pkg.github.com"
+      - name: Yarn install
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+        run: yarn --prefer-offline --frozen-lockfile
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
           registry-url: "https://npm.pkg.github.com"
       - name: Yarn build
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
         run: |
-          yarn
           yarn test
           yarn build
