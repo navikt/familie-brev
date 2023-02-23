@@ -1,4 +1,4 @@
-FROM navikt/node-express:16
+FROM navikt/node-express:18
 ADD ./ /var/server
 
 EXPOSE 8001
