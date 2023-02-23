@@ -1,5 +1,5 @@
-import {Feil} from '../server/utils/Feil';
-import type {BegrunnelseMedData, IEØSBegrunnelsedata, IStandardbegrunnelsedata} from './typer';
+import { Feil } from '../server/utils/Feil';
+import type { BegrunnelseMedData, IEØSBegrunnelsedata, IStandardbegrunnelsedata } from './typer';
 import {
   AnnenForeldersAktivitet,
   Begrunnelsetype,
