@@ -99,6 +99,7 @@ export enum ValgfeltMuligheter {
   EOS_ANNEN_FORELDER_MOTTAR_PENSJON = 'eosAnnenForelderMottarPensjon',
   EOS_ANNEN_FORELDER_FORSIKRET = 'eosAnnenForelderForsikretIBostedsland',
   EOS_ANNEN_FORELDER_INAKTIV = 'eosAnnenForelderInaktiv',
+  EOS_ANNEN_FORELDER_UTSENDT_ARBEIDSTAKER = 'eosAnnenForelderUtsendtArbeidstaker'
 }
 
 export interface SpanBlock {
@@ -172,4 +173,5 @@ export enum AnnenForeldersAktivitet {
   MOTTAR_PENSJON = 'MOTTAR_PENSJON',
   INAKTIV = 'INAKTIV',
   IKKE_AKTUELT = 'IKKE_AKTUELT',
+  UTSENDT_ARBEIDSTAKER = 'UTSENDT_ARBEIDSTAKER',
 }
