@@ -212,6 +212,8 @@ export const annenForeldersAktivitetValg = (data: BegrunnelseMedData): ValgfeltM
       return ValgfeltMuligheter.EOS_ANNEN_FORELDER_FORSIKRET;
     case AnnenForeldersAktivitet.INAKTIV:
       return ValgfeltMuligheter.EOS_ANNEN_FORELDER_INAKTIV;
+    case AnnenForeldersAktivitet.UTSENDT_ARBEIDSTAKER:
+      return ValgfeltMuligheter.EOS_ANNEN_FORELDER_UTSENDT_ARBEIDSTAKER;
     case AnnenForeldersAktivitet.IKKE_AKTUELT:
     default:
       throw new Feil(
