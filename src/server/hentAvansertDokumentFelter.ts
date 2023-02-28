@@ -35,6 +35,7 @@ export const hentAvansertDokumentFelter = async (
             "delmalValgfelt":  ^.${maalform}[].valgReferanse | [defined(@)]->{
                     "valgfeltVisningsnavn":visningsnavn,
                     "valgFeltApiNavn": apiNavn,
+                    "valgfeltBeskrivelse": beskrivelse,
                     "valgMuligheter":
                         valg[]{
                             valgmulighet,
