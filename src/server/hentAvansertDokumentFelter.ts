@@ -45,6 +45,34 @@ export const hentAvansertDokumentFelter = async (
                             }  
                         }
             }
+        },
+        "brevmenyBlokker": ${maalform}[defined(delmalReferanse) ||  _type == "Fritekstområde" ] | { 
+            _type,
+            "blokk": select(
+                _type == "Fritekstområde" => {"id": uuid},
+                defined(delmalReferanse) => delmalReferanse->{
+                  "delmalApiNavn": apiNavn,
+                  "delmalNavn": visningsnavn,
+                  gruppeVisningsnavn,
+                  "delmalFlettefelter": 
+                          ${maalform}[defined(markDefs[].flettefeltReferanse)] {
+                              "flettefelt": markDefs[].flettefeltReferanse
+                          },
+                  "delmalValgfelt":  ^.${maalform}[].valgReferanse | [defined(@)]->{
+                          "valgfeltVisningsnavn":visningsnavn,
+                          "valgFeltApiNavn": apiNavn,
+                          "valgfeltBeskrivelse": beskrivelse,
+                          "valgMuligheter":
+                              valg[]{
+                                  valgmulighet,
+                                  "visningsnavnValgmulighet": delmal->.visningsnavn,
+                                  "flettefelter": delmal-> ${maalform}[defined(markDefs)] {           
+                                       "flettefelt": markDefs[].flettefeltReferanse 
+                                  }  
+                              }
+                  }
+                }
+            )
         }
   }[0]`;
 
