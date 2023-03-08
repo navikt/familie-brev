@@ -14,6 +14,7 @@ export type Flettefelt = string[];
 export interface IAvansertDokumentVariabler {
   flettefelter: Flettefelter;
   delmaler: IDelmaler;
+  fritekstområder: IFritekstområder;
   valgfelter: IValgfelter;
   htmlfelter: IHtmlfelter;
 }
@@ -50,6 +51,15 @@ export interface IFritekstbrev {
 export interface IDelmaler {
   [delmalId: string]: IAvansertDokumentVariabler[];
 }
+
+export interface IFritekstområder {
+  [id: string]: FritekstAvsnitt[];
+}
+
+type FritekstAvsnitt = {
+  deloverskrift: string;
+  innhold: string;
+};
 
 export interface IHtmlfelter {
   [key: string]: string;

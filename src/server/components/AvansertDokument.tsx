@@ -15,6 +15,7 @@ import LenkeSerializer from './serializers/LenkeSerializer';
 import HtmlfeltSerializer from './serializers/HtmlfeltSerializer';
 
 import { PortableText } from '@portabletext/react';
+import { FritekstområdeSerializer } from './serializers/FritekstområdeSerializer';
 
 interface AvansertDokumentProps {
   apiNavn: string;
@@ -100,6 +101,11 @@ function AvansertDokument(avansertDokumentProps: AvansertDokumentProps) {
               sanityProps: props,
               htmlfelter: avanserteDokumentVariabler?.htmlfelter,
               dokumentApiNavn: apiNavn,
+            }),
+          fritekstområde: (props: any) =>
+            FritekstområdeSerializer({
+              sanityProps: props,
+              fritekstområder: avanserteDokumentVariabler?.fritekstområder,
             }),
         },
         listItem: (props: any) =>

@@ -46,10 +46,10 @@ export const hentAvansertDokumentFelter = async (
                         }
             }
         },
-        "brevmenyBlokker": ${maalform}[defined(delmalReferanse) ||  _type == "Fritekstområde" ] | { 
+        "brevmenyBlokker": ${maalform}[defined(delmalReferanse) ||  _type == "fritekstområde" ] | { 
             _type,
             "blokk": select(
-                _type == "Fritekstområde" => {"id": uuid},
+                _type == "fritekstområde" => { "id": _key },
                 defined(delmalReferanse) => delmalReferanse->{
                   "delmalApiNavn": apiNavn,
                   "delmalNavn": visningsnavn,
