@@ -16,8 +16,12 @@ export const FritekstområdeSerializer = (props: IFritekstområdeSerializerProps
 
   return (
     <div>
-      {avsnitt.map((avsnitt, indeks) => (
-        <div key={uuid + indeks}>{avsnitt.innhold}</div>
+      {avsnitt.map((avsnitt, index) => (
+        <p key={index}>
+          {avsnitt.deloverskrift && <strong>{avsnitt.deloverskrift} </strong>}
+          {avsnitt.deloverskrift && <br />}
+          {avsnitt.innhold && <span style={{ whiteSpace: 'pre-wrap' }}>{avsnitt.innhold}</span>}
+        </p>
       ))}
     </div>
   );
