@@ -48,7 +48,7 @@ export const hentAvansertDokumentFelter = async (
         },
         "brevmenyBlokker": ${maalform}[defined(delmalReferanse) ||  _type == "fritekstområde" ] | { 
             _type,
-            "blokk": select(
+            "innhold": select(
                 _type == "fritekstområde" => { "id": _key },
                 defined(delmalReferanse) => delmalReferanse->{
                   "delmalApiNavn": apiNavn,
