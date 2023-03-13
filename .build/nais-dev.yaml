@@ -30,7 +30,7 @@ spec:
   prometheus:
     enabled: false
   ingresses:
-    - https://familie-brev.dev.intern.nav.no
+    - https://familie-brev.intern.dev.nav.no
   accessPolicy:
     inbound:
       rules:
