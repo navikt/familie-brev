@@ -30,6 +30,7 @@ export const lagManueltBrevHtml = (brevMedSignatur: IFritekstbrevMedSignatur) =>
           </p>
         ))}
         <div>
+          <br />
           <p style={{ float: 'left' }}>
             <div>Med vennlig hilsen </div>
             <div>{brevMedSignatur.enhet || 'NAV Arbeid og ytelser'}</div>
