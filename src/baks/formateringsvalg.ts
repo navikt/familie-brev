@@ -102,20 +102,23 @@ export const hentDuOgEllerBarnFodtValg = (data: BegrunnelseMedData): ValgfeltMul
   }
 };
 
-export const hentDuEllerDuOgDenAndreForelderenValg = (data: BegrunnelseMedData): ValgfeltMuligheter => {
-    const valgfeltNavn = `'du/du og den andre forelderen'`;
+export const hentDuEllerDuOgDenAndreForelderenValg = (
+  data: BegrunnelseMedData,
+): ValgfeltMuligheter => {
+  const valgfeltNavn = `'du/du og den andre forelderen'`;
 
-    if (data.type === Begrunnelsetype.EØS_BEGRUNNELSE) {
-        throw lagFeilStøttesIkkeForEØS(valgfeltNavn, data);
-    }
+  if (data.type === Begrunnelsetype.EØS_BEGRUNNELSE) {
+    throw lagFeilStøttesIkkeForEØS(valgfeltNavn, data);
+  }
 
-    if (data.gjelderSoker && data.gjelderAndreForelder) {
-        return ValgfeltMuligheter.SØKER_OG_ANDRE_FORELDER
-    } else if (data.gjelderSoker) {
-        return ValgfeltMuligheter.KUN_SØKER
-    } else throw new Feil(
-        `Begrunnelsen må gjelde enten søker eller søker og annen forelder for å bruke ${valgfeltNavn} formulering for begrunnelse med apiNavn=${data.apiNavn}`,
-        400,
+  if (data.gjelderSoker && data.gjelderAndreForelder) {
+    return ValgfeltMuligheter.SØKER_OG_ANDRE_FORELDER;
+  } else if (data.gjelderSoker) {
+    return ValgfeltMuligheter.KUN_SØKER;
+  } else
+    throw new Feil(
+      `Begrunnelsen må gjelde enten søker eller søker og annen forelder for å bruke ${valgfeltNavn} formulering for begrunnelse med apiNavn=${data.apiNavn}`,
+      400,
     );
 };
 
@@ -167,9 +170,10 @@ export const søkersAktivitetValg = (data: BegrunnelseMedData): ValgfeltMulighet
     case SøkersAktivitet.SELVSTENDIG_NÆRINGSDRIVENDE:
       return ValgfeltMuligheter.ARBEIDER;
     case SøkersAktivitet.MOTTAR_UFØRETRYGD:
+      return ValgfeltMuligheter.MOTTAR_UFOERETRYGD;
     case SøkersAktivitet.MOTTAR_UTBETALING_SOM_ERSTATTER_LØNN:
     case SøkersAktivitet.MOTTAR_PENSJON:
-      return ValgfeltMuligheter.FÅR_PENGER_SOM_ERSTATTER_LØNN;
+      return ValgfeltMuligheter.SOEKER_MOTTAR_PENSJON;
     case SøkersAktivitet.UTSENDT_ARBEIDSTAKER_FRA_NORGE:
       return ValgfeltMuligheter.UTSENDT_ARBEIDSTAKER_FRA_NORGE;
     case SøkersAktivitet.ARBEIDER_PÅ_NORSKREGISTRERT_SKIP:
@@ -181,9 +185,10 @@ export const søkersAktivitetValg = (data: BegrunnelseMedData): ValgfeltMulighet
     case SøkersAktivitet.ARBEIDER_VED_UTENLANDSK_UTENRIKSSTASJON:
       return ValgfeltMuligheter.ARBEIDER_VED_UTENLANDSK_UTENRIKSSTASJON;
     case SøkersAktivitet.MOTTAR_PENSJON_FRA_NAV_UNDER_OPPHOLD_I_UTLANDET:
+      return ValgfeltMuligheter.MOTTAR_PENSJON_FRA_NORGE_UNDER_OPPHOLD_I_UTLANDET;
     case SøkersAktivitet.MOTTAR_UTBETALING_FRA_NAV_UNDER_OPPHOLD_I_UTLANDET:
     case SøkersAktivitet.MOTTAR_UFØRETRYGD_FRA_NAV_UNDER_OPPHOLD_I_UTLANDET:
-      return ValgfeltMuligheter.UTBETALING_FRA_NAV_I_UTLANDET;
+      return ValgfeltMuligheter.MOTTAR_UFOERETRYGD_FRA_NAV_UNDER_OPPHOLD_I_UTLANDET;
     case SøkersAktivitet.INAKTIV:
       return ValgfeltMuligheter.IKKE_I_ARBEIDSAKTIVITET;
     default:
