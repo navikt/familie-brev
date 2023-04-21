@@ -91,11 +91,12 @@ export enum ValgfeltMuligheter {
   ARBEIDER_PÅ_NORSK_SOKKEL = 'arbeiderPaNorskSokkel',
   ARBEIDER_FOR_NORSK_FLYSELSKAP = 'arbeiderForNorskFlyselskap',
   ARBEIDER_VED_UTENLANDSK_UTENRIKSSTASJON = 'arbeiderVedUtenlandskUtenriksstasjon',
+  UTBETALING_FRA_NAV_I_UTLANDET = 'utbetalingFraNavUnderOppholdIUtlandet',
   IKKE_I_ARBEIDSAKTIVITET = 'ikkeIArbeidsaktivitet',
-  MOTTAR_UFOERETRYGD = 'mottarUfoeretrygd',
+  MOTTAR_UFØRETRYGD = 'mottarUfoeretrygd',
 
-  SOEKER_MOTTAR_PENSJON = 'soekerMottarPensjon',
-  MOTTAR_UFOERETRYGD_FRA_NAV_UNDER_OPPHOLD_I_UTLANDET = 'mottarUfoeretrygdFraNAVUnderOppholdIUtlandet',
+  SØKER_MOTTAR_PENSJON = 'soekerMottarPensjon',
+  MOTTAR_UFØRETRYGD_FRA_NAV_UNDER_OPPHOLD_I_UTLANDET = 'mottarUfoeretrygdFraNAVUnderOppholdIUtlandet',
   MOTTAR_PENSJON_FRA_NORGE_UNDER_OPPHOLD_I_UTLANDET = 'mottarPensjonFraNorgeUnderOppholdIUtlandet',
 
   EOS_ANNEN_FORELDER_I_ARBEID = 'eosAnnenForelderIArbeid',
