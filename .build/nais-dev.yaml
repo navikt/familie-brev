@@ -46,6 +46,7 @@ spec:
       external:
         - host: appres.nav.no
         - host: xsrv1mh6.api.sanity.io
+        - host: xsrv1mh6.apicdn.sanity.io
   env:
     - name: APP_VERSION
       value: '{{version}}'
