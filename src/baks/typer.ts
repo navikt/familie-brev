@@ -93,13 +93,18 @@ export enum ValgfeltMuligheter {
   ARBEIDER_VED_UTENLANDSK_UTENRIKSSTASJON = 'arbeiderVedUtenlandskUtenriksstasjon',
   UTBETALING_FRA_NAV_I_UTLANDET = 'utbetalingFraNavUnderOppholdIUtlandet',
   IKKE_I_ARBEIDSAKTIVITET = 'ikkeIArbeidsaktivitet',
+  MOTTAR_UFØRETRYGD = 'mottarUfoeretrygd',
+
+  SØKER_MOTTAR_PENSJON = 'soekerMottarPensjon',
+  MOTTAR_UFØRETRYGD_FRA_NAV_UNDER_OPPHOLD_I_UTLANDET = 'mottarUfoeretrygdFraNAVUnderOppholdIUtlandet',
+  MOTTAR_PENSJON_FRA_NORGE_UNDER_OPPHOLD_I_UTLANDET = 'mottarPensjonFraNorgeUnderOppholdIUtlandet',
 
   EOS_ANNEN_FORELDER_I_ARBEID = 'eosAnnenForelderIArbeid',
   EOS_ANNEN_FORELDER_MOTTAR_UTBETALING = 'eosAnnenForelderMottarUtbetalingSomErstatterLonn',
   EOS_ANNEN_FORELDER_MOTTAR_PENSJON = 'eosAnnenForelderMottarPensjon',
   EOS_ANNEN_FORELDER_FORSIKRET = 'eosAnnenForelderForsikretIBostedsland',
   EOS_ANNEN_FORELDER_INAKTIV = 'eosAnnenForelderInaktiv',
-  EOS_ANNEN_FORELDER_UTSENDT_ARBEIDSTAKER = 'eosAnnenForelderUtsendtArbeidstaker'
+  EOS_ANNEN_FORELDER_UTSENDT_ARBEIDSTAKER = 'eosAnnenForelderUtsendtArbeidstaker',
 }
 
 export interface SpanBlock {
