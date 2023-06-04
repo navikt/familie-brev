@@ -62,6 +62,7 @@ export enum Valgfelttype {
   FRA_DATO = 'fraDato',
   DU_FÅR_ELLER_HAR_RETT_TIL_UTVIDET = 'duFaarEllerHarRettTilUtvidet',
   DU_ELLER_DU_OG_DEN_ANDRE_FORELDEREN = 'duEllerDuOgDenAndreForelderen',
+  DEG_DERE_ELLER_SEG = 'degDereEllerSeg',
 
   EOS_SOKERS_AKTIVITET_1 = 'eosSokersAktivitet1',
   EOS_SOKERS_AKTIVITET_2 = 'eosSokersAktivitet2',
