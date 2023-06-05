@@ -1,16 +1,10 @@
-import { Feil } from '../server/utils/Feil';
-import type {
-  BegrunnelseMedData,
-  FlettefeltBlock,
-  MarkDef,
-  ValgfeltBlock,
-  ValgfeltMuligheter,
-} from './typer';
-import { Valgfelttype } from './typer';
+import {Feil} from '../server/utils/Feil';
+import type {BegrunnelseMedData, FlettefeltBlock, MarkDef, ValgfeltBlock, ValgfeltMuligheter,} from './typer';
+import {Valgfelttype} from './typer';
 import {
   annenForeldersAktivitetValg,
   hentBarnetBarnaDineDittValg,
-  hentBarnetBarnaValg,
+  hentBarnetBarnaValg, hentDegDereEllerSegValg,
   hentDuEllerDuOgDenAndreForelderenValg,
   hentDuFårEllerHarRettTilUtvidetValg,
   hentDuOgEllerBarnFodtValg,
@@ -33,6 +27,8 @@ export const formaterValgfelt = (valgfeltBlock: ValgfeltBlock, data: Begrunnelse
       return valgfeltSerializer(valgfeltBlock, hentBarnetBarnaDineDittValg(data), data);
     case Valgfelttype.DU_OG_ELLER_BARN_FØDT:
       return valgfeltSerializer(valgfeltBlock, hentDuOgEllerBarnFodtValg(data), data);
+    case Valgfelttype.DEG_DERE_ELLER_SEG:
+      return valgfeltSerializer(valgfeltBlock, hentDegDereEllerSegValg(data), data)
     case Valgfelttype.DU_ELLER_DU_OG_DEN_ANDRE_FORELDEREN:
       return valgfeltSerializer(valgfeltBlock, hentDuEllerDuOgDenAndreForelderenValg(data), data);
     case Valgfelttype.FRA_DATO:
