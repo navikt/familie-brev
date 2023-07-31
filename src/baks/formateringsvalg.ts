@@ -101,6 +101,30 @@ export const hentDuOgEllerBarnFodtValg = (data: BegrunnelseMedData): ValgfeltMul
     }
   }
 };
+export const hentDegDereEllerSegValg = (data: BegrunnelseMedData): ValgfeltMuligheter => {
+  const valgfeltNavn = `'deg/dere eller seg'`;
+
+  if (data.type === Begrunnelsetype.EØS_BEGRUNNELSE) {
+    throw lagFeilStøttesIkkeForEØS(valgfeltNavn, data);
+  }
+
+  if (data.gjelderSoker) {
+    if (data.antallBarn === 0) {
+      return ValgfeltMuligheter.INGEN_BARN;
+    } else {
+      return ValgfeltMuligheter.SØKER_OG_BARN;
+    }
+  } else {
+    if (data.antallBarn === 0) {
+      throw new Feil(
+          `Må ha enten barn eller søker for å bruke ${valgfeltNavn} formulering for begrunnelse med apiNavn=${data.apiNavn}`,
+          400,
+      );
+    } else {
+      return ValgfeltMuligheter.KUN_BARN;
+    }
+  }
+};
 
 export const hentDuEllerDuOgDenAndreForelderenValg = (
   data: BegrunnelseMedData,
