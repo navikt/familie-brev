@@ -38,9 +38,16 @@ const DelmalSerializer = (props: IDelmalSerializerProps) => {
                 dokumentApiNavn: apiNavn,
               }),
             lenke: LenkeSerializer,
+            hoyrestill: (props: any) => <span className={'høyrestill'}>{props.children}</span>,
           },
           types: {
             undefined: (_: any) => <div />,
+            flettefelt: (props: any) =>
+              FlettefeltSerializer({
+                sanityProps: props,
+                flettefelter,
+                dokumentApiNavn: apiNavn,
+              }),
           },
         }}
       />
