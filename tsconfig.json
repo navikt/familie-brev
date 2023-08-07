@@ -11,8 +11,7 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "esModuleInterop": true,
-    "importsNotUsedAsValues": "error"
+    "esModuleInterop": true
   },
   "include": ["src"],
   "exclude": [
