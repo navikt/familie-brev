@@ -11,12 +11,13 @@
     "run:dev": "node --es-module-specifier-resolution=node dist/src/server/index.js",
     "test": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "kjør-prettier": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,css}\""
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,css}": [
       "prettier --write",
-      "eslint --fix src/"
+      "eslint --fix"
     ]
   },
   "dependencies": {
