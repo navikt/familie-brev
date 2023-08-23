@@ -278,14 +278,16 @@ export const logGenereringsrequestTilSecurelogger = <T>(
     `[${req.method} - ${req.originalUrl}] Genererer dokument ${dokumentApiNavn} i datasett ${datasett}.`,
     meta,
   );
-  logSecure(
-    `[${req.method} - ${
-      req.originalUrl
-    }] Genererer dokument ${dokumentApiNavn} i datasett ${datasett} med request-data: ${JSON.stringify(
-      data,
-    )}.`,
-    meta,
-  );
+  if (datasett !== 'ef-brev') {
+    logSecure(
+      `[${req.method} - ${
+        req.originalUrl
+      }] Genererer dokument ${dokumentApiNavn} i datasett ${datasett} med request-data: ${JSON.stringify(
+        data,
+      )}.`,
+      meta,
+    );
+  }
 };
 
 export default router;
