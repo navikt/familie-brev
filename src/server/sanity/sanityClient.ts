@@ -1,4 +1,4 @@
-import sanityClient from '@sanity/client';
+import { createClient } from "@sanity/client";
 
 const { NODE_ENV } = process.env;
 export enum Datasett {
@@ -12,8 +12,9 @@ export enum Datasett {
 }
 
 export const client = (dataset: Datasett) =>
-  sanityClient({
+  createClient({
     projectId: 'xsrv1mh6',
     dataset,
     useCdn: NODE_ENV === 'production',
+    maxRetries: 3
   });
