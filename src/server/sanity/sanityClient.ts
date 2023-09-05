@@ -1,6 +1,7 @@
-import { createClient } from "@sanity/client";
+import { createClient } from '@sanity/client';
 
 const { NODE_ENV } = process.env;
+
 export enum Datasett {
   TEST = 'testdata',
   EF = 'ef-brev',
@@ -16,5 +17,5 @@ export const client = (dataset: Datasett) =>
     projectId: 'xsrv1mh6',
     dataset,
     useCdn: NODE_ENV === 'production',
-    maxRetries: 3
+    maxRetries: 3,
   });
