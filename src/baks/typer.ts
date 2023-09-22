@@ -25,8 +25,8 @@ export interface IStandardbegrunnelsedata {
 
 export interface IEØSBegrunnelsedata {
   apiNavn: string;
-  sokersAktivitet: SøkersAktivitet;
-  annenForeldersAktivitet: AnnenForeldersAktivitet;
+  sokersAktivitet: Aktivitet;
+  annenForeldersAktivitet: Aktivitet;
   annenForeldersAktivitetsland?: string;
   sokersAktivitetsland?: string;
   barnetsBostedsland: string;
@@ -155,7 +155,7 @@ export enum Begrunnelsetype {
   FRITEKST = 'FRITEKST',
 }
 
-export enum SøkersAktivitet {
+export enum Aktivitet {
   ARBEIDER = 'ARBEIDER',
   SELVSTENDIG_NÆRINGSDRIVENDE = 'SELVSTENDIG_NÆRINGSDRIVENDE',
   MOTTAR_UTBETALING_SOM_ERSTATTER_LØNN = 'MOTTAR_UTBETALING_SOM_ERSTATTER_LØNN',
@@ -170,14 +170,8 @@ export enum SøkersAktivitet {
   MOTTAR_UFØRETRYGD_FRA_NAV_UNDER_OPPHOLD_I_UTLANDET = 'MOTTAR_UFØRETRYGD_FRA_NAV_UNDER_OPPHOLD_I_UTLANDET',
   MOTTAR_PENSJON_FRA_NAV_UNDER_OPPHOLD_I_UTLANDET = 'MOTTAR_PENSJON_FRA_NAV_UNDER_OPPHOLD_I_UTLANDET',
   INAKTIV = 'INAKTIV',
-}
-
-export enum AnnenForeldersAktivitet {
   I_ARBEID = 'I_ARBEID',
-  MOTTAR_UTBETALING_SOM_ERSTATTER_LØNN = 'MOTTAR_UTBETALING_SOM_ERSTATTER_LØNN',
   FORSIKRET_I_BOSTEDSLAND = 'FORSIKRET_I_BOSTEDSLAND',
-  MOTTAR_PENSJON = 'MOTTAR_PENSJON',
-  INAKTIV = 'INAKTIV',
   IKKE_AKTUELT = 'IKKE_AKTUELT',
   UTSENDT_ARBEIDSTAKER = 'UTSENDT_ARBEIDSTAKER',
 }
