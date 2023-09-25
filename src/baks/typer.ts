@@ -100,12 +100,26 @@ export enum ValgfeltMuligheter {
   MOTTAR_UFØRETRYGD_FRA_NAV_UNDER_OPPHOLD_I_UTLANDET = 'mottarUfoeretrygdFraNAVUnderOppholdIUtlandet',
   MOTTAR_PENSJON_FRA_NORGE_UNDER_OPPHOLD_I_UTLANDET = 'mottarPensjonFraNorgeUnderOppholdIUtlandet',
 
+  I_ARBEID = 'iArbeid',
+  FORSIKRET_I_BOSTEDSLAND = 'forsikretIBostedsland',
+  UTSENDT_ARBEIDSTAKER = 'utsendtArbeidstaker',
+
   EOS_ANNEN_FORELDER_I_ARBEID = 'eosAnnenForelderIArbeid',
   EOS_ANNEN_FORELDER_MOTTAR_UTBETALING = 'eosAnnenForelderMottarUtbetalingSomErstatterLonn',
   EOS_ANNEN_FORELDER_MOTTAR_PENSJON = 'eosAnnenForelderMottarPensjon',
   EOS_ANNEN_FORELDER_FORSIKRET = 'eosAnnenForelderForsikretIBostedsland',
   EOS_ANNEN_FORELDER_INAKTIV = 'eosAnnenForelderInaktiv',
   EOS_ANNEN_FORELDER_UTSENDT_ARBEIDSTAKER = 'eosAnnenForelderUtsendtArbeidstaker',
+  EOS_ANNEN_FORELDER_ARBEIDER = 'eosAnnenForelderArbeider',
+  EOS_ANNEN_FORELDER_MOTTAR_UFOERETRYGD = 'eosAnnenForelderMottarUfoeretrygd',
+  EOS_ANNEN_FORELDER_UTSENDT_ARBEIDSTAKER_FRA_NORGE = 'eosAnnenForelderUtsendtArbeidstakerFraNorge',
+  EOS_ANNEN_FORELDER_ARBEIDER_PA_NORSKREGISTRERT_SKIP = 'eosAnnenForelderArbeiderPaNorskregistrertSkip',
+  EOS_ANNEN_FORELDER_ARBEIDER_PA_NORSK_SOKKEL = 'eosAnnenForelderArbeiderPaNorskSokkel',
+  EOS_ANNEN_FORELDER_ARBEIDER_FOR_NORSK_FLYSELSKAP = 'eosAnnenForelderArbeiderForNorskFlyselskap',
+  EOS_ANNEN_FORELDER_ARBEIDER_VED_UTENLANDSK_UTENRIKSSTASJON = 'eosAnnenForelderArbeiderVedUtenlandskUtenriksstasjon',
+  EOS_ANNEN_FORELDER_MOTTAR_PENSJON_FRA_NAV_UNDER_OPPHOLD_I_UTLANDET = 'eosAnnenForelderMottarPensjonFraNavUnderOppholdIUtlandet',
+  EOS_ANNEN_FORELDER_MOTTAR_UTBETALING_FRA_NAV_UNDER_OPPHOLD_I_UTLANDET = 'eosAnnenForelderMottarUtbetalingFraNavUnderOppholdIUtlandet',
+  EOS_ANNEN_FORELDER_MOTTAR_UFOERETRYGD_FRA_NAV_UNDER_OPPHOLD_I_UTLANDET = 'eosAnnenForelderMottarUfoeretrygdFraNavUnderOppholdIUtlandet',
 }
 
 export interface SpanBlock {
