@@ -8,9 +8,9 @@ export const hentAvansertDokumentNavn = async (
 ): Promise<string> => {
   let query;
   if (hentUpubliserte === 'true') {
-    query = `*[_type == "dokumentmal"]{visningsnavn, apiNavn, overgangsstonad, barnetilsyn, skolepenger, frittstaendeBrev }`;
+    query = `*[_type == "dokumentmal"]{visningsnavn, prioriteringsnummer, apiNavn, overgangsstonad, barnetilsyn, skolepenger, frittstaendeBrev }`;
   } else {
-    query = `*[_type == "dokumentmal" && publisert == true]{visningsnavn, apiNavn, overgangsstonad, barnetilsyn, skolepenger, frittstaendeBrev}`;
+    query = `*[_type == "dokumentmal" && publisert == true]{visningsnavn, prioriteringsnummer, apiNavn, overgangsstonad, barnetilsyn, skolepenger, frittstaendeBrev}`;
   }
 
   return client(datasett)
