@@ -12,7 +12,10 @@
     "test": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
     "prepare": "husky install",
-    "kjør-prettier": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,css}\""
+    "kjør-prettier": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,css}\"",
+    "typecheck": "tsc --noEmit --skipLibCheck",
+    "eslint-check": "eslint .",
+    "prettier-check": "prettier --check ."
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,css}": [
