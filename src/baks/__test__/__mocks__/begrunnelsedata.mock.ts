@@ -25,4 +25,4 @@ export const mockBegrunnelsedata = ({
     antallBarn,
     maanedOgAarBegrunnelsenGjelderFor,
     maalform,
-  } as IStandardbegrunnelsedata);
+  }) as IStandardbegrunnelsedata;
