@@ -9,3 +9,4 @@
 /plugins/
 /dist/
 /.idea/
+.eslintrc
