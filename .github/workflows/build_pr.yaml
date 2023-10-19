@@ -1,6 +1,7 @@
 name: Bygg PR
 
 on:
+  merge_group:
   pull_request:
     types: [ opened, synchronize, reopened, ready_for_review ]
 
@@ -10,9 +11,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          cache: yarn
+          node-version: 20
           registry-url: "https://npm.pkg.github.com"
       - name: Yarn build
         env:
@@ -21,3 +25,69 @@ jobs:
           yarn
           yarn test
           yarn build
+
+  eslint:
+    name: ⬣ ESLint
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v4
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v3
+        with:
+          cache: yarn
+          node-version: 20
+          registry-url: "https://npm.pkg.github.com"
+
+      - name: 📥 Install deps
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+        run: yarn
+
+      - name: 🔬 Kjør sjekk med esLint
+        run: yarn eslint-check
+
+  lint:
+    name: ✨ Prettier
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v4
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v3
+        with:
+          cache: yarn
+          node-version: 20
+          registry-url: "https://npm.pkg.github.com"
+
+      - name: 📥 Install deps
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+        run: yarn
+
+      - name: 🔬 Kjør sjekk med prettier
+        run: yarn prettier-check
+
+  typecheck:
+    name: ʦ TypeScript
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v4
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v3
+        with:
+          cache: yarn
+          node-version: 20
+          registry-url: "https://npm.pkg.github.com"
+
+      - name: 📥 Install deps
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+        run: yarn
+
+      - name: 🔎 Type check
+        run: yarn typecheck

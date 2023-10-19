@@ -3,9 +3,7 @@
 *.yaml
 *.yml
 *.md
-*.css
 /node_modules/
 /plugins/
 /dist/
 /.idea/
-.eslintrc

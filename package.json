@@ -7,12 +7,16 @@
     "start": "NODE_ENV=production node --es-module-specifier-resolution=node dist/src/server/index.js",
     "build": "tsc -p tsconfig.json",
     "start:dev": "nodemon -e ts,tsx --exec \"yarn build:dev && yarn run:dev\"",
+    "dev": "yarn start:dev",
     "build:dev": "tsc -p tsconfig.json",
     "run:dev": "node --es-module-specifier-resolution=node dist/src/server/index.js",
     "test": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
     "prepare": "husky install",
-    "kjør-prettier": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,css}\""
+    "kjør-prettier": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,css}\"",
+    "typecheck": "tsc --noEmit --skipLibCheck",
+    "eslint-check": "eslint .",
+    "prettier-check": "prettier --check ."
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,css}": [
@@ -40,6 +44,8 @@
     "@types/react": "^18.2.18",
     "@types/react-dom": "^18.2.7",
     "@types/styled-components": "^5.1.26",
+    "@typescript-eslint/eslint-plugin": "^6.7.5",
+    "@typescript-eslint/parser": "^6.7.5",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-import": "^2.28.0",
