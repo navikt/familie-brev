@@ -3,7 +3,6 @@
 *.yaml
 *.yml
 *.md
-*.html
 *.css
 /node_modules/
 /plugins/
