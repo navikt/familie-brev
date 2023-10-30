@@ -1,6 +1,6 @@
 import express from 'express';
 import path from 'path';
-import routes from './routes';
+import routes from '../routes';
 import dotenv from 'dotenv';
 import { logInfo } from '@navikt/familie-logging';
 

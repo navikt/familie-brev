@@ -3,7 +3,6 @@ import {
   studietypeTilTekst,
   type IInnvilgeVedtakSkolepenger,
   type ISøknadsdatoer,
-  IDelårsperiodeSkoleårDto,
 } from '../../../typer/dokumentApi';
 import { parseOgFormaterÅrMåned, tilSkoleår } from '../../utils/util';
 import { Begrunnelse } from '../InnvilgeVedtak/Begrunnelse';
