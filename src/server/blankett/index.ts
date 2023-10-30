@@ -1,15 +1,13 @@
 import express from 'express';
 import path from 'path';
 import routes from './routes';
-import ksSakEndepunkter from '../baks/ksSakEndepunkter';
-import baSakEndepunkter from '../baks/baSakEndepunkter';
 import dotenv from 'dotenv';
 import { logInfo } from '@navikt/familie-logging';
 
 dotenv.config();
 export const { NODE_ENV } = process.env;
 
-const buildDir = path.join(process.cwd() + '/public');
+const buildDir = path.join(process.cwd() + '/build');
 const app = express();
 
 if (NODE_ENV === 'production') {
@@ -18,15 +16,6 @@ if (NODE_ENV === 'production') {
 
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true }));
-
-app.use('/api', routes);
-app.use('/ba-sak', baSakEndepunkter);
-app.use('/ks-sak', ksSakEndepunkter);
-
-const port = 8001;
-app.listen(port, () => {
-  logInfo(`Server now listening on port: ${port}`);
-});
 
 app.use(function (req, res, next) {
   const acceptedOrigins = [
@@ -46,4 +35,11 @@ app.use(function (req, res, next) {
   res.setHeader('Access-Control-Allow-Credentials', 'true');
 
   next();
+});
+
+app.use('/api', routes);
+/* TODO : Fjern hardkoding av port */
+const port = 8033;
+app.listen(port, () => {
+  logInfo(`Server now listening on port: ${port}`);
 });

@@ -59,4 +59,41 @@ export default `
     white-space: normal;
   }
   
+
+.delvilkår {
+  margin-bottom: 5px;
+}
+
+.vilkårsresultat {
+  font-size: 1.2rem;
+  margin-bottom: 16px;
+  margin-top: 10px;
+}
+
+.page-break {
+  page-break-inside: avoid;
+}
+
+.vilkårsresultat-ikon {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  position: relative;
+  top: 5px;
+  margin:0;
+  padding:0;
+}
+
+h3, h4 {
+  margin-bottom: 3px;
+}
+
+table, th, td {
+border: 1px solid black;
+border-collapse: collapse;
+}
+
+td, th {
+padding: 0.5rem
+}
 `;

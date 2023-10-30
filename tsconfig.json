@@ -11,7 +11,9 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+
+    "verbatimModuleSyntax": false
   },
   "include": ["src"],
   "exclude": [
