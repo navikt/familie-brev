@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import Dokument from '../components/blankett/Dokument';
 import { renderToStaticMarkup } from 'react-dom/server';
 import css from '../utils/css';

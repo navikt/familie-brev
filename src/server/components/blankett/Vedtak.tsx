@@ -1,17 +1,17 @@
 import React from 'react';
-import type {
-  IInnvilgeVedtakBarnetilsyn,
-  IInnvilgeVedtakOvergangsstønad,
-  IInnvilgeVedtakSkolepenger,
-  ISøknadsdatoer,
-  IVedtak,
-} from '../../typer/dokumentApi';
-import { EBehandlingResultat, EBehandlingÅrsak, EStønadType } from '../../typer/dokumentApi';
 import { AvslåVedtak } from './AvslåVedtak';
 import { InnvilgetOvergangsstønad } from './InnvilgetOvergangsstønad';
 import { InnvilgetBarnetilsyn } from './InnvilgetBarnetilsyn';
 import { InnvilgetSkolepenger } from './InnvilgetSkolepenger';
 import { InnvilgetGOmregning } from './InnvilgetGOmregning';
+import type {
+  IVedtak,
+  ISøknadsdatoer,
+  IInnvilgeVedtakOvergangsstønad,
+  IInnvilgeVedtakBarnetilsyn,
+  IInnvilgeVedtakSkolepenger,
+} from '../../../typer/dokumentApi';
+import { EStønadType, EBehandlingÅrsak, EBehandlingResultat } from '../../../typer/dokumentApi';
 
 export const Vedtak: React.FC<{
   stønadstype: EStønadType;

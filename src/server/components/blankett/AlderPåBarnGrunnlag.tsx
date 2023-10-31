@@ -1,6 +1,6 @@
 import React from 'react';
-import type { IBarnMedSamvær } from '../../typer/dokumentApi';
-import { formaterNullableIsoDato } from '../utils/util';
+import type { IBarnMedSamvær } from '../../../typer/dokumentApi';
+import { formaterNullableIsoDato } from '../../utils/util';
 
 interface Props {
   barnMedSamvær: IBarnMedSamvær[];

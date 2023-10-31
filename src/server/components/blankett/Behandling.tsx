@@ -1,6 +1,6 @@
 import React from 'react';
-import type { IBehandling } from '../../typer/dokumentApi';
-import { behandlingÅrsakTilTekst } from '../../typer/dokumentApi';
+import type { IBehandling } from '../../../typer/dokumentApi';
+import { behandlingÅrsakTilTekst } from '../../../typer/dokumentApi';
 
 export const Behandling: React.FC<{ behandling: IBehandling }> = ({ behandling }) => {
   return (

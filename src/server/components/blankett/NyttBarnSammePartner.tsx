@@ -1,6 +1,6 @@
 import React from 'react';
-import type { IBarnMedSamvær } from '../../typer/dokumentApi';
 import AnnenForelder from './AnnenForelder';
+import type { IBarnMedSamvær } from '../../../typer/dokumentApi';
 
 interface Props {
   barnMedSamvær: IBarnMedSamvær[];

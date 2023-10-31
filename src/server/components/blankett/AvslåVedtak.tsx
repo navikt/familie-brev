@@ -1,6 +1,5 @@
 import React from 'react';
-import type { IAvslåVedtak } from '../../typer/dokumentApi';
-import { avslagÅrsakTilTekst } from '../../typer/dokumentApi';
+import { avslagÅrsakTilTekst, type IAvslåVedtak } from '../../../typer/dokumentApi';
 
 export const AvslåVedtak: React.FC<IAvslåVedtak> = ({ avslåÅrsak, avslåBegrunnelse }) => {
   return (

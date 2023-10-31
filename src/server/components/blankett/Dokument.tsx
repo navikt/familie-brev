@@ -1,11 +1,4 @@
 import React from 'react';
-import type { IDokumentData, IVilkårGrunnlag, IVurdering } from '../../typer/dokumentApi';
-import {
-  EBehandlingÅrsak,
-  Vilkår,
-  VilkårGruppe,
-  vilkårTypeTilTekst,
-} from '../../typer/dokumentApi';
 import Vilkårsvurdering from './Vilkårsvurdering';
 import Medlemskapsgrunnlag from './Medlemskapsgrunnlag';
 import LovligOppholdGrunnlag from './LovligOppholdGrunnlag';
@@ -18,6 +11,13 @@ import SagtOppEllerRedusertGrunnlag from './SagtOppEllerRedusertGrunnlag';
 import { Vedtak } from './Vedtak';
 import AlderPåBarnGrunnlag from './AlderPåBarnGrunnlag';
 import { TidligereHistorikk } from './TidligereHistorikk';
+import type { IDokumentData, IVurdering, IVilkårGrunnlag } from '../../../typer/dokumentApi';
+import {
+  VilkårGruppe,
+  Vilkår,
+  EBehandlingÅrsak,
+  vilkårTypeTilTekst,
+} from '../../../typer/dokumentApi';
 
 interface DokumentProps {
   dokumentData: IDokumentData;

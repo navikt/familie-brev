@@ -1,7 +1,7 @@
 import React from 'react';
-import type { IInnvilgeVedtakBarnetilsyn, ISøknadsdatoer } from '../../typer/dokumentApi';
-import { parseOgFormaterÅrMåned } from '../utils/util';
-import { Søknadsinformasjon } from './InnvilgeVedtak/Søknadsinformasjon';
+import type { IInnvilgeVedtakBarnetilsyn, ISøknadsdatoer } from '../../../typer/dokumentApi';
+import { parseOgFormaterÅrMåned } from '../../utils/util';
+import { Søknadsinformasjon } from '../InnvilgeVedtak/Søknadsinformasjon';
 
 export const InnvilgetBarnetilsyn: React.FC<{
   vedtak: IInnvilgeVedtakBarnetilsyn;
