@@ -1,16 +1,16 @@
 import React from 'react';
-import type { IVurdering } from '../../../typer/dokumentApi';
+import type { IVurdering } from '../../../../typer/dokumentApi';
 import {
   Vilkårsresultat,
   Vilkår,
   resultatTilTekst,
   delvilkårTypeTilTekst,
   svarIdTilTekst,
-} from '../../../typer/dokumentApi';
-import IkkeOppfylt from '../ikoner/IkkeOppfylt';
-import { IkkeVurdert } from '../ikoner/IkkeVurdert';
-import InfoIkon from '../ikoner/InfoIkon';
-import OppfyltIkon from '../ikoner/OppfyltIkon';
+} from '../../../../typer/dokumentApi';
+import IkkeOppfylt from '../../../components/ikoner/IkkeOppfylt';
+import { IkkeVurdert } from '../../../components/ikoner/IkkeVurdert';
+import InfoIkon from '../../../components/ikoner/InfoIkon';
+import OppfyltIkon from '../../../components/ikoner/OppfyltIkon';
 
 interface Props {
   vurdering: IVurdering;

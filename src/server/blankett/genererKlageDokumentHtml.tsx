@@ -6,8 +6,8 @@ import {
   KlageBehandling,
   KlageFormkrav,
   Klagevurdering,
-} from '../components/blankett/KlageBehandling';
-import Header from '../components/blankett/Header';
+} from './components/blankett/KlageBehandling';
+import Header from './components/blankett/Header';
 import css from '../utils/css';
 import { datoFormat } from '../utils/util';
 enum HtmlLang {

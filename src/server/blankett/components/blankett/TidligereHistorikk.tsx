@@ -1,12 +1,12 @@
 import React from 'react';
-import type { IGrunnlagsdataPeriodeHistorikk } from '../../../typer/dokumentApi';
+import type { IGrunnlagsdataPeriodeHistorikk } from '../../../../typer/dokumentApi';
 import {
   periodetypeTilTekst,
   type ITidligereVedtaksperioder,
   EPeriodetype,
-} from '../../../typer/dokumentApi';
-import { mapBooleanTilString } from '../../utils/util';
-import { formaterIsoDato } from '../../../utils/dato';
+} from '../../../../typer/dokumentApi';
+import { mapBooleanTilString } from '../../../utils/util';
+import { formaterIsoDato } from '../../../../utils/dato';
 
 export const TidligereHistorikk: React.FC<{
   tidligereVedtaksperioder: ITidligereVedtaksperioder | undefined;
