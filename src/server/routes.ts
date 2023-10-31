@@ -21,7 +21,7 @@ import { lagManueltBrevHtml } from './lagManueltBrevHtml';
 import { genererSøknadHtml } from './søknadgenerator';
 import fs from 'fs';
 
-import hentDokumentHtmlBlankett from './hentDokumentHtmlBlankett';
+import hentDokumentHtmlBlankett from './blankett/hentDokumentHtmlBlankett';
 import { genererPdfBlankett } from './utils/apiBlankett';
 import type { IKlageDokumentData } from '../typer/klageDokumentApi';
 import genererKlageDokumentHtml from './blankett/genererKlageDokumentHtml';
