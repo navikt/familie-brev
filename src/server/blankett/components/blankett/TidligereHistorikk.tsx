@@ -12,7 +12,7 @@ export const TidligereHistorikk: React.FC<{
   tidligereVedtaksperioder: ITidligereVedtaksperioder | undefined;
 }> = ({ tidligereVedtaksperioder }) => {
   const periodeHistorikkOvergangsstønad =
-    tidligereVedtaksperioder?.sak.periodeHistorikkOvergangsstønad;
+    tidligereVedtaksperioder?.sak?.periodeHistorikkOvergangsstønad;
 
   const TidligereHistorikk: React.FC = () => {
     return (
@@ -21,7 +21,7 @@ export const TidligereHistorikk: React.FC<{
         <h3>Overgangsstønad</h3>
         <div>
           <strong>Historikk i EF Sak:</strong>{' '}
-          {mapBooleanTilString(tidligereVedtaksperioder?.sak.harTidligereOvergangsstønad)}
+          {mapBooleanTilString(tidligereVedtaksperioder?.sak?.harTidligereOvergangsstønad)}
         </div>
         <div>
           <strong>Historikk i Infotrygd:</strong>{' '}
@@ -33,7 +33,7 @@ export const TidligereHistorikk: React.FC<{
         <h3>Barnetilsyn</h3>
         <div>
           <strong>Historikk i EF Sak:</strong>{' '}
-          {mapBooleanTilString(tidligereVedtaksperioder?.sak.harTidligereBarnetilsyn)}
+          {mapBooleanTilString(tidligereVedtaksperioder?.sak?.harTidligereBarnetilsyn)}
         </div>
         <div>
           <strong>Historikk i Infotrygd:</strong>{' '}
@@ -42,7 +42,7 @@ export const TidligereHistorikk: React.FC<{
         <h3>Skolepenger</h3>
         <div>
           <strong>Historikk i EF Sak:</strong>{' '}
-          {mapBooleanTilString(tidligereVedtaksperioder?.sak.harTidligereSkolepenger)}
+          {mapBooleanTilString(tidligereVedtaksperioder?.sak?.harTidligereSkolepenger)}
         </div>
         <div>
           <strong>Historikk i Infotrygd:</strong>{' '}
