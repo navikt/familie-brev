@@ -1,8 +1,8 @@
 import React from 'react';
-import type { IInnvilgeVedtakOvergangsstønad } from '../../../../typer/dokumentApi';
-import { Begrunnelse } from '../../../components/InnvilgeVedtak/Begrunnelse';
-import { Inntektsperioder } from '../../../components/InnvilgeVedtak/Inntektsperioder';
-import { Vedtaksperioder } from '../../../components/InnvilgeVedtak/Vedtaksperioder';
+import type { IInnvilgeVedtakOvergangsstønad } from '../../../typer/dokumentApi';
+import { Begrunnelse } from './InnvilgeVedtak/Begrunnelse';
+import { Inntektsperioder } from './InnvilgeVedtak/Inntektsperioder';
+import { Vedtaksperioder } from './InnvilgeVedtak/Vedtaksperioder';
 
 export const InnvilgetGOmregning: React.FC<{
   vedtak: IInnvilgeVedtakOvergangsstønad;

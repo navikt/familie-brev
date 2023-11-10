@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { formaterIsoDatoTid, formaterIsoDato } from '../../../utils/util';
-import type { IVurdering } from '../../../../typer/klageDokumentApi';
+import { formaterIsoDatoTid, formaterIsoDato } from '../../utils/util';
+import type { IVurdering } from '../../../typer/klageDokumentApi';
 import type {
   IFormkravVilkår,
   IKlageBehandling,
   IPåklagetVedtak,
-} from '../../../../typer/klageDokumentApi';
+} from '../../../typer/klageDokumentApi';
 import {
   formVilkårTilTekst,
   EFormVilkår,
@@ -15,7 +15,7 @@ import {
   hjemmelTilTekst,
   årsakTilTekst,
   behandlingResultatTilTekst,
-} from '../../../../typer/klageDokumentApi';
+} from '../../../typer/klageDokumentApi';
 
 const påklagetVedtak = (påklagetVedtak?: IPåklagetVedtak) => {
   if (!påklagetVedtak) {

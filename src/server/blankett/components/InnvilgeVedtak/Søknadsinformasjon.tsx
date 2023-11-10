@@ -1,5 +1,5 @@
 import React from 'react';
-import { formaterNullableIsoDato, formaterNullableMånedÅr } from '../../utils/util';
+import { formaterNullableIsoDato, formaterNullableMånedÅr } from '../../../utils/util';
 
 export const Søknadsinformasjon: React.FC<{
   søknadsdato: string;

@@ -1,6 +1,6 @@
 import React from 'react';
-import type { IInntekt } from '../../../typer/dokumentApi';
-import { formaterBeløp, parseOgFormaterÅrMåned } from '../../utils/util';
+import type { IInntekt } from '../../../../typer/dokumentApi';
+import { formaterBeløp, parseOgFormaterÅrMåned } from '../../../utils/util';
 
 export const Inntektsperioder: React.FC<{
   inntekter: IInntekt[];

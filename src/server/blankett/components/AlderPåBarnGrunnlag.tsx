@@ -1,7 +1,6 @@
 import React from 'react';
-import AnnenForelder from './AnnenForelder';
-import type { IBarnMedSamvær } from '../../../../typer/dokumentApi';
-import { formaterNullableIsoDato } from '../../../utils/util';
+import type { IBarnMedSamvær } from '../../../typer/dokumentApi';
+import { formaterNullableIsoDato } from '../../utils/util';
 
 interface Props {
   barnMedSamvær: IBarnMedSamvær[];
@@ -19,17 +18,7 @@ const navnPåBarnet = (barnMedSamvær: IBarnMedSamvær) => {
   return søknadsgrunnlag.erBarnetFødt ? 'Ikke utfylt' : 'Ikke født';
 };
 
-const bostedForBarn = (barnMedSamvær: IBarnMedSamvær) => {
-  if (barnMedSamvær.registergrunnlag.harSammeAdresse === true) {
-    return 'Registrert på søkers adresse';
-  } else if (barnMedSamvær.registergrunnlag.harSammeAdresse === false) {
-    return 'Ikke registrert på søkers adresse';
-  } else {
-    return 'Ukjent registeradresse';
-  }
-};
-
-const AleneomsorgGrunnlag: React.FC<Props> = ({ barnMedSamvær, barnId }) => {
+const AlderPåBarnGrunnlag: React.FC<Props> = ({ barnMedSamvær, barnId }) => {
   return (
     <>
       <h3>Registerdata</h3>
@@ -49,13 +38,6 @@ const AleneomsorgGrunnlag: React.FC<Props> = ({ barnMedSamvær, barnId }) => {
                   {formaterNullableIsoDato(barn.søknadsgrunnlag.fødselTermindato)}
                 </div>
               )}
-              <div>Bosted: {bostedForBarn(barn)} </div>
-              <AnnenForelder annenForelder={barn.registergrunnlag.forelder} />
-              <div>
-                Annen forelders adresse:{' '}
-                {barn.registergrunnlag?.forelder?.visningsadresse ||
-                  'Mangler gjeldende bostedsadresse'}
-              </div>
             </div>
           );
         })}
@@ -63,4 +45,4 @@ const AleneomsorgGrunnlag: React.FC<Props> = ({ barnMedSamvær, barnId }) => {
   );
 };
 
-export default AleneomsorgGrunnlag;
+export default AlderPåBarnGrunnlag;

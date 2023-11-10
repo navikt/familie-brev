@@ -2,12 +2,8 @@ import * as React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import type { IKlageDokumentData } from '../../typer/klageDokumentApi';
 import { stønadstypeTilTekst } from '../../typer/klageDokumentApi';
-import {
-  KlageBehandling,
-  KlageFormkrav,
-  Klagevurdering,
-} from './components/blankett/KlageBehandling';
-import Header from './components/blankett/Header';
+import { KlageBehandling, KlageFormkrav, Klagevurdering } from './components/KlageBehandling';
+import Header from './components/Header';
 import css from '../utils/css';
 import { datoFormat } from '../utils/util';
 enum HtmlLang {

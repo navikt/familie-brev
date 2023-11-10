@@ -1,6 +1,6 @@
 import React from 'react';
-import type { IMedlemskap } from '../../../../typer/dokumentApi';
-import { formaterNullableIsoDato } from '../../../utils/util';
+import type { IMedlemskap } from '../../../typer/dokumentApi';
+import { formaterNullableIsoDato } from '../../utils/util';
 
 interface Props {
   medlemskap: IMedlemskap;
