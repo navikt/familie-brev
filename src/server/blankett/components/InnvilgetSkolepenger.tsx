@@ -5,8 +5,8 @@ import {
   type ISøknadsdatoer,
 } from '../../../typer/dokumentApi';
 import { parseOgFormaterÅrMåned, tilSkoleår } from '../../utils/util';
-import { Begrunnelse } from './InnvilgeVedtak/Begrunnelse';
-import { Søknadsinformasjon } from './InnvilgeVedtak/Søknadsinformasjon';
+import { Begrunnelse } from './innvilgeVedtak/Begrunnelse';
+import { Søknadsinformasjon } from './innvilgeVedtak/Søknadsinformasjon';
 
 export const InnvilgetSkolepenger: React.FC<{
   vedtak: IInnvilgeVedtakSkolepenger;
