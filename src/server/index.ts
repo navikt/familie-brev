@@ -5,6 +5,7 @@ import ksSakEndepunkter from '../baks/ksSakEndepunkter';
 import baSakEndepunkter from '../baks/baSakEndepunkter';
 import dotenv from 'dotenv';
 import { logInfo } from '@navikt/familie-logging';
+import blankettRoutes from './blankett/blankettRoutes';
 
 dotenv.config();
 export const { NODE_ENV } = process.env;
@@ -22,28 +23,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api', routes);
 app.use('/ba-sak', baSakEndepunkter);
 app.use('/ks-sak', ksSakEndepunkter);
+app.use('/blankett', blankettRoutes);
 
 const port = 8001;
 app.listen(port, () => {
   logInfo(`Server now listening on port: ${port}`);
-});
-
-app.use(function (req, res, next) {
-  const acceptedOrigins = [
-    'http://localhost:8033',
-    'http://localhost:3000',
-    'https://familie-ef-blankett.intern.nav.no',
-  ];
-  const defaultAcceptedOrigin = 'https://familie-ef-blankett.intern.nav.no';
-  const origin = req.header('origin')?.toLowerCase();
-
-  res.setHeader(
-    'Access-Control-Allow-Origin',
-    origin && acceptedOrigins.includes(origin) ? origin : defaultAcceptedOrigin,
-  );
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
-
-  next();
 });
