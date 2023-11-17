@@ -29,3 +29,7 @@ Interne henvendelser kan sendes via Slack i kanalen #team-familie.
 
 * Hvis du skal legge til en ny delmal, og denne kun skal vises i gitte tilfeller, styrer du det ved å definere hvilke
   delmal-api-navn som kommer inn til endepunktet her i familie-brev.
+
+## Kode generert av GitHub Copilot
+
+Dette repoet bruker GitHub Copilot til å generere kode.
