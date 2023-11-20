@@ -7,7 +7,7 @@ interface Props {
 const SagtOppEllerRedusertGrunnlag: React.FC<Props> = ({ harAvsluttetArbeidsforhold }) => {
   return (
     <>
-      <h3>Registerdata</h3>
+      <h3 className={'blankett'}>Registerdata</h3>
       <div>
         Har avsluttet arbeidsforhold siste 6 mnd: {booleanTilTekst(harAvsluttetArbeidsforhold)}
       </div>

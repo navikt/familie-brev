@@ -12,9 +12,9 @@ export const InnvilgetBarnetilsyn: React.FC<{
 }> = ({ vedtak, søknadsdatoer }) => {
   const { perioder, perioderKontantstøtte, tilleggsstønad, begrunnelse } = vedtak;
   return (
-    <div className={'page-break'}>
+    <div className={'blankett-page-break'}>
       <h2>Vedtak</h2>
-      <h3>Resultat</h3>
+      <h3 className={'blankett'}>Resultat</h3>
       <div>Innvilge</div>
       {søknadsdatoer && (
         <Søknadsinformasjon
@@ -22,11 +22,11 @@ export const InnvilgetBarnetilsyn: React.FC<{
           søkerStønadFra={søknadsdatoer.søkerStønadFra}
         />
       )}
-      <h3>Vedtaksperiode</h3>
+      <h3 className={'blankett'}>Vedtaksperiode</h3>
       {perioder.map((periode, indeks) => {
         return (
           <div key={indeks}>
-            <h4>
+            <h4 className={'blankett'}>
               Fra og med {parseOgFormaterÅrMåned(periode.årMånedFra)} til og med{' '}
               {parseOgFormaterÅrMåned(periode.årMånedTil)}
             </h4>
@@ -35,16 +35,16 @@ export const InnvilgetBarnetilsyn: React.FC<{
           </div>
         );
       })}
-      <div className={'page-break'}>
-        <h4>Begrunnelse</h4>
+      <div className={'blankett-page-break'}>
+        <h4 className={'blankett'}>Begrunnelse</h4>
         <p style={{ whiteSpace: 'pre-wrap' }}>{begrunnelse}</p>
         {perioderKontantstøtte.length > 0 && (
           <>
-            <h3>Kontstøtte</h3>
+            <h3 className={'blankett'}>Kontstøtte</h3>
             {perioderKontantstøtte.map((kontantstøtte, indeks) => {
               return (
                 <div key={indeks}>
-                  <h4>
+                  <h4 className={'blankett'}>
                     Fra og med {parseOgFormaterÅrMåned(kontantstøtte.årMånedFra)} til og med{' '}
                     {parseOgFormaterÅrMåned(kontantstøtte.årMånedTil)}
                   </h4>
@@ -55,10 +55,10 @@ export const InnvilgetBarnetilsyn: React.FC<{
           </>
         )}
       </div>
-      <div className={'page-break'}>
+      <div className={'blankett-page-break'}>
         {tilleggsstønad && tilleggsstønad.harTilleggsstønad && (
           <>
-            <h3>Tilleggstønad</h3>
+            <h3 className={'blankett'}>Tilleggstønad</h3>
             {tilleggsstønad.perioder.length === 0 && (
               <div>
                 Stønaden skal ikke reduseres selv om bruker har søkt om eller fått utbetalt stønad
@@ -68,7 +68,7 @@ export const InnvilgetBarnetilsyn: React.FC<{
             {tilleggsstønad.perioder.map((tilleggstønadperiode, indeks) => {
               return (
                 <div key={indeks}>
-                  <h4>
+                  <h4 className={'blankett'}>
                     Fra og med {parseOgFormaterÅrMåned(tilleggstønadperiode.årMånedFra)} til og med{' '}
                     {parseOgFormaterÅrMåned(tilleggstønadperiode.årMånedTil)}
                   </h4>

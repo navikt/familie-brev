@@ -5,7 +5,7 @@ export const Begrunnelse: React.FC<{
 }> = ({ begrunnelse }) => {
   return (
     <>
-      <h4>Begrunnelse</h4>
+      <h4 className={'blankett'}>Begrunnelse</h4>
       <p style={{ whiteSpace: 'pre-wrap' }}>{begrunnelse}</p>
     </>
   );

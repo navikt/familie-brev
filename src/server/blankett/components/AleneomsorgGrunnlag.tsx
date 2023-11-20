@@ -32,13 +32,13 @@ const bostedForBarn = (barnMedSamvær: IBarnMedSamvær) => {
 const AleneomsorgGrunnlag: React.FC<Props> = ({ barnMedSamvær, barnId }) => {
   return (
     <>
-      <h3>Registerdata</h3>
+      <h3 className={'blankett'}>Registerdata</h3>
       {barnMedSamvær
         .filter(barn => barn.barnId === barnId)
         .map((barn, index) => {
           return (
             <div key={index}>
-              <h4>Navn: {navnPåBarnet(barn)}</h4>
+              <h4 className={'blankett'}>Navn: {navnPåBarnet(barn)}</h4>
               <div>
                 Fødsels eller D-nummer:{' '}
                 {barn.registergrunnlag.fødselsnummer || barn.søknadsgrunnlag.fødselsnummer}

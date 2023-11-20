@@ -14,9 +14,9 @@ export const InnvilgetOvergangsstønad: React.FC<{
 }> = ({ vedtak, søknadsdatoer }) => {
   const { periodeBegrunnelse, perioder, inntektBegrunnelse, inntekter } = vedtak;
   return (
-    <div className={'page-break'}>
+    <div className={'blankett-page-break'}>
       <h2>Vedtak</h2>
-      <h3>Resultat</h3>
+      <h3 className={'blankett'}>Resultat</h3>
       <div>Innvilge</div>
       {søknadsdatoer && (
         <Søknadsinformasjon
@@ -25,11 +25,11 @@ export const InnvilgetOvergangsstønad: React.FC<{
         />
       )}
       <Vedtaksperioder perioder={perioder} />
-      <div className={'page-break'}>
+      <div className={'blankett-page-break'}>
         <Begrunnelse begrunnelse={periodeBegrunnelse} />
         <Inntektsperioder inntekter={inntekter} />
       </div>
-      <div className={'page-break'}>
+      <div className={'blankett-page-break'}>
         <Begrunnelse begrunnelse={inntektBegrunnelse} />
       </div>
     </div>

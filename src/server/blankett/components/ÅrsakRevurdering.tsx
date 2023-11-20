@@ -9,9 +9,9 @@ export const ÅrsakRevurdering: React.FC<{ årsakRevurdering?: IÅrsakRevurderin
   årsakRevurdering,
 }) =>
   årsakRevurdering ? (
-    <div className={'page-break'}>
+    <div className={'blankett-page-break'}>
       <div>
-        <h3>Årsak revurdering:</h3>
+        <h3 className={'blankett'}>Årsak revurdering:</h3>
         <div>
           <strong>Årsak:</strong> {årsakRevuderingTilTekst[årsakRevurdering.årsak]}
         </div>

@@ -7,7 +7,7 @@ export const Søknadsinformasjon: React.FC<{
 }> = ({ søknadsdato, søkerStønadFra }) => {
   return (
     <>
-      <h3>Søknadsinformasjon</h3>
+      <h3 className={'blankett'}>Søknadsinformasjon</h3>
       <div>Søknadsdato: {formaterNullableIsoDato(søknadsdato)}</div>
       <div>Søker stønad fra: {formaterNullableMånedÅr(søkerStønadFra)}</div>
     </>

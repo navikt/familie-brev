@@ -8,11 +8,11 @@ export const Vedtaksperioder: React.FC<{
 }> = ({ perioder }) => {
   return (
     <>
-      <h3>Vedtaksperiode</h3>
+      <h3 className={'blankett'}>Vedtaksperiode</h3>
       {perioder.map((periode, indeks) => {
         return (
           <div key={indeks}>
-            <h4>
+            <h4 className={'blankett'}>
               Fra og med {parseOgFormaterÅrMåned(periode.årMånedFra)} til og med{' '}
               {parseOgFormaterÅrMåned(periode.årMånedTil)}
             </h4>

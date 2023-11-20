@@ -9,7 +9,7 @@ interface Props {
 const LovligOppholdGrunnlag: React.FC<Props> = ({ medlemskap }) => {
   return (
     <>
-      <h3>Registerdata</h3>
+      <h3 className={'blankett'}>Registerdata</h3>
       <div>Personstatus: {medlemskap.registergrunnlag.folkeregisterpersonstatus}</div>
       <div>Statsborgerskap: {medlemskap.registergrunnlag.nåværendeStatsborgerskap.join(', ')}</div>
 

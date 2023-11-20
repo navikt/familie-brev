@@ -36,9 +36,9 @@ const Vilkårsvurdering: React.FC<Props> = ({ vurdering }) => {
       : vurdering.resultat;
   return (
     <>
-      <div className={'vilkårsresultat'}>
+      <div className={'blankett-vilkårsresultat'}>
         <strong>Vilkårsvurdering</strong>: {resultatTilTekst[resultat]}{' '}
-        <div className={'vilkårsresultat-ikon'}>
+        <div className={'blankett-vilkårsresultat-ikon'}>
           <span style={{ paddingBottom: '20%' }}>{resultatIkon(resultat)}</span>
         </div>
       </div>
@@ -49,13 +49,13 @@ const Vilkårsvurdering: React.FC<Props> = ({ vurdering }) => {
         )
         .map((delvilkårsvurderinger, i) => {
           return (
-            <div className={'delvilkår'} key={i}>
+            <div className={'blankett-delvilkår'} key={i}>
               <span>
                 <strong>Delvurdering:</strong> {resultatTilTekst[delvilkårsvurderinger.resultat]}
               </span>
               {delvilkårsvurderinger.vurderinger.map((delvilkår, subIndex) => {
                 return (
-                  <div className={'delvilkår'} key={subIndex}>
+                  <div className={'blankett-delvilkår'} key={subIndex}>
                     <div>
                       {delvilkårTypeTilTekst[delvilkår.regelId]}{' '}
                       {delvilkår.svar ? svarIdTilTekst[delvilkår.svar] : 'Ikke besvart'}

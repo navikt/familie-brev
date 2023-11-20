@@ -13,9 +13,9 @@ export const InnvilgetSkolepenger: React.FC<{
   søknadsdatoer?: ISøknadsdatoer;
 }> = ({ vedtak, søknadsdatoer }) => {
   return (
-    <div className={'page-break'}>
+    <div className={'blankett-page-break'}>
       <h2>Vedtak</h2>
-      <h3>Resultat</h3>
+      <h3 className={'blankett'}>Resultat</h3>
       <div>Innvilge</div>
       {søknadsdatoer && (
         <>
@@ -30,8 +30,8 @@ export const InnvilgetSkolepenger: React.FC<{
         const skoleår = tilSkoleår(skoleårsperiode.perioder[0]?.årMånedFra);
         return (
           <div key={i}>
-            <h3>{`Utgifter til skoleåret ${skoleår}/${skoleår + 1}`}</h3>
-            <h4>Utgifter</h4>
+            <h3 className={'blankett'}>{`Utgifter til skoleåret ${skoleår}/${skoleår + 1}`}</h3>
+            <h4 className={'blankett'}>Utgifter</h4>
             <table>
               <thead>
                 <tr>
@@ -48,7 +48,7 @@ export const InnvilgetSkolepenger: React.FC<{
                 ))}
               </tbody>
             </table>
-            <h4>Studiebelastning</h4>
+            <h4 className={'blankett'}>Studiebelastning</h4>
             <table>
               <thead>
                 <tr>
@@ -72,7 +72,7 @@ export const InnvilgetSkolepenger: React.FC<{
           </div>
         );
       })}
-      <div className={'page-break'}>
+      <div className={'blankett-page-break'}>
         <Begrunnelse begrunnelse={vedtak.begrunnelse} />
       </div>
     </div>

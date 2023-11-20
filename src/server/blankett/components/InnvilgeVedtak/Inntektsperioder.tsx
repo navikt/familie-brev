@@ -7,11 +7,11 @@ export const Inntektsperioder: React.FC<{
 }> = ({ inntekter }) => {
   return (
     <>
-      <h3>Inntekt</h3>
+      <h3 className={'blankett'}>Inntekt</h3>
       {inntekter.map((inntekt, indeks) => {
         return (
           <div key={indeks}>
-            <h4>Fra og med {parseOgFormaterÅrMåned(inntekt.årMånedFra)}</h4>
+            <h4 className={'blankett'}>Fra og med {parseOgFormaterÅrMåned(inntekt.årMånedFra)}</h4>
             <div>Dagsats: {formaterBeløp(inntekt.dagsats || 0)}</div>
             <div>Månedsinntekt: {formaterBeløp(inntekt.månedsinntekt || 0)}</div>
             <div>Forventet inntekt (år): {formaterBeløp(inntekt.forventetInntekt || 0)}</div>

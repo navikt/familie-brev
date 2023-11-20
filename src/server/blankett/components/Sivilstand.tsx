@@ -11,7 +11,7 @@ const SivilstandGrunnlag: React.FC<Props> = ({ sivilstand }) => {
   const registergrunnlag = sivilstand.registergrunnlag;
   return (
     <>
-      <h3>Registerdata</h3>
+      <h3 className={'blankett'}>Registerdata</h3>
       <div>
         Sivilstatus: {sivilstandTilTekst[registergrunnlag.type]}
         {registergrunnlag.navn && ` - ${registergrunnlag.navn}`}
