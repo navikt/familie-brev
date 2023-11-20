@@ -2,7 +2,7 @@ import * as React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import type { IFritekstbrevMedSignatur } from '../typer/dokumentApi';
 import { Brevhode } from './components/Brevhode';
-import { dagensDatoFormatert } from '../utils/dato';
+import { dagensDatoFormatert } from './utils/util';
 import css from './utils/css';
 
 export const lagManueltBrevHtml = (brevMedSignatur: IFritekstbrevMedSignatur) => {

@@ -9,7 +9,7 @@ import css from './utils/css';
 import Header from './components/Header';
 import { Maalform } from '../typer/sanitygrensesnitt';
 import { DokumentType } from '../typer/dokumentType';
-import { dagensDatoFormatert } from '../utils/dato';
+import { dagensDatoFormatert } from './utils/util';
 
 enum HtmlLang {
   NB = 'nb',

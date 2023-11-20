@@ -5,8 +5,7 @@ import {
   type ITidligereVedtaksperioder,
   EPeriodetype,
 } from '../../../typer/dokumentApi';
-import { mapBooleanTilString } from '../../utils/util';
-import { formaterIsoDato } from '../../../utils/dato';
+import { formaterIsoDato, mapBooleanTilString } from '../../utils/util';
 
 export const TidligereHistorikk: React.FC<{
   tidligereVedtaksperioder: ITidligereVedtaksperioder | undefined;

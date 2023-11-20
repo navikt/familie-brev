@@ -11,6 +11,10 @@ export const månedÅrFormat: DateTimeFormatOptions = {
   year: 'numeric',
 };
 
+export const dagensDatoFormatert = (): string => {
+  return new Date().toLocaleDateString('no-NO', datoFormat);
+};
+
 export const formaterNullableIsoDato = (dato?: string): string | undefined =>
   dato && formaterIsoDato(dato);
 
