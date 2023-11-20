@@ -1,6 +1,9 @@
 import React from 'react';
-import type { IÅrsakRevurdering } from '../../../typer/dokumentApi';
-import { opplysningskildeTilTekst, årsakRevuderingTilTekst } from '../../../typer/dokumentApi';
+import type { IÅrsakRevurdering } from '../../../typer/dokumentApiBlankett';
+import {
+  opplysningskildeTilTekst,
+  årsakRevuderingTilTekst,
+} from '../../../typer/dokumentApiBlankett';
 
 export const ÅrsakRevurdering: React.FC<{ årsakRevurdering?: IÅrsakRevurdering }> = ({
   årsakRevurdering,

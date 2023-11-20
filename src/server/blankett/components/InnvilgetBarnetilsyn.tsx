@@ -1,5 +1,8 @@
 import React from 'react';
-import type { IInnvilgeVedtakBarnetilsyn, ISøknadsdatoer } from '../../../typer/dokumentApi';
+import type {
+  IInnvilgeVedtakBarnetilsyn,
+  ISøknadsdatoer,
+} from '../../../typer/dokumentApiBlankett';
 import { parseOgFormaterÅrMåned } from '../../utils/util';
 import { Søknadsinformasjon } from './InnvilgeVedtak/Søknadsinformasjon';
 

@@ -1,12 +1,12 @@
 import React from 'react';
-import type { IVurdering } from '../../../typer/dokumentApi';
+import type { IVurdering } from '../../../typer/dokumentApiBlankett';
 import {
   Vilkårsresultat,
   Vilkår,
   resultatTilTekst,
   delvilkårTypeTilTekst,
   svarIdTilTekst,
-} from '../../../typer/dokumentApi';
+} from '../../../typer/dokumentApiBlankett';
 import IkkeOppfylt from '../../components/ikoner/IkkeOppfylt';
 import { IkkeVurdert } from '../../components/ikoner/IkkeVurdert';
 import InfoIkon from '../../components/ikoner/InfoIkon';

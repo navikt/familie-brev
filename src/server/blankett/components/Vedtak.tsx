@@ -10,8 +10,12 @@ import type {
   IInnvilgeVedtakOvergangsstønad,
   IInnvilgeVedtakBarnetilsyn,
   IInnvilgeVedtakSkolepenger,
-} from '../../../typer/dokumentApi';
-import { EStønadType, EBehandlingÅrsak, EBehandlingResultat } from '../../../typer/dokumentApi';
+} from '../../../typer/dokumentApiBlankett';
+import {
+  EStønadType,
+  EBehandlingÅrsak,
+  EBehandlingResultat,
+} from '../../../typer/dokumentApiBlankett';
 
 export const Vedtak: React.FC<{
   stønadstype: EStønadType;

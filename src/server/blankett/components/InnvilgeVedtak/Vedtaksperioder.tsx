@@ -1,6 +1,6 @@
 import React from 'react';
-import type { IPeriode } from '../../../../typer/dokumentApi';
-import { aktivitetsTypeTilTekst, periodetypeTilTekst } from '../../../../typer/dokumentApi';
+import type { IPeriode } from '../../../../typer/dokumentApiBlankett';
+import { aktivitetsTypeTilTekst, periodetypeTilTekst } from '../../../../typer/dokumentApiBlankett';
 import { parseOgFormaterÅrMåned } from '../../../utils/util';
 
 export const Vedtaksperioder: React.FC<{

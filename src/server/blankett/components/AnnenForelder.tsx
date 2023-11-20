@@ -1,5 +1,5 @@
 import React from 'react';
-import type { IAnnenForelder } from '../../../typer/dokumentApi';
+import type { IAnnenForelder } from '../../../typer/dokumentApiBlankett';
 import { formaterNullableIsoDato } from '../../utils/util';
 
 interface AnnenForelderProps {

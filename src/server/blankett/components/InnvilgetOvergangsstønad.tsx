@@ -1,5 +1,8 @@
 import React from 'react';
-import type { IInnvilgeVedtakOvergangsstønad, ISøknadsdatoer } from '../../../typer/dokumentApi';
+import type {
+  IInnvilgeVedtakOvergangsstønad,
+  ISøknadsdatoer,
+} from '../../../typer/dokumentApiBlankett';
 import { Begrunnelse } from './InnvilgeVedtak/Begrunnelse';
 import { Inntektsperioder } from './InnvilgeVedtak/Inntektsperioder';
 import { Søknadsinformasjon } from './InnvilgeVedtak/Søknadsinformasjon';

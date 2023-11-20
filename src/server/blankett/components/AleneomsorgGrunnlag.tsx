@@ -1,6 +1,6 @@
 import React from 'react';
 import AnnenForelder from './AnnenForelder';
-import type { IBarnMedSamvær } from '../../../typer/dokumentApi';
+import type { IBarnMedSamvær } from '../../../typer/dokumentApiBlankett';
 import { formaterNullableIsoDato } from '../../utils/util';
 
 interface Props {

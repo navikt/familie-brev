@@ -1,10 +1,10 @@
 import React from 'react';
-import type { IGrunnlagsdataPeriodeHistorikk } from '../../../typer/dokumentApi';
+import type { IGrunnlagsdataPeriodeHistorikk } from '../../../typer/dokumentApiBlankett';
 import {
   periodetypeTilTekst,
   type ITidligereVedtaksperioder,
   EPeriodetype,
-} from '../../../typer/dokumentApi';
+} from '../../../typer/dokumentApiBlankett';
 import { formaterIsoDato, mapBooleanTilString } from '../../utils/util';
 
 export const TidligereHistorikk: React.FC<{

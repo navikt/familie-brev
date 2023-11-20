@@ -11,13 +11,17 @@ import SagtOppEllerRedusertGrunnlag from './SagtOppEllerRedusertGrunnlag';
 import { Vedtak } from './Vedtak';
 import AlderPåBarnGrunnlag from './AlderPåBarnGrunnlag';
 import { TidligereHistorikk } from './TidligereHistorikk';
-import type { IDokumentData, IVurdering, IVilkårGrunnlag } from '../../../typer/dokumentApi';
+import type {
+  IDokumentData,
+  IVurdering,
+  IVilkårGrunnlag,
+} from '../../../typer/dokumentApiBlankett';
 import {
   VilkårGruppe,
   Vilkår,
   EBehandlingÅrsak,
   vilkårTypeTilTekst,
-} from '../../../typer/dokumentApi';
+} from '../../../typer/dokumentApiBlankett';
 
 interface DokumentProps {
   dokumentData: IDokumentData;

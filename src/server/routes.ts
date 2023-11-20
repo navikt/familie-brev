@@ -8,7 +8,7 @@ import type {
   IDokumentData,
   IFritekstbrevMedSignatur,
   ISøknad,
-} from '../typer/dokumentApi';
+} from '../typer/dokumentApiBrev';
 import hentDokumentHtml from './hentDokumentHtml';
 import { genererPdf } from './utils/api';
 import { Feil } from './utils/Feil';

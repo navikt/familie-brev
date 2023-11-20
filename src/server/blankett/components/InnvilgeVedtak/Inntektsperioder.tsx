@@ -1,5 +1,5 @@
 import React from 'react';
-import type { IInntekt } from '../../../../typer/dokumentApi';
+import type { IInntekt } from '../../../../typer/dokumentApiBlankett';
 import { formaterBeløp, parseOgFormaterÅrMåned } from '../../../utils/util';
 
 export const Inntektsperioder: React.FC<{

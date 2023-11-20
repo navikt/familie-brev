@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Flettefelt, Flettefelter } from '../../../typer/dokumentApi';
+import type { Flettefelt, Flettefelter } from '../../../typer/dokumentApiBrev';
 import FlettefeltSerializer from './FlettefeltSerializer';
 import BlockSerializer from './BlockSerializer';
 import type { Maalform } from '../../../typer/sanitygrensesnitt';

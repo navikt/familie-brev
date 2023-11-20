@@ -1,4 +1,4 @@
-import type { IHtmlfelter } from '../../../typer/dokumentApi';
+import type { IHtmlfelter } from '../../../typer/dokumentApiBrev';
 import React from 'react';
 import { Feil } from '../../utils/Feil';
 

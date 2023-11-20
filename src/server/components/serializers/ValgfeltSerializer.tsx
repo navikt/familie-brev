@@ -1,5 +1,5 @@
 import React from 'react';
-import type { IValg, IValgfelter } from '../../../typer/dokumentApi';
+import type { IValg, IValgfelter } from '../../../typer/dokumentApiBrev';
 import type { Datasett } from '../../sanity/sanityClient';
 import AvansertDokument from '../AvansertDokument';
 import type { Maalform } from '../../../typer/sanitygrensesnitt';

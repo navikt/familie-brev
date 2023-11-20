@@ -1,5 +1,5 @@
 import React from 'react';
-import type { IMedlemskap } from '../../../typer/dokumentApi';
+import type { IMedlemskap } from '../../../typer/dokumentApiBlankett';
 import { formaterNullableIsoDato } from '../../utils/util';
 
 interface Props {

@@ -1,4 +1,4 @@
-import type { IDelmaler } from '../../../typer/dokumentApi';
+import type { IDelmaler } from '../../../typer/dokumentApiBrev';
 import { Feil } from '../Feil';
 
 export default (

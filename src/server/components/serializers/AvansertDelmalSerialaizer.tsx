@@ -1,5 +1,5 @@
 import React from 'react';
-import type { IAvansertDokumentVariabler, IDelmaler } from '../../../typer/dokumentApi';
+import type { IAvansertDokumentVariabler, IDelmaler } from '../../../typer/dokumentApiBrev';
 import type { Datasett } from '../../sanity/sanityClient';
 import AvansertDokument from '../AvansertDokument';
 import type { Maalform } from '../../../typer/sanitygrensesnitt';

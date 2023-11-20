@@ -6,8 +6,8 @@ import Header from './components/Header';
 import { datoFormat } from '../utils/util';
 import { Behandling } from './components/Behandling';
 import { ÅrsakRevurdering } from './components/ÅrsakRevurdering';
-import type { IDokumentData } from '../../typer/dokumentApi';
-import { stønadstypeTilTekst } from '../../typer/dokumentApi';
+import type { IDokumentData } from '../../typer/dokumentApiBlankett';
+import { stønadstypeTilTekst } from '../../typer/dokumentApiBlankett';
 
 enum HtmlLang {
   NB = 'nb',

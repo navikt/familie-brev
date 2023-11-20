@@ -1,5 +1,5 @@
 import React from 'react';
-import type { IAvansertDokumentVariabler } from '../../typer/dokumentApi';
+import type { IAvansertDokumentVariabler } from '../../typer/dokumentApiBrev';
 import { hentAvansertDokumentQuery } from '../sanity/Queries';
 import type { Datasett } from '../sanity/sanityClient';
 import { client } from '../sanity/sanityClient';

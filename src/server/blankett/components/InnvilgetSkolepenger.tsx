@@ -3,7 +3,7 @@ import {
   studietypeTilTekst,
   type IInnvilgeVedtakSkolepenger,
   type ISøknadsdatoer,
-} from '../../../typer/dokumentApi';
+} from '../../../typer/dokumentApiBlankett';
 import { parseOgFormaterÅrMåned, tilSkoleår } from '../../utils/util';
 import { Begrunnelse } from './InnvilgeVedtak/Begrunnelse';
 import { Søknadsinformasjon } from './InnvilgeVedtak/Søknadsinformasjon';
