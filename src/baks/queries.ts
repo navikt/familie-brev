@@ -1,25 +1,6 @@
 import { hentDelmalQuery } from '../server/sanity/Queries';
 import { Datasett } from '../server/sanity/sanityClient';
 
-export const hentBaBegrunnelserQuery = () => `
- *[_type == "begrunnelse"]{
-     apiNavn,
-     navnISystem,
-     hjemler,
-     vilkaar,  
-     rolle,   
-     lovligOppholdTriggere,
-     bosattIRiketTriggere,
-     giftPartnerskapTriggere,
-     borMedSokerTriggere,
-     ovrigeTriggere,
-     endretUtbetalingsperiodeTriggere,
-     endretUtbetalingsperiodeDeltBostedUtbetalingTrigger,
-     endringsaarsaker,
-     utvidetBarnetrygdTriggere
- }
-`;
-
 export const hentKsBegrunnelserQuery = () => `
  *[_type == "ksBegrunnelse"]
 `;
