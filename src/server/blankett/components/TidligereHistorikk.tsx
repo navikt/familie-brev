@@ -17,7 +17,7 @@ export const TidligereHistorikk: React.FC<{
     return (
       <>
         <p>Har bruker tidligere vedtaksperioder i EF Sak eller Infotrygd?</p>
-        <h3>Overgangsstønad</h3>
+        <h3 className={'blankett'}>Overgangsstønad</h3>
         <div>
           <strong>Historikk i EF Sak:</strong>{' '}
           {mapBooleanTilString(tidligereVedtaksperioder?.sak?.harTidligereOvergangsstønad)}
@@ -29,7 +29,7 @@ export const TidligereHistorikk: React.FC<{
         <TidligereHistorikkOvergangsstønadTabell
           periodeHistorikkOvergangsstønad={periodeHistorikkOvergangsstønad}
         />
-        <h3>Barnetilsyn</h3>
+        <h3 className={'blankett'}>Barnetilsyn</h3>
         <div>
           <strong>Historikk i EF Sak:</strong>{' '}
           {mapBooleanTilString(tidligereVedtaksperioder?.sak?.harTidligereBarnetilsyn)}
@@ -41,7 +41,7 @@ export const TidligereHistorikk: React.FC<{
         <TidligereHistorikkBarnetilsynTabell
           periodeHistorikkBarnetilsyn={periodeHistorikkBarnetilsyn}
         />
-        <h3>Skolepenger</h3>
+        <h3 className={'blankett'}>Skolepenger</h3>
         <div>
           <strong>Historikk i EF Sak:</strong>{' '}
           {mapBooleanTilString(tidligereVedtaksperioder?.sak?.harTidligereSkolepenger)}
@@ -61,7 +61,7 @@ export const TidligereHistorikk: React.FC<{
 
   return (
     <>
-      <h3>Registerdata</h3>
+      <h3 className={'blankett'}>Registerdata</h3>
       <TidligereHistorikk />
     </>
   );
