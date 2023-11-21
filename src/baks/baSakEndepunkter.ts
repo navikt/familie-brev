@@ -1,7 +1,6 @@
 import type { Request, Response } from 'express';
 import { client } from '../server/sanity/sanityClient';
 import {
-  hentBaBegrunnelserQuery,
   hentBegrunnelseQuery,
   hentBegrunnelserAvTypeQuery,
   hentBegrunnelserForVilkårQuery,
@@ -25,10 +24,6 @@ const { BA_DATASETT } = hentMiljøvariabler();
 
 router.get('/status', (_, res) => {
   res.status(200).end();
-});
-
-router.get('/begrunnelser', async (_: Request, res: Response) => {
-  res.status(200).send(await client(BA_DATASETT).fetch(hentBaBegrunnelserQuery()));
 });
 
 router.get('/begrunnelser/av-type/:type', async (req: Request, res: Response) => {
