@@ -1,5 +1,5 @@
 import React from 'react';
-import type { IFritekstområder } from '../../../typer/dokumentApi';
+import type { IFritekstområder } from '../../../typer/dokumentApiBrev';
 
 interface IFritekstområdeSerializerProps {
   sanityProps: any;

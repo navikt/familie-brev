@@ -1,5 +1,5 @@
 import React from 'react';
-import type { IDokumentData, IDokumentDataMedPeriode } from '../../typer/dokumentApi';
+import type { IDokumentData, IDokumentDataMedPeriode } from '../../typer/dokumentApiBrev';
 import { hentDokumentQuery } from '../sanity/Queries';
 import type { Datasett } from '../sanity/sanityClient';
 import { client } from '../sanity/sanityClient';

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import type { IDokumentData } from '../typer/dokumentApi';
+import type { IDokumentData } from '../typer/dokumentApiBrev';
 import Dokument from './components/Dokument';
 import type { Datasett } from './sanity/sanityClient';
 import { client } from './sanity/sanityClient';

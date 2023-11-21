@@ -13,7 +13,7 @@ import {
 import { Feil } from '../server/utils/Feil';
 import { logError, logSecure } from '@navikt/familie-logging';
 import { hentMiljøvariabler } from '../server/environment';
-import { escape } from '../utils/escapeString';
+import { escape } from '../server/utils/escapeString';
 
 const router = express.Router();
 

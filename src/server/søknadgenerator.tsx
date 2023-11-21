@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import type { ISøknad, IVerdiliste } from '../typer/dokumentApi';
-import { dagensDatoFormatert } from '../utils/dato';
+import type { ISøknad, IVerdiliste } from '../typer/dokumentApiBrev';
+import { dagensDatoFormatert } from './utils/util';
 import css from './utils/css';
 import søknadCSS from './utils/soknad-css';
 import { NavIkon } from './components/ikoner/navIkon';

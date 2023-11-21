@@ -1,5 +1,5 @@
 import type { Maalform } from '../typer/sanitygrensesnitt';
-import type { Flettefelt } from '../typer/dokumentApi';
+import type { Flettefelt } from '../typer/dokumentApiBrev';
 
 export type Begrunnelse = IStandardbegrunnelsedata | IEØSBegrunnelsedata | IFritekst;
 export type BegrunnelseMedData = IStandardbegrunnelsedata | IEØSBegrunnelsedata;

@@ -1,5 +1,5 @@
 import React from 'react';
-import type { IAvansertDokumentVariabler } from '../../../typer/dokumentApi';
+import type { IAvansertDokumentVariabler } from '../../../typer/dokumentApiBrev';
 import type { Datasett } from '../../sanity/sanityClient';
 import ValgfeltSerializer from './ValgfeltSerializer';
 import type { Maalform } from '../../../typer/sanitygrensesnitt';

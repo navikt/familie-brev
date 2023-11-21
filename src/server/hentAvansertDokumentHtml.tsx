@@ -1,5 +1,5 @@
 import * as React from 'react';
-import type { IBrevMedSignatur } from '../typer/dokumentApi';
+import type { IBrevMedSignatur } from '../typer/dokumentApiBrev';
 import AvansertDokument from './components/AvansertDokument';
 import type { Datasett } from './sanity/sanityClient';
 import { client } from './sanity/sanityClient';
@@ -9,7 +9,7 @@ import css from './utils/css';
 import Header from './components/Header';
 import { Maalform } from '../typer/sanitygrensesnitt';
 import { DokumentType } from '../typer/dokumentType';
-import { dagensDatoFormatert } from '../utils/dato';
+import { dagensDatoFormatert } from './utils/util';
 
 enum HtmlLang {
   NB = 'nb',

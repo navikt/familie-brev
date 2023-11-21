@@ -8,7 +8,7 @@ import type {
 } from './typer';
 import { Feil } from '../server/utils/Feil';
 import { formaterFlettefelt, formaterValgfelt } from './formateringer';
-import { lagStorForbokstav } from '../utils/strenghåndtering';
+import { lagStorForbokstav } from '../server/utils/strenghåndtering';
 
 const begrunnelseSerializer = (
   blocks: BegrunnelseBlock[] | Record<string, never>,
