@@ -1,10 +1,10 @@
 import React from 'react';
-import type { IGrunnlagsdataPeriodeHistorikk } from '../../../typer/dokumentApiBlankett';
-import {
-  periodetypeTilTekst,
-  type ITidligereVedtaksperioder,
-  EPeriodetype,
+import type {
+  IGrunnlagsdataPeriodeHistorikkBarnetilsyn,
+  IGrunnlagsdataPeriodeHistorikkOvergangsstønad,
+  ITidligereVedtaksperioder,
 } from '../../../typer/dokumentApiBlankett';
+import { EPeriodetype, periodetypeTilTekst } from '../../../typer/dokumentApiBlankett';
 import { formaterIsoDato, mapBooleanTilString } from '../../utils/util';
 
 export const TidligereHistorikk: React.FC<{
@@ -12,12 +12,12 @@ export const TidligereHistorikk: React.FC<{
 }> = ({ tidligereVedtaksperioder }) => {
   const periodeHistorikkOvergangsstønad =
     tidligereVedtaksperioder?.sak?.periodeHistorikkOvergangsstønad;
-
+  const periodeHistorikkBarnetilsyn = tidligereVedtaksperioder?.sak?.periodeHistorikkBarnetilsyn;
   const TidligereHistorikk: React.FC = () => {
     return (
       <>
         <p>Har bruker tidligere vedtaksperioder i EF Sak eller Infotrygd?</p>
-        <h3 className={'blankett'}>Overgangsstønad</h3>
+        <h3>Overgangsstønad</h3>
         <div>
           <strong>Historikk i EF Sak:</strong>{' '}
           {mapBooleanTilString(tidligereVedtaksperioder?.sak?.harTidligereOvergangsstønad)}
@@ -29,7 +29,7 @@ export const TidligereHistorikk: React.FC<{
         <TidligereHistorikkOvergangsstønadTabell
           periodeHistorikkOvergangsstønad={periodeHistorikkOvergangsstønad}
         />
-        <h3 className={'blankett'}>Barnetilsyn</h3>
+        <h3>Barnetilsyn</h3>
         <div>
           <strong>Historikk i EF Sak:</strong>{' '}
           {mapBooleanTilString(tidligereVedtaksperioder?.sak?.harTidligereBarnetilsyn)}
@@ -38,7 +38,10 @@ export const TidligereHistorikk: React.FC<{
           <strong>Historikk i Infotrygd:</strong>{' '}
           {mapBooleanTilString(tidligereVedtaksperioder?.infotrygd.harTidligereBarnetilsyn)}
         </div>
-        <h3 className={'blankett'}>Skolepenger</h3>
+        <TidligereHistorikkBarnetilsynTabell
+          periodeHistorikkBarnetilsyn={periodeHistorikkBarnetilsyn}
+        />
+        <h3>Skolepenger</h3>
         <div>
           <strong>Historikk i EF Sak:</strong>{' '}
           {mapBooleanTilString(tidligereVedtaksperioder?.sak?.harTidligereSkolepenger)}
@@ -58,14 +61,14 @@ export const TidligereHistorikk: React.FC<{
 
   return (
     <>
-      <h3 className={'blankett'}>Registerdata</h3>
+      <h3>Registerdata</h3>
       <TidligereHistorikk />
     </>
   );
 };
 
 const TidligereHistorikkOvergangsstønadTabell: React.FC<{
-  periodeHistorikkOvergangsstønad: IGrunnlagsdataPeriodeHistorikk[] | undefined;
+  periodeHistorikkOvergangsstønad: IGrunnlagsdataPeriodeHistorikkOvergangsstønad[] | undefined;
 }> = ({ periodeHistorikkOvergangsstønad }) => {
   if (!periodeHistorikkOvergangsstønad || periodeHistorikkOvergangsstønad?.length < 1) return <></>;
 
@@ -77,9 +80,9 @@ const TidligereHistorikkOvergangsstønadTabell: React.FC<{
         <th>Måneder med utbet.</th>
         <th>Måneder uten utbet.</th>
       </tr>
-      {periodeHistorikkOvergangsstønad?.map((periode, i) => {
+      {periodeHistorikkOvergangsstønad?.map((periode, index) => {
         return (
-          <tr key={i}>
+          <tr key={periode.fom + index}>
             <td>
               {formaterIsoDato(periode.fom)} - {formaterIsoDato(periode.tom)}
             </td>
@@ -90,6 +93,29 @@ const TidligereHistorikkOvergangsstønadTabell: React.FC<{
               periode.vedtaksperiodeType !== EPeriodetype.SANKSJON
                 ? periode.antallMånederUtenBeløp
                 : '-'}
+            </td>
+          </tr>
+        );
+      })}
+    </table>
+  );
+};
+
+const TidligereHistorikkBarnetilsynTabell: React.FC<{
+  periodeHistorikkBarnetilsyn: IGrunnlagsdataPeriodeHistorikkBarnetilsyn[] | undefined;
+}> = ({ periodeHistorikkBarnetilsyn }) => {
+  if (!periodeHistorikkBarnetilsyn || periodeHistorikkBarnetilsyn?.length < 1) return <></>;
+
+  return (
+    <table>
+      <tr>
+        <th>Periode</th>
+      </tr>
+      {periodeHistorikkBarnetilsyn?.map((periode, index) => {
+        return (
+          <tr key={periode.fom + index}>
+            <td>
+              {formaterIsoDato(periode.fom)} - {formaterIsoDato(periode.tom)}
             </td>
           </tr>
         );
