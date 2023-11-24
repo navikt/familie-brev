@@ -16,7 +16,7 @@
     "kjør-prettier": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,css}\"",
     "typecheck": "tsc --noEmit --skipLibCheck",
     "eslint-check": "eslint .",
-    "prettier-check": "prettier --check ."
+    "prettier-check": "prettier --check \"./src/**/*.{js,jsx,ts,tsx,css}\""
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,css}": [
