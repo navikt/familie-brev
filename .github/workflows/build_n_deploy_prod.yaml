@@ -5,15 +5,15 @@ on:
     branches:
       - 'main'
 
-env:
-  IMAGE: ghcr.io/navikt/familie-brev:${{ github.sha }}
-  IMAGE_LATEST: ghcr.io/navikt/familie-brev:latest
 jobs:
   build:
     name: Build and push Docker container
     runs-on: ubuntu-latest
     permissions:
-      packages: write
+      contents: read
+      id-token: write
+    outputs:
+      image: ${{ steps.docker-build-push.outputs.image }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -27,11 +27,16 @@ jobs:
         run: |
           yarn
           yarn build
-          docker build -t ${IMAGE} -t ${IMAGE_LATEST} .
-          docker login ghcr.io -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
-          docker push ${IMAGE}
-          docker push ${IMAGE_LATEST}
-  deploy-dev:
+
+      - name: Push docker image to GAR
+        uses: nais/docker-build-push@v0
+        id: docker-build-push
+        with:
+          team: teamfamilie
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }} # Provided as Organization Secret
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }} # Provided as Organization Variable
+
+  deployDev:
     name: Deploy to dev-gcp
     needs: build
     runs-on: ubuntu-latest
@@ -42,7 +47,9 @@ jobs:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
           RESOURCE: .build/nais-dev.yaml
-  deploy-prod:
+          VAR: image=${{ needs.build.outputs.image }}
+
+  deployProd:
     name: Deploy to prod-gcp
     needs: build
     runs-on: ubuntu-latest
@@ -53,3 +60,4 @@ jobs:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: prod-gcp
           RESOURCE: .build/nais-prod.yaml
+          VAR: image=${{ needs.build.outputs.image }}
