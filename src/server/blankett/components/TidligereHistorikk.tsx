@@ -110,6 +110,7 @@ const TidligereHistorikkBarnetilsynTabell: React.FC<{
     <table>
       <tr>
         <th>Periode</th>
+        <th>Overlapper med overgangsstønad</th>
       </tr>
       {periodeHistorikkBarnetilsyn?.map((periode, index) => {
         return (
