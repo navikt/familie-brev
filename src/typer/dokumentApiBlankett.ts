@@ -37,6 +37,7 @@ export interface IGrunnlagsdataPeriodeHistorikkOvergangsstønad {
 export interface IGrunnlagsdataPeriodeHistorikkBarnetilsyn {
   fom: string;
   tom: string;
+  overlapp: boolean;
 }
 
 export interface ISøknadsdatoer {

@@ -117,6 +117,7 @@ const TidligereHistorikkBarnetilsynTabell: React.FC<{
             <td>
               {formaterIsoDato(periode.fom)} - {formaterIsoDato(periode.tom)}
             </td>
+            <td>{periode.overlapp ? 'Ja' : 'Nei'}</td>
           </tr>
         );
       })}
