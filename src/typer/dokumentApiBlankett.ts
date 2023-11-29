@@ -43,7 +43,7 @@ export enum OverlappMedOvergangsstønad {
 export interface IGrunnlagsdataPeriodeHistorikkBarnetilsyn {
   fom: string;
   tom: string;
-  overlappMedOvergangsstønad: OverlappMedOvergangsstønad;
+  overlapperMedOvergangsstønad: OverlappMedOvergangsstønad;
 }
 
 export interface ISøknadsdatoer {
