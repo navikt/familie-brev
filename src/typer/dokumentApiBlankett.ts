@@ -34,9 +34,16 @@ export interface IGrunnlagsdataPeriodeHistorikkOvergangsstønad {
   antallMåneder: number;
   antallMånederUtenBeløp: number;
 }
+
+export enum OverlappMedOvergangsstønad {
+  JA = 'JA',
+  NEI = 'NEI',
+  DELVIS = 'DELVIS',
+}
 export interface IGrunnlagsdataPeriodeHistorikkBarnetilsyn {
   fom: string;
   tom: string;
+  overlapperMedOvergangsstønad: OverlappMedOvergangsstønad;
 }
 
 export interface ISøknadsdatoer {

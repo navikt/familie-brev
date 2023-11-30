@@ -3,6 +3,7 @@ import type {
   IGrunnlagsdataPeriodeHistorikkBarnetilsyn,
   IGrunnlagsdataPeriodeHistorikkOvergangsstønad,
   ITidligereVedtaksperioder,
+  OverlappMedOvergangsstønad,
 } from '../../../typer/dokumentApiBlankett';
 import { EPeriodetype, periodetypeTilTekst } from '../../../typer/dokumentApiBlankett';
 import { formaterIsoDato, mapBooleanTilString } from '../../utils/util';
@@ -100,7 +101,6 @@ const TidligereHistorikkOvergangsstønadTabell: React.FC<{
     </table>
   );
 };
-
 const TidligereHistorikkBarnetilsynTabell: React.FC<{
   periodeHistorikkBarnetilsyn: IGrunnlagsdataPeriodeHistorikkBarnetilsyn[] | undefined;
 }> = ({ periodeHistorikkBarnetilsyn }) => {
@@ -110,6 +110,7 @@ const TidligereHistorikkBarnetilsynTabell: React.FC<{
     <table>
       <tr>
         <th>Periode</th>
+        <th>Overlapper med overgangsstønad</th>
       </tr>
       {periodeHistorikkBarnetilsyn?.map((periode, index) => {
         return (
@@ -117,9 +118,18 @@ const TidligereHistorikkBarnetilsynTabell: React.FC<{
             <td>
               {formaterIsoDato(periode.fom)} - {formaterIsoDato(periode.tom)}
             </td>
+            <td>
+              {overlappMedOvergangsstønadTilTekst[periode.overlapperMedOvergangsstønad || '']}
+            </td>
           </tr>
         );
       })}
     </table>
   );
+};
+export const overlappMedOvergangsstønadTilTekst: Record<OverlappMedOvergangsstønad | '', string> = {
+  JA: 'Ja, hele perioden',
+  DELVIS: 'Ja, deler av perioden',
+  NEI: 'Nei',
+  '': '',
 };
