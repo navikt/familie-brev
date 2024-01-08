@@ -9,6 +9,7 @@ import type {
   IFritekstbrevMedSignatur,
   ISøknad,
 } from '../typer/dokumentApiBrev';
+import type { IDokumentData as IDokumentDataBlankett } from '../typer/dokumentApiBlankett';
 import hentDokumentHtml from './hentDokumentHtml';
 import { genererPdf } from './utils/api';
 import { Feil } from './utils/Feil';
@@ -19,6 +20,10 @@ import { hentAvansertDokumentFelter, hentFlettefelter } from './hentAvansertDoku
 import { hentAvansertDokumentNavn } from './hentAvansertDokumentNavn';
 import { lagManueltBrevHtml } from './lagManueltBrevHtml';
 import { genererSøknadHtml } from './søknadgenerator';
+import hentDokumentHtmlBlankett from './blankett/hentDokumentHtmlBlankett';
+import { genererPdfBlankett } from './utils/apiBlankett';
+import type { IKlageDokumentData } from '../typer/klageDokumentApi';
+import genererKlageDokumentHtml from './blankett/genererKlageDokumentHtml';
 
 const router = express.Router();
 
@@ -257,6 +262,63 @@ router.post('/generer-soknad', async (req: Request, res: Response) => {
   }
 });
 
+//TODO: Skal fjerne dette endepunktet etter at sak og klage er oppdatert til å ta i bruk blankett/html
+router.post('/blankett/html', async (req: Request, res: Response) => {
+  const dokument: IDokumentDataBlankett = req.body as IDokumentDataBlankett;
+
+  try {
+    const html = await hentDokumentHtmlBlankett(dokument);
+    res.send(html);
+  } catch (feil) {
+    const error = feil as Error;
+    logError(
+      `Generering av dokument (html) feilet: Sjekk secure-logs`,
+      undefined,
+      genererMetadata(req),
+    );
+    loggFeilMedDataTilSecurelog<IDokumentDataBlankett>(dokument, req, error);
+    return res.status(500).send(`Generering av dokument (html) feilet: ${error.message}`);
+  }
+});
+
+//TODO: Skal fjerne dette endepunktet etter at sak og klage er oppdatert til å ta i bruk blankett/pdf
+router.post('/blankett/pdf', async (req: Request, res: Response) => {
+  const dokument: IDokumentDataBlankett = req.body as IDokumentDataBlankett;
+  const meta = genererMetadata(req);
+  try {
+    const html = await hentDokumentHtmlBlankett(dokument);
+    const pdf = await genererPdfBlankett(html, meta);
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `attachment; filename=saksbehandlingsblankett.pdf`);
+    res.end(pdf);
+  } catch (feil) {
+    const error = feil as Error;
+    logError(`Generering av dokument (pdf) feilet: Sjekk secure-logs`, undefined, meta);
+    loggFeilMedDataTilSecurelog<IDokumentDataBlankett>(dokument, req, error);
+
+    return res.status(500).send(`Generering av dokument (pdf) feilet: ${error.message}`);
+  }
+});
+
+//TODO: Skal fjerne dette endepunktet etter at sak og klage er oppdatert til å ta i bruk blankett/klage/pdf
+router.post('/blankett/klage/pdf', async (req: Request, res: Response) => {
+  const dokument: IKlageDokumentData = req.body as IKlageDokumentData;
+  const meta = genererMetadata(req);
+  try {
+    const html = await genererKlageDokumentHtml(dokument);
+    const pdf = await genererPdfBlankett(html, meta);
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `attachment; filename=klagesaksbehandlingsblankett.pdf`);
+    res.end(pdf);
+  } catch (feil) {
+    const error = feil as Error;
+    logError(`Generering av klagedokument (pdf) feilet: Sjekk secure-logs`, undefined, meta);
+    loggFeilMedDataTilSecurelog<IKlageDokumentData>(dokument, req, error);
+
+    return res.status(500).send(`Generering av dokument (pdf) feilet: ${error.message}`);
+  }
+});
+
 function genererMetadata(req: Request) {
   const callId = req.header('nav-call-id');
   return callId ? { x_callId: callId } : {};
@@ -288,6 +350,17 @@ export const logGenereringsrequestTilSecurelogger = <T>(
       meta,
     );
   }
+};
+
+const loggFeilMedDataTilSecurelog = <T>(data: T, req: Request, feil: Error) => {
+  logSecure(
+    `[${req.method} - ${
+      req.originalUrl
+    }] Genererer saksbehandlingsblankett med request-data feilet med feil=${feil.message}-${
+      feil.stack
+    } med data: ${JSON.stringify(data)}.`,
+    genererMetadata(req),
+  );
 };
 
 export default router;
