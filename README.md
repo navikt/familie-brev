@@ -51,9 +51,9 @@ Appen bygges med github actions og nais deployer appen på gcp.
 
 ### Trigge pdf-generering lokalt
 
-Gå til localhost:8033/api/status i nettleseren og kjør følgende kommando i console:
+Gå til `localhost:8001/api/status` i nettleseren og kjør følgende kommando i console:
 ```
-fetch("http://localhost:8033/api/dummy-pdf", {
+fetch("http://localhost:8001/blankett/dummy-pdf", {
   "body": null,
   "method": "POST",
 })        
@@ -68,7 +68,11 @@ fetch("http://localhost:8033/api/dummy-pdf", {
         a.remove();           
     });
 ```
-For at pdf-generiring skal fungere må man være pålogget Naisdevice.
+For at pdf-generering skal fungere må man være pålogget Naisdevice.
+
+### Trigge html-generering lokalt
+Gjør et post-kall mot `localhost:8001/blankett/dummy-html` fra postman.
+Postman skal da vise html-responsen for deg.
 
 ## Henvendelser
 
