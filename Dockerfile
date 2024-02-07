@@ -1,5 +1,9 @@
 FROM ghcr.io/navikt/baseimages/node-express:18
-ADD ./ /var/server
+WORKDIR /var/server
+
+COPY dist ./dist
+COPY node_modules ./node_modules
+COPY package.json .
 
 EXPOSE 8001
 
