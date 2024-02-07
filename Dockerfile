@@ -1,4 +1,4 @@
-FROM gcr.io/distroless/nodejs:18
+FROM ghcr.io/navikt/baseimages/node-express:18
 ADD ./ /var/server
 
 EXPOSE 8001
