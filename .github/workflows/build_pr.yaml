@@ -18,11 +18,12 @@ jobs:
           cache: yarn
           node-version: 20
           registry-url: "https://npm.pkg.github.com"
+
       - name: Yarn build
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
         run: |
-          yarn install --production --frozen-lockfile
+          yarn install --production
           yarn build
 
   eslint:
