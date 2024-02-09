@@ -24,8 +24,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
         run: |
-          yarn install --production 
+          yarn install
           yarn build
+          yarn install --production 
 
       - name: Push docker image to GAR
         uses: nais/docker-build-push@v0

@@ -23,7 +23,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
         run: |
-          yarn install --production
+          yarn install
           yarn build
 
   eslint:
