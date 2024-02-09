@@ -1,4 +1,4 @@
-FROM ghcr.io/navikt/baseimages/node-express:18
+FROM gcr.io/distroless/nodejs18-debian12:nonroot
 WORKDIR /var/server
 
 COPY dist ./dist
@@ -7,5 +7,7 @@ COPY package.json .
 
 EXPOSE 8001
 
-CMD ["yarn", "start"]
+ENV NODE_ENV=production
+
+CMD ["--es-module-specifier-resolution=node", "dist/src/server/index.js"]
 
