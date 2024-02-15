@@ -132,10 +132,10 @@
   resolved "https://registry.yarnpkg.com/@portabletext/types/-/types-2.0.8.tgz#34aec838701482f838bdd0ee07a9e31dc01a9230"
   integrity sha512-eiq9/kMX2bYezS4/kLFk3xNnruCFjCDdw6aYEv5ECHVKkYROiuLd3/AsP5d7tWF3+kPPy6tB0Wq8aqDG/URHGA==
 
-"@sanity/client@^6.12.3":
-  version "6.12.4"
-  resolved "https://registry.yarnpkg.com/@sanity/client/-/client-6.12.4.tgz#ec7113b57b381846b5e16bdbbe5ec175c219b617"
-  integrity sha512-eDBnKwKdFIiMeRZ5xPaKUOs+gsw6P4Bq+Bj7cZ9xuaLXMTsOSlB5h9TsPW5vAYRMbm4coVYUvhqm9TMwSi0F2Q==
+"@sanity/client@^6.13.3":
+  version "6.13.3"
+  resolved "https://registry.yarnpkg.com/@sanity/client/-/client-6.13.3.tgz#d20325c74b793c2c4f9555697416feda1014ef5b"
+  integrity sha512-oOkce0xovPe0cwiEQeNPlrZugG69GHB+Dn16IlcnlyOp2GEsTD+Hgk29Z/cOhLbxqxGv9URpd0iuR9cTyEM4AQ==
   dependencies:
     "@sanity/eventsource" "^5.0.0"
     "@vercel/stega" "0.1.0"
