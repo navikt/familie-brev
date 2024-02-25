@@ -4,12 +4,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "NODE_ENV=production node --es-module-specifier-resolution=node dist/src/server/index.js",
-    "build": "tsc -p tsconfig.json",
-    "start:dev": "nodemon -e ts,tsx --exec \"yarn build:dev && yarn run:dev\"",
-    "dev": "yarn start:dev",
-    "build:dev": "tsc -p tsconfig.json",
-    "run:dev": "node --es-module-specifier-resolution=node dist/src/server/index.js",
+    "start": "bun src/server/index.ts",
+    "start:dev": "bun --hot src/server/index.ts",
+    "dev": "bun start:dev",
     "prepare": "husky",
     "kjør-prettier": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,css}\"",
     "typecheck": "tsc --noEmit --skipLibCheck",
@@ -23,7 +20,7 @@
     ]
   },
   "dependencies": {
-    "@navikt/familie-logging": "^6.0.0",
+    "@navikt/familie-logging": "^7.0.0",
     "@portabletext/react": "^3.0.4",
     "@sanity/client": "^6.14.2",
     "axios": "^1.6.0",
@@ -56,7 +53,6 @@
     "lint-staged": "^15.1.0",
     "nodemon": "^3.0.1",
     "prettier": "^3.2.2",
-    "react-dom": "^18.2.0",
     "typescript": "^5.3.2"
   },
   "browserslist": {
