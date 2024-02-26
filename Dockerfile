@@ -1,7 +1,6 @@
-FROM gcr.io/distroless/nodejs18-debian12:nonroot
-WORKDIR /var/server
+FROM oven/bun:distroless
 
-COPY dist ./dist
+COPY src ./src
 COPY node_modules ./node_modules
 COPY package.json .
 
@@ -9,5 +8,5 @@ EXPOSE 8001
 
 ENV NODE_ENV=production
 
-CMD ["--es-module-specifier-resolution=node", "dist/src/server/index.js"]
+ENTRYPOINT ["bun", "run", "src/server/index.ts"]
 

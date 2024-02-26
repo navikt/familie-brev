@@ -6,47 +6,22 @@ on:
     types: [ opened, synchronize, reopened, ready_for_review ]
 
 jobs:
-  build:
-    name: Bygg PR og kjør tester
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: ⎔ Setup node
-        uses: actions/setup-node@v4
-        with:
-          cache: yarn
-          node-version: 20
-          registry-url: "https://npm.pkg.github.com"
-
-      - name: Yarn build
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-        run: |
-          yarn install
-          yarn build
-
   eslint:
     name: ⬣ ESLint
     runs-on: ubuntu-latest
     steps:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v1
 
-      - name: ⎔ Setup node
-        uses: actions/setup-node@v4
-        with:
-          cache: yarn
-          node-version: 20
-          registry-url: "https://npm.pkg.github.com"
-
-      - name: 📥 Install deps
+      - name: Build
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-        run: yarn
+          NPM_TOKEN: ${{ secrets.READER_TOKEN }}
+        run: |
+          bun install
 
       - name: 🔬 Kjør sjekk med esLint
-        run: yarn eslint-check
+        run: bun run eslint-check
 
   lint:
     name: ✨ Prettier
@@ -54,18 +29,13 @@ jobs:
     steps:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v1
 
-      - name: ⎔ Setup node
-        uses: actions/setup-node@v4
-        with:
-          cache: yarn
-          node-version: 20
-          registry-url: "https://npm.pkg.github.com"
-
-      - name: 📥 Install deps
+      - name: Build
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-        run: yarn
+          NPM_TOKEN: ${{ secrets.READER_TOKEN }}
+        run: |
+          bun install
 
       - name: 🔬 Kjør sjekk med prettier
         run: yarn prettier-check
@@ -76,18 +46,13 @@ jobs:
     steps:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v1
 
-      - name: ⎔ Setup node
-        uses: actions/setup-node@v4
-        with:
-          cache: yarn
-          node-version: 20
-          registry-url: "https://npm.pkg.github.com"
-
-      - name: 📥 Install deps
+      - name: Build
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-        run: yarn
+          NPM_TOKEN: ${{ secrets.READER_TOKEN }}
+        run: |
+          bun install
 
       - name: 🔎 Type check
         run: yarn typecheck

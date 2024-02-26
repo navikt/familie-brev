@@ -2,9 +2,8 @@
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "skipLibCheck": true,
-    "outDir": "./dist/",
     "rootDir": ".",
-    "noEmit": false,
+    "noEmit": true,
     "resolveJsonModule": true,
 
     "sourceMap": true,

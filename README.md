@@ -15,8 +15,10 @@ Konsumenter kan få returnert html eller pdf/bytearray.
 ### Kjør server lokalt
 
 * `familie-dokument` må kjøres med ApplicationLocal for at pdf-generering skal fungere
-* Pass på at du har installert alle NPM-avhengighetene `yarn`
-* Kjør `yarn start:dev`
+* Om du ikke har gjort det, last ned bun https://bun.sh/
+* Pass på at du har installert alle NPM-avhengighetene `bun install`
+* Kjør `bun run dev`
+* Krever at du har et nav-token i miljøvariabelen NPM_TOKEN (opprettes via https://github.com/settings/tokens)
 
 ### Bygg og deploy
 
