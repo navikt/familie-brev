@@ -21,6 +21,7 @@ jobs:
           NPM_TOKEN: ${{ secrets.READER_TOKEN }}
         run: |
           bun install --production
+          bun build --target=bun ./src/server/index.ts --outdir ./build 
 
       - name: Push docker image to GAR
         uses: nais/docker-build-push@v0
