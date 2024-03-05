@@ -1,4 +1,6 @@
-FROM oven/bun:distroless
+FROM oven/bun:latest
+
+WORKDIR /usr/src/app
 
 COPY src ./src
 COPY node_modules ./node_modules

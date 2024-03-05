@@ -1,1 +1,1 @@
-yarn run lint-staged
+bun run lint-staged
