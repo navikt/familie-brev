@@ -1,4 +1,4 @@
-FROM oven/bun:distroless
+FROM oven/bun:latest
 
 COPY src ./src
 COPY node_modules ./node_modules
