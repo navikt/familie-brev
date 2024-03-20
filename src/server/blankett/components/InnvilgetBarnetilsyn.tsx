@@ -42,6 +42,11 @@ export const InnvilgetBarnetilsyn: React.FC<{
         {perioderKontantstøtte.length > 0 && (
           <>
             <h3 className={'blankett'}>Kontantsøtte</h3>
+            <p>
+              {harKontantstøttePerioder
+                ? 'Bruker har eller har fått kontantstøtte.'
+                : 'Bruker verken mottar eller har mottatt kontantstøtte.'}
+            </p>
             {perioderKontantstøtte.map((kontantstøtte, indeks) => {
               return (
                 <div key={indeks}>
@@ -50,7 +55,6 @@ export const InnvilgetBarnetilsyn: React.FC<{
                     {parseOgFormaterÅrMåned(kontantstøtte.årMånedTil)}
                   </h4>
                   <p>Beløp: {kontantstøtte.beløp}</p>
-                  <p>harKontantstøttePerioder: {harKontantstøttePerioder}</p>
                 </div>
               );
             })}
