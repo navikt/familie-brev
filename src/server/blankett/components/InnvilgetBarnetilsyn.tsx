@@ -9,7 +9,8 @@ import { Søknadsinformasjon } from './InnvilgeVedtak/Søknadsinformasjon';
 export const InnvilgetBarnetilsyn: React.FC<{
   vedtak: IInnvilgeVedtakBarnetilsyn;
   søknadsdatoer?: ISøknadsdatoer;
-}> = ({ vedtak, søknadsdatoer }) => {
+  harKontantstøttePerioder?: boolean;
+}> = ({ vedtak, søknadsdatoer, harKontantstøttePerioder }) => {
   const { perioder, perioderKontantstøtte, tilleggsstønad, begrunnelse } = vedtak;
   return (
     <div className={'blankett-page-break'}>
@@ -40,7 +41,7 @@ export const InnvilgetBarnetilsyn: React.FC<{
         <p style={{ whiteSpace: 'pre-wrap' }}>{begrunnelse}</p>
         {perioderKontantstøtte.length > 0 && (
           <>
-            <h3 className={'blankett'}>Kontstøtte</h3>
+            <h3 className={'blankett'}>Kontantsøtte</h3>
             {perioderKontantstøtte.map((kontantstøtte, indeks) => {
               return (
                 <div key={indeks}>
@@ -48,7 +49,8 @@ export const InnvilgetBarnetilsyn: React.FC<{
                     Fra og med {parseOgFormaterÅrMåned(kontantstøtte.årMånedFra)} til og med{' '}
                     {parseOgFormaterÅrMåned(kontantstøtte.årMånedTil)}
                   </h4>
-                  <div>Beløp: {kontantstøtte.beløp}</div>
+                  <p>Beløp: {kontantstøtte.beløp}</p>
+                  <p>harKontantstøttePerioder: {harKontantstøttePerioder}</p>
                 </div>
               );
             })}
