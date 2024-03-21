@@ -39,7 +39,7 @@ export const InnvilgetBarnetilsyn: React.FC<{
       <div className={'blankett-page-break'}>
         <h4 className={'blankett'}>Begrunnelse</h4>
         <p style={{ whiteSpace: 'pre-wrap' }}>{begrunnelse}</p>
-        {perioderKontantstøtte.length > 0 && (
+        {(perioderKontantstøtte.length > 0 || harKontantstøttePerioder !== undefined) && (
           <>
             <h3 className={'blankett'}>Kontantsøtte</h3>
             <p>
