@@ -41,7 +41,7 @@ export const InnvilgetBarnetilsyn: React.FC<{
         <p style={{ whiteSpace: 'pre-wrap' }}>{begrunnelse}</p>
         {(perioderKontantstøtte.length > 0 || harKontantstøttePerioder !== undefined) && (
           <>
-            <h3 className={'blankett'}>Kontantsøtte</h3>
+            <h3 className={'blankett'}>Kontantstøtte</h3>
             <p>
               {harKontantstøttePerioder
                 ? 'Bruker har eller har fått kontantstøtte.'
