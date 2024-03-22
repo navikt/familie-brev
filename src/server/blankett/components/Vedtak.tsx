@@ -22,7 +22,8 @@ export const Vedtak: React.FC<{
   vedtak: IVedtak;
   søknadsdatoer?: ISøknadsdatoer;
   årsak: EBehandlingÅrsak;
-}> = ({ stønadstype, vedtak, søknadsdatoer, årsak }) => {
+  harKontantstøttePerioder?: boolean;
+}> = ({ stønadstype, vedtak, søknadsdatoer, årsak, harKontantstøttePerioder }) => {
   switch (vedtak.resultatType) {
     case EBehandlingResultat.INNVILGE:
       return (
@@ -31,6 +32,7 @@ export const Vedtak: React.FC<{
           vedtak={vedtak}
           søknadsdatoer={søknadsdatoer}
           årsak={årsak}
+          harKontantstøttePerioder={harKontantstøttePerioder}
         />
       );
     case EBehandlingResultat.AVSLÅ:
@@ -45,7 +47,8 @@ const InnvilgetVedtak: React.FC<{
   vedtak: IVedtak;
   søknadsdatoer?: ISøknadsdatoer;
   årsak: EBehandlingÅrsak;
-}> = ({ stønadstype, vedtak, søknadsdatoer, årsak }) => {
+  harKontantstøttePerioder?: boolean;
+}> = ({ stønadstype, vedtak, søknadsdatoer, årsak, harKontantstøttePerioder }) => {
   if (årsak === EBehandlingÅrsak.G_OMREGNING) {
     return <InnvilgetGOmregning vedtak={vedtak as IInnvilgeVedtakOvergangsstønad} />;
   }
@@ -63,6 +66,7 @@ const InnvilgetVedtak: React.FC<{
         <InnvilgetBarnetilsyn
           vedtak={vedtak as IInnvilgeVedtakBarnetilsyn}
           søknadsdatoer={søknadsdatoer}
+          harKontantstøttePerioder={harKontantstøttePerioder}
         />
       );
     case EStønadType.SKOLEPENGER:

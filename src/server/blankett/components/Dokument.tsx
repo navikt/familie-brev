@@ -102,6 +102,7 @@ const Dokument = (dokumentProps: DokumentProps) => {
         vedtak={dokumentData.vedtak}
         søknadsdatoer={dokumentData.søknadsdatoer}
         årsak={dokumentData.behandling.årsak}
+        harKontantstøttePerioder={dokumentData.behandling.harKontantstøttePerioder}
       />
     </div>
   );
