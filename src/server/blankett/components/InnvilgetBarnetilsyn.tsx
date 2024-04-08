@@ -45,7 +45,7 @@ export const InnvilgetBarnetilsyn: React.FC<{
             <p>
               {harKontantstøttePerioder
                 ? 'Bruker har eller har fått kontantstøtte.'
-                : 'Bruker verken mottar eller har mottatt kontantstøtte.'}
+                : 'Bruker har verken fått eller får kontantstøtte.'}
             </p>
             {perioderKontantstøtte.map((kontantstøtte, indeks) => {
               return (
