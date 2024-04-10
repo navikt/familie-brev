@@ -9,7 +9,8 @@ import { Søknadsinformasjon } from './InnvilgeVedtak/Søknadsinformasjon';
 export const InnvilgetBarnetilsyn: React.FC<{
   vedtak: IInnvilgeVedtakBarnetilsyn;
   søknadsdatoer?: ISøknadsdatoer;
-}> = ({ vedtak, søknadsdatoer }) => {
+  harKontantstøttePerioder?: boolean;
+}> = ({ vedtak, søknadsdatoer, harKontantstøttePerioder }) => {
   const { perioder, perioderKontantstøtte, tilleggsstønad, begrunnelse } = vedtak;
   return (
     <div className={'blankett-page-break'}>
@@ -38,9 +39,14 @@ export const InnvilgetBarnetilsyn: React.FC<{
       <div className={'blankett-page-break'}>
         <h4 className={'blankett'}>Begrunnelse</h4>
         <p style={{ whiteSpace: 'pre-wrap' }}>{begrunnelse}</p>
-        {perioderKontantstøtte.length > 0 && (
+        {(perioderKontantstøtte.length > 0 || harKontantstøttePerioder !== undefined) && (
           <>
-            <h3 className={'blankett'}>Kontstøtte</h3>
+            <h3 className={'blankett'}>Kontantstøtte</h3>
+            <p>
+              {harKontantstøttePerioder
+                ? 'Bruker har eller har fått kontantstøtte.'
+                : 'Bruker har verken fått eller får kontantstøtte.'}
+            </p>
             {perioderKontantstøtte.map((kontantstøtte, indeks) => {
               return (
                 <div key={indeks}>
@@ -48,7 +54,7 @@ export const InnvilgetBarnetilsyn: React.FC<{
                     Fra og med {parseOgFormaterÅrMåned(kontantstøtte.årMånedFra)} til og med{' '}
                     {parseOgFormaterÅrMåned(kontantstøtte.årMånedTil)}
                   </h4>
-                  <div>Beløp: {kontantstøtte.beløp}</div>
+                  <p>Beløp: {kontantstøtte.beløp}</p>
                 </div>
               );
             })}
