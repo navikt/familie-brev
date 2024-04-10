@@ -1,14 +1,11 @@
 FROM oven/bun:latest
+USER bun
+WORKDIR app
 
-WORKDIR /usr/src/app
+COPY build/index.js .
 
-COPY src ./src
-COPY node_modules ./node_modules
-COPY package.json .
 
 EXPOSE 8001
-
 ENV NODE_ENV=production
-
-ENTRYPOINT ["bun", "run", "src/server/index.ts"]
+ENTRYPOINT ["bun", "run", "index.js"]
 
