@@ -495,6 +495,7 @@ export enum SivilstandType {
 
 export enum Vilkårsresultat {
   OPPFYLT = 'OPPFYLT',
+  AUTOMATISK_OPPFYLT = 'AUTOMATISK_OPPFYLT',
   IKKE_OPPFYLT = 'IKKE_OPPFYLT',
   IKKE_AKTUELL = 'IKKE_AKTUELL',
   IKKE_TATT_STILLING_TIL = 'IKKE_TATT_STILLING_TIL',
@@ -622,6 +623,7 @@ export enum VilkårGruppe {
 
 export const resultatTilTekst: Record<Vilkårsresultat, string> = {
   OPPFYLT: 'Oppfylt',
+  AUTOMATISK_OPPFYLT: 'Automatisk oppfylt',
   IKKE_AKTUELL: 'Ikke aktuell',
   IKKE_OPPFYLT: 'Ikke oppfylt',
   IKKE_TATT_STILLING_TIL: 'Ikke tatt stilling til',
