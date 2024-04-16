@@ -18,7 +18,7 @@ interface Props {
 
 const resultatIkon = (resultat: Vilkårsresultat) => {
   switch (resultat) {
-    case Vilkårsresultat.OPPFYLT:
+    case Vilkårsresultat.OPPFYLT || Vilkårsresultat.AUTOMATISK_OPPFYLT:
       return <OppfyltIkon heigth={24} width={24} />;
     case Vilkårsresultat.IKKE_OPPFYLT:
       return <IkkeOppfylt heigth={24} width={24} />;
