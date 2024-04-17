@@ -57,7 +57,7 @@ export const InnvilgetBarnetilsyn: React.FC<{
             {perioderKontantstøtte.length > 0 &&
               perioderKontantstøtte.map((kontantstøtte, indeks) => {
                 return (
-                  <table key={indeks}>
+                  <table key={indeks} className="tabellUtenBorder">
                     <tr>
                       <th>Perioder fra og med</th>
                       <th>Perioder til og med</th>
@@ -83,17 +83,18 @@ export const InnvilgetBarnetilsyn: React.FC<{
             <p>
               Er det søkt om, utbetales det eller har det blitt utbetalt stønad for utgifter til
               tilsyn av barn etter tilleggsstønadsforskriften i perioden(e) det er søkt om?{' '}
-              {tilleggsstønad.perioder.length === 0 ? 'NEI' : 'JA'}
+              {tilleggsstønad.harTilleggsstønad ? 'Ja' : 'NEI'}
             </p>
 
             <p>
               Skal stønaden reduseres fordi brukeren har fått utbetalt stønad for tilsyn av barn
-              etter tilleggsstønadsforskriften? {tilleggsstønad.harTilleggsstønad ? 'JA' : 'NEI'}
+              etter tilleggsstønadsforskriften?{' '}
+              {tilleggsstønad.perioder.length === 0 ? 'NEI' : 'JA'}
             </p>
 
             {tilleggsstønad.perioder.map((tilleggstønadperiode, indeks) => {
               return (
-                <table key={indeks}>
+                <table key={indeks} className="tabellUtenBorder">
                   <tr>
                     <th>Perioder fra og med</th>
                     <th>Perioder til og med</th>
