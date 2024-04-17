@@ -43,17 +43,4 @@ export default `
     font-style: italic;
     font-size: 75%;
   }
-
-  .tabellUtenBorder {
-    border-collapse: collapse;
-  }
-
-  .tabellUtenBorder th,
-  .tabellUtenBorder td {
-    border: none;
-  }
-
-  .tabellUtenBorder th {
-    font-weight: normal;
-  }
 `;
