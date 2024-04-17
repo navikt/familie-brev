@@ -39,49 +39,76 @@ export const InnvilgetBarnetilsyn: React.FC<{
       <div className={'blankett-page-break'}>
         <h4 className={'blankett'}>Begrunnelse</h4>
         <p style={{ whiteSpace: 'pre-wrap' }}>{begrunnelse}</p>
-        {(perioderKontantstøtte.length > 0 || harKontantstøttePerioder !== undefined) && (
+        {harKontantstøttePerioder !== undefined && (
           <>
             <h3 className={'blankett'}>Kontantstøtte</h3>
+            <h4>Info fra KS Sak:</h4>
             <p>
               {harKontantstøttePerioder
-                ? 'Bruker har eller har fått kontantstøtte.'
-                : 'Bruker har verken fått eller får kontantstøtte.'}
+                ? 'Bruker har eller har fått kontantstøtte'
+                : 'Bruker har verken fått eller får kontantstøtte'}
             </p>
-            {perioderKontantstøtte.map((kontantstøtte, indeks) => {
-              return (
-                <div key={indeks}>
-                  <h4 className={'blankett'}>
-                    Fra og med {parseOgFormaterÅrMåned(kontantstøtte.årMånedFra)} til og med{' '}
-                    {parseOgFormaterÅrMåned(kontantstøtte.årMånedTil)}
-                  </h4>
-                  <p>Beløp: {kontantstøtte.beløp}</p>
-                </div>
-              );
-            })}
+            <h4>Vurdering:</h4>
+            <p>
+              Er det søkt om, utbetales det eller har det blitt utbetalt kontantstøtte til brukeren
+              eller en brukeren bor med i perioden(e) det er søkt om?{' '}
+              {harKontantstøttePerioder ? 'JA' : 'NEI'}
+            </p>
+            {perioderKontantstøtte.length > 0 &&
+              perioderKontantstøtte.map((kontantstøtte, indeks) => {
+                return (
+                  <table key={indeks}>
+                    <tr>
+                      <th>Perioder fra og med</th>
+                      <th>Perioder til og med</th>
+                      <th>Kontantstøtte</th>
+                    </tr>
+                    <tr>
+                      <td>{parseOgFormaterÅrMåned(kontantstøtte.årMånedFra)}</td>
+                      <td>{parseOgFormaterÅrMåned(kontantstøtte.årMånedTil)}</td>
+                      <td>{kontantstøtte.beløp}</td>
+                    </tr>
+                  </table>
+                );
+              })}
           </>
         )}
       </div>
+
       <div className={'blankett-page-break'}>
         {tilleggsstønad && tilleggsstønad.harTilleggsstønad && (
           <>
             <h3 className={'blankett'}>Tilleggstønad</h3>
-            {tilleggsstønad.perioder.length === 0 && (
-              <div>
-                Stønaden skal ikke reduseres selv om bruker har søkt om eller fått utbetalt stønad
-                for utgifter til tilsyn av barn etter tilleggsstønadsforskriften
-              </div>
-            )}
+            <h4>Vurdering:</h4>
+            <p>
+              Er det søkt om, utbetales det eller har det blitt utbetalt stønad for utgifter til
+              tilsyn av barn etter tilleggsstønadsforskriften i perioden(e) det er søkt om?{' '}
+              {tilleggsstønad.perioder.length === 0 ? 'NEI' : 'JA'}
+            </p>
+
+            <p>
+              Skal stønaden reduseres fordi brukeren har fått utbetalt stønad for tilsyn av barn
+              etter tilleggsstønadsforskriften? {tilleggsstønad.harTilleggsstønad ? 'JA' : 'NEI'}
+            </p>
+
             {tilleggsstønad.perioder.map((tilleggstønadperiode, indeks) => {
               return (
-                <div key={indeks}>
-                  <h4 className={'blankett'}>
-                    Fra og med {parseOgFormaterÅrMåned(tilleggstønadperiode.årMånedFra)} til og med{' '}
-                    {parseOgFormaterÅrMåned(tilleggstønadperiode.årMånedTil)}
-                  </h4>
-                  <div>Beløp: {tilleggstønadperiode.beløp}</div>
-                </div>
+                <table key={indeks}>
+                  <tr>
+                    <th>Perioder fra og med</th>
+                    <th>Perioder til og med</th>
+                    <th>Stønadsreduksjon</th>
+                  </tr>
+                  <tr>
+                    <td>{parseOgFormaterÅrMåned(tilleggstønadperiode.årMånedFra)}</td>
+                    <td>{parseOgFormaterÅrMåned(tilleggstønadperiode.årMånedTil)}</td>
+                    <td>{tilleggstønadperiode.beløp}</td>
+                  </tr>
+                </table>
               );
             })}
+            <h4>Begrunnelse:</h4>
+            <p>{tilleggsstønad.begrunnelse}</p>
           </>
         )}
       </div>
