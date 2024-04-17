@@ -100,7 +100,10 @@ export default `
 
   .tabellUtenBorder {
     border: none;
-    border-collapse: collapse;
+  }
+
+  .tabellUtenBorder th, .tabellUtenBorder td {
+    border: none;
   }
   
   .tabellUtenBorder th {

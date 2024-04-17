@@ -54,23 +54,22 @@ export const InnvilgetBarnetilsyn: React.FC<{
               eller en brukeren bor med i perioden(e) det er søkt om?{' '}
               {harKontantstøttePerioder ? 'JA' : 'NEI'}
             </p>
-            {perioderKontantstøtte.length > 0 &&
-              perioderKontantstøtte.map((kontantstøtte, indeks) => {
-                return (
-                  <table key={indeks} className="tabellUtenBorder">
-                    <tr>
-                      <th>Perioder fra og med</th>
-                      <th>Perioder til og med</th>
-                      <th>Kontantstøtte</th>
-                    </tr>
-                    <tr>
-                      <td>{parseOgFormaterÅrMåned(kontantstøtte.årMånedFra)}</td>
-                      <td>{parseOgFormaterÅrMåned(kontantstøtte.årMånedTil)}</td>
-                      <td>{kontantstøtte.beløp}</td>
-                    </tr>
-                  </table>
-                );
-              })}
+            {perioderKontantstøtte.length > 0 && (
+              <table className="tabellUtenBorder">
+                <tr>
+                  <th>Perioder fra og med</th>
+                  <th>Perioder til og med</th>
+                  <th>Kontantstøtte</th>
+                </tr>
+                {perioderKontantstøtte.map((kontantstøtte, indeks) => (
+                  <tr key={indeks}>
+                    <td>{parseOgFormaterÅrMåned(kontantstøtte.årMånedFra)}</td>
+                    <td>{parseOgFormaterÅrMåned(kontantstøtte.årMånedTil)}</td>
+                    <td>{kontantstøtte.beløp}</td>
+                  </tr>
+                ))}
+              </table>
+            )}
           </>
         )}
       </div>
@@ -92,22 +91,20 @@ export const InnvilgetBarnetilsyn: React.FC<{
               {tilleggsstønad.perioder.length === 0 ? 'NEI' : 'JA'}
             </p>
 
-            {tilleggsstønad.perioder.map((tilleggstønadperiode, indeks) => {
-              return (
-                <table key={indeks} className="tabellUtenBorder">
-                  <tr>
-                    <th>Perioder fra og med</th>
-                    <th>Perioder til og med</th>
-                    <th>Stønadsreduksjon</th>
-                  </tr>
-                  <tr>
-                    <td>{parseOgFormaterÅrMåned(tilleggstønadperiode.årMånedFra)}</td>
-                    <td>{parseOgFormaterÅrMåned(tilleggstønadperiode.årMånedTil)}</td>
-                    <td>{tilleggstønadperiode.beløp}</td>
-                  </tr>
-                </table>
-              );
-            })}
+            <table className="tabellUtenBorder">
+              <tr>
+                <th>Perioder fra og med</th>
+                <th>Perioder til og med</th>
+                <th>Stønadsreduksjon</th>
+              </tr>
+              {tilleggsstønad.perioder.map((tilleggstønadperiode, indeks) => (
+                <tr key={indeks}>
+                  <td>{parseOgFormaterÅrMåned(tilleggstønadperiode.årMånedFra)}</td>
+                  <td>{parseOgFormaterÅrMåned(tilleggstønadperiode.årMånedTil)}</td>
+                  <td>{tilleggstønadperiode.beløp}</td>
+                </tr>
+              ))}
+            </table>
             <h4>Begrunnelse:</h4>
             <p>{tilleggsstønad.begrunnelse}</p>
           </>
