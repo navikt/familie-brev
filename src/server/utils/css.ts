@@ -50,6 +50,7 @@ export default `
   
   @page {
     @bottom-right {
+      font-family: Source Sans Pro, sans-serif;
       content: 'Side ' counter(page) ' av ' counter(pages);  
     }
   }
