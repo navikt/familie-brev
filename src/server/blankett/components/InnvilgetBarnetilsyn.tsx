@@ -88,7 +88,7 @@ export const InnvilgetBarnetilsyn: React.FC<{
             <p>
               Skal stønaden reduseres fordi brukeren har fått utbetalt stønad for tilsyn av barn
               etter tilleggsstønadsforskriften?{' '}
-              {mapBooleanTilJaNei(tilleggsstønad.perioder.length === 0, true)}
+              {mapBooleanTilJaNei(tilleggsstønad.perioder.length > 0, true)}
             </p>
 
             <table className="tabellUtenBorder">
