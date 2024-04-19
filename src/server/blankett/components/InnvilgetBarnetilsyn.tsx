@@ -3,7 +3,7 @@ import type {
   IInnvilgeVedtakBarnetilsyn,
   ISøknadsdatoer,
 } from '../../../typer/dokumentApiBlankett';
-import { parseOgFormaterÅrMåned } from '../../utils/util';
+import { mapBooleanTilJaNei, parseOgFormaterÅrMåned } from '../../utils/util';
 import { Søknadsinformasjon } from './InnvilgeVedtak/Søknadsinformasjon';
 
 export const InnvilgetBarnetilsyn: React.FC<{
@@ -52,7 +52,7 @@ export const InnvilgetBarnetilsyn: React.FC<{
             <p>
               Er det søkt om, utbetales det eller har det blitt utbetalt kontantstøtte til brukeren
               eller en brukeren bor med i perioden(e) det er søkt om?{' '}
-              {harKontantstøttePerioder ? 'JA' : 'NEI'}
+              {mapBooleanTilJaNei(harKontantstøttePerioder, true)}
             </p>
             {perioderKontantstøtte.length > 0 && (
               <table className="tabellUtenBorder">
@@ -82,13 +82,13 @@ export const InnvilgetBarnetilsyn: React.FC<{
             <p>
               Er det søkt om, utbetales det eller har det blitt utbetalt stønad for utgifter til
               tilsyn av barn etter tilleggsstønadsforskriften i perioden(e) det er søkt om?{' '}
-              {tilleggsstønad.harTilleggsstønad ? 'Ja' : 'NEI'}
+              {mapBooleanTilJaNei(tilleggsstønad.harTilleggsstønad, true)}
             </p>
 
             <p>
               Skal stønaden reduseres fordi brukeren har fått utbetalt stønad for tilsyn av barn
               etter tilleggsstønadsforskriften?{' '}
-              {tilleggsstønad.perioder.length === 0 ? 'NEI' : 'JA'}
+              {mapBooleanTilJaNei(tilleggsstønad.perioder.length === 0, true)}
             </p>
 
             <table className="tabellUtenBorder">
