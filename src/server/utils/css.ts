@@ -98,4 +98,18 @@ export default `
   td, th {
     padding: 0.5rem
   }
+
+  .tabellUtenBorder {
+    border: none;
+  }
+
+  .tabellUtenBorder th, .tabellUtenBorder td {
+    border: none;
+  }
+  
+  .tabellUtenBorder th {
+    font-weight: normal;
+    text-align: left;
+    padding-bottom: 0.5rem;
+  }
 `;
