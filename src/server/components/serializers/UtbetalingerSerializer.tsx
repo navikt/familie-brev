@@ -5,7 +5,7 @@ import { YtelseType } from '../../../typer/utbetalingerEøs';
 import { styled, css } from 'styled-components';
 import { formaterBeløpMedPostfix } from '../../utils/util';
 
-interface IUtbetalingerTabellProps {
+interface UtbetalingerProps {
   maalform: Maalform;
   utbetalingerPerMndEøs?: UtbetalingerPerMndEøs;
 }
@@ -91,7 +91,7 @@ const SummaryTableRow = styled.tr`
   }
 `;
 
-const UtbetalingerSerializer = (props: IUtbetalingerTabellProps) => {
+const UtbetalingerSerializer = (props: UtbetalingerProps) => {
   const { maalform, utbetalingerPerMndEøs } = props;
 
   if (!utbetalingerPerMndEøs) {
