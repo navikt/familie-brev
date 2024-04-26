@@ -52,7 +52,11 @@ export const formaterBeløp = (verdi: number): string =>
 export const formaterBeløpMedPostfix = (verdi: number, postfix: string): string =>
   `${verdi.toLocaleString('no-NO')} ${postfix}`;
 
-const mapTrueFalse = (bool?: boolean): string => (bool ? 'Ja' : 'Nei');
+export const mapBooleanTilJaNei = (bool?: boolean, storeBokstaver: boolean = false): string => {
+  const ja = storeBokstaver ? 'JA' : 'Ja';
+  const nei = storeBokstaver ? 'NEI' : 'Nei';
+  return bool ? ja : nei;
+};
 
 export const mapBooleanTilString = (bool?: boolean) =>
-  bool === undefined || bool === null ? 'Ukjent' : mapTrueFalse(bool);
+  bool === undefined || bool === null ? 'Ukjent' : mapBooleanTilJaNei(bool);
