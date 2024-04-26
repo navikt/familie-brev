@@ -3,12 +3,13 @@ import type { IDokumentData } from '../typer/dokumentApiBrev';
 import Dokument from './components/Dokument';
 import type { Datasett } from './sanity/sanityClient';
 import { client } from './sanity/sanityClient';
-import { renderToStaticMarkup } from 'react-dom/server';
+import { renderToStaticMarkup, renderToString } from 'react-dom/server';
 import Context from './utils/Context';
 import css from './utils/css';
 import Header from './components/Header';
 import { Maalform } from '../typer/sanitygrensesnitt';
 import { Feil } from './utils/Feil';
+import { ServerStyleSheet } from 'styled-components';
 
 enum HtmlLang {
   NB = 'nb',
@@ -44,12 +45,12 @@ const hentDokumentHtml = async (
   };
 
   const contextValue = { requests: [] };
-  const asyncHtml = () => (
+  const asyncHtml = (styledComponentsCss?: string) => (
     <Context.Provider value={contextValue}>
       <html lang={htmlLang()}>
         <head>
           <meta httpEquiv="content-type" content="text/html; charset=utf-8" />
-          <style type="text/css">{css}</style>
+          <style type="text/css">{css + styledComponentsCss}</style>
           <title>{tittel}</title>
         </head>
         <body className={'body'}>
@@ -79,27 +80,31 @@ const hentDokumentHtml = async (
     </Context.Provider>
   );
 
-  async function byggDokumentAsynkront() {
-    const html = renderToStaticMarkup(asyncHtml());
+  // Rendrer alt og venter på at kontekst skal fylles med all nødvendig data fra Sanity.
+  async function lastInnContext() {
+    renderToString(asyncHtml());
     await Promise.all(contextValue.requests);
-    return html;
   }
 
-  /* Følger denne guiden:
-   * https://medium.com/swlh/how-to-use-useeffect-on-server-side-654932c51b13
-   *
-   * Resultatet fra eksterne kall blir lagret i konteksten slik at man kan bruke asynkrone funksjoner med serverside rendering.
-   *
-   * Når man kjører byggDokumentAsynkront flere ganger vil dokumentene og underdokumentene til alt er hentet fra Sanity.
-   */
-  let i = 0;
-  let dokument = await byggDokumentAsynkront();
-  while (dokument !== (await byggDokumentAsynkront())) {
-    if (i++ >= 100) {
-      throw new Error('Dokumentet har en dybde på mer enn 100');
-    }
-    dokument = await byggDokumentAsynkront();
+  // Rendrer alt for å kunne hente ut CSS-string fra Styled-Components
+  async function byggStyledComponentCssAsynkront() {
+    const sheet = new ServerStyleSheet();
+    const elementWithCollectedStyles = sheet.collectStyles(asyncHtml());
+    renderToStaticMarkup(elementWithCollectedStyles);
+    return sheet.instance.toString();
   }
+
+  // Rendrer en siste gang hvor vi injecter Styled-Components CSS-string
+  async function byggDokumentAsynkront(styledComponentCss: string) {
+    return renderToStaticMarkup(asyncHtml(styledComponentCss));
+  }
+
+  /* Følger denne guiden for å sørge for at vi har all nødvendig data i context når vi genererer HTML-string:
+   * https://medium.com/swlh/how-to-use-useeffect-on-server-side-654932c51b13
+   */
+  await lastInnContext();
+  const styledComponentCss = await byggStyledComponentCssAsynkront();
+  let dokument = await byggDokumentAsynkront(styledComponentCss);
 
   /*
     "'" blir omgjort til "&#x27;" når vi bygger statisk html.
