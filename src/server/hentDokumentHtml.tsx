@@ -81,37 +81,37 @@ const hentDokumentHtml = async (
   );
 
   // Rendrer alt og venter på at kontekst skal fylles med all nødvendig data fra Sanity.
-  async function lastInnContext() {
+  async function lastInnContextAsynkront() {
     renderToStaticMarkup(asyncHtml());
     await Promise.all(contextValue.requests);
   }
 
   // Rendrer alt for å kunne hente ut CSS-string fra Styled-Components
-  async function byggStyledComponentCssAsynkront() {
+  const byggStyledComponentCss = () => {
     const sheet = new ServerStyleSheet();
     const elementWithCollectedStyles = sheet.collectStyles(asyncHtml());
     renderToStaticMarkup(elementWithCollectedStyles);
     return sheet.instance.toString();
-  }
+  };
 
   // Rendrer en siste gang hvor vi injecter Styled-Components CSS-string
-  async function byggDokumentAsynkront(styledComponentCss: string) {
+  const byggDokumentHtml = (styledComponentCss: string) => {
     return renderToStaticMarkup(asyncHtml(styledComponentCss));
-  }
+  };
 
   /* Følger denne guiden for å sørge for at vi har all nødvendig data i context når vi genererer HTML-string:
    * https://medium.com/swlh/how-to-use-useeffect-on-server-side-654932c51b13
    */
-  await lastInnContext();
-  const styledComponentCss = await byggStyledComponentCssAsynkront();
-  let dokument = await byggDokumentAsynkront(styledComponentCss);
+  await lastInnContextAsynkront();
+  const styledComponentCss = byggStyledComponentCss();
+  let dokumentHtml = byggDokumentHtml(styledComponentCss);
 
   /*
     "'" blir omgjort til "&#x27;" når vi bygger statisk html.
     "'" brukes i CSSen når vi setter sidetall og må derfor omgjøres tilbake
   */
-  dokument = dokument.replace(/&#x27;/g, "'");
-  return dokument.replace(/(\r\n|\n|\r)/gm, '');
+  dokumentHtml = dokumentHtml.replace(/&#x27;/g, "'");
+  return dokumentHtml.replace(/(\r\n|\n|\r)/gm, '');
 };
 
 export default hentDokumentHtml;
