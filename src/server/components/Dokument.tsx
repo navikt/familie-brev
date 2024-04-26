@@ -81,7 +81,6 @@ const Dokument = (dokumentProps: DokumentProps) => {
               sanityProps: props,
               dokumentData: dokumentData,
               maalform,
-              dokumentApiNavn,
             }),
         },
       }}

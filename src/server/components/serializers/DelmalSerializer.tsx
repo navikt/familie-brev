@@ -16,7 +16,6 @@ interface IDelmalSerializerProps {
   sanityProps: any;
   dokumentData: IDokumentData | undefined;
   maalform: Maalform;
-  dokumentApiNavn: string;
 }
 
 interface StyledDelmalWrapperProps {
@@ -32,7 +31,7 @@ const StyledDelmalWrapper = styled.div<StyledDelmalWrapperProps>`
       : ''}
 `;
 const DelmalSerializer = (props: IDelmalSerializerProps) => {
-  const { sanityProps, dokumentData, maalform, dokumentApiNavn } = props;
+  const { sanityProps, dokumentData, maalform } = props;
   const { delmalData } = dokumentData as IDokumentData;
   const { delmalReferanse, skalAlltidMed, skalBegynnePaaNySide } = sanityProps.value;
   const delmalApiNavn = delmalReferanse.apiNavn as string;
@@ -73,8 +72,6 @@ const DelmalSerializer = (props: IDelmalSerializerProps) => {
                 maalform: maalform,
                 utbetalingerPerMndEøs: (dokumentData as IDokumentDataMedUtbetalingerEøs)
                   .utbetalingerPerMndEøs,
-                delmalApiNavn: delmalApiNavn,
-                dokumentApiNavn: dokumentApiNavn,
               }),
           },
         }}

@@ -4,13 +4,10 @@ import type { UtbetalingerPerMndEøs } from '../../../typer/utbetalingerEøs';
 import { YtelseType } from '../../../typer/utbetalingerEøs';
 import { styled, css } from 'styled-components';
 import { formaterBeløpMedPostfix } from '../../utils/util';
-import { Feil } from '../../utils/Feil';
 
 interface IUtbetalingerTabellProps {
   maalform: Maalform;
   utbetalingerPerMndEøs?: UtbetalingerPerMndEøs;
-  delmalApiNavn: string;
-  dokumentApiNavn: string;
 }
 
 interface TabellHeader {
@@ -95,12 +92,10 @@ const SummaryTableRow = styled.tr`
 `;
 
 const UtbetalingerSerializer = (props: IUtbetalingerTabellProps) => {
-  const { maalform, utbetalingerPerMndEøs, delmalApiNavn, dokumentApiNavn } = props;
+  const { maalform, utbetalingerPerMndEøs } = props;
+
   if (!utbetalingerPerMndEøs) {
-    throw new Feil(
-      `Feltet 'utbetalingerPerMndEøs' er påkrevd for delmalen "${delmalApiNavn}" i dokumentet "${dokumentApiNavn}", men feltet er ikke satt.`,
-      400,
-    );
+    return null;
   }
   return (
     <ZebraStripedTable>
