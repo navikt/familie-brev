@@ -19,12 +19,12 @@ interface IDelmalSerializerProps {
 }
 
 interface StyledDelmalWrapperProps {
-  $skalStartePaaNySide: boolean;
+  $skalBegynnePaaNySide: boolean;
 }
 
 const StyledDelmalWrapper = styled.div<StyledDelmalWrapperProps>`
   ${props =>
-    props.$skalStartePaaNySide
+    props.$skalBegynnePaaNySide
       ? css`
           page-break-before: always;
         `
@@ -44,7 +44,7 @@ const DelmalSerializer = (props: IDelmalSerializerProps) => {
   const flettefelter: Flettefelter | undefined = delmalData && delmalData[delmalApiNavn];
 
   return (
-    <StyledDelmalWrapper $skalStartePaaNySide={skalBegynnePaaNySide} className={'delmal'}>
+    <StyledDelmalWrapper $skalBegynnePaaNySide={skalBegynnePaaNySide} className={'delmal'}>
       <PortableText
         value={delmalReferanse[maalform]}
         components={{
