@@ -3,7 +3,7 @@ import type { IDokumentData } from '../typer/dokumentApiBrev';
 import Dokument from './components/Dokument';
 import type { Datasett } from './sanity/sanityClient';
 import { client } from './sanity/sanityClient';
-import { renderToStaticMarkup, renderToString } from 'react-dom/server';
+import { renderToStaticMarkup } from 'react-dom/server';
 import Context from './utils/Context';
 import css from './utils/css';
 import Header from './components/Header';
@@ -82,7 +82,7 @@ const hentDokumentHtml = async (
 
   // Rendrer alt og venter på at kontekst skal fylles med all nødvendig data fra Sanity.
   async function lastInnContext() {
-    renderToString(asyncHtml());
+    renderToStaticMarkup(asyncHtml());
     await Promise.all(contextValue.requests);
   }
 
