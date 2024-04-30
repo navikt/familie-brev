@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { Maalform } from '../../../typer/sanitygrensesnitt';
 import type { UtbetalingerPerMndEøs } from '../../../typer/utbetalingerEøs';
 import { YtelseType } from '../../../typer/utbetalingerEøs';
-import { styled, css } from 'styled-components';
+import { css, styled } from 'styled-components';
 import { formaterBeløpMedPostfix } from '../../utils/util';
 
 interface UtbetalingerProps {
@@ -41,8 +41,20 @@ const YtelseTypeText: Record<YtelseType, string> = {
   [YtelseType.SMÅBARNSTILLEGG]: 'Småbarnstillegg',
 };
 
-const barnetrygdTekst = (barnetrygd: string) =>
-  YtelseTypeText[barnetrygd as YtelseType] ?? barnetrygd;
+const barnetrygdTekst = (fnr: string, ytelseType: YtelseType) => {
+  if (ytelseType == YtelseType.ORDINÆR_BARNETRYGD) {
+    return `Barn ${formatterFnr(fnr)}`;
+  } else {
+    return YtelseTypeText[ytelseType];
+  }
+};
+
+const formatterFnr = (fnr: string) => {
+  if (fnr.length == 11) {
+    return `${fnr.substring(0, 6)} ${fnr.substring(6)}`;
+  }
+  return fnr;
+};
 
 const ZebraStripedTable = styled.table`
   border: none;
@@ -130,7 +142,7 @@ const UtbetalingerSerializer = (props: UtbetalingerProps) => {
                   key={mndÅrIndex + '-' + index}
                 >
                   <StyledTableData align="left">
-                    {barnetrygdTekst(utbetalingEØS.barnetrygd)}
+                    {barnetrygdTekst(utbetalingEØS.fnr, utbetalingEØS.ytelseType)}
                   </StyledTableData>
                   <StyledTableData align="left">{mndÅr}</StyledTableData>
                   <StyledTableData align="right">

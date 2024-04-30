@@ -14,7 +14,8 @@ export interface UtbetalingMndEøsOppsummering {
 }
 
 export interface UtbetalingEøs {
-  barnetrygd: string;
+  fnr: string;
+  ytelseType: YtelseType;
   satsINorge: number;
   utbetaltFraAnnetLand: UtbetaltFraAnnetLand | null;
   utbetaltFraNorge: number;
