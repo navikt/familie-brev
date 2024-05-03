@@ -46,8 +46,9 @@ const DelmalSerializer = (props: IDelmalSerializerProps) => {
   const utbetalingerPerMndEøs = (
     dokumentData: IDokumentData | IDokumentDataMedUtbetalingerEøs | undefined,
   ): UtbetalingerPerMndEøs => {
-    const utbetalingerPerMndEøs = (dokumentData as IDokumentDataMedUtbetalingerEøs)
-      ?.utbetalingerPerMndEøs;
+    const utbetalingerPerMndEøs: UtbetalingerPerMndEøs | undefined = (
+      dokumentData as IDokumentDataMedUtbetalingerEøs
+    )?.utbetalingerPerMndEøs;
     if (!utbetalingerPerMndEøs) {
       throw new Feil(
         `Delmalen ${delmalApiNavn} skal inneholde tabell med utbetalinger, men feltet 'utbetalingerPerMndEøs' mangler.`,

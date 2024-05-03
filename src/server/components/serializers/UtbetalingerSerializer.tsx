@@ -42,7 +42,7 @@ const YtelseTypeText: Record<YtelseType, string> = {
 };
 
 const barnetrygdTekst = (fnr: string, ytelseType: YtelseType) => {
-  if (ytelseType == YtelseType.ORDINÆR_BARNETRYGD) {
+  if (ytelseType === YtelseType.ORDINÆR_BARNETRYGD) {
     return `Barn ${formatterFnr(fnr)}`;
   } else {
     return YtelseTypeText[ytelseType];
@@ -50,7 +50,7 @@ const barnetrygdTekst = (fnr: string, ytelseType: YtelseType) => {
 };
 
 const formatterFnr = (fnr: string) => {
-  if (fnr.length == 11) {
+  if (fnr.length === 11) {
     return `${fnr.substring(0, 6)} ${fnr.substring(6)}`;
   }
   return fnr;
