@@ -7,7 +7,7 @@ import { formaterBeløpMedPostfix } from '../../utils/util';
 
 interface UtbetalingerProps {
   maalform: Maalform;
-  utbetalingerPerMndEøs?: UtbetalingerPerMndEøs;
+  utbetalingerPerMndEøs: UtbetalingerPerMndEøs;
 }
 
 interface TabellHeader {
@@ -106,40 +106,38 @@ const SummaryTableRow = styled.tr`
 const UtbetalingerSerializer = (props: UtbetalingerProps) => {
   const { maalform, utbetalingerPerMndEøs } = props;
 
-  if (!utbetalingerPerMndEøs) {
-    return null;
-  }
+  const header = TabellHeaderForSpraak[maalform];
+
   return (
     <ZebraStripedTable>
       <thead>
         <tr>
           <StyledTableHeader align="left" scope="col">
-            {TabellHeaderForSpraak[maalform].barnetrygd}
+            {header.barnetrygd}
           </StyledTableHeader>
           <StyledTableHeader align="left" scope="col">
-            {TabellHeaderForSpraak[maalform].månedÅr}
+            {header.månedÅr}
           </StyledTableHeader>
           <StyledTableHeader align="right" scope="col">
-            {TabellHeaderForSpraak[maalform].satsINorge}
+            {header.satsINorge}
           </StyledTableHeader>
           <StyledTableHeader align="right" scope="col">
-            {TabellHeaderForSpraak[maalform].utbetaltFraAnnetLand}
+            {header.utbetaltFraAnnetLand}
           </StyledTableHeader>
           <StyledTableHeader align="right" scope="col">
-            {TabellHeaderForSpraak[maalform].utbetaltFraNorge}
+            {header.utbetaltFraNorge}
           </StyledTableHeader>
         </tr>
       </thead>
       <tbody>
-        {Object.keys(utbetalingerPerMndEøs).map((mndÅr, mndÅrIndex) => {
-          const utbetalingMndEøs = utbetalingerPerMndEøs[mndÅr];
+        {Object.entries(utbetalingerPerMndEøs).map(([mndÅr, utbetalingMndEøs]) => {
           const harFlereYtelserIPeriode = utbetalingMndEøs.utbetalinger.length > 1;
           return (
-            <Fragment key={mndÅrIndex}>
+            <Fragment key={mndÅr}>
               {utbetalingMndEøs.utbetalinger.map((utbetalingEØS, index) => (
                 <StyledTableDataRow
                   $borderTop={harFlereYtelserIPeriode && index == 0}
-                  key={mndÅrIndex + '-' + index}
+                  key={mndÅr + '-' + index}
                 >
                   <StyledTableData align="left">
                     {barnetrygdTekst(utbetalingEØS.fnr, utbetalingEØS.ytelseType)}
@@ -159,7 +157,7 @@ const UtbetalingerSerializer = (props: UtbetalingerProps) => {
                 </StyledTableDataRow>
               ))}
               {harFlereYtelserIPeriode && (
-                <SummaryTableRow key={mndÅrIndex + 'oppsummering'}>
+                <SummaryTableRow key={mndÅr + 'oppsummering'}>
                   <StyledTableData align="left">Totalt i:</StyledTableData>
                   <StyledTableData align="left">{mndÅr}</StyledTableData>
                   <StyledTableData align="right">

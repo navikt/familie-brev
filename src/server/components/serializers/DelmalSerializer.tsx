@@ -11,6 +11,8 @@ import LenkeSerializer from './LenkeSerializer';
 import { PortableText } from '@portabletext/react';
 import UtbetalingerSerializer from './UtbetalingerSerializer';
 import { css, styled } from 'styled-components';
+import { Feil } from '../../utils/Feil';
+import type { UtbetalingerPerMndEøs } from '../../../typer/utbetalingerEøs';
 
 interface IDelmalSerializerProps {
   sanityProps: any;
@@ -32,7 +34,7 @@ const StyledDelmalWrapper = styled.div<StyledDelmalWrapperProps>`
 `;
 const DelmalSerializer = (props: IDelmalSerializerProps) => {
   const { sanityProps, dokumentData, maalform } = props;
-  const { delmalData } = dokumentData as IDokumentData;
+  const delmalData = dokumentData?.delmalData;
   const { delmalReferanse, skalAlltidMed, skalBegynnePaaNySide } = sanityProps.value;
   const delmalApiNavn = delmalReferanse.apiNavn as string;
 
@@ -40,6 +42,20 @@ const DelmalSerializer = (props: IDelmalSerializerProps) => {
   if (!skalAlltidMed && (!delmalData || !delmalData[delmalApiNavn])) {
     return null;
   }
+
+  const utbetalingerPerMndEøs = (
+    dokumentData: IDokumentData | IDokumentDataMedUtbetalingerEøs | undefined,
+  ): UtbetalingerPerMndEøs => {
+    const utbetalingerPerMndEøs = (dokumentData as IDokumentDataMedUtbetalingerEøs)
+      ?.utbetalingerPerMndEøs;
+    if (!utbetalingerPerMndEøs) {
+      throw new Feil(
+        `Delmalen ${delmalApiNavn} skal inneholde tabell med utbetalinger, men feltet 'utbetalingerPerMndEøs' mangler.`,
+        400,
+      );
+    }
+    return utbetalingerPerMndEøs;
+  };
 
   const flettefelter: Flettefelter | undefined = delmalData && delmalData[delmalApiNavn];
 
@@ -70,8 +86,7 @@ const DelmalSerializer = (props: IDelmalSerializerProps) => {
             utbetalinger: (_: any) =>
               UtbetalingerSerializer({
                 maalform: maalform,
-                utbetalingerPerMndEøs: (dokumentData as IDokumentDataMedUtbetalingerEøs)
-                  .utbetalingerPerMndEøs,
+                utbetalingerPerMndEøs: utbetalingerPerMndEøs(dokumentData),
               }),
           },
         }}
