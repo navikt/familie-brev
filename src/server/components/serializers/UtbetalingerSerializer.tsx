@@ -136,7 +136,7 @@ const UtbetalingerSerializer = (props: UtbetalingerProps) => {
             <Fragment key={mndÅr}>
               {utbetalingMndEøs.utbetalinger.map((utbetalingEØS, index) => (
                 <StyledTableDataRow
-                  $borderTop={harFlereYtelserIPeriode && index == 0}
+                  $borderTop={harFlereYtelserIPeriode && index === 0}
                   key={mndÅr + '-' + index}
                 >
                   <StyledTableData align="left">
@@ -147,7 +147,7 @@ const UtbetalingerSerializer = (props: UtbetalingerProps) => {
                     {formaterBeløpMedPostfix(utbetalingEØS.satsINorge, 'NOK')}
                   </StyledTableData>
                   <StyledTableData align="right">
-                    {utbetalingEØS.utbetaltFraAnnetLand != null
+                    {utbetalingEØS.utbetaltFraAnnetLand
                       ? `${formaterBeløpMedPostfix(utbetalingEØS.utbetaltFraAnnetLand.beløp, utbetalingEØS.utbetaltFraAnnetLand.valutakode)} / ${formaterBeløpMedPostfix(utbetalingEØS.utbetaltFraAnnetLand.beløpINok, 'NOK')}`
                       : '-'}
                   </StyledTableData>
@@ -167,7 +167,7 @@ const UtbetalingerSerializer = (props: UtbetalingerProps) => {
                     )}
                   </StyledTableData>
                   <StyledTableData align="right">
-                    {utbetalingMndEøs.oppsummering.summertUtbetaltFraAnnetLand != null
+                    {utbetalingMndEøs.oppsummering.summertUtbetaltFraAnnetLand
                       ? formaterBeløpMedPostfix(
                           utbetalingMndEøs.oppsummering.summertUtbetaltFraAnnetLand,
                           'NOK',

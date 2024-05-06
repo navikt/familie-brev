@@ -81,9 +81,10 @@ const hentDokumentHtml = async (
   );
 
   // Rendrer alt og venter på at kontekst skal fylles med all nødvendig data fra Sanity.
-  async function lastInnContextAsynkront() {
-    renderToStaticMarkup(asyncHtml());
+  async function lastInnContextAsynkrontForDokumentNivå() {
+    const html = renderToStaticMarkup(asyncHtml());
     await Promise.all(contextValue.requests);
+    return html;
   }
 
   // Rendrer alt for å kunne hente ut CSS-string fra Styled-Components
@@ -102,7 +103,16 @@ const hentDokumentHtml = async (
   /* Følger denne guiden for å sørge for at vi har all nødvendig data i context når vi genererer HTML-string:
    * https://medium.com/swlh/how-to-use-useeffect-on-server-side-654932c51b13
    */
-  await lastInnContextAsynkront();
+
+  let i = 0;
+  let dokument = await lastInnContextAsynkrontForDokumentNivå();
+  while (dokument !== (await lastInnContextAsynkrontForDokumentNivå())) {
+    if (i++ >= 100) {
+      throw new Error('Dokumentet har en dybde på mer enn 100');
+    }
+    dokument = await lastInnContextAsynkrontForDokumentNivå();
+  }
+
   const styledComponentCss = byggStyledComponentCss();
   let dokumentHtml = byggDokumentHtml(styledComponentCss);
 
