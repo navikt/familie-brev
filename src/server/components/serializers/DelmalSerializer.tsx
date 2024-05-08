@@ -4,7 +4,6 @@ import type {
   IDokumentData,
   IDokumentDataMedUtbetalingerEøs,
 } from '../../../typer/dokumentApiBrev';
-import { erIDokumentDataMedUtbetalingerEøs } from '../../../typer/dokumentApiBrev';
 import FlettefeltSerializer from './FlettefeltSerializer';
 import BlockSerializer from './BlockSerializer';
 import type { Maalform } from '../../../typer/sanitygrensesnitt';
