@@ -1,31 +1,70 @@
 import React from 'react';
-import type { Flettefelter, IDelmalData } from '../../../typer/dokumentApiBrev';
+import type {
+  Flettefelter,
+  IDokumentData,
+  IDokumentDataMedUtbetalingerEøs,
+} from '../../../typer/dokumentApiBrev';
 import FlettefeltSerializer from './FlettefeltSerializer';
 import BlockSerializer from './BlockSerializer';
 import type { Maalform } from '../../../typer/sanitygrensesnitt';
 import LenkeSerializer from './LenkeSerializer';
 import { PortableText } from '@portabletext/react';
+import UtbetalingerSerializer from './UtbetalingerSerializer';
+import { css, styled } from 'styled-components';
+import { Feil } from '../../utils/Feil';
+import type { UtbetalingerPerMndEøs } from '../../../typer/utbetalingerEøs';
 
 interface IDelmalSerializerProps {
   sanityProps: any;
-  delmalData: IDelmalData | undefined;
+  dokumentData: IDokumentData | undefined;
   maalform: Maalform;
 }
 
+interface StyledDelmalWrapperProps {
+  $skalBegynnePaaNySide: boolean;
+}
+
+const StyledDelmalWrapper = styled.div<StyledDelmalWrapperProps>`
+  ${props =>
+    props.$skalBegynnePaaNySide
+      ? css`
+          page-break-before: always;
+        `
+      : ''}
+`;
 const DelmalSerializer = (props: IDelmalSerializerProps) => {
-  const { sanityProps, delmalData, maalform } = props;
-  const { delmalReferanse, skalAlltidMed } = sanityProps.value;
-  const apiNavn = delmalReferanse.apiNavn;
+  const { sanityProps, dokumentData, maalform } = props;
+  const delmalData = dokumentData?.delmalData;
+  const { delmalReferanse, skalAlltidMed, skalBegynnePaaNySide } = sanityProps.value;
+  const delmalApiNavn = delmalReferanse.apiNavn as string;
 
   // Hvis ikke konsument har sendt inn delmalen rendrer vi heller ikke denne delen
-  if (!skalAlltidMed && (!delmalData || !delmalData[apiNavn])) {
+  if (!skalAlltidMed && (!delmalData || !delmalData[delmalApiNavn])) {
     return null;
   }
 
-  const flettefelter: Flettefelter | undefined = delmalData && delmalData[apiNavn];
+  const erIDokumentDataMedUtbetalingerEøs = (
+    dokumentData: IDokumentData | IDokumentDataMedUtbetalingerEøs | undefined,
+  ): dokumentData is IDokumentDataMedUtbetalingerEøs => {
+    return (dokumentData as IDokumentDataMedUtbetalingerEøs)?.utbetalingerPerMndEøs !== undefined;
+  };
+
+  const utbetalingerPerMndEøs = (
+    dokumentData: IDokumentData | IDokumentDataMedUtbetalingerEøs | undefined,
+  ): UtbetalingerPerMndEøs => {
+    if (!erIDokumentDataMedUtbetalingerEøs(dokumentData)) {
+      throw new Feil(
+        `Delmalen ${delmalApiNavn} skal inneholde tabell med utbetalinger, men feltet 'utbetalingerPerMndEøs' mangler.`,
+        400,
+      );
+    }
+    return dokumentData.utbetalingerPerMndEøs;
+  };
+
+  const flettefelter: Flettefelter | undefined = delmalData && delmalData[delmalApiNavn];
 
   return (
-    <div className={'delmal'}>
+    <StyledDelmalWrapper $skalBegynnePaaNySide={skalBegynnePaaNySide} className={'delmal'}>
       <PortableText
         value={delmalReferanse[maalform]}
         components={{
@@ -35,7 +74,7 @@ const DelmalSerializer = (props: IDelmalSerializerProps) => {
               FlettefeltSerializer({
                 sanityProps: props,
                 flettefelter,
-                dokumentApiNavn: apiNavn,
+                dokumentApiNavn: delmalApiNavn,
               }),
             lenke: LenkeSerializer,
             hoyrestill: (props: any) => <span className={'høyrestill'}>{props.children}</span>,
@@ -46,12 +85,17 @@ const DelmalSerializer = (props: IDelmalSerializerProps) => {
               FlettefeltSerializer({
                 sanityProps: props,
                 flettefelter,
-                dokumentApiNavn: apiNavn,
+                dokumentApiNavn: delmalApiNavn,
+              }),
+            utbetalinger: (_: any) =>
+              UtbetalingerSerializer({
+                maalform: maalform,
+                utbetalingerPerMndEøs: utbetalingerPerMndEøs(dokumentData),
               }),
           },
         }}
       />
-    </div>
+    </StyledDelmalWrapper>
   );
 };
 

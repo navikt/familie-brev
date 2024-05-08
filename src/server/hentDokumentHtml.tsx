@@ -9,6 +9,7 @@ import css from './utils/css';
 import Header from './components/Header';
 import { Maalform } from '../typer/sanitygrensesnitt';
 import { Feil } from './utils/Feil';
+import { ServerStyleSheet } from 'styled-components';
 
 enum HtmlLang {
   NB = 'nb',
@@ -44,12 +45,12 @@ const hentDokumentHtml = async (
   };
 
   const contextValue = { requests: [] };
-  const asyncHtml = () => (
+  const asyncHtml = (styledComponentsCss?: string) => (
     <Context.Provider value={contextValue}>
       <html lang={htmlLang()}>
         <head>
           <meta httpEquiv="content-type" content="text/html; charset=utf-8" />
-          <style type="text/css">{css}</style>
+          <style type="text/css">{css + styledComponentsCss}</style>
           <title>{tittel}</title>
         </head>
         <body className={'body'}>
@@ -79,34 +80,48 @@ const hentDokumentHtml = async (
     </Context.Provider>
   );
 
-  async function byggDokumentAsynkront() {
+  // Rendrer alt og venter på at kontekst skal fylles med all nødvendig data fra Sanity.
+  async function lastInnContextAsynkrontForDokumentNivå() {
     const html = renderToStaticMarkup(asyncHtml());
     await Promise.all(contextValue.requests);
     return html;
   }
 
-  /* Følger denne guiden:
+  // Rendrer alt for å kunne hente ut CSS-string fra Styled-Components
+  const byggStyledComponentCss = () => {
+    const sheet = new ServerStyleSheet();
+    const elementWithCollectedStyles = sheet.collectStyles(asyncHtml());
+    renderToStaticMarkup(elementWithCollectedStyles);
+    return sheet.instance.toString();
+  };
+
+  // Rendrer en siste gang hvor vi injecter Styled-Components CSS-string
+  const byggDokumentHtml = (styledComponentCss: string) => {
+    return renderToStaticMarkup(asyncHtml(styledComponentCss));
+  };
+
+  /* Følger denne guiden for å sørge for at vi har all nødvendig data i context når vi genererer HTML-string:
    * https://medium.com/swlh/how-to-use-useeffect-on-server-side-654932c51b13
-   *
-   * Resultatet fra eksterne kall blir lagret i konteksten slik at man kan bruke asynkrone funksjoner med serverside rendering.
-   *
-   * Når man kjører byggDokumentAsynkront flere ganger vil dokumentene og underdokumentene til alt er hentet fra Sanity.
    */
+
   let i = 0;
-  let dokument = await byggDokumentAsynkront();
-  while (dokument !== (await byggDokumentAsynkront())) {
+  let dokument = await lastInnContextAsynkrontForDokumentNivå();
+  while (dokument !== (await lastInnContextAsynkrontForDokumentNivå())) {
     if (i++ >= 100) {
       throw new Error('Dokumentet har en dybde på mer enn 100');
     }
-    dokument = await byggDokumentAsynkront();
+    dokument = await lastInnContextAsynkrontForDokumentNivå();
   }
+
+  const styledComponentCss = byggStyledComponentCss();
+  let dokumentHtml = byggDokumentHtml(styledComponentCss);
 
   /*
     "'" blir omgjort til "&#x27;" når vi bygger statisk html.
     "'" brukes i CSSen når vi setter sidetall og må derfor omgjøres tilbake
   */
-  dokument = dokument.replace(/&#x27;/g, "'");
-  return dokument.replace(/(\r\n|\n|\r)/gm, '');
+  dokumentHtml = dokumentHtml.replace(/&#x27;/g, "'");
+  return dokumentHtml.replace(/(\r\n|\n|\r)/gm, '');
 };
 
 export default hentDokumentHtml;

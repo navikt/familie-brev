@@ -32,7 +32,8 @@
     "express": "^4.19.2",
     "express-session": "^1.18.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "styled-components": "^6.1.8"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.2",
