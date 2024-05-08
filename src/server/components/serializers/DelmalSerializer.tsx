@@ -4,6 +4,7 @@ import type {
   IDokumentData,
   IDokumentDataMedUtbetalingerEøs,
 } from '../../../typer/dokumentApiBrev';
+import { erIDokumentDataMedUtbetalingerEøs } from '../../../typer/dokumentApiBrev';
 import FlettefeltSerializer from './FlettefeltSerializer';
 import BlockSerializer from './BlockSerializer';
 import type { Maalform } from '../../../typer/sanitygrensesnitt';
@@ -43,19 +44,22 @@ const DelmalSerializer = (props: IDelmalSerializerProps) => {
     return null;
   }
 
+  const erIDokumentDataMedUtbetalingerEøs = (
+    dokumentData: IDokumentData | IDokumentDataMedUtbetalingerEøs | undefined,
+  ): dokumentData is IDokumentDataMedUtbetalingerEøs => {
+    return (dokumentData as IDokumentDataMedUtbetalingerEøs)?.utbetalingerPerMndEøs !== undefined;
+  };
+
   const utbetalingerPerMndEøs = (
     dokumentData: IDokumentData | IDokumentDataMedUtbetalingerEøs | undefined,
   ): UtbetalingerPerMndEøs => {
-    const utbetalingerPerMndEøs: UtbetalingerPerMndEøs | undefined = (
-      dokumentData as IDokumentDataMedUtbetalingerEøs
-    )?.utbetalingerPerMndEøs;
-    if (!utbetalingerPerMndEøs) {
+    if (!erIDokumentDataMedUtbetalingerEøs(dokumentData)) {
       throw new Feil(
         `Delmalen ${delmalApiNavn} skal inneholde tabell med utbetalinger, men feltet 'utbetalingerPerMndEøs' mangler.`,
         400,
       );
     }
-    return utbetalingerPerMndEøs;
+    return dokumentData.utbetalingerPerMndEøs;
   };
 
   const flettefelter: Flettefelter | undefined = delmalData && delmalData[delmalApiNavn];
