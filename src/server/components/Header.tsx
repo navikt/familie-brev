@@ -45,9 +45,11 @@ function Header(props: HeaderProps) {
 
   return (
     <div className={'header'}>
-      <div className="ikon-og-dato">
-        {visLogo && <NavIkon />}
-        <p>{brevDato()}</p>
+      <div className="ikon-og-dato-wrapper">
+        <div className="ikon-og-dato">
+          {visLogo && <NavIkon />}
+          <p>{brevDato()}</p>
+        </div>
       </div>
       <div className={'tittel-og-personinfo'}>
         <h2 className="tittel">{tittel.toUpperCase()}</h2>

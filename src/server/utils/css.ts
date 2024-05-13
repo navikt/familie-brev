@@ -6,9 +6,13 @@ export default `
     margin: 0;
     box-sizing: border-box;
   }
+  
+  .ikon-og-dato-wrapper {
+    text-align: right;
+  }
 
   .ikon-og-dato {
-    float: right;
+    display: inline-block;
     text-align: center;
   }
 
@@ -27,7 +31,7 @@ export default `
   }
 
   .tittel-og-personinfo {
-    margin-top: 200px;
+    margin-top: 80px;
   }
   
   .lenke {
