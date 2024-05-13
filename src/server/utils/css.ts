@@ -9,11 +9,13 @@ export default `
 
   .ikon-og-dato {
     float: right;
+    text-align: center;
   }
 
   .nav-ikon {
     width: 100px;
     height: 65px;
+    display: inline-block;
   }
 
   .inline {
