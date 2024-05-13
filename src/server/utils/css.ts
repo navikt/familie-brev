@@ -8,20 +8,12 @@ export default `
   }
 
   .ikon-og-dato {
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    margin:0;
-    padding:0;
+    float: right;
   }
 
   .nav-ikon {
     width: 100px;
     height: 65px;
-    position: relative;
-    right: 0px;
-    margin: 0;
-    padding: 0;
   }
 
   .inline {
