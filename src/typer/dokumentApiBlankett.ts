@@ -34,6 +34,8 @@ export interface IGrunnlagsdataPeriodeHistorikkOvergangsstønad {
   tom: string;
   antallMåneder: number;
   antallMånederUtenBeløp: number;
+  inntekt?: number;
+  aktivitet?: EAktivitet;
 }
 
 export enum OverlappMedOvergangsstønad {
