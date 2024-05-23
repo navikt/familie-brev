@@ -85,6 +85,10 @@ export interface IDokumentDataMedPeriode extends IDokumentData {
   perioder: Flettefelter[];
 }
 
+export interface IDokumentDataSammensattKontrollsak extends IDokumentData {
+  sammensattKontrollsakFritekst: string;
+}
+
 export interface ISøknad {
   label: string;
   verdiliste: IVerdiliste[];
