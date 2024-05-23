@@ -4,15 +4,15 @@ import type {
   ITidligereVedtaksperioder,
   IGrunnlagsdataPeriodeHistorikkOvergangsstønad,
 } from '../../../typer/dokumentApiBlankett';
-import { periodetypeTilTekst } from '../../../typer/dokumentApiBlankett';
+import { aktivitetsTypeTilTekst, periodetypeTilTekst } from '../../../typer/dokumentApiBlankett';
 
 export const InntektGrunnlag: React.FC<{
   tidligereVedtaksperioder: ITidligereVedtaksperioder | undefined;
 }> = ({ tidligereVedtaksperioder }) => {
-  if (
-    !tidligereVedtaksperioder?.sak?.periodeHistorikkOvergangsstønad ||
-    tidligereVedtaksperioder.sak.periodeHistorikkOvergangsstønad.length === 0
-  ) {
+  const sistePeriodeMedOvergangsstønad =
+    tidligereVedtaksperioder?.sak?.periodeHistorikkOvergangsstønad?.[0];
+
+  if (!sistePeriodeMedOvergangsstønad) {
     return null;
   }
 
@@ -30,15 +30,15 @@ export const InntektGrunnlag: React.FC<{
           </tr>
         </thead>
         <tbody>
-          {tidligereVedtaksperioder?.sak?.periodeHistorikkOvergangsstønad.map(
+          {[sistePeriodeMedOvergangsstønad].map(
             (periode: IGrunnlagsdataPeriodeHistorikkOvergangsstønad, index) => (
               <tr key={index}>
                 <td>
                   {formaterIsoDato(periode.fom)} - {formaterIsoDato(periode.tom)}
                 </td>
                 <td>{periodetypeTilTekst[periode.vedtaksperiodeType]}</td>
-                <td>{periode.aktivitet}</td>
-                <td>{periode.inntekt}</td>
+                <td>{periode.aktivitet ? aktivitetsTypeTilTekst[periode.aktivitet] : ''}</td>
+                <td>{periode.inntekt ?? 0}</td>
               </tr>
             ),
           )}
