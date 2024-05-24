@@ -4,7 +4,7 @@ import type {
   ITidligereVedtaksperioder,
   IGrunnlagsdataPeriodeHistorikkOvergangsstønad,
 } from '../../../typer/dokumentApiBlankett';
-import { aktivitetsTypeTilTekst, periodetypeTilTekst } from '../../../typer/dokumentApiBlankett';
+import { periodetypeTilTekst } from '../../../typer/dokumentApiBlankett';
 
 export const InntektGrunnlag: React.FC<{
   tidligereVedtaksperioder: ITidligereVedtaksperioder | undefined;
@@ -16,6 +16,10 @@ export const InntektGrunnlag: React.FC<{
     return null;
   }
 
+  const skalViseSamordning =
+    sistePeriodeMedOvergangsstønad.samordningsfradrag &&
+    sistePeriodeMedOvergangsstønad.samordningsfradrag > 0;
+
   return (
     <>
       <h3>Registerdata</h3>
@@ -25,8 +29,8 @@ export const InntektGrunnlag: React.FC<{
           <tr>
             <th>Periode</th>
             <th>Type</th>
-            <th>Aktivitet</th>
             <th>Inntekt</th>
+            {skalViseSamordning && <th>Samordning</th>}
           </tr>
         </thead>
         <tbody>
@@ -37,8 +41,8 @@ export const InntektGrunnlag: React.FC<{
                   {formaterIsoDato(periode.fom)} - {formaterIsoDato(periode.tom)}
                 </td>
                 <td>{periodetypeTilTekst[periode.vedtaksperiodeType]}</td>
-                <td>{periode.aktivitet ? aktivitetsTypeTilTekst[periode.aktivitet] : ''}</td>
                 <td>{periode.inntekt ?? 0}</td>
+                {skalViseSamordning && <td>{periode.samordningsfradrag}</td>}
               </tr>
             ),
           )}

@@ -12,7 +12,9 @@ import { TidligereHistorikk } from './TidligereHistorikk';
 import type {
   IVilkårGrunnlag,
   ITidligereVedtaksperioder,
+  EStønadType,
 } from '../../../typer/dokumentApiBlankett';
+import { EStønadType as StønadType } from '../../../typer/dokumentApiBlankett';
 import { VilkårGruppe, Vilkår } from '../../../typer/dokumentApiBlankett';
 import { InntektGrunnlag } from './InntektGrunnlag';
 
@@ -21,6 +23,7 @@ export interface RegistergrunnlagForVilkårProps {
   vilkårgruppe: string;
   barnId?: string;
   tidligereVedtaksperioder?: ITidligereVedtaksperioder;
+  stønadstype: EStønadType;
 }
 
 export const RegistergrunnlagForVilkår: React.FC<RegistergrunnlagForVilkårProps> = ({
@@ -28,6 +31,7 @@ export const RegistergrunnlagForVilkår: React.FC<RegistergrunnlagForVilkårProp
   vilkårgruppe,
   barnId,
   tidligereVedtaksperioder,
+  stønadstype,
 }) => {
   switch (vilkårgruppe) {
     case VilkårGruppe.MEDLEMSKAP:
@@ -49,7 +53,10 @@ export const RegistergrunnlagForVilkår: React.FC<RegistergrunnlagForVilkårProp
     case Vilkår.TIDLIGERE_VEDTAKSPERIODER:
       return <TidligereHistorikk tidligereVedtaksperioder={tidligereVedtaksperioder} />;
     case Vilkår.INNTEKT:
-      return <InntektGrunnlag tidligereVedtaksperioder={tidligereVedtaksperioder} />;
+      if (stønadstype !== StønadType.OVERGANGSSTØNAD) {
+        return <InntektGrunnlag tidligereVedtaksperioder={tidligereVedtaksperioder} />;
+      }
+      break;
     case VilkårGruppe.SAGT_OPP_ELLER_REDUSERT:
       return (
         <SagtOppEllerRedusertGrunnlag

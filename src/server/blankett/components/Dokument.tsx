@@ -60,6 +60,7 @@ const Dokument = (dokumentProps: DokumentProps) => {
   const tidligereVedtaksperioder = dokumentData.behandling.tidligereVedtaksperioder;
   const grunnlag = dokumentData.vilkår.grunnlag;
   const erManuellGOmregning = dokumentData.behandling.årsak === EBehandlingÅrsak.G_OMREGNING;
+  const stønadstype = dokumentData.behandling.stønadstype;
 
   return (
     <div>
@@ -82,6 +83,7 @@ const Dokument = (dokumentProps: DokumentProps) => {
                   vilkårgruppe={vilkårgruppe}
                   barnId={vurdering.barnId}
                   tidligereVedtaksperioder={tidligereVedtaksperioder}
+                  stønadstype={stønadstype}
                 />
                 <Vilkårsvurdering vurdering={vurdering} />
               </div>
