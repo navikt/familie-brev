@@ -16,9 +16,7 @@ export const InntektGrunnlag: React.FC<{
     return null;
   }
 
-  const skalViseSamordning =
-    sistePeriodeMedOvergangsstønad.samordningsfradrag &&
-    sistePeriodeMedOvergangsstønad.samordningsfradrag > 0;
+  const skalViseSamordning = sistePeriodeMedOvergangsstønad.samordningsfradrag > 0;
 
   return (
     <>
