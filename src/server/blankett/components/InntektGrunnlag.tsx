@@ -2,7 +2,7 @@ import React from 'react';
 import { formaterIsoDato } from '../../utils/util';
 import type {
   ITidligereVedtaksperioder,
-  IGrunnlagsdataPeriodeHistorikkOvergangsstønad,
+  IGrunnlagsdataSistePeriodeOvergangsstønad,
 } from '../../../typer/dokumentApiBlankett';
 import { periodetypeTilTekst } from '../../../typer/dokumentApiBlankett';
 
@@ -10,7 +10,7 @@ export const InntektGrunnlag: React.FC<{
   tidligereVedtaksperioder: ITidligereVedtaksperioder | undefined;
 }> = ({ tidligereVedtaksperioder }) => {
   const sistePeriodeMedOvergangsstønad =
-    tidligereVedtaksperioder?.sak?.periodeHistorikkOvergangsstønad?.[0];
+    tidligereVedtaksperioder?.sak?.sistePeriodeMedOvergangsstønad;
 
   if (!sistePeriodeMedOvergangsstønad) {
     return null;
@@ -35,7 +35,7 @@ export const InntektGrunnlag: React.FC<{
         </thead>
         <tbody>
           {[sistePeriodeMedOvergangsstønad].map(
-            (periode: IGrunnlagsdataPeriodeHistorikkOvergangsstønad, index) => (
+            (periode: IGrunnlagsdataSistePeriodeOvergangsstønad, index) => (
               <tr key={index}>
                 <td>
                   {formaterIsoDato(periode.fom)} - {formaterIsoDato(periode.tom)}
