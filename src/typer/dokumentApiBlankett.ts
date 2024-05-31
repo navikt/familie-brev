@@ -41,7 +41,7 @@ export interface IGrunnlagsdataSistePeriodeOvergangsstønad {
   fom: string;
   tom: string;
   vedtaksperiodeType: EPeriodetype;
-  aktivitet: EAktivitet;
+  aktivitet?: EAktivitet;
   inntekt: number;
   samordningsfradrag: number;
 }

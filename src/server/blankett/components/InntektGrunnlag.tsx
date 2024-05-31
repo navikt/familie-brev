@@ -54,7 +54,7 @@ export const InntektGrunnlag: React.FC<{
                     {skalViseSamordning && <td>{periode.samordningsfradrag}</td>}
                   </>
                 ) : (
-                  <td>{periode.aktivitet}</td>
+                  <td>{periode.aktivitet ?? ''}</td>
                 )}
               </tr>
             ),
