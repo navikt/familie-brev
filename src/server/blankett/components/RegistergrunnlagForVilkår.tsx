@@ -54,7 +54,12 @@ export const RegistergrunnlagForVilkår: React.FC<RegistergrunnlagForVilkårProp
       return <TidligereHistorikk tidligereVedtaksperioder={tidligereVedtaksperioder} />;
     case Vilkår.INNTEKT:
       if (stønadstype !== StønadType.OVERGANGSSTØNAD) {
-        return <InntektGrunnlag tidligereVedtaksperioder={tidligereVedtaksperioder} />;
+        return (
+          <InntektGrunnlag
+            tidligereVedtaksperioder={tidligereVedtaksperioder}
+            stønadstype={stønadstype}
+          />
+        );
       }
       break;
     case VilkårGruppe.SAGT_OPP_ELLER_REDUSERT:

@@ -3,12 +3,15 @@ import { formaterIsoDato } from '../../utils/util';
 import type {
   ITidligereVedtaksperioder,
   IGrunnlagsdataSistePeriodeOvergangsstønad,
+  EStønadType,
 } from '../../../typer/dokumentApiBlankett';
 import { periodetypeTilTekst } from '../../../typer/dokumentApiBlankett';
+import { EStønadType as StønadType } from '../../../typer/dokumentApiBlankett';
 
 export const InntektGrunnlag: React.FC<{
   tidligereVedtaksperioder: ITidligereVedtaksperioder | undefined;
-}> = ({ tidligereVedtaksperioder }) => {
+  stønadstype: EStønadType;
+}> = ({ tidligereVedtaksperioder, stønadstype }) => {
   const sistePeriodeMedOvergangsstønad =
     tidligereVedtaksperioder?.sak?.sistePeriodeMedOvergangsstønad;
 
@@ -27,8 +30,14 @@ export const InntektGrunnlag: React.FC<{
           <tr>
             <th>Periode</th>
             <th>Type</th>
-            <th>Inntekt</th>
-            {skalViseSamordning && <th>Samordning</th>}
+            {stønadstype !== StønadType.BARNETILSYN ? (
+              <>
+                <th>Inntekt</th>
+                {skalViseSamordning && <th>Samordning</th>}
+              </>
+            ) : (
+              <th>Aktivitet</th>
+            )}
           </tr>
         </thead>
         <tbody>
@@ -39,8 +48,14 @@ export const InntektGrunnlag: React.FC<{
                   {formaterIsoDato(periode.fom)} - {formaterIsoDato(periode.tom)}
                 </td>
                 <td>{periodetypeTilTekst[periode.vedtaksperiodeType]}</td>
-                <td>{periode.inntekt ?? 0}</td>
-                {skalViseSamordning && <td>{periode.samordningsfradrag}</td>}
+                {stønadstype !== StønadType.BARNETILSYN ? (
+                  <>
+                    <td>{periode.inntekt ?? 0}</td>
+                    {skalViseSamordning && <td>{periode.samordningsfradrag}</td>}
+                  </>
+                ) : (
+                  <td>{periode.aktivitet}</td>
+                )}
               </tr>
             ),
           )}
