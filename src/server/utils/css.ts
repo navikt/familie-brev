@@ -6,22 +6,20 @@ export default `
     margin: 0;
     box-sizing: border-box;
   }
+  
+  .ikon-og-dato-wrapper {
+    text-align: right;
+  }
 
   .ikon-og-dato {
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    margin:0;
-    padding:0;
+    display: inline-block;
+    text-align: center;
   }
 
   .nav-ikon {
     width: 100px;
     height: 65px;
-    position: relative;
-    right: 0px;
-    margin: 0;
-    padding: 0;
+    display: inline-block;
   }
 
   .inline {
@@ -33,7 +31,7 @@ export default `
   }
 
   .tittel-og-personinfo {
-    margin-top: 200px;
+    margin-top: 80px;
   }
   
   .lenke {
