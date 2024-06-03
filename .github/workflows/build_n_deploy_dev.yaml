@@ -24,8 +24,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
         run: |
-          yarn
+          yarn install
           yarn build
+          yarn install --production 
 
       - name: Push docker image to GAR
         uses: nais/docker-build-push@v0
@@ -39,9 +40,12 @@ jobs:
     name: Deploy to dev-gcp
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - uses: actions/checkout@v4
-      - uses: nais/deploy/actions/deploy@v1
+      - uses: nais/deploy/actions/deploy@v2
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp

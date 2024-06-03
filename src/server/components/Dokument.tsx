@@ -79,7 +79,7 @@ const Dokument = (dokumentProps: DokumentProps) => {
           delmal: (props: any) =>
             DelmalSerializer({
               sanityProps: props,
-              delmalData: dokumentData?.delmalData,
+              dokumentData: dokumentData,
               maalform,
             }),
         },

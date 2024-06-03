@@ -1,5 +1,6 @@
 import { parse, getYear, getMonth, format, parseISO } from 'date-fns';
 import DateTimeFormatOptions = Intl.DateTimeFormatOptions;
+
 export const datoFormat: DateTimeFormatOptions = {
   day: '2-digit',
   month: '2-digit',
@@ -48,7 +49,14 @@ export const månedÅrTilDate = (årMåned: string): Date => {
 export const formaterBeløp = (verdi: number): string =>
   Number(verdi).toLocaleString('no-NO', { currency: 'NOK' }) + ' kr';
 
-const mapTrueFalse = (bool?: boolean): string => (bool ? 'Ja' : 'Nei');
+export const formaterBeløpMedPostfix = (verdi: number, postfix: string): string =>
+  `${verdi.toLocaleString('no-NO')} ${postfix}`;
+
+export const mapBooleanTilJaNei = (bool?: boolean, storeBokstaver: boolean = false): string => {
+  const ja = storeBokstaver ? 'JA' : 'Ja';
+  const nei = storeBokstaver ? 'NEI' : 'Nei';
+  return bool ? ja : nei;
+};
 
 export const mapBooleanTilString = (bool?: boolean) =>
-  bool === undefined || bool === null ? 'Ukjent' : mapTrueFalse(bool);
+  bool === undefined || bool === null ? 'Ukjent' : mapBooleanTilJaNei(bool);

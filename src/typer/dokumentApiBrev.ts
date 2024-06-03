@@ -1,3 +1,5 @@
+import type { UtbetalingerPerMndEøs } from './utbetalingerEøs';
+
 export interface IDokumentData {
   delmalData: IDelmalData;
   flettefelter: Flettefelter;
@@ -72,6 +74,10 @@ export interface IValgfelter {
 export interface IValg {
   navn: string;
   dokumentVariabler: IAvansertDokumentVariabler;
+}
+
+export interface IDokumentDataMedUtbetalingerEøs extends IDokumentData {
+  utbetalingerPerMndEøs: UtbetalingerPerMndEøs;
 }
 
 // Periode

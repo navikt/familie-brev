@@ -6,35 +6,20 @@ import { genererMetadata } from '../utils/logging';
 import { genererPdfBlankett } from '../utils/apiBlankett';
 import type { IKlageDokumentData } from '../../typer/klageDokumentApi';
 import genererKlageDokumentHtml from './genererKlageDokumentHtml';
-import router from '../routes';
 import fs from 'fs';
+import express from 'express';
+import { logFerdigstilt } from '../routes';
 
+const router = express.Router();
 const { NODE_ENV } = process.env;
 
-router.post('/blankett/html', async (req: Request, res: Response) => {
-  const dokument: IDokumentData = req.body as IDokumentData;
-
-  try {
-    const html = await hentDokumentHtmlBlankett(dokument);
-    res.send(html);
-  } catch (feil) {
-    const error = feil as Error;
-    logError(
-      `Generering av dokument (html) feilet: Sjekk secure-logs`,
-      undefined,
-      genererMetadata(req),
-    );
-    loggFeilMedDataTilSecurelog<IDokumentData>(dokument, req, error);
-    return res.status(500).send(`Generering av dokument (html) feilet: ${error.message}`);
-  }
-});
-
-router.post('/blankett/pdf', async (req: Request, res: Response) => {
+router.post('/pdf', async (req: Request, res: Response) => {
   const dokument: IDokumentData = req.body as IDokumentData;
   const meta = genererMetadata(req);
   try {
     const html = await hentDokumentHtmlBlankett(dokument);
     const pdf = await genererPdfBlankett(html, meta);
+    logFerdigstilt(req);
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Disposition', `attachment; filename=saksbehandlingsblankett.pdf`);
     res.end(pdf);
@@ -47,12 +32,13 @@ router.post('/blankett/pdf', async (req: Request, res: Response) => {
   }
 });
 
-router.post('/blankett/klage/pdf', async (req: Request, res: Response) => {
+router.post('/klage/pdf', async (req: Request, res: Response) => {
   const dokument: IKlageDokumentData = req.body as IKlageDokumentData;
   const meta = genererMetadata(req);
   try {
     const html = await genererKlageDokumentHtml(dokument);
     const pdf = await genererPdfBlankett(html, meta);
+    logFerdigstilt(req);
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Disposition', `attachment; filename=klagesaksbehandlingsblankett.pdf`);
     res.end(pdf);
@@ -73,7 +59,7 @@ if (NODE_ENV !== 'production') {
     return JSON.parse(fileString);
   };
 
-  router.post('/blankett/dummy-pdf', async (req: Request, res: Response) => {
+  router.post('/dummy-pdf', async (req: Request, res: Response) => {
     try {
       const html = await hentDokumentHtmlBlankett(lesMockFil());
       const meta = genererMetadata(req);
@@ -87,7 +73,7 @@ if (NODE_ENV !== 'production') {
     }
   });
 
-  router.get('/blankett/dummy-html', async (_req: Request, res: Response) => {
+  router.get('/dummy-html', async (_req: Request, res: Response) => {
     try {
       const html = await hentDokumentHtmlBlankett(lesMockFil());
       res.send(html);

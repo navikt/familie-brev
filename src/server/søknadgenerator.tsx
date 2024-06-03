@@ -59,9 +59,11 @@ export const genererSøknadHtml = (søknad: ISøknad) => {
       </head>
       <body className={'body'}>
         <div className={'header'}>
-          <div className="ikon-og-dato">
-            <NavIkon />
-            <p>{dagensDatoFormatert()}</p>
+          <div className="ikon-og-dato-wrapper">
+            <div className="ikon-og-dato">
+              <NavIkon />
+              <p>{dagensDatoFormatert()}</p>
+            </div>
           </div>
           <div className={'stonad-tittel'}>
             <h1>{søknad.label}</h1>

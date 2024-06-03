@@ -1,7 +1,13 @@
-FROM navikt/node-express:18
-ADD ./ /var/server
+FROM gcr.io/distroless/nodejs18-debian12:nonroot
+WORKDIR /var/server
+
+COPY dist ./dist
+COPY node_modules ./node_modules
+COPY package.json .
 
 EXPOSE 8001
 
-CMD ["yarn", "start"]
+ENV NODE_ENV=production
+
+CMD ["--es-module-specifier-resolution=node", "dist/src/server/index.js"]
 
