@@ -39,11 +39,17 @@ function Header(props: HeaderProps) {
     validerFlettefelt(organisasjonsnummer, 'organisasjonsnummer', apiNavn, false);
   gjelder && validerFlettefelt(gjelder, 'gjelder', apiNavn, false);
 
+  const brevDato = () => {
+    return `Dato: ${datoPlaceholder || brevOpprettetDato[0]}`;
+  };
+
   return (
     <div className={'header'}>
-      <div className="ikon-og-dato">
-        {visLogo && <NavIkon />}
-        <p>{datoPlaceholder || brevOpprettetDato[0]}</p>
+      <div className="ikon-og-dato-wrapper">
+        <div className="ikon-og-dato">
+          {visLogo && <NavIkon />}
+          <p>{brevDato()}</p>
+        </div>
       </div>
       <div className={'tittel-og-personinfo'}>
         <h2 className="tittel">{tittel.toUpperCase()}</h2>
