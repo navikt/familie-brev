@@ -1,5 +1,5 @@
 import React from 'react';
-import type { IDokumentData, IDokumentDataMedPeriode } from '../../typer/dokumentApiBrev';
+import type { IDokumentData } from '../../typer/dokumentApiBrev';
 import { hentDokumentQuery } from '../sanity/Queries';
 import type { Datasett } from '../sanity/sanityClient';
 import { client } from '../sanity/sanityClient';
@@ -14,6 +14,7 @@ import { Feil } from '../utils/Feil';
 import LenkeSerializer from './serializers/LenkeSerializer';
 
 import { PortableText } from '@portabletext/react';
+import SammensattKontrollsakSerializer from './serializers/SammensattKontrollsakSerializer';
 
 interface DokumentProps {
   dokumentApiNavn: string;
@@ -67,10 +68,14 @@ const Dokument = (dokumentProps: DokumentProps) => {
               flettefelter: dokumentData?.flettefelter,
               dokumentApiNavn,
             }),
+          sammensattKontrollsakFritekst: (_: any) =>
+            SammensattKontrollsakSerializer({
+              dokumentData: dokumentData,
+            }),
           perioder: (props: any) =>
             PeriodeSerializer({
               sanityProps: props,
-              perioder: (dokumentData as IDokumentDataMedPeriode)?.perioder,
+              dokumentData: dokumentData,
               maalform,
               datasett,
               forelderApiNavn: dokumentApiNavn,
