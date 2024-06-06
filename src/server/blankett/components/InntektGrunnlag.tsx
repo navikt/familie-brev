@@ -48,7 +48,7 @@ export const InntektGrunnlag: React.FC<{
                   {formaterIsoDato(periode.fom)} - {formaterIsoDato(periode.tom)}
                 </td>
                 <td>{periodetypeTilTekst[periode.vedtaksperiodeType]}</td>
-                {stønadstype !== StønadType.BARNETILSYN ? (
+                {stønadstype === StønadType.BARNETILSYN ? (
                   <>
                     <td>{periode.inntekt ?? 0}</td>
                     {skalViseSamordning && <td>{periode.samordningsfradrag}</td>}
