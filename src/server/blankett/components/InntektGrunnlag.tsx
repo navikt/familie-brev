@@ -5,7 +5,7 @@ import type {
   IGrunnlagsdataSistePeriodeOvergangsstønad,
   EStønadType,
 } from '../../../typer/dokumentApiBlankett';
-import { periodetypeTilTekst } from '../../../typer/dokumentApiBlankett';
+import { aktivitetsTypeTilTekst, periodetypeTilTekst } from '../../../typer/dokumentApiBlankett';
 import { EStønadType as StønadType } from '../../../typer/dokumentApiBlankett';
 
 export const InntektGrunnlag: React.FC<{
@@ -54,7 +54,7 @@ export const InntektGrunnlag: React.FC<{
                     {skalViseSamordning && <td>{periode.samordningsfradrag}</td>}
                   </>
                 ) : (
-                  <td>{periode.aktivitet ?? ''}</td>
+                  <td>{periode.aktivitet ? aktivitetsTypeTilTekst[periode.aktivitet] : ''}</td>
                 )}
               </tr>
             ),
