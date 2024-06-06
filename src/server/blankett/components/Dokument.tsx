@@ -1,27 +1,14 @@
 import React from 'react';
 import Vilkårsvurdering from './Vilkårsvurdering';
-import Medlemskapsgrunnlag from './Medlemskapsgrunnlag';
-import LovligOppholdGrunnlag from './LovligOppholdGrunnlag';
-import SivilstandGrunnlag from './Sivilstand';
-import SamlivGrunnlag from './Samliv';
-import MorEllerFarGrunnlag from './MorEllerFarGrunnlag';
-import AleneomsorgGrunnlag from './AleneomsorgGrunnlag';
-import NyttBarnSammePartner from './NyttBarnSammePartner';
-import SagtOppEllerRedusertGrunnlag from './SagtOppEllerRedusertGrunnlag';
 import { Vedtak } from './Vedtak';
-import AlderPåBarnGrunnlag from './AlderPåBarnGrunnlag';
-import { TidligereHistorikk } from './TidligereHistorikk';
-import type {
-  IDokumentData,
-  IVurdering,
-  IVilkårGrunnlag,
-} from '../../../typer/dokumentApiBlankett';
+import type { IDokumentData, IVurdering } from '../../../typer/dokumentApiBlankett';
 import {
   VilkårGruppe,
   Vilkår,
   EBehandlingÅrsak,
   vilkårTypeTilTekst,
 } from '../../../typer/dokumentApiBlankett';
+import { RegistergrunnlagForVilkår } from './RegistergrunnlagForVilkår';
 
 interface DokumentProps {
   dokumentData: IDokumentData;
@@ -70,7 +57,11 @@ function gjelderDetteVilkåret(vurdering: IVurdering, vilkårgruppe: string): bo
 
 const Dokument = (dokumentProps: DokumentProps) => {
   const dokumentData = dokumentProps.dokumentData;
+  const tidligereVedtaksperioder = dokumentData.behandling.tidligereVedtaksperioder;
+  const grunnlag = dokumentData.vilkår.grunnlag;
   const erManuellGOmregning = dokumentData.behandling.årsak === EBehandlingÅrsak.G_OMREGNING;
+  const stønadstype = dokumentData.behandling.stønadstype;
+
   return (
     <div>
       {!erManuellGOmregning &&
@@ -78,25 +69,28 @@ const Dokument = (dokumentProps: DokumentProps) => {
           const vurderinger = dokumentData.vilkår.vurderinger.filter(vurdering =>
             gjelderDetteVilkåret(vurdering, vilkårgruppe),
           );
+
           if (vurderinger.length === 0) {
             return null;
           }
-          const grunnlag = dokumentData.vilkår.grunnlag;
+
           return vurderinger.map(vurdering => {
             return (
               <div key={vurdering.id} className={'blankett-page-break'}>
                 <h2>{vilkårTypeTilTekst[vurdering.vilkårType]}</h2>
-                {registergrunnlagForVilkår(grunnlag, vilkårgruppe, vurdering.barnId)}
-                {vurdering.vilkårType === Vilkår.TIDLIGERE_VEDTAKSPERIODER && (
-                  <TidligereHistorikk
-                    tidligereVedtaksperioder={dokumentData.behandling.tidligereVedtaksperioder}
-                  />
-                )}
+                <RegistergrunnlagForVilkår
+                  grunnlag={grunnlag}
+                  vilkårgruppe={vilkårgruppe}
+                  barnId={vurdering.barnId}
+                  tidligereVedtaksperioder={tidligereVedtaksperioder}
+                  stønadstype={stønadstype}
+                />
                 <Vilkårsvurdering vurdering={vurdering} />
               </div>
             );
           });
         })}
+
       <Vedtak
         stønadstype={dokumentData.behandling.stønadstype}
         vedtak={dokumentData.vedtak}
@@ -107,38 +101,5 @@ const Dokument = (dokumentProps: DokumentProps) => {
     </div>
   );
 };
-
-function registergrunnlagForVilkår(
-  grunnlag: IVilkårGrunnlag,
-  vilkårgruppe: string,
-  barnId?: string,
-) {
-  switch (vilkårgruppe) {
-    case VilkårGruppe.MEDLEMSKAP:
-      return <Medlemskapsgrunnlag medlemskap={grunnlag.medlemskap} />;
-    case VilkårGruppe.LOVLIG_OPPHOLD:
-      return <LovligOppholdGrunnlag medlemskap={grunnlag.medlemskap} />;
-    case VilkårGruppe.SIVILSTAND:
-      return <SivilstandGrunnlag sivilstand={grunnlag.sivilstand} />;
-    case VilkårGruppe.SAMLIV:
-      return <SamlivGrunnlag />;
-    case VilkårGruppe.MOR_ELLER_FAR:
-      return <MorEllerFarGrunnlag barnMedSamvær={grunnlag.barnMedSamvær} />;
-    case VilkårGruppe.ALENEOMSORG:
-      return <AleneomsorgGrunnlag barnMedSamvær={grunnlag.barnMedSamvær} barnId={barnId} />;
-    case VilkårGruppe.ALDER_PÅ_BARN:
-      return <AlderPåBarnGrunnlag barnMedSamvær={grunnlag.barnMedSamvær} barnId={barnId} />;
-    case VilkårGruppe.NYTT_BARN_SAMME_PARTNER:
-      return <NyttBarnSammePartner barnMedSamvær={grunnlag.barnMedSamvær} />;
-    case VilkårGruppe.SAGT_OPP_ELLER_REDUSERT:
-      return (
-        <SagtOppEllerRedusertGrunnlag
-          harAvsluttetArbeidsforhold={grunnlag.harAvsluttetArbeidsforhold}
-        />
-      );
-    default:
-      return <div />;
-  }
-}
 
 export default Dokument;

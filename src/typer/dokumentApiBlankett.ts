@@ -26,6 +26,7 @@ interface ITidligereInnvilgetVedtak {
   harTidligereSkolepenger: boolean;
   periodeHistorikkOvergangsstønad?: IGrunnlagsdataPeriodeHistorikkOvergangsstønad[];
   periodeHistorikkBarnetilsyn?: IGrunnlagsdataPeriodeHistorikkBarnetilsyn[];
+  sistePeriodeMedOvergangsstønad: IGrunnlagsdataSistePeriodeOvergangsstønad;
 }
 
 export interface IGrunnlagsdataPeriodeHistorikkOvergangsstønad {
@@ -34,6 +35,15 @@ export interface IGrunnlagsdataPeriodeHistorikkOvergangsstønad {
   tom: string;
   antallMåneder: number;
   antallMånederUtenBeløp: number;
+}
+
+export interface IGrunnlagsdataSistePeriodeOvergangsstønad {
+  fom: string;
+  tom: string;
+  vedtaksperiodeType: EPeriodetype;
+  aktivitet?: EAktivitet;
+  inntekt: number;
+  samordningsfradrag: number;
 }
 
 export enum OverlappMedOvergangsstønad {
@@ -238,6 +248,15 @@ export enum EAktivitet {
   FORSØRGER_MANGLER_TILSYNSORDNING = 'FORSØRGER_MANGLER_TILSYNSORDNING',
   FORSØRGER_ER_SYK = 'FORSØRGER_ER_SYK',
   BARNET_ER_SYKT = 'BARNET_ER_SYKT',
+  UTVIDELSE_FORSØRGER_I_UTDANNING = 'UTVIDELSE_FORSØRGER_I_UTDANNING',
+  UTVIDELSE_BARNET_SÆRLIG_TILSYNSKREVENDE = 'UTVIDELSE_BARNET_SÆRLIG_TILSYNSKREVENDE',
+  FORLENGELSE_MIDLERTIDIG_SYKDOM = 'FORLENGELSE_MIDLERTIDIG_SYKDOM',
+  FORLENGELSE_STØNAD_PÅVENTE_ARBEID = 'FORLENGELSE_STØNAD_PÅVENTE_ARBEID',
+  FORLENGELSE_STØNAD_PÅVENTE_ARBEID_REELL_ARBEIDSSØKER = 'FORLENGELSE_STØNAD_PÅVENTE_ARBEID_REELL_ARBEIDSSØKER',
+  FORLENGELSE_STØNAD_PÅVENTE_OPPSTART_KVALIFISERINGSPROGRAM = 'FORLENGELSE_STØNAD_PÅVENTE_OPPSTART_KVALIFISERINGSPROGRAM',
+  FORLENGELSE_STØNAD_PÅVENTE_TILSYNSORDNING = 'FORLENGELSE_STØNAD_PÅVENTE_TILSYNSORDNING',
+  FORLENGELSE_STØNAD_PÅVENTE_UTDANNING = 'FORLENGELSE_STØNAD_PÅVENTE_UTDANNING',
+  FORLENGELSE_STØNAD_UT_SKOLEÅRET = 'FORLENGELSE_STØNAD_UT_SKOLEÅRET',
 }
 
 export const aktivitetsTypeTilTekst: Record<EAktivitet, string> = {
@@ -251,6 +270,19 @@ export const aktivitetsTypeTilTekst: Record<EAktivitet, string> = {
   FORSØRGER_MANGLER_TILSYNSORDNING: 'Forsørger mangler tilsynsordning (§15-6 femte ledd)',
   FORSØRGER_ER_SYK: 'Forsørger er syk (§15-6 femte ledd)',
   BARNET_ER_SYKT: 'Barnet er sykt (§15-6 femte ledd)',
+  UTVIDELSE_BARNET_SÆRLIG_TILSYNSKREVENDE: 'Barnet er særlig tilsynskrevende (§15-8 tredje ledd)',
+  UTVIDELSE_FORSØRGER_I_UTDANNING: 'Forsørgeren er i utdanning (§15-8 andre ledd)',
+  FORLENGELSE_MIDLERTIDIG_SYKDOM:
+    'Forsørger eller barnet har en midlertidig sykdom (§15-8 fjerde ledd)',
+  FORLENGELSE_STØNAD_UT_SKOLEÅRET: 'Stønad ut skoleåret (§15-8 andre ledd)',
+  FORLENGELSE_STØNAD_PÅVENTE_ARBEID: 'Stønad i påvente av arbeid (§15-8 femte ledd)',
+  FORLENGELSE_STØNAD_PÅVENTE_UTDANNING: 'Stønad i påvente av utdanning (§15-8 femte ledd)',
+  FORLENGELSE_STØNAD_PÅVENTE_ARBEID_REELL_ARBEIDSSØKER:
+    'Stønad i påvente av arbeid - reell arbeidssøker (§15-8 femte ledd)',
+  FORLENGELSE_STØNAD_PÅVENTE_OPPSTART_KVALIFISERINGSPROGRAM:
+    'Stønad i påvente av oppstart kvalifiseringsprogram',
+  FORLENGELSE_STØNAD_PÅVENTE_TILSYNSORDNING:
+    'Stønad i påvente av tilsynsordning (§15-8 femte ledd)',
 };
 
 export interface IPersonopplysninger {
