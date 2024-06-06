@@ -1,5 +1,10 @@
 import React from 'react';
-import type { Flettefelt, Flettefelter } from '../../../typer/dokumentApiBrev';
+import type {
+  Flettefelt,
+  Flettefelter,
+  IDokumentData,
+  IDokumentDataMedPeriode,
+} from '../../../typer/dokumentApiBrev';
 import FlettefeltSerializer from './FlettefeltSerializer';
 import BlockSerializer from './BlockSerializer';
 import type { Maalform } from '../../../typer/sanitygrensesnitt';
@@ -24,14 +29,26 @@ import { PortableText } from '@portabletext/react';
 
 interface IPeriodeProps {
   sanityProps: any;
-  perioder: IPeriodedata[];
+  dokumentData: IDokumentData | undefined;
   maalform: Maalform;
   datasett: Datasett;
   forelderApiNavn: string;
 }
 
 const PeriodeSerializer = (props: IPeriodeProps) => {
-  const { perioder, maalform, datasett, forelderApiNavn } = props;
+  const { dokumentData, maalform, datasett, forelderApiNavn } = props;
+
+  const erIDokumentDataMedPeriode = (
+    dokumentData: IDokumentData | IDokumentDataMedPeriode | undefined,
+  ): dokumentData is IDokumentDataMedPeriode => {
+    return (dokumentData as IDokumentDataMedPeriode)?.perioder !== undefined;
+  };
+
+  if (!erIDokumentDataMedPeriode(dokumentData)) {
+    return null;
+  }
+
+  const perioder = dokumentData.perioder;
 
   validerPeriode(forelderApiNavn, perioder);
 

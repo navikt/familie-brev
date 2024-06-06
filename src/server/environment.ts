@@ -23,7 +23,7 @@ export const hentMiljøvariabler = (): IMiljøvariabler => {
         FAMILIE_DOKUMENT_API_URL: 'http://localhost:8082',
         BA_DATASETT: Datasett.BA_TEST,
         EF_DATASETT: Datasett.EF_TEST,
-        KS_DATASETT: Datasett.KS_TEST,
+        KS_DATASETT: Datasett.KS_V2,
       };
   }
 };
