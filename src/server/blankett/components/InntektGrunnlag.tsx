@@ -30,7 +30,7 @@ export const InntektGrunnlag: React.FC<{
           <tr>
             <th>Periode</th>
             <th>Type</th>
-            {stønadstype !== StønadType.BARNETILSYN ? (
+            {stønadstype === StønadType.BARNETILSYN ? (
               <>
                 <th>Inntekt</th>
                 {skalViseSamordning && <th>Samordning</th>}
