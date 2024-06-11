@@ -21,7 +21,7 @@ export const hentMiljøvariabler = (): IMiljøvariabler => {
     default:
       return {
         FAMILIE_DOKUMENT_API_URL: 'http://localhost:8082',
-        BA_DATASETT: Datasett.BA_TEST,
+        BA_DATASETT: Datasett.BA_V2,
         EF_DATASETT: Datasett.EF_TEST,
         KS_DATASETT: Datasett.KS_V2,
       };
