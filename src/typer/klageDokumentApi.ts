@@ -96,7 +96,7 @@ export interface IVurdering {
   vedtak: EVedtak;
   årsak?: EÅrsakOmgjøring;
   begrunnelseOmgjøring?: string;
-  hjemmel?: EHjemmel;
+  hjemmel?: Hjemmel;
   innstillingKlageinstans?: string;
   interntNotat?: string;
 }
@@ -131,7 +131,7 @@ export const årsakTilTekst: Record<EÅrsakOmgjøring, string> = {
   ANNET: 'Annet',
 };
 
-export enum EHjemmel {
+export enum Hjemmel {
   FT_FEMTEN_TO = 'FT_FEMTEN_TO',
   FT_FEMTEN_TRE = 'FT_FEMTEN_TRE',
   FT_FEMTEN_FIRE = 'FT_FEMTEN_FIRE',
@@ -153,9 +153,37 @@ export enum EHjemmel {
   BT_TRETTEN = 'BT_TRETTEN',
   FT_EØS = 'FT_EØS',
   FT_EØS_FOR = 'FT_EØS_FOR',
+  ARBML_13 = 'ARBML_13',
+  ARBML_17 = 'ARBML_17',
+  ARBML_22 = 'ARBML_22',
+  FTRL_11_A_3 = 'FTRL_11_A_3',
+  FTRL_11_A_4 = 'FTRL_11_A_4',
+  FTRL_11_A_4_3 = 'FTRL_11_A_4_3',
+  FTRL_15_11 = 'FTRL_15_11',
+  FTRL_17_10_17_15 = 'FTRL_17_10_17_15',
+  FTRL_21_12 = 'FTRL_21_12',
+  FTRL_22_13 = 'FTRL_22_13',
+  FTRL_22_15 = 'FTRL_22_15',
+  FTRL_22_17A = 'FTRL_22_17A',
+  FS_TILL_ST_1_3_MOBILITET = 'FS_TILL_ST_1_3_MOBILITET',
+  FS_TILL_ST_3_REISE = 'FS_TILL_ST_3_REISE',
+  FS_TILL_ST_6_FLYTTING = 'FS_TILL_ST_6_FLYTTING',
+  FS_TILL_ST_8_BOLIG = 'FS_TILL_ST_8_BOLIG',
+  FS_TILL_ST_10_TILSYN = 'FS_TILL_ST_10_TILSYN',
+  FS_TILL_ST_12_LAEREMIDLER = 'FS_TILL_ST_12_LAEREMIDLER',
+  FS_TILL_ST_15_2 = 'FS_TILL_ST_15_2',
+  FS_TILL_ST_15_3 = 'FS_TILL_ST_15_3',
+  FL_2_3 = 'FL_2_3',
+  FL_10 = 'FL_10',
+  FVL_11 = 'FVL_11',
+  FVL_17 = 'FVL_17',
+  FVL_18_19 = 'FVL_18_19',
+  FVL_35 = 'FVL_35',
+  FVL_41 = 'FVL_41',
+  FVL_42 = 'FVL_42',
 }
 
-export const hjemmelTilTekst: Record<EHjemmel, string> = {
+export const hjemmelTilTekst: Record<Hjemmel, string> = {
   FT_FEMTEN_TO: '§ 15-2',
   FT_FEMTEN_TRE: '§ 15-3',
   FT_FEMTEN_FIRE: '§ 15-4',
@@ -177,4 +205,32 @@ export const hjemmelTilTekst: Record<EHjemmel, string> = {
   BT_TRETTEN: '§ 13',
   FT_EØS: 'EØS-avtalen',
   FT_EØS_FOR: 'EØS art. 6',
+  ARBML_13: 'ARBML_13',
+  ARBML_17: 'ARBML_17',
+  ARBML_22: 'ARBML_22',
+  FTRL_11_A_3: 'FTRL_11_A_3',
+  FTRL_11_A_4: 'FTRL_11_A_4',
+  FTRL_11_A_4_3: 'FTRL_11_A_4_3',
+  FTRL_15_11: 'FTRL_15_11',
+  FTRL_17_10_17_15: 'FTRL_17_10_17_15',
+  FTRL_21_12: 'FTRL_21_12',
+  FTRL_22_13: 'FTRL_22_13',
+  FTRL_22_15: 'FTRL_22_15',
+  FTRL_22_17A: 'FTRL_22_17A',
+  FS_TILL_ST_1_3_MOBILITET: 'FS_TILL_ST_1_3_MOBILITET',
+  FS_TILL_ST_3_REISE: 'FS_TILL_ST_3_REISE',
+  FS_TILL_ST_6_FLYTTING: 'FS_TILL_ST_6_FLYTTING',
+  FS_TILL_ST_8_BOLIG: 'FS_TILL_ST_8_BOLIG',
+  FS_TILL_ST_10_TILSYN: 'FS_TILL_ST_10_TILSYN',
+  FS_TILL_ST_12_LAEREMIDLER: 'FS_TILL_ST_12_LAEREMIDLER',
+  FS_TILL_ST_15_2: 'FS_TILL_ST_15_2',
+  FS_TILL_ST_15_3: 'FS_TILL_ST_15_3',
+  FL_2_3: 'FL_2_3',
+  FL_10: 'FL_10',
+  FVL_11: 'FVL_11',
+  FVL_17: 'FVL_17',
+  FVL_18_19: 'FVL_18_19',
+  FVL_35: 'FVL_35',
+  FVL_41: 'FVL_41',
+  FVL_42: 'FVL_42',
 };
