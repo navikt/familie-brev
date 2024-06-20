@@ -12,7 +12,7 @@ import {
   EFormVilkår,
   formkravFristUnntakTilTekst,
   vedtakTilTekst,
-  hjemmelTilTekst,
+  hjemmelTilVisningstekst,
   årsakTilTekst,
   behandlingResultatTilTekst,
 } from '../../../typer/klageDokumentApi';
@@ -97,7 +97,7 @@ export const Klagevurdering: React.FC<{ vurdering?: IVurdering }> = ({ vurdering
       {vurdering.hjemmel && (
         <>
           <h4 className={'blankett'}>Hjemmel</h4>
-          <span>{hjemmelTilTekst[vurdering.hjemmel]}</span>
+          <span>{hjemmelTilVisningstekst[vurdering.hjemmel]}</span>
         </>
       )}
       {vurdering.årsak && (
