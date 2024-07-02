@@ -45,7 +45,13 @@ export const RegistergrunnlagForVilkår: React.FC<RegistergrunnlagForVilkårProp
     case VilkårGruppe.MOR_ELLER_FAR:
       return <MorEllerFarGrunnlag barnMedSamvær={grunnlag.barnMedSamvær} />;
     case VilkårGruppe.ALENEOMSORG:
-      return <AleneomsorgGrunnlag barnMedSamvær={grunnlag.barnMedSamvær} barnId={barnId} />;
+      return (
+        <AleneomsorgGrunnlag
+          barnMedSamvær={grunnlag.barnMedSamvær}
+          barnId={barnId}
+          personalia={grunnlag.personalia}
+        />
+      );
     case VilkårGruppe.ALDER_PÅ_BARN:
       return <AlderPåBarnGrunnlag barnMedSamvær={grunnlag.barnMedSamvær} barnId={barnId} />;
     case VilkårGruppe.NYTT_BARN_SAMME_PARTNER:
