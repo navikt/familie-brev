@@ -11,7 +11,7 @@ import express from 'express';
 import { logFerdigstilt } from '../routes';
 
 const router = express.Router();
-const { NODE_ENV } = process.env;
+const { ENV } = process.env;
 
 router.post('/pdf', async (req: Request, res: Response) => {
   const dokument: IDokumentData = req.body as IDokumentData;
@@ -51,7 +51,7 @@ router.post('/klage/pdf', async (req: Request, res: Response) => {
   }
 });
 
-if (NODE_ENV != 'production' && NODE_ENV != 'preprod') {
+if (ENV != 'production' && ENV != 'preprod') {
   const lesMockFil = () => {
     const fileString = fs.readFileSync('./src/server/mock/dummyDataBlankett.json', {
       encoding: 'utf-8',

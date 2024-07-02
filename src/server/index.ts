@@ -8,12 +8,12 @@ import { logInfo } from '@navikt/familie-logging';
 import blankettRoutes from './blankett/blankettRoutes';
 
 dotenv.config();
-export const { NODE_ENV } = process.env;
+export const { ENV } = process.env;
 
 const buildDir = path.join(process.cwd() + '/public');
 const app = express();
 
-if (NODE_ENV == 'production' || NODE_ENV == 'preprod') {
+if (ENV == 'production' || ENV == 'preprod') {
   app.use(express.static(buildDir));
 }
 
