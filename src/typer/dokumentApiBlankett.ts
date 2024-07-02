@@ -296,12 +296,41 @@ export interface IVilkår {
 }
 
 export interface IVilkårGrunnlag {
+  personalia: IPersonalia;
   medlemskap: IMedlemskap;
   sivilstand: ISivilstandVilkår;
-  //bosituasjon: IBosituasjon;
   sivilstandsplaner: ISivilstandsplaner;
   barnMedSamvær: IBarnMedSamvær[];
   harAvsluttetArbeidsforhold: boolean;
+}
+
+export interface IPersonalia {
+  personIdent: string;
+  navn: INavn;
+  bostedsadresse?: IAdresse;
+}
+
+export interface INavn {
+  fornavn: string;
+  mellomnavn: string;
+  etternavn: string;
+  visningsnavn: string;
+}
+
+export interface IAdresse {
+  visningsadresse?: string;
+  type: AdresseType;
+  gyldigFraOgMed?: string;
+  gyldigTilOgMed?: string;
+  angittFlyttedato?: string;
+  erGjeldende: boolean;
+}
+
+export enum AdresseType {
+  BOSTEDADRESSE = 'BOSTEDADRESSE',
+  KONTAKTADRESSE = 'KONTAKTADRESSE',
+  KONTAKTADRESSE_UTLAND = 'KONTAKTADRESSE_UTLAND',
+  OPPHOLDSADRESSE = 'OPPHOLDSADRESSE',
 }
 
 export interface ISivilstandVilkår {
@@ -325,6 +354,8 @@ export interface IBarnMedSamværRegistergrunnlag {
   fødselsnummer?: string;
   harSammeAdresse?: boolean;
   forelder?: IAnnenForelder;
+  harDeltBostedVedGrunnlagsdataopprettelse: boolean;
+  adresse?: string;
 }
 
 export interface IBarnMedSamværSøknadsgrunnlag {
