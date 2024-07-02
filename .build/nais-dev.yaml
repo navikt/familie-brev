@@ -53,7 +53,7 @@ spec:
     - name: APPRES_CMS_URL
       value: https://appres.nav.no
     - name: ENV
-      value: development
+      value: preprod
   secureLogs:
     enabled: true
   resources:

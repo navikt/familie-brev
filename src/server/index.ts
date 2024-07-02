@@ -13,7 +13,7 @@ export const { NODE_ENV } = process.env;
 const buildDir = path.join(process.cwd() + '/public');
 const app = express();
 
-if (NODE_ENV === 'production') {
+if (NODE_ENV in ['production', 'preprod']) {
   app.use(express.static(buildDir));
 }
 
