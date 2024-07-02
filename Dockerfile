@@ -7,7 +7,5 @@ COPY package.json .
 
 EXPOSE 8001
 
-ENV NODE_ENV=production
-
 CMD ["--es-module-specifier-resolution=node", "dist/src/server/index.js"]
 
