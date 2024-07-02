@@ -34,6 +34,7 @@ router.post('/begrunnelser/:begrunnelseApiNavn/tekst/', async (req: Request, res
       validerEøsbegrunnelsedata(data);
     }
 
+    logSecure(`Forsøker kall mot: ${query}, ${KS_DATASETT}`);
     const begrunnelseFraSanity = await client(KS_DATASETT).fetch(
         query,
     );
