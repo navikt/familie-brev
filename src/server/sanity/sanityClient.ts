@@ -18,6 +18,6 @@ export const client = (dataset: Datasett) =>
   createClient({
     projectId: 'xsrv1mh6',
     dataset,
-    useCdn: NODE_ENV === 'production',
+    useCdn: NODE_ENV == 'production' || NODE_ENV == 'preprod',
     maxRetries: 3,
   });
