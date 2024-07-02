@@ -52,6 +52,8 @@ spec:
       value: '{{version}}'
     - name: APPRES_CMS_URL
       value: https://appres.nav.no
+    - name: ENV
+      value: production
   secureLogs:
     enabled: true
   resources:
