@@ -26,6 +26,7 @@ router.get('/begrunnelser', async (_: Request, res: Response) => {
 router.post('/begrunnelser/:begrunnelseApiNavn/tekst/', async (req: Request, res: Response) => {
   const begrunnelseApiNavn = req.params.begrunnelseApiNavn;
   const data = req.body as BegrunnelseMedData;
+  let query = hentBegrunnelseTekstQuery(begrunnelseApiNavn, data.maalform, KS_DATASETT);
   try {
     if (data.type === Begrunnelsetype.STANDARD_BEGRUNNELSE) {
       validerStandardbegrunnelsedata(data);
@@ -34,7 +35,7 @@ router.post('/begrunnelser/:begrunnelseApiNavn/tekst/', async (req: Request, res
     }
 
     const begrunnelseFraSanity = await client(KS_DATASETT).fetch(
-      hentBegrunnelseTekstQuery(begrunnelseApiNavn, data.maalform, KS_DATASETT),
+        query,
     );
 
     validerBegrunnelse(begrunnelseFraSanity, begrunnelseApiNavn);
@@ -48,7 +49,7 @@ router.post('/begrunnelser/:begrunnelseApiNavn/tekst/', async (req: Request, res
     }
 
     logError(`Generering av begrunnelse feilet: ${error.message}`);
-    logSecure(`Generering av begrunnelse feilet: ${error}`);
+    logSecure(`Generering av begrunnelse feilet: ${error}, ${query}, ${KS_DATASETT}`);
     return res.status(500).send(`Generering av begrunnelse feilet: ${escape(error.message)}`);
   }
 });
