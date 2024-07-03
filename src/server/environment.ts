@@ -16,7 +16,7 @@ export const hentMiljøvariabler = (): IMiljøvariabler => {
         FAMILIE_DOKUMENT_API_URL: 'http://familie-dokument',
         BA_DATASETT: Datasett.BA,
         EF_DATASETT: Datasett.EF,
-        KS_DATASETT: Datasett.KS,
+        KS_DATASETT: Datasett.KS_V2,
       };
     case 'preprod':
       return {
