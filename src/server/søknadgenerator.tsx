@@ -5,7 +5,6 @@ import { dagensDatoFormatert } from './utils/util';
 import css from './utils/css';
 import søknadCSS from './utils/soknad-css';
 import { NavIkon } from './components/ikoner/navIkon';
-import Heading from './components/typografi/Heading';
 
 interface HeaderProps {
   nivå: number;
@@ -60,22 +59,15 @@ export const genererSøknadHtml = (søknad: ISøknad) => {
       </head>
       <body className={'body'}>
         <div className={'header'}>
-          <div className="header-container">
-            <div>
-              <Heading size={'large'} text={søknad.label} />
-              <p>Sendt inn: {dagensDatoFormatert()}</p>
-            </div>
-            <NavIkon />
-          </div>
-          {/* <div className="ikon-og-dato-wrapper">
+          <div className="ikon-og-dato-wrapper">
             <div className="ikon-og-dato">
               <NavIkon />
               <p>{dagensDatoFormatert()}</p>
             </div>
           </div>
           <div className={'stonad-tittel'}>
-            <Heading size={'large'} text={søknad.label} />
-          </div> */}
+            <h1>{søknad.label}</h1>
+          </div>
         </div>
         {lagVerdiliste(søknad.verdiliste, 0)}
       </body>

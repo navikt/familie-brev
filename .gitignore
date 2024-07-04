@@ -29,3 +29,7 @@ yarn-error.log*
 /.idea
 
 secure.log
+
+# Oppsett for lokal utvikling - kan slettes når ferdig
+test-index.html
+test-styles.css 

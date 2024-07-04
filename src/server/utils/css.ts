@@ -12,10 +12,6 @@ export default `
     justify-content: space-between;
     align-items: center;
   }
-
-  .header-container > *:not(:last-child) {
-    margin-right: 8px;
-  }
   
   .ikon-og-dato-wrapper {
     text-align: right;
