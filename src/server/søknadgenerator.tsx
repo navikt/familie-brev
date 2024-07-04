@@ -5,6 +5,8 @@ import { dagensDatoFormatert } from './utils/util';
 import css from './utils/css';
 import søknadCSS from './utils/soknad-css';
 import { NavIkon } from './components/ikoner/navIkon';
+import Heading from './components/typografi/Heading';
+import Line from './components/Line';
 
 interface HeaderProps {
   nivå: number;
@@ -44,6 +46,7 @@ export const genererSøknadHtml = (søknad: ISøknad) => {
           {verdiliste.verdi && (
             <div className={nivåClassName}>{verdiliste.verdi.replace(/(\n\n)/gm, '\n')}</div>
           )}
+          <Line />
         </div>
       );
     });
@@ -59,16 +62,15 @@ export const genererSøknadHtml = (søknad: ISøknad) => {
       </head>
       <body className={'body'}>
         <div className={'header'}>
-          <div className="ikon-og-dato-wrapper">
-            <div className="ikon-og-dato">
-              <NavIkon />
-              <p>{dagensDatoFormatert()}</p>
+          <div className="header-container">
+            <div>
+              <Heading size={'large'} text={søknad.label} />
+              <p>Sendt inn: {dagensDatoFormatert()}</p>
             </div>
-          </div>
-          <div className={'stonad-tittel'}>
-            <h1>{søknad.label}</h1>
+            <NavIkon />
           </div>
         </div>
+
         {lagVerdiliste(søknad.verdiliste, 0)}
       </body>
     </html>,
