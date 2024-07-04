@@ -6,6 +6,16 @@ export default `
     margin: 0;
     box-sizing: border-box;
   }
+
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .header-container > *:not(:last-child) {
+    margin-right: 8px;
+  }
   
   .ikon-og-dato-wrapper {
     text-align: right;
