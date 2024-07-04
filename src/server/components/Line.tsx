@@ -4,7 +4,7 @@ const Line: React.FC = () => {
   return (
     <div
       style={{
-        width: '100%',
+        width: '200px',
         border: '1px solid rgba(5, 23, 51, 0.34)',
       }}
     ></div>

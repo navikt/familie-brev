@@ -6,26 +6,26 @@ import css from './utils/css';
 import søknadCSS from './utils/soknad-css';
 import { NavIkon } from './components/ikoner/navIkon';
 import Heading from './components/typografi/Heading';
-import Line from './components/Line';
 
 export const genererSøknadHtml = (søknad: ISøknad) => {
-  const lagVerdiliste = (verdier: IVerdiliste[], nivå: number) => {
-    return verdier.map((verdiliste, index) => {
-      const nivåClassName = `level-${nivå}`;
-      return (
-        <div key={index}>
-          <Heading size="medium" text={verdiliste.label} />
-          {verdiliste.verdiliste && lagVerdiliste(verdiliste.verdiliste, nivå + 1)}
-          {verdiliste.alternativer && (
-            <div className={`alternativer ${nivåClassName}`}>{verdiliste.alternativer}</div>
-          )}
-          {verdiliste.verdi && (
-            <div className={nivåClassName}>{verdiliste.verdi.replace(/(\n\n)/gm, '\n')}</div>
-          )}
-          <Line />
-        </div>
-      );
-    });
+  const lagVerdiliste = (verdier: IVerdiliste[]) => {
+    return <div>{JSON.stringify(verdier)}</div>;
+    // return verdier.map((verdiliste, index) => {
+    //   const nivåClassName = `level-${nivå}`;
+    //   return (
+    //     <div key={index}>
+    //       <Heading size="medium" text={verdiliste.label} />
+    //       {verdiliste.verdiliste && lagVerdiliste(verdiliste.verdiliste, nivå + 1)}
+    //       {verdiliste.alternativer && (
+    //         <div className={`alternativer ${nivåClassName}`}>{verdiliste.alternativer}</div>
+    //       )}
+    //       {verdiliste.verdi && (
+    //         <div className={nivåClassName}>{verdiliste.verdi.replace(/(\n\n)/gm, '\n')}</div>
+    //       )}
+    //       <Line />
+    //     </div>
+    //   );
+    // });
   };
 
   const labelUtenBrevkode = søknad.label.replace(/\s*\(.*?\)\s*/g, '');
@@ -41,7 +41,7 @@ export const genererSøknadHtml = (søknad: ISøknad) => {
       </head>
       <body className={'body'}>
         <div className={'header'}>
-          <div className="header-container">
+          <div className={'header-container'}>
             <div>
               <Heading size={'large'} text={labelUtenBrevkode} />
               <p>{brevkode}</p>
@@ -51,7 +51,7 @@ export const genererSøknadHtml = (søknad: ISøknad) => {
           </div>
         </div>
 
-        {lagVerdiliste(søknad.verdiliste, 0)}
+        {lagVerdiliste(søknad.verdiliste)}
       </body>
     </html>,
   );
