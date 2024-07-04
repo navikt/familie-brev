@@ -8,37 +8,13 @@ import { NavIkon } from './components/ikoner/navIkon';
 import Heading from './components/typografi/Heading';
 import Line from './components/Line';
 
-interface HeaderProps {
-  nivå: number;
-  children: React.ReactNode;
-  className: string;
-}
-
-const HeaderSøknad = (props: HeaderProps) => {
-  const { nivå, children, className } = props;
-  switch (nivå) {
-    case 0:
-      return <h1 className={className}>{children}</h1>;
-    case 1:
-      return <h2 className={className}>{children}</h2>;
-    case 2:
-      return <h3 className={className}>{children}</h3>;
-    case 3:
-    case 4:
-    default:
-      return <h4 className={className}>{children}</h4>;
-  }
-};
-
 export const genererSøknadHtml = (søknad: ISøknad) => {
   const lagVerdiliste = (verdier: IVerdiliste[], nivå: number) => {
     return verdier.map((verdiliste, index) => {
       const nivåClassName = `level-${nivå}`;
       return (
         <div key={index}>
-          <HeaderSøknad nivå={nivå} className={nivåClassName}>
-            {verdiliste.label}
-          </HeaderSøknad>
+          <Heading size="medium" text={verdiliste.label} />
           {verdiliste.verdiliste && lagVerdiliste(verdiliste.verdiliste, nivå + 1)}
           {verdiliste.alternativer && (
             <div className={`alternativer ${nivåClassName}`}>{verdiliste.alternativer}</div>
@@ -52,6 +28,9 @@ export const genererSøknadHtml = (søknad: ISøknad) => {
     });
   };
 
+  const labelUtenBrevkode = søknad.label.replace(/\s*\(.*?\)\s*/g, '');
+  const brevkode = søknad.label.match(/\((.*?)\)/)?.[1] || '';
+
   return renderToStaticMarkup(
     <html lang={'nb'}>
       <head>
@@ -64,7 +43,8 @@ export const genererSøknadHtml = (søknad: ISøknad) => {
         <div className={'header'}>
           <div className="header-container">
             <div>
-              <Heading size={'large'} text={søknad.label} />
+              <Heading size={'large'} text={labelUtenBrevkode} />
+              <p>{brevkode}</p>
               <p>Sendt inn: {dagensDatoFormatert()}</p>
             </div>
             <NavIkon />
