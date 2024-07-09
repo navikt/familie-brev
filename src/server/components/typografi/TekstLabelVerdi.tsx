@@ -4,10 +4,9 @@ const TekstLabelVerdi: React.FC<{ label: string; verdi: string }> = ({ label, ve
   return (
     <div
       style={{
-        fontFamily: 'Source Sans Pro, sans-serif',
         fontSize: '18px',
         lineHeight: '24px',
-        backgroundColor: 'red',
+        marginLeft: '1rem',
       }}
     >
       <p style={{ fontWeight: 600, margin: 0 }}>{label}:</p>

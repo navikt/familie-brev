@@ -6,6 +6,7 @@ const Line: React.FC = () => {
       style={{
         width: '200px',
         border: '1px solid rgba(5, 23, 51, 0.34)',
+        margin: '10px 0',
       }}
     ></div>
   );
