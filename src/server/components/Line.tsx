@@ -5,8 +5,8 @@ const Line: React.FC = () => {
     <div
       style={{
         width: '100%',
-        border: '1px solid gray',
-        margin: '20px 0',
+        border: '1px solid WhiteSmoke',
+        margin: '30px 0',
       }}
     ></div>
   );
