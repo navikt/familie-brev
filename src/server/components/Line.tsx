@@ -4,9 +4,9 @@ const Line: React.FC = () => {
   return (
     <div
       style={{
-        width: '200px',
-        border: '1px solid black',
-        margin: '10px 0',
+        width: '100%',
+        border: '1px solid gray',
+        margin: '20px 0',
       }}
     ></div>
   );
