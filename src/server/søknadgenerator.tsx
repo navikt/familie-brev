@@ -43,7 +43,13 @@ export const genererSøknadHtml = (søknad: ISøknad) => {
       </head>
       <body className={'body'}>
         <div className={'header'}>
-          <div className={'header-container'}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
             <div>
               <Heading size={'large'} text={labelUtenBrevkode} />
               <p>{brevkode}</p>
