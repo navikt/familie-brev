@@ -12,17 +12,17 @@ import TekstLabelVerdi from './components/typografi/TekstLabelVerdi';
 export const genererSøknadHtml = (søknad: ISøknad) => {
   const lagVerdiliste = (verdier: IVerdiliste[], nivå: number) => {
     return verdier.map((verdiliste, index) => {
-      const nivåClassName = `level-${nivå}`;
       const nyttAvsnitt = nivå < 1;
       return (
         <div key={index}>
           {nyttAvsnitt && <Heading size="medium" text={verdiliste.label} />}
           {verdiliste.verdiliste && lagVerdiliste(verdiliste.verdiliste, nivå + 1)}
-          {verdiliste.alternativer && (
-            <div className={`alternativer ${nivåClassName}`}>{verdiliste.alternativer}</div>
-          )}
           {verdiliste.verdi && (
-            <TekstLabelVerdi label={verdiliste.label} verdi={verdiliste.verdi} />
+            <TekstLabelVerdi
+              label={verdiliste.label}
+              verdi={verdiliste.verdi}
+              alternativer={verdiliste.alternativer}
+            />
           )}
           {nyttAvsnitt && <Line />}
         </div>
