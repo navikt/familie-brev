@@ -1,7 +1,7 @@
 import React from 'react';
 import Heading from './typografi/Heading';
 import type { ISøknad } from '../../typer/dokumentApiBrev';
-import { dagensDatoFormatert } from '../utils/util';
+import { dagensDatoTidFormatert } from '../utils/util';
 import { NavIkon } from './ikoner/navIkon';
 
 const SøknadTittelOgIkon: React.FC<{ søknad: ISøknad }> = ({ søknad }) => {
@@ -24,7 +24,7 @@ const SøknadTittelOgIkon: React.FC<{ søknad: ISøknad }> = ({ søknad }) => {
               >
                 <p style={{ margin: 0 }}>{brevkode}</p>
                 <p style={{ margin: 0 }}>
-                  <span style={{ fontWeight: 600 }}>Sendt inn:</span> {dagensDatoFormatert()}
+                  <span style={{ fontWeight: 600 }}>Sendt inn:</span> {dagensDatoTidFormatert()}
                 </p>
               </div>
             </div>

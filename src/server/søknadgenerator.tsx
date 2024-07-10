@@ -2,7 +2,6 @@ import * as React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import type { ISøknad, IVerdiliste } from '../typer/dokumentApiBrev';
 import css from './utils/css';
-import søknadCSS from './utils/soknad-css';
 import Heading from './components/typografi/Heading';
 import Line from './components/Line';
 import TekstLabelVerdi from './components/typografi/TekstLabelVerdi';
@@ -34,7 +33,7 @@ export const genererSøknadHtml = (søknad: ISøknad) => {
       <head>
         <meta httpEquiv="content-type" content="text/html; charset=utf-8" />
         <style type="text/css">{css}</style>
-        <style type="text/css">{søknadCSS}</style>
+        {/* <style type="text/css">{søknadCSS}</style> */}
         <title>{søknad.label}</title>
       </head>
       <body className={'body'}>

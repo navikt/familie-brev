@@ -6,12 +6,6 @@ export default `
     margin: 0;
     box-sizing: border-box;
   }
-
-  .header-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
   
   .ikon-og-dato-wrapper {
     text-align: right;
@@ -25,10 +19,6 @@ export default `
   .nav-ikon {
     width: 100px;
     height: 65px;
-    display: inline-block;
-  }
-
-  .inline {
     display: inline-block;
   }
 
