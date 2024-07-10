@@ -1,13 +1,12 @@
 import * as React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import type { ISøknad, IVerdiliste } from '../typer/dokumentApiBrev';
-import { dagensDatoFormatert } from './utils/util';
 import css from './utils/css';
 import søknadCSS from './utils/soknad-css';
-import { NavIkon } from './components/ikoner/navIkon';
 import Heading from './components/typografi/Heading';
 import Line from './components/Line';
 import TekstLabelVerdi from './components/typografi/TekstLabelVerdi';
+import SøknadTittelOgIkon from './components/SøknadTittelOgIkon';
 
 export const genererSøknadHtml = (søknad: ISøknad) => {
   const lagVerdiliste = (verdier: IVerdiliste[], nivå: number) => {
@@ -30,9 +29,6 @@ export const genererSøknadHtml = (søknad: ISøknad) => {
     });
   };
 
-  const labelUtenBrevkode = søknad.label.replace(/\s*\(.*?\)\s*/g, '');
-  const brevkode = søknad.label.match(/\((.*?)\)/)?.[1] || '';
-
   return renderToStaticMarkup(
     <html lang={'nb'}>
       <head>
@@ -42,30 +38,7 @@ export const genererSøknadHtml = (søknad: ISøknad) => {
         <title>{søknad.label}</title>
       </head>
       <body className={'body'}>
-        <div className={'header'}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', border: 'none' }}>
-            <tr>
-              <td style={{ verticalAlign: 'middle', border: 'none' }}>
-                <div>
-                  <Heading size={'large'} text={labelUtenBrevkode} />
-                  <p>{brevkode}</p>
-                  <p>Sendt inn: {dagensDatoFormatert()}</p>
-                </div>
-              </td>
-              <td
-                style={{
-                  width: '1%',
-                  whiteSpace: 'nowrap',
-                  verticalAlign: 'middle',
-                  border: 'none',
-                }}
-              >
-                <NavIkon />
-              </td>
-            </tr>
-          </table>
-        </div>
-
+        <SøknadTittelOgIkon søknad={søknad} />
         {lagVerdiliste(søknad.verdiliste, 0)}
       </body>
     </html>,
