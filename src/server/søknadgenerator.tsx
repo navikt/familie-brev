@@ -43,19 +43,29 @@ export const genererSøknadHtml = (søknad: ISøknad) => {
       </head>
       <body className={'body'}>
         <div className={'header'}>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
-            <div>
+          <div style={{ fontSize: 0 }}>
+            <div
+              style={{
+                display: 'inline-block',
+                verticalAlign: 'middle',
+                width: 'calc(100% - 50px)',
+                fontSize: '16px',
+              }}
+            >
               <Heading size={'large'} text={labelUtenBrevkode} />
               <p>{brevkode}</p>
               <p>Sendt inn: {dagensDatoFormatert()}</p>
             </div>
-            <NavIkon />
+            <div
+              style={{
+                display: 'inline-block',
+                verticalAlign: 'middle',
+                width: '50px',
+                fontSize: '16px',
+              }}
+            >
+              <NavIkon />
+            </div>
           </div>
         </div>
 

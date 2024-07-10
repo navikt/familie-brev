@@ -5,7 +5,7 @@ const Line: React.FC = () => {
     <div
       style={{
         width: '100%',
-        border: '1px solid Gainsboro',
+        borderTop: '1px solid Gainsboro',
         margin: '30px 0',
       }}
     ></div>
