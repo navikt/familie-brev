@@ -7,6 +7,14 @@ export const datoFormat: DateTimeFormatOptions = {
   year: 'numeric',
 };
 
+const datoTidFormat: DateTimeFormatOptions = {
+  day: '2-digit',
+  month: '2-digit',
+  year: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit',
+};
+
 export const månedÅrFormat: DateTimeFormatOptions = {
   month: '2-digit',
   year: 'numeric',
@@ -14,6 +22,10 @@ export const månedÅrFormat: DateTimeFormatOptions = {
 
 export const dagensDatoFormatert = (): string => {
   return new Date().toLocaleDateString('no-NO', datoFormat);
+};
+
+export const dagensDatoTidFormatert = (): string => {
+  return new Date().toLocaleString('no-NO', datoTidFormat);
 };
 
 export const formaterNullableIsoDato = (dato?: string): string | undefined =>

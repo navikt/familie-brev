@@ -22,10 +22,6 @@ export default `
     display: inline-block;
   }
 
-  .inline {
-    display: inline-block;
-  }
-
   .header {
     margin-bottom: 20px;
   }
