@@ -43,21 +43,27 @@ export const genererSøknadHtml = (søknad: ISøknad) => {
       </head>
       <body className={'body'}>
         <div className={'header'}>
-          <div
-            style={{
-              display: '-webkit-box',
-              WebkitBoxPack: 'justify',
-              WebkitAlignItems: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <div>
-              <Heading size={'large'} text={labelUtenBrevkode} />
-              <p>{brevkode}</p>
-              <p>Sendt inn: {dagensDatoFormatert()}</p>
-            </div>
-            <NavIkon />
-          </div>
+          <table style={{ width: '100%', borderCollapse: 'collapse', border: 'none' }}>
+            <tr>
+              <td style={{ verticalAlign: 'middle', border: 'none' }}>
+                <div>
+                  <Heading size={'large'} text={labelUtenBrevkode} />
+                  <p>{brevkode}</p>
+                  <p>Sendt inn: {dagensDatoFormatert()}</p>
+                </div>
+              </td>
+              <td
+                style={{
+                  width: '1%',
+                  whiteSpace: 'nowrap',
+                  verticalAlign: 'middle',
+                  border: 'none',
+                }}
+              >
+                <NavIkon />
+              </td>
+            </tr>
+          </table>
         </div>
 
         {lagVerdiliste(søknad.verdiliste, 0)}
