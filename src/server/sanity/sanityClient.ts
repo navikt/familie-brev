@@ -11,7 +11,6 @@ export enum Datasett {
   EF_TEST = 'ef-test',
   KS = 'ks-brev',
   KS_TEST = 'ks-test',
-  KS_V2 = 'ks-v2',
 }
 
 export const client = (dataset: Datasett) =>
