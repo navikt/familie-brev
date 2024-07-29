@@ -1,6 +1,6 @@
 import { Datasett } from './sanity/sanityClient';
 
-const { NODE_ENV } = process.env;
+const { ENV } = process.env;
 
 export interface IMiljøvariabler {
   FAMILIE_DOKUMENT_API_URL: string;
@@ -10,7 +10,7 @@ export interface IMiljøvariabler {
 }
 
 export const hentMiljøvariabler = (): IMiljøvariabler => {
-  switch (NODE_ENV) {
+  switch (ENV) {
     case 'production':
       return {
         FAMILIE_DOKUMENT_API_URL: 'http://familie-dokument',
