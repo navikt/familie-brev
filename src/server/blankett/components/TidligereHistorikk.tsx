@@ -14,56 +14,49 @@ export const TidligereHistorikk: React.FC<{
   const periodeHistorikkOvergangsstønad =
     tidligereVedtaksperioder?.sak?.periodeHistorikkOvergangsstønad;
   const periodeHistorikkBarnetilsyn = tidligereVedtaksperioder?.sak?.periodeHistorikkBarnetilsyn;
-  const TidligereHistorikk: React.FC = () => {
-    return (
-      <>
-        <p>Har bruker tidligere vedtaksperioder i EF Sak eller Infotrygd?</p>
-        <h3 className={'blankett'}>Overgangsstønad</h3>
-        <div>
-          <strong>Historikk i EF Sak:</strong>{' '}
-          {mapBooleanTilString(tidligereVedtaksperioder?.sak?.harTidligereOvergangsstønad)}
-        </div>
-        <div>
-          <strong>Historikk i Infotrygd:</strong>{' '}
-          {mapBooleanTilString(tidligereVedtaksperioder?.infotrygd.harTidligereOvergangsstønad)}
-        </div>
-        <TidligereHistorikkOvergangsstønadTabell
-          periodeHistorikkOvergangsstønad={periodeHistorikkOvergangsstønad}
-        />
-        <h3 className={'blankett'}>Barnetilsyn</h3>
-        <div>
-          <strong>Historikk i EF Sak:</strong>{' '}
-          {mapBooleanTilString(tidligereVedtaksperioder?.sak?.harTidligereBarnetilsyn)}
-        </div>
-        <div>
-          <strong>Historikk i Infotrygd:</strong>{' '}
-          {mapBooleanTilString(tidligereVedtaksperioder?.infotrygd.harTidligereBarnetilsyn)}
-        </div>
-        <TidligereHistorikkBarnetilsynTabell
-          periodeHistorikkBarnetilsyn={periodeHistorikkBarnetilsyn}
-        />
-        <h3 className={'blankett'}>Skolepenger</h3>
-        <div>
-          <strong>Historikk i EF Sak:</strong>{' '}
-          {mapBooleanTilString(tidligereVedtaksperioder?.sak?.harTidligereSkolepenger)}
-        </div>
-        <div>
-          <strong>Historikk i Infotrygd:</strong>{' '}
-          {mapBooleanTilString(tidligereVedtaksperioder?.infotrygd.harTidligereSkolepenger)}
-        </div>
-        <br />
-        <div>
-          <strong>Har bruker fått stønad før desember 2008 - Infotrygd (PE PP): </strong>
-          {mapBooleanTilString(tidligereVedtaksperioder?.historiskPensjon)}
-        </div>
-      </>
-    );
-  };
 
   return (
     <>
       <h3 className={'blankett'}>Registerdata</h3>
-      <TidligereHistorikk />
+      <p>Har bruker tidligere vedtaksperioder i EF Sak eller Infotrygd?</p>
+      <h3 className={'blankett'}>Overgangsstønad</h3>
+      <div>
+        <strong>Historikk i EF Sak:</strong>{' '}
+        {mapBooleanTilString(tidligereVedtaksperioder?.sak?.harTidligereOvergangsstønad)}
+      </div>
+      <div>
+        <strong>Historikk i Infotrygd:</strong>{' '}
+        {mapBooleanTilString(tidligereVedtaksperioder?.infotrygd.harTidligereOvergangsstønad)}
+      </div>
+      <TidligereHistorikkOvergangsstønadTabell
+        periodeHistorikkOvergangsstønad={periodeHistorikkOvergangsstønad}
+      />
+      <h3 className={'blankett'}>Barnetilsyn</h3>
+      <div>
+        <strong>Historikk i EF Sak:</strong>{' '}
+        {mapBooleanTilString(tidligereVedtaksperioder?.sak?.harTidligereBarnetilsyn)}
+      </div>
+      <div>
+        <strong>Historikk i Infotrygd:</strong>{' '}
+        {mapBooleanTilString(tidligereVedtaksperioder?.infotrygd.harTidligereBarnetilsyn)}
+      </div>
+      <TidligereHistorikkBarnetilsynTabell
+        periodeHistorikkBarnetilsyn={periodeHistorikkBarnetilsyn}
+      />
+      <h3 className={'blankett'}>Skolepenger</h3>
+      <div>
+        <strong>Historikk i EF Sak:</strong>{' '}
+        {mapBooleanTilString(tidligereVedtaksperioder?.sak?.harTidligereSkolepenger)}
+      </div>
+      <div>
+        <strong>Historikk i Infotrygd:</strong>{' '}
+        {mapBooleanTilString(tidligereVedtaksperioder?.infotrygd.harTidligereSkolepenger)}
+      </div>
+      <br />
+      <div>
+        <strong>Har bruker fått stønad før desember 2008 - Infotrygd (PE PP): </strong>
+        {mapBooleanTilString(tidligereVedtaksperioder?.historiskPensjon)}
+      </div>
     </>
   );
 };

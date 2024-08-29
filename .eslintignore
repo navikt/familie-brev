@@ -1,9 +1,0 @@
-*.json
-*.less
-*.yaml
-*.yml
-*.md
-/node_modules/
-/plugins/
-/dist/
-/.idea/

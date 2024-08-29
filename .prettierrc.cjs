@@ -1,4 +1,4 @@
-module.exports = {
+const config = {
   printWidth: 100,
   parser: 'typescript',
   tabWidth: 2,
@@ -6,3 +6,5 @@ module.exports = {
   trailingComma: 'all',
   arrowParens: 'avoid',
 };
+
+module.exports = config
