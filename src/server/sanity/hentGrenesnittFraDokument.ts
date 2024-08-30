@@ -82,20 +82,21 @@ const hentGrensesnitt = async (
   if (dokumentinnhold) {
     for await (const sanityElement of dokumentinnhold) {
       switch (sanityElement._type) {
-        case 'block':
+        case 'block': {
           const block = sanityElement as ISanityBlock;
 
           for await (const mark of block.markDefs) {
             switch (mark._type) {
-              case 'flettefelt':
+              case 'flettefelt': {
                 const flettefelt = mark as IFlettefeltMark;
                 if (!flettefelt.felt) {
                   throw new Error(`Flettefelt i ${dokumentId} er tomt for ${maalform} versjon`);
                 }
                 grensesnitt.flettefelter.push(flettefelt.felt.felt);
                 break;
+              }
 
-              case 'submal':
+              case 'submal': {
                 const submalMark = mark as IDelmalMark;
                 const submalGrensesnitt = await hentSubmalGrensesnitt(
                   submalMark,
@@ -105,8 +106,9 @@ const hentGrensesnitt = async (
                 );
                 grensesnitt.delmaler.push(submalGrensesnitt);
                 break;
+              }
 
-              case 'valgfelt':
+              case 'valgfelt': {
                 const valgfelt = mark as IValgfeltMark;
                 const valgfeltGrensesnitt = await hentValgfeltGrensesnitt(
                   valgfelt,
@@ -116,14 +118,16 @@ const hentGrensesnitt = async (
                 );
                 grensesnitt.valgfelter.push(valgfeltGrensesnitt);
                 break;
+              }
 
               default:
                 throw new Error(`Ukjent mark._type ${mark}`);
             }
           }
           break;
+        }
 
-        case 'delmalBlock':
+        case 'delmalBlock': {
           const delmalBlock = sanityElement as IDelmalBlock;
           const submalGrensesnitt = await hentSubmalGrensesnitt(
             delmalBlock,
@@ -133,8 +137,9 @@ const hentGrensesnitt = async (
           );
           grensesnitt.delmaler.push(submalGrensesnitt);
           break;
+        }
 
-        case 'valgfeltBlock':
+        case 'valgfeltBlock': {
           const valgfelt = sanityElement as IValfeltBlock;
           const valgfeltGrensesnitt = await hentValgfeltGrensesnitt(
             valgfelt,
@@ -144,6 +149,7 @@ const hentGrensesnitt = async (
           );
           grensesnitt.valgfelter.push(valgfeltGrensesnitt);
           break;
+        }
 
         case undefined:
           break;

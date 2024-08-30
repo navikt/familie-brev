@@ -40,10 +40,11 @@ const formaterSanityBlock = (
       return formaterFlettefelt(block, data);
     case 'valgfelt':
       return formaterValgfelt(block, data);
-    case 'valgfeltV2':
+    case 'valgfeltV2': {
       const tekst = formaterValgfelt(block.valgReferanse, data);
       const førsteBokstavSkalVæreStor = block.skalHaStorForbokstav;
       return førsteBokstavSkalVæreStor ? lagStorForbokstav(tekst) : tekst;
+    }
     default:
       throw new Feil(
         `Ukjent block fra santity. Det er ikke laget noen funksjonalitet for ${block._type}`,

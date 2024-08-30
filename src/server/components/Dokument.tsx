@@ -31,7 +31,6 @@ const Dokument = (dokumentProps: DokumentProps) => {
     return client(datasett)
       .fetch(query)
       .then((res: any) => {
-        // eslint-disable-next-line no-constant-condition
         if (!res[maalform]) {
           throw new Feil(
             `Fant ikke ${maalform} tekst for "${dokumentApiNavn}" i datasettet "${datasett}".`,
