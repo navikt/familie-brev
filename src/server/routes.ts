@@ -15,7 +15,11 @@ import { Feil } from './utils/Feil';
 import hentAvansertDokumentHtml from './hentAvansertDokumentHtml';
 import validerDokumentApiData from './utils/valideringer/validerDokumentApiData';
 import { logError, logInfo, logSecure } from '@navikt/familie-logging';
-import { hentAvansertDokumentFelter, hentFlettefelter } from './hentAvansertDokumentFelter';
+import {
+  hentAvansertDokumentFelter,
+  hentAvansertDokumentFelter_V20220307,
+  hentFlettefelter,
+} from './hentAvansertDokumentFelter';
 import { hentAvansertDokumentNavn } from './hentAvansertDokumentNavn';
 import { lagManueltBrevHtml } from './lagManueltBrevHtml';
 import { genererSøknadHtml } from './søknadgenerator';
@@ -133,6 +137,29 @@ router.get(
         res.status(err.code).send(`Henting av felter feilet: ${err.message}`);
       },
     );
+
+    const flettefelter = await hentFlettefelter(datasett, avansertDokumentNavn).catch(err => {
+      res.status(err.code).send(`Henting av flettefelter feilet: ${err.message}`);
+    });
+    logFerdigstilt(req);
+    res.send({ data: { dokument: felter, flettefelter }, status: 'SUKSESS' });
+  },
+);
+
+router.get(
+  '/:datasett/avansert-dokument/:maalform/:dokumentApiNavn/felter_v2',
+  async (req: Request, res: Response) => {
+    const datasett = req.params.datasett as Datasett;
+    const maalform = req.params.maalform as Maalform;
+    const avansertDokumentNavn = req.params.dokumentApiNavn;
+
+    const felter = await hentAvansertDokumentFelter_V20220307(
+      datasett,
+      maalform,
+      avansertDokumentNavn,
+    ).catch(err => {
+      res.status(err.code).send(`Henting av felter feilet: ${err.message}`);
+    });
 
     const flettefelter = await hentFlettefelter(datasett, avansertDokumentNavn).catch(err => {
       res.status(err.code).send(`Henting av flettefelter feilet: ${err.message}`);
