@@ -25,7 +25,6 @@ export const hentAvansertDokumentFelter_V20220307 = async (
   const query = `*[apiNavn == "${avansertDokumentNavn}"]{
         "malNavn": apiNavn,
         "delmalerSortert": ${maalform}[defined(delmalReferanse)].delmalReferanse->{ 
-            "id": _id,
             "delmalApiNavn": apiNavn,
             "delmalNavn": visningsnavn,
             gruppeVisningsnavn,
