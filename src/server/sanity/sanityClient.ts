@@ -6,7 +6,6 @@ export enum Datasett {
   TEST = 'testdata',
   EF = 'ef-brev',
   BA = 'ba-brev',
-  BA_V2 = 'ba-v2',
   BA_TEST = 'ba-test',
   EF_TEST = 'ef-test',
   KS = 'ks-brev',
