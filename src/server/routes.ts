@@ -147,7 +147,7 @@ router.get(
 );
 
 router.get(
-  '/:datasett/avansert-dokument/:maalform/:dokumentApiNavn/felter_v2',
+  '/:datasett/avansert-dokument/:maalform/:dokumentApiNavn/felter/v2',
   async (req: Request, res: Response) => {
     const datasett = req.params.datasett as Datasett;
     const maalform = req.params.maalform as Maalform;

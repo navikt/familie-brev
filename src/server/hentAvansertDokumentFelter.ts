@@ -1,6 +1,5 @@
 import type { Maalform } from '../typer/sanitygrensesnitt';
-import { clientV2, Datasett } from './sanity/sanityClient';
-import { client } from './sanity/sanityClient';
+import { client, clientV2, Datasett } from './sanity/sanityClient';
 import { Feil } from './utils/Feil';
 
 export const hentFlettefelter = async (
