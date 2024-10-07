@@ -58,7 +58,7 @@ export const hentAvansertDokumentFelter_V20220307 = async (
                           ${maalform}[length(markDefs[].flettefeltReferanse) > 0 ] {
                               "flettefelt": markDefs[].flettefeltReferanse
                           },
-                  "delmalValgfelt":  ^.${maalform}[defined(valgReferanse)].valgReferanse ->{
+                  "delmalValgfelt":  ${maalform}[defined(valgReferanse)].valgReferanse ->{
                           "valgfeltVisningsnavn":visningsnavn,
                           "valgFeltApiNavn": apiNavn,
                           "valgfeltBeskrivelse": beskrivelse,
