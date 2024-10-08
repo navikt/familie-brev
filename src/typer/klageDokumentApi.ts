@@ -32,7 +32,7 @@ export enum Klagebehandlingsårsak {
 
 export const klagebehandlingsårakTilTekst: Record<Klagebehandlingsårsak, string> = {
   ORDINÆR: 'Ordinær',
-  HENVENDELSE_FRA_KABAL: 'Henvendelse fra kabal',
+  HENVENDELSE_FRA_KABAL: 'Henvendelse fra KA (uten brev)',
 };
 
 export enum EStønadstype {

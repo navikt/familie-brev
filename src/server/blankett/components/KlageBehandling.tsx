@@ -14,7 +14,6 @@ import {
   hjemmelTilVisningstekst,
   IVurdering,
   klagebehandlingsårakTilTekst,
-  Klagebehandlingsårsak,
   vedtakTilTekst,
   årsakTilTekst,
 } from '../../../typer/klageDokumentApi';
@@ -48,12 +47,6 @@ export const KlageBehandling: React.FC<{ behandling: IKlageBehandling }> = ({ be
       <div>
         <strong>Behandlingsårsak:</strong> {klagebehandlingsårakTilTekst[behandling.årsak]}
       </div>
-      {behandling.årsak === Klagebehandlingsårsak.HENVENDELSE_FRA_KABAL && (
-        <div>
-          Siden klagebehandlingen ble opprettet med årsak henvendelse fra kabal ble det ikke sendt
-          ut brev til bruker fra Familie - Klage.
-        </div>
-      )}
     </div>
   );
 };
