@@ -16,6 +16,7 @@ export interface IKlageBehandling {
   klageMottatt: string;
   resultat: EKlageBehandlingResultat;
   påklagetVedtak?: IPåklagetVedtak;
+  årsak: Klagebehandlingsårsak;
 }
 
 export interface IPåklagetVedtak {
@@ -23,6 +24,16 @@ export interface IPåklagetVedtak {
   resultat: string;
   vedtakstidspunkt: string;
 }
+
+export enum Klagebehandlingsårsak {
+  ORDINÆR = 'ORDINÆR',
+  HENVENDELSE_FRA_KABAL = 'HENVENDELSE_FRA_KABAL',
+}
+
+export const klagebehandlingsårakTilTekst: Record<Klagebehandlingsårsak, string> = {
+  ORDINÆR: 'Ordinær',
+  HENVENDELSE_FRA_KABAL: 'Henvendelse fra KA (uten brev)',
+};
 
 export enum EStønadstype {
   OVERGANGSSTØNAD = 'OVERGANGSSTØNAD',

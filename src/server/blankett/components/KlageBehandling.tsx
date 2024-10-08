@@ -1,20 +1,21 @@
 import React from 'react';
 
-import { formaterIsoDatoTid, formaterIsoDato } from '../../utils/util';
-import type { IVurdering } from '../../../typer/klageDokumentApi';
+import { formaterIsoDato, formaterIsoDatoTid } from '../../utils/util';
 import type {
   IFormkravVilkår,
   IKlageBehandling,
   IPåklagetVedtak,
 } from '../../../typer/klageDokumentApi';
 import {
-  formVilkårTilTekst,
+  behandlingResultatTilTekst,
   EFormVilkår,
   formkravFristUnntakTilTekst,
-  vedtakTilTekst,
+  formVilkårTilTekst,
   hjemmelTilVisningstekst,
+  IVurdering,
+  klagebehandlingsårakTilTekst,
+  vedtakTilTekst,
   årsakTilTekst,
-  behandlingResultatTilTekst,
 } from '../../../typer/klageDokumentApi';
 
 const påklagetVedtak = (påklagetVedtak?: IPåklagetVedtak) => {
@@ -42,6 +43,9 @@ export const KlageBehandling: React.FC<{ behandling: IKlageBehandling }> = ({ be
       </div>
       <div>
         <strong>Vedtak som er påklaget:</strong> {påklagetVedtak(behandling.påklagetVedtak)}
+      </div>
+      <div>
+        <strong>Behandlingsårsak:</strong> {klagebehandlingsårakTilTekst[behandling.årsak]}
       </div>
     </div>
   );
