@@ -6,10 +6,8 @@ export enum Datasett {
   TEST = 'testdata',
   EF = 'ef-brev',
   BA = 'ba-brev',
-  BA_TEST = 'ba-test',
   EF_TEST = 'ef-test',
   KS = 'ks-brev',
-  KS_TEST = 'ks-test',
 }
 
 export const client = (dataset: Datasett) =>

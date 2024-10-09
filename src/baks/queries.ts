@@ -40,5 +40,4 @@ export const hentBegrunnelseTekstQuery = (
 
 `;
 
-const erKsDatasett = (datasett: Datasett) =>
-  datasett == Datasett.KS || datasett == Datasett.KS_TEST;
+const erKsDatasett = (datasett: Datasett) => datasett == Datasett.KS;
