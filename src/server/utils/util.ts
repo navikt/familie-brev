@@ -20,33 +20,25 @@ export const månedÅrFormat: DateTimeFormatOptions = {
   year: 'numeric',
 };
 
-export const dagensDatoFormatert = (): string => {
-  return new Date().toLocaleDateString('no-NO', datoFormat);
-};
+export const dagensDatoFormatert = (): string => new Date().toLocaleDateString('no-NO', datoFormat);
 
-export const dagensDatoTidFormatert = (): string => {
-  return new Date().toLocaleString('no-NO', datoTidFormat);
-};
+export const dagensDatoTidFormatert = (): string =>
+  new Date().toLocaleString('no-NO', datoTidFormat);
 
 export const formaterNullableIsoDato = (dato?: string): string | undefined =>
   dato && formaterIsoDato(dato);
 
-export const parseOgFormaterÅrMåned = (årMåned: string): string | undefined => {
-  return årMåned
-    ? parse(årMåned, 'yyyy-MM', new Date()).toLocaleDateString('no-NO', månedÅrFormat)
-    : '';
-};
+export const parseOgFormaterÅrMåned = (årMåned: string): string | undefined =>
+  årMåned ? parse(årMåned, 'yyyy-MM', new Date()).toLocaleDateString('no-NO', månedÅrFormat) : '';
 
 export const formaterNullableMånedÅr = (dato?: string): string | undefined =>
   dato && parseISO(dato).toLocaleDateString('no-NO', månedÅrFormat);
 
-export const formaterIsoDato = (dato: string): string => {
-  return parseISO(dato).toLocaleDateString('no-NO', datoFormat);
-};
+export const formaterIsoDato = (dato: string): string =>
+  parseISO(dato).toLocaleDateString('no-NO', datoFormat);
 
-export const formaterIsoDatoTid = (dato: string): string => {
-  return format(parseISO(dato), "dd.MM.yyyy 'kl'.HH:mm");
-};
+export const formaterIsoDatoTid = (dato: string): string =>
+  format(parseISO(dato), "dd.MM.yyyy 'kl'.HH:mm");
 
 export const tilSkoleår = (årMåned: string): number => {
   const dato = månedÅrTilDate(årMåned);
@@ -54,9 +46,7 @@ export const tilSkoleår = (årMåned: string): number => {
   return getMonth(dato) > 6 ? år : år - 1;
 };
 
-export const månedÅrTilDate = (årMåned: string): Date => {
-  return parse(årMåned, 'yyyy-MM', new Date());
-};
+export const månedÅrTilDate = (årMåned: string): Date => parse(årMåned, 'yyyy-MM', new Date());
 
 export const formaterBeløp = (verdi: number): string =>
   Number(verdi).toLocaleString('no-NO', { currency: 'NOK' }) + ' kr';
