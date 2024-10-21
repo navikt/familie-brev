@@ -47,12 +47,12 @@ router.post(
       res.send(html);
     } catch (feil: any) {
       if (feil instanceof Feil) {
-        return res.status(feil.code).send(feil.message);
+        res.status(feil.code).send(feil.message);
+      } else {
+        logError(`Generering av dokument (html) feilet: ${feil.message}`);
+        logSecure(`Generering av dokument (html) feilet: ${feil}`);
+        res.status(500).send(`Generering av dokument (html) feilet: ${feil.message}`);
       }
-
-      logError(`Generering av dokument (html) feilet: ${feil.message}`);
-      logSecure(`Generering av dokument (html) feilet: ${feil}`);
-      return res.status(500).send(`Generering av dokument (html) feilet: ${feil.message}`);
     }
   },
 );
@@ -76,12 +76,12 @@ router.post(
       res.end(pdf);
     } catch (feil: any) {
       if (feil instanceof Feil) {
-        return res.status(feil.code).send(feil.message);
+        res.status(feil.code).send(feil.message);
+      } else {
+        logError(`Generering av dokument (pdf) feilet: ${feil.message}`);
+        logSecure(`Generering av dokument (pdf) feilet: ${feil}`);
+        res.status(500).send(`Generering av dokument (pdf) feilet: ${feil.message}`);
       }
-
-      logError(`Generering av dokument (pdf) feilet: ${feil.message}`);
-      logSecure(`Generering av dokument (pdf) feilet: ${feil}`);
-      return res.status(500).send(`Generering av dokument (pdf) feilet: ${feil.message}`);
     }
   },
 );
@@ -113,14 +113,12 @@ router.post(
       res.send(html);
     } catch (error: any) {
       if (error instanceof Feil) {
-        return res.status(error.code).send(error.message);
+        res.status(error.code).send(error.message);
+      } else {
+        logError(`Generering av avansert dokument (html) feilet: ${error.message}`);
+        logSecure(`Generering av avansert dokument (html) feilet: ${error}`);
+        res.status(500).send(`Generering av avansert dokument (html) feilet: ${error.message}`);
       }
-
-      logError(`Generering av avansert dokument (html) feilet: ${error.message}`);
-      logSecure(`Generering av avansert dokument (html) feilet: ${error}`);
-      return res
-        .status(500)
-        .send(`Generering av avansert dokument (html) feilet: ${error.message}`);
     }
   },
 );
@@ -135,12 +133,15 @@ router.get(
     const felter = await hentAvansertDokumentFelter(datasett, maalform, avansertDokumentNavn).catch(
       err => {
         res.status(err.code).send(`Henting av felter feilet: ${err.message}`);
+        return;
       },
     );
 
     const flettefelter = await hentFlettefelter(datasett, avansertDokumentNavn).catch(err => {
       res.status(err.code).send(`Henting av flettefelter feilet: ${err.message}`);
+      return;
     });
+
     logFerdigstilt(req);
     res.send({ data: { dokument: felter, flettefelter }, status: 'SUKSESS' });
   },
@@ -159,10 +160,12 @@ router.get(
       avansertDokumentNavn,
     ).catch(err => {
       res.status(err.code).send(`Henting av felter feilet: ${err.message}`);
+      return;
     });
 
     const flettefelter = await hentFlettefelter(datasett, avansertDokumentNavn).catch(err => {
       res.status(err.code).send(`Henting av flettefelter feilet: ${err.message}`);
+      return;
     });
     logFerdigstilt(req);
     res.send({ data: { dokument: felter, flettefelter }, status: 'SUKSESS' });
@@ -174,7 +177,9 @@ router.get('/:datasett/avansert-dokument/navn', async (req: Request, res: Respon
 
   const navn = await hentAvansertDokumentNavn(datasett).catch(err => {
     res.status(err.code).send(`Henting av avanserte dokumenter feilet: ${err.message}`);
+    return;
   });
+
   logFerdigstilt(req);
   res.send({ data: navn, status: 'SUKSESS' });
 });
@@ -187,7 +192,9 @@ router.get(
 
     const navn = await hentAvansertDokumentNavn(datasett, hentUpubliserte).catch(err => {
       res.status(err.code).send(`Henting av avanserte dokumenter feilet: ${err.message}`);
+      return;
     });
+
     logFerdigstilt(req);
     res.send({ data: navn, status: 'SUKSESS' });
   },
@@ -222,12 +229,12 @@ router.post(
       res.end(pdf);
     } catch (error: any) {
       if (error instanceof Feil) {
-        return res.status(error.code).send(error.message);
+        res.status(error.code).send(error.message);
+      } else {
+        logError(`Generering av avansert dokument (pdf) feilet: ${error.message}`);
+        logSecure(`Generering av avansert dokument (pdf) feilet: ${error}`);
+        res.status(500).send(`Generering av avansert dokument (pdf) feilet: ${error.message}`);
       }
-
-      logError(`Generering av avansert dokument (pdf) feilet: ${error.message}`);
-      logSecure(`Generering av avansert dokument (pdf) feilet: ${error}`);
-      return res.status(500).send(`Generering av avansert dokument (pdf) feilet: ${error.message}`);
     }
   },
 );
@@ -242,11 +249,12 @@ router.post('/fritekst-brev', async (req: Request, res: Response) => {
     res.end(pdf);
   } catch (error: any) {
     if (error instanceof Feil) {
-      return res.status(error.code).send(error.message);
+      res.status(error.code).send(error.message);
+    } else {
+      logError(`Generering av fritekstbrev (pdf) feilet: ${error.message}`);
+      logSecure(`Generering av fritekstbrev (pdf) feilet: ${error}`);
+      res.status(500).send(`Generering av avansert dokument (pdf) feilet: ${error.message}`);
     }
-    logError(`Generering av fritekstbrev (pdf) feilet: ${error.message}`);
-    logSecure(`Generering av fritekstbrev (pdf) feilet: ${error}`);
-    return res.status(500).send(`Generering av avansert dokument (pdf) feilet: ${error.message}`);
   }
 });
 
@@ -258,11 +266,12 @@ router.post('/fritekst-brev/html', async (req: Request, res: Response) => {
     res.send(html);
   } catch (error: any) {
     if (error instanceof Feil) {
-      return res.status(error.code).send(error.message);
+      res.status(error.code).send(error.message);
+    } else {
+      logError(`Generering av fritekstbrev (pdf) feilet: ${error.message}`);
+      logSecure(`Generering av fritekstbrev (pdf) feilet: ${error}`);
+      res.status(500).send(`Generering av avansert dokument (pdf) feilet: ${error.message}`);
     }
-    logError(`Generering av fritekstbrev (pdf) feilet: ${error.message}`);
-    logSecure(`Generering av fritekstbrev (pdf) feilet: ${error}`);
-    return res.status(500).send(`Generering av avansert dokument (pdf) feilet: ${error.message}`);
   }
 });
 
@@ -276,11 +285,12 @@ router.post('/generer-soknad', async (req: Request, res: Response) => {
     res.end(pdf);
   } catch (error: any) {
     if (error instanceof Feil) {
-      return res.status(error.code).send(error.message);
+      res.status(error.code).send(error.message);
+    } else {
+      logError(`Generering av søknad (pdf) feilet: ${error.message}`);
+      logSecure(`Generering av søknad (pdf) feilet: ${error}`);
+      res.status(500).send(`Generering av søknad (pdf) feilet: ${error.message}`);
     }
-    logError(`Generering av søknad (pdf) feilet: ${error.message}`);
-    logSecure(`Generering av søknad (pdf) feilet: ${error}`);
-    return res.status(500).send(`Generering av søknad (pdf) feilet: ${error.message}`);
   }
 });
 
