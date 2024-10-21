@@ -16,6 +16,7 @@ const { NODE_ENV } = process.env;
 router.post('/pdf', async (req: Request, res: Response) => {
   const dokument: IDokumentData = req.body as IDokumentData;
   const meta = genererMetadata(req);
+
   try {
     const html = await hentDokumentHtmlBlankett(dokument);
     const pdf = await genererPdfBlankett(html, meta);
@@ -28,7 +29,7 @@ router.post('/pdf', async (req: Request, res: Response) => {
     logError(`Generering av dokument (pdf) feilet: Sjekk secure-logs`, undefined, meta);
     loggFeilMedDataTilSecurelog<IDokumentData>(dokument, req, error);
 
-    return res.status(500).send(`Generering av dokument (pdf) feilet: ${error.message}`);
+    res.status(500).send(`Generering av dokument (pdf) feilet: ${error.message}`);
   }
 });
 
@@ -47,7 +48,7 @@ router.post('/klage/pdf', async (req: Request, res: Response) => {
     logError(`Generering av klagedokument (pdf) feilet: Sjekk secure-logs`, undefined, meta);
     loggFeilMedDataTilSecurelog<IKlageDokumentData>(dokument, req, error);
 
-    return res.status(500).send(`Generering av dokument (pdf) feilet: ${error.message}`);
+    res.status(500).send(`Generering av dokument (pdf) feilet: ${error.message}`);
   }
 });
 
@@ -69,7 +70,7 @@ if (NODE_ENV != 'production' && NODE_ENV != 'preprod') {
       res.end(pdf);
     } catch (feil) {
       const error = feil as Error;
-      return res.status(500).send(`Generering av dokument (pdf) feilet: ${error.message}`);
+      res.status(500).send(`Generering av dokument (pdf) feilet: ${error.message}`);
     }
   });
 
@@ -79,7 +80,7 @@ if (NODE_ENV != 'production' && NODE_ENV != 'preprod') {
       res.send(html);
     } catch (feil) {
       const error = feil as Error;
-      return res.status(500).send(`Generering av dokument (pdf) feilet: ${error.message}`);
+      res.status(500).send(`Generering av dokument (pdf) feilet: ${error.message}`);
     }
   });
 }

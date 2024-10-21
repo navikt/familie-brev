@@ -69,12 +69,12 @@ router.post('/begrunnelser/:begrunnelseApiNavn/tekst/', async (req: Request, res
     res.status(200).send(begrunnelse);
   } catch (error: any) {
     if (error instanceof Feil) {
-      return res.status(error.code).send(error.message);
+      res.status(error.code).send(error.message);
+    } else {
+      logError(`Generering av begrunnelse feilet: ${error.message}`);
+      logSecure(`Generering av begrunnelse feilet: ${error}`);
+      res.status(500).send(`Generering av begrunnelse feilet: ${error.message}`);
     }
-
-    logError(`Generering av begrunnelse feilet: ${error.message}`);
-    logSecure(`Generering av begrunnelse feilet: ${error}`);
-    return res.status(500).send(`Generering av begrunnelse feilet: ${error.message}`);
   }
 });
 
