@@ -66,9 +66,18 @@ export const hentBrevstruktur = async (
   maalform: Maalform,
   avansertDokumentNavn: string,
 ): Promise<DokumentMal> => {
-  const brevmenyBlokker = await hentBrevmenyBlokker(datasett, maalform, avansertDokumentNavn);
-  const delmalerSortert = await hentDelmalerSortert(datasett, maalform, avansertDokumentNavn);
-  return { delmalerSortert, brevmenyBlokker };
+  const brevmenyBlokker: BrevmenyBlokk[] = await hentBrevmenyBlokker(
+    datasett,
+    maalform,
+    avansertDokumentNavn,
+  );
+  const delmalerSortert: Delmal[] = await hentDelmalerSortert(
+    datasett,
+    maalform,
+    avansertDokumentNavn,
+  );
+  const dokumentMal: DokumentMal = { delmalerSortert, brevmenyBlokker };
+  return dokumentMal;
 };
 
 const hentDelmalerSortert = async (
