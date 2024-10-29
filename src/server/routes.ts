@@ -17,7 +17,6 @@ import hentAvansertDokumentHtml from './hentAvansertDokumentHtml';
 import validerDokumentApiData from './utils/valideringer/validerDokumentApiData';
 import { logError, logInfo, logSecure } from '@navikt/familie-logging';
 import {
-  DokumentMal,
   hentAvansertDokumentFelter,
   hentAvansertDokumentFelter_V20220307,
   hentBrevstruktur,
@@ -182,13 +181,11 @@ router.get(
     const maalform = req.params.maalform as Maalform;
     const avansertDokumentNavn = req.params.dokumentApiNavn;
 
-    const brevstruktur: void | DokumentMal = await hentBrevstruktur(
-      datasett,
-      maalform,
-      avansertDokumentNavn,
-    ).catch(err => {
-      res.status(err.code).send(`Henting av brevstruktur feilet: ${err.message}`);
-    });
+    const brevstruktur = await hentBrevstruktur(datasett, maalform, avansertDokumentNavn).catch(
+      err => {
+        res.status(err.code).send(`Henting av brevstruktur feilet: ${err.message}`);
+      },
+    );
 
     const flettefelter = await hentFlettefelter(datasett, avansertDokumentNavn).catch(err => {
       res.status(err.code).send(`Henting av flettefelter feilet: ${err.message}`);
@@ -197,7 +194,7 @@ router.get(
     logFerdigstilt(req);
 
     const json = {
-      data: { dokument: JSON.stringify(brevstruktur), flettefelter },
+      data: { dokument: brevstruktur, flettefelter },
       status: 'SUKSESS',
     };
     res.send(json);
