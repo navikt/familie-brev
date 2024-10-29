@@ -3,7 +3,6 @@ import { NavIkon } from './ikoner/navIkon';
 import type { Flettefelt } from '../../typer/dokumentApiBrev';
 import { validerFlettefelt } from '../utils/valideringer/validerFlettefelt';
 import { Maalform } from '../../typer/sanitygrensesnitt';
-import { startMedStorBokstav } from '../utils/strenghåndtering';
 
 interface HeaderProps {
   tittel: string;
@@ -53,7 +52,7 @@ function Header(props: HeaderProps) {
         </div>
       </div>
       <div className={'tittel-og-personinfo'}>
-        <h2 className="tittel">{startMedStorBokstav(tittel)}</h2>
+        <h2 className="tittel">{tittel}</h2>
         <div className="kolonner">
           <div className="personinfo">
             <div>

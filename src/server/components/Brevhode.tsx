@@ -1,6 +1,5 @@
 import React from 'react';
 import { NavIkon } from './ikoner/navIkon';
-import { startMedStorBokstav } from '../utils/strenghåndtering';
 
 interface BrevhodeProps {
   tittel: string;
@@ -21,7 +20,7 @@ export const Brevhode = (props: BrevhodeProps) => {
         </div>
       </div>
       <div className={'tittel-og-personinfo'}>
-        <h2 className="tittel">{startMedStorBokstav(tittel)}</h2>
+        <h2 className="tittel">{tittel}</h2>
         <div className="kolonner">
           <div className="personinfo">
             <div>Navn: {navn}</div>

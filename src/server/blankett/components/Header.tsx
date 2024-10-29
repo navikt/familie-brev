@@ -1,6 +1,5 @@
 import React from 'react';
 import { NavIkon } from '../../components/ikoner/navIkon';
-import { startMedStorBokstav } from '../../utils/strenghåndtering';
 
 interface HeaderProps {
   tittel: string;
@@ -22,7 +21,7 @@ function Header(props: HeaderProps) {
         </div>
       </div>
       <div className={'tittel-og-personinfo'}>
-        <h2 className="tittel">{startMedStorBokstav(tittel)}</h2>
+        <h2 className="tittel">{tittel}</h2>
         <div className="kolonner">
           <div className="personinfo">
             <div>Navn: {navn}</div>
