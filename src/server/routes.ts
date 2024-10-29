@@ -196,7 +196,10 @@ router.get(
 
     logFerdigstilt(req);
 
-    const json = { data: { dokument: brevstruktur, flettefelter }, status: 'SUKSESS' };
+    const json = {
+      data: { dokument: JSON.stringify(brevstruktur), flettefelter },
+      status: 'SUKSESS',
+    };
     res.send(json);
   },
 );
