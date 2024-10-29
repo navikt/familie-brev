@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavIkon } from './ikoner/navIkon';
+import { startMedStorBokstav } from '../utils/strenghåndtering';
 
 interface BrevhodeProps {
   tittel: string;
