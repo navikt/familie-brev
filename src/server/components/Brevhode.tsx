@@ -11,6 +11,10 @@ interface BrevhodeProps {
 export const Brevhode = (props: BrevhodeProps) => {
   const { tittel, navn, fodselsnummer, brevOpprettetDato } = props;
 
+  const startMedStorBokstav = (tekst: string) => {
+    return tekst.charAt(0).toUpperCase() + tekst.slice(1).toLowerCase();
+  };
+
   return (
     <div className={'header'}>
       <div className="ikon-og-dato-wrapper">
@@ -20,7 +24,7 @@ export const Brevhode = (props: BrevhodeProps) => {
         </div>
       </div>
       <div className={'tittel-og-personinfo'}>
-        <h2 className="tittel">{tittel.toUpperCase()}</h2>
+        <h2 className="tittel">{startMedStorBokstav(tittel)}</h2>
         <div className="kolonner">
           <div className="personinfo">
             <div>Navn: {navn}</div>
