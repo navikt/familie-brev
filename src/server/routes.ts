@@ -2,6 +2,7 @@ import type { Request, Response } from 'express';
 import express from 'express';
 import type { Datasett } from './sanity/sanityClient';
 import type { Maalform } from '../typer/sanitygrensesnitt';
+//import type { DokumentMal } from './hentAvansertDokumentFelter';
 import type {
   IAvansertDokumentVariabler,
   IBrevMedSignatur,
@@ -18,8 +19,7 @@ import { logError, logInfo, logSecure } from '@navikt/familie-logging';
 import {
   hentAvansertDokumentFelter,
   hentAvansertDokumentFelter_V20220307,
-  hentBrevmenyBlokker,
-  hentDelmalerSortert,
+  hentBrevstruktur,
   hentFlettefelter,
 } from './hentAvansertDokumentFelter';
 import { hentAvansertDokumentNavn } from './hentAvansertDokumentNavn';
@@ -181,23 +181,20 @@ router.get(
     const maalform = req.params.maalform as Maalform;
     const avansertDokumentNavn = req.params.dokumentApiNavn;
 
-    const brevmeny = await hentBrevmenyBlokker(datasett, maalform, avansertDokumentNavn).catch(
+    const brevstruktur = await hentBrevstruktur(datasett, maalform, avansertDokumentNavn).catch(
       err => {
-        res.status(err.code).send(`Henting av brevmenyblokker feilet: ${err.message}`);
-      },
-    );
-
-    const delmaler = await hentDelmalerSortert(datasett, maalform, avansertDokumentNavn).catch(
-      err => {
-        res.status(err.code).send(`Henting av delmaler feilet: ${err.message}`);
+        res.status(err.code).send(`Henting av brevstruktur feilet: ${err.message}`);
       },
     );
 
     const flettefelter = await hentFlettefelter(datasett, avansertDokumentNavn).catch(err => {
       res.status(err.code).send(`Henting av flettefelter feilet: ${err.message}`);
     });
+
     logFerdigstilt(req);
-    res.send({ data: { dokument: brevmeny, delmaler, flettefelter }, status: 'SUKSESS' });
+
+    const json = { data: { dokument: brevstruktur, flettefelter }, status: 'SUKSESS' };
+    res.send(json);
   },
 );
 

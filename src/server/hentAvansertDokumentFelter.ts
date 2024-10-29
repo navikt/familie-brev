@@ -2,6 +2,51 @@ import type { Maalform } from '../typer/sanitygrensesnitt';
 import { client, clientV2, Datasett } from './sanity/sanityClient';
 import { Feil } from './utils/Feil';
 
+export interface Flettefeltreferanse {
+  _ref: string;
+}
+
+export interface Flettefelter {
+  flettefelt: Flettefeltreferanse[];
+}
+
+export interface Valgmulighet {
+  flettefelter: Flettefelter[];
+  valgmulighet: string;
+  visningsnavnValgmulighet: string;
+}
+
+export interface ValgFelt {
+  valgMuligheter: Valgmulighet[];
+  valgfeltVisningsnavn: string;
+  valgFeltApiNavn: string;
+  valgfeltBeskrivelse?: string;
+}
+
+export interface Delmal {
+  delmalApiNavn: string;
+  delmalNavn: string;
+  delmalValgfelt: ValgFelt[];
+  delmalFlettefelter: Flettefelter[]; // referanse til flettefelt
+  gruppeVisningsnavn: string;
+}
+
+export interface DokumentMal {
+  delmalerSortert: Delmal[];
+  brevmenyBlokker: BrevmenyBlokk[];
+}
+
+export type FritekstBlokk = {
+  _type: 'fritekstområde';
+  innhold: { id: string };
+};
+type DelmalBlokk = {
+  _type: 'delmalBlock';
+  innhold: Delmal;
+};
+
+export type BrevmenyBlokk = FritekstBlokk | DelmalBlokk;
+
 export const hentFlettefelter = async (
   datasett: Datasett,
   avansertDokumentNavn: string,
@@ -16,11 +61,21 @@ export const hentFlettefelter = async (
     });
 };
 
-export const hentDelmalerSortert = async (
+export const hentBrevstruktur = async (
   datasett: Datasett,
   maalform: Maalform,
   avansertDokumentNavn: string,
-): Promise<string> => {
+): Promise<DokumentMal> => {
+  const brevmenyBlokker = await hentBrevmenyBlokker(datasett, maalform, avansertDokumentNavn);
+  const delmalerSortert = await hentDelmalerSortert(datasett, maalform, avansertDokumentNavn);
+  return { delmalerSortert, brevmenyBlokker };
+};
+
+const hentDelmalerSortert = async (
+  datasett: Datasett,
+  maalform: Maalform,
+  avansertDokumentNavn: string,
+): Promise<Delmal[]> => {
   const query = `*[apiNavn == "${avansertDokumentNavn}"]{
         "delmalerSortert": ${maalform}[defined(delmalReferanse)].delmalReferanse->{ 
             "delmalApiNavn": apiNavn,
@@ -52,11 +107,11 @@ export const hentDelmalerSortert = async (
     });
 };
 
-export const hentBrevmenyBlokker = async (
+const hentBrevmenyBlokker = async (
   datasett: Datasett,
   maalform: Maalform,
   avansertDokumentNavn: string,
-): Promise<string> => {
+): Promise<BrevmenyBlokk[]> => {
   const query = `*[apiNavn == "${avansertDokumentNavn}"]{
         "brevmenyBlokker": ${maalform}[defined(delmalReferanse) ||  _type == "fritekstområde" ] | { 
             _type,
