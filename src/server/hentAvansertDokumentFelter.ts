@@ -23,10 +23,10 @@ export interface ValgFelt {
   valgfeltBeskrivelse?: string;
 }
 
-export interface Delmaler {
-  delmalarray: Delmal[];
+export interface Root {
+  delmalerSortert: DelmalerSortert[];
 }
-export interface Delmal {
+export interface DelmalerSortert {
   delmalApiNavn: string;
   delmalNavn: string;
   delmalValgfelt: ValgFelt[];
@@ -35,7 +35,7 @@ export interface Delmal {
 }
 
 export interface DokumentMal {
-  delmalerSortert: Delmal[];
+  delmalerSortert: DelmalerSortert[];
   brevmenyBlokker: BrevmenyBlokk[];
 }
 
@@ -45,7 +45,7 @@ export type FritekstBlokk = {
 };
 type DelmalBlokk = {
   _type: 'delmalBlock';
-  innhold: Delmal;
+  innhold: DelmalerSortert;
 };
 export type BrevmenyBlokker = {
   brevmenyBlokker: BrevmenyBlokk[];
@@ -89,7 +89,7 @@ export const hentDelmalerSortert = async (
   datasett: Datasett,
   maalform: Maalform,
   avansertDokumentNavn: string,
-): Promise<Delmaler> => {
+): Promise<Root> => {
   const query = `*[apiNavn == "${avansertDokumentNavn}"]{
         "delmalerSortert": ${maalform}[defined(delmalReferanse)].delmalReferanse->{ 
             "delmalApiNavn": apiNavn,

@@ -18,7 +18,7 @@ import validerDokumentApiData from './utils/valideringer/validerDokumentApiData'
 import { logError, logInfo, logSecure } from '@navikt/familie-logging';
 import {
   BrevmenyBlokker,
-  Delmaler,
+  Root,
   DokumentMal,
   hentAvansertDokumentFelter,
   hentAvansertDokumentFelter_V20220307,
@@ -191,22 +191,23 @@ router.get(
       avansertDokumentNavn,
     );
 
-    const delmaler: Delmaler = await hentDelmalerSortert(datasett, maalform, avansertDokumentNavn);
+    const delmaler: Root = await hentDelmalerSortert(datasett, maalform, avansertDokumentNavn);
 
     logInfo(` Brevmeny: ${brevmeny.brevmenyBlokker}`);
-    logInfo(`Delmaler: ${delmaler.delmalarray} `);
+    logInfo(`DelmalerSortert: ${delmaler.delmalerSortert} `);
+    logInfo(`Delmaler: ${delmaler} `);
 
     const flettefelter = await hentFlettefelter(datasett, avansertDokumentNavn).catch(err => {
       res.status(err.code).send(`Henting av flettefelter feilet: ${err.message}`);
     });
 
     const dokumentMal: DokumentMal = {
-      delmalerSortert: delmaler.delmalarray,
+      delmalerSortert: delmaler.delmalerSortert,
       brevmenyBlokker: brevmeny.brevmenyBlokker,
     };
 
     const json = {
-      data: { dokumentMal, flettefelter },
+      data: { dokument: dokumentMal, flettefelter },
       status: 'SUKSESS',
     };
     res.send(json);
