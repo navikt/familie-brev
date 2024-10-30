@@ -65,7 +65,7 @@ export const hentBrevstruktur = async (
   datasett: Datasett,
   maalform: Maalform,
   avansertDokumentNavn: string,
-): Promise<string> => {
+): Promise<DokumentMal> => {
   const brevmenyBlokker: BrevmenyBlokk[] = await hentBrevmenyBlokker(
     datasett,
     maalform,
@@ -76,8 +76,8 @@ export const hentBrevstruktur = async (
     maalform,
     avansertDokumentNavn,
   );
-
-  return JSON.stringify(delmalerSortert) + JSON.stringify(brevmenyBlokker);
+  const dokumentMal: DokumentMal = { delmalerSortert, brevmenyBlokker };
+  return dokumentMal;
 };
 
 const hentDelmalerSortert = async (
