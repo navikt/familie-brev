@@ -20,7 +20,9 @@ import {
   DokumentMal,
   hentAvansertDokumentFelter,
   hentAvansertDokumentFelter_V20220307,
+  hentBrevmenyBlokker,
   hentBrevstruktur,
+  hentDelmalerSortert,
   hentFlettefelter,
 } from './hentAvansertDokumentFelter';
 import { hentAvansertDokumentNavn } from './hentAvansertDokumentNavn';
@@ -190,14 +192,34 @@ router.get(
       res.status(err.code).send(`Henting av brevstruktur feilet: ${err.message}`);
     });
 
+    const brevmeny = await hentBrevmenyBlokker(datasett, maalform, avansertDokumentNavn).catch(
+      err => {
+        res.status(err.code).send(`Henting av brevmenyblokker feilet: ${err.message}`);
+      },
+    );
+
+    const delmaler = await hentDelmalerSortert(datasett, maalform, avansertDokumentNavn).catch(
+      err => {
+        res.status(err.code).send(`Henting av delmaler feilet: ${err.message}`);
+      },
+    );
+
+    logInfo(` Brevmeny: [${brevmeny}]`);
+    logInfo(`Delmaler: [${delmaler}] `);
+
     const flettefelter = await hentFlettefelter(datasett, avansertDokumentNavn).catch(err => {
       res.status(err.code).send(`Henting av flettefelter feilet: ${err.message}`);
     });
 
     logFerdigstilt(req);
 
+    const mal: DokumentMal = { delmalerSortert: delmaler!, brevmenyBlokker: brevmeny! };
+
+    logInfo(`Mal: [${mal}]`);
+    logInfo(`Brevstruktur: [${brevstruktur}]`);
+
     const json = {
-      data: { dokument: brevstruktur, flettefelter },
+      data: { dokument: mal, flettefelter },
       status: 'SUKSESS',
     };
     res.send(json);

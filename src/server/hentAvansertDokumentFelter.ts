@@ -80,7 +80,7 @@ export const hentBrevstruktur = async (
   return dokumentMal;
 };
 
-const hentDelmalerSortert = async (
+export const hentDelmalerSortert = async (
   datasett: Datasett,
   maalform: Maalform,
   avansertDokumentNavn: string,
@@ -116,7 +116,7 @@ const hentDelmalerSortert = async (
     });
 };
 
-const hentBrevmenyBlokker = async (
+export const hentBrevmenyBlokker = async (
   datasett: Datasett,
   maalform: Maalform,
   avansertDokumentNavn: string,
