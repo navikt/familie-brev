@@ -23,6 +23,9 @@ export interface ValgFelt {
   valgfeltBeskrivelse?: string;
 }
 
+export interface Delmaler {
+  delmalarray: Delmal[];
+}
 export interface Delmal {
   delmalApiNavn: string;
   delmalNavn: string;
@@ -44,7 +47,9 @@ type DelmalBlokk = {
   _type: 'delmalBlock';
   innhold: Delmal;
 };
-
+export type BrevmenyBlokker = {
+  brevmenyBlokker: BrevmenyBlokk[];
+};
 export type BrevmenyBlokk = FritekstBlokk | DelmalBlokk;
 
 export const hentFlettefelter = async (
@@ -61,30 +66,30 @@ export const hentFlettefelter = async (
     });
 };
 
-export const hentBrevstruktur = async (
-  datasett: Datasett,
-  maalform: Maalform,
-  avansertDokumentNavn: string,
-): Promise<DokumentMal> => {
-  const brevmenyBlokker: BrevmenyBlokk[] = await hentBrevmenyBlokker(
-    datasett,
-    maalform,
-    avansertDokumentNavn,
-  );
-  const delmalerSortert: Delmal[] = await hentDelmalerSortert(
-    datasett,
-    maalform,
-    avansertDokumentNavn,
-  );
-  const dokumentMal: DokumentMal = { delmalerSortert, brevmenyBlokker };
-  return dokumentMal;
-};
+// export const hentBrevstruktur = async (
+//   datasett: Datasett,
+//   maalform: Maalform,
+//   avansertDokumentNavn: string,
+// ): Promise<DokumentMal> => {
+//   const brevmenyBlokker: BrevmenyBlokk[] = await hentBrevmenyBlokker(
+//     datasett,
+//     maalform,
+//     avansertDokumentNavn,
+//   );
+//   const delmalerSortert: Delmaler = await hentDelmalerSortert(
+//     datasett,
+//     maalform,
+//     avansertDokumentNavn,
+//   );
+//   const dokumentMal: DokumentMal = { delmalerSortert, brevmenyBlokker };
+//   return dokumentMal;
+// };
 
 export const hentDelmalerSortert = async (
   datasett: Datasett,
   maalform: Maalform,
   avansertDokumentNavn: string,
-): Promise<Delmal[]> => {
+): Promise<Delmaler> => {
   const query = `*[apiNavn == "${avansertDokumentNavn}"]{
         "delmalerSortert": ${maalform}[defined(delmalReferanse)].delmalReferanse->{ 
             "delmalApiNavn": apiNavn,
@@ -120,7 +125,7 @@ export const hentBrevmenyBlokker = async (
   datasett: Datasett,
   maalform: Maalform,
   avansertDokumentNavn: string,
-): Promise<BrevmenyBlokk[]> => {
+): Promise<BrevmenyBlokker> => {
   const query = `*[apiNavn == "${avansertDokumentNavn}"]{
         "brevmenyBlokker": ${maalform}[defined(delmalReferanse) ||  _type == "fritekstområde" ] | { 
             _type,

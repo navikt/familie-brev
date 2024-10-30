@@ -17,11 +17,12 @@ import hentAvansertDokumentHtml from './hentAvansertDokumentHtml';
 import validerDokumentApiData from './utils/valideringer/validerDokumentApiData';
 import { logError, logInfo, logSecure } from '@navikt/familie-logging';
 import {
+  BrevmenyBlokker,
+  Delmaler,
   DokumentMal,
   hentAvansertDokumentFelter,
   hentAvansertDokumentFelter_V20220307,
   hentBrevmenyBlokker,
-  hentBrevstruktur,
   hentDelmalerSortert,
   hentFlettefelter,
 } from './hentAvansertDokumentFelter';
@@ -184,42 +185,28 @@ router.get(
     const maalform = req.params.maalform as Maalform;
     const avansertDokumentNavn = req.params.dokumentApiNavn;
 
-    const brevstruktur: void | DokumentMal = await hentBrevstruktur(
+    const brevmeny: BrevmenyBlokker = await hentBrevmenyBlokker(
       datasett,
       maalform,
       avansertDokumentNavn,
-    ).catch(err => {
-      res.status(err.code).send(`Henting av brevstruktur feilet: ${err.message}`);
-    });
-
-    const brevmeny = await hentBrevmenyBlokker(datasett, maalform, avansertDokumentNavn).catch(
-      err => {
-        res.status(err.code).send(`Henting av brevmenyblokker feilet: ${err.message}`);
-      },
     );
 
-    const delmaler = await hentDelmalerSortert(datasett, maalform, avansertDokumentNavn).catch(
-      err => {
-        res.status(err.code).send(`Henting av delmaler feilet: ${err.message}`);
-      },
-    );
+    const delmaler: Delmaler = await hentDelmalerSortert(datasett, maalform, avansertDokumentNavn);
 
-    logInfo(` Brevmeny: [${brevmeny}]`);
-    logInfo(`Delmaler: [${delmaler}] `);
+    logInfo(` Brevmeny: ${brevmeny.brevmenyBlokker}`);
+    logInfo(`Delmaler: ${delmaler.delmalarray} `);
 
     const flettefelter = await hentFlettefelter(datasett, avansertDokumentNavn).catch(err => {
       res.status(err.code).send(`Henting av flettefelter feilet: ${err.message}`);
     });
 
-    logFerdigstilt(req);
-
-    const mal: DokumentMal = { delmalerSortert: delmaler!, brevmenyBlokker: brevmeny! };
-
-    logInfo(`Mal: [${mal}]`);
-    logInfo(`Brevstruktur: [${brevstruktur}]`);
+    const dokumentMal: DokumentMal = {
+      delmalerSortert: delmaler.delmalarray,
+      brevmenyBlokker: brevmeny.brevmenyBlokker,
+    };
 
     const json = {
-      data: { dokument: mal, flettefelter },
+      data: { dokumentMal, flettefelter },
       status: 'SUKSESS',
     };
     res.send(json);
