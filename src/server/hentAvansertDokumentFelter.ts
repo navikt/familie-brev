@@ -23,7 +23,7 @@ export interface ValgFelt {
   valgfeltBeskrivelse?: string;
 }
 
-export interface Root {
+export interface Delmaler {
   delmalerSortert: DelmalerSortert[];
 }
 export interface DelmalerSortert {
@@ -89,7 +89,7 @@ export const hentDelmalerSortert = async (
   datasett: Datasett,
   maalform: Maalform,
   avansertDokumentNavn: string,
-): Promise<Root> => {
+): Promise<Delmaler> => {
   const query = `*[apiNavn == "${avansertDokumentNavn}"]{
         "delmalerSortert": ${maalform}[defined(delmalReferanse)].delmalReferanse->{ 
             "delmalApiNavn": apiNavn,

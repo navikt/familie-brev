@@ -18,7 +18,7 @@ import validerDokumentApiData from './utils/valideringer/validerDokumentApiData'
 import { logError, logInfo, logSecure } from '@navikt/familie-logging';
 import {
   BrevmenyBlokker,
-  Root,
+  Delmaler,
   DokumentMal,
   hentAvansertDokumentFelter,
   hentAvansertDokumentFelter_V20220307,
@@ -178,6 +178,41 @@ router.get(
   },
 );
 
+async function hentAlleFlettefelter(
+  datasett: Datasett,
+  avansertDokumentNavn: string,
+  res: e.Response<any, Record<string, any>>,
+) {
+  return await hentFlettefelter(datasett, avansertDokumentNavn).catch(err => {
+    res.status(err.code).send(`Henting av flettefelter feilet: ${err.message}`);
+    return '';
+  });
+}
+
+async function hentDelmaler(
+  datasett: Datasett,
+  maalform: Maalform,
+  avansertDokumentNavn: string,
+  res: e.Response<any, Record<string, any>>,
+) {
+  return await hentDelmalerSortert(datasett, maalform, avansertDokumentNavn).catch(err => {
+    res.status(err.code).send(`Henting av delmaler feilet: ${err.message}`);
+    return { delmalerSortert: [] };
+  });
+}
+
+async function hentBrevmeny(
+  datasett: Datasett,
+  maalform: Maalform,
+  avansertDokumentNavn: string,
+  res: e.Response<any, Record<string, any>>,
+) {
+  return await hentBrevmenyBlokker(datasett, maalform, avansertDokumentNavn).catch(err => {
+    res.status(err.code).send(`Henting av brevmeny feilet: ${err.message}`);
+    return { brevmenyBlokker: [] };
+  });
+}
+
 router.get(
   '/:datasett/avansert-dokument/:maalform/:dokumentApiNavn/felter/v3',
   async (req: Request, res: Response) => {
@@ -185,32 +220,24 @@ router.get(
     const maalform = req.params.maalform as Maalform;
     const avansertDokumentNavn = req.params.dokumentApiNavn;
 
-    const brevmeny: BrevmenyBlokker = await hentBrevmenyBlokker(
+    const brevmeny: BrevmenyBlokker = await hentBrevmeny(
       datasett,
       maalform,
       avansertDokumentNavn,
+      res,
     );
-
-    const delmaler: Root = await hentDelmalerSortert(datasett, maalform, avansertDokumentNavn);
-
-    logInfo(` Brevmeny: ${brevmeny.brevmenyBlokker}`);
-    logInfo(`DelmalerSortert: ${delmaler.delmalerSortert} `);
-    logInfo(`Delmaler: ${delmaler} `);
-
-    const flettefelter = await hentFlettefelter(datasett, avansertDokumentNavn).catch(err => {
-      res.status(err.code).send(`Henting av flettefelter feilet: ${err.message}`);
-    });
+    const delmaler: Delmaler = await hentDelmaler(datasett, maalform, avansertDokumentNavn, res);
+    const flettefelter = await hentAlleFlettefelter(datasett, avansertDokumentNavn, res);
 
     const dokumentMal: DokumentMal = {
       delmalerSortert: delmaler.delmalerSortert,
       brevmenyBlokker: brevmeny.brevmenyBlokker,
     };
 
-    const json = {
+    res.send({
       data: { dokument: dokumentMal, flettefelter },
       status: 'SUKSESS',
-    };
-    res.send(json);
+    });
   },
 );
 
@@ -234,7 +261,7 @@ router.get(
 
     const navn = await hentAvansertDokumentNavn(datasett, hentUpubliserte).catch(err => {
       res.status(err.code).send(`Henting av avanserte dokumenter feilet: ${err.message}`);
-      return;
+      return '';
     });
 
     logFerdigstilt(req);
