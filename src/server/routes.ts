@@ -2,7 +2,6 @@ import type { Request, Response } from 'express';
 import express from 'express';
 import type { Datasett } from './sanity/sanityClient';
 import type { Maalform } from '../typer/sanitygrensesnitt';
-//import type { DokumentMal } from './hentAvansertDokumentFelter';
 import type {
   IAvansertDokumentVariabler,
   IBrevMedSignatur,
@@ -17,7 +16,7 @@ import hentAvansertDokumentHtml from './hentAvansertDokumentHtml';
 import validerDokumentApiData from './utils/valideringer/validerDokumentApiData';
 import { logError, logInfo, logSecure } from '@navikt/familie-logging';
 import {
-  BrevmenyBlokker,
+  Brevmeny,
   Delmaler,
   DokumentMal,
   hentAvansertDokumentFelter,
@@ -181,7 +180,7 @@ router.get(
 async function hentAlleFlettefelter(
   datasett: Datasett,
   avansertDokumentNavn: string,
-  res: e.Response<any, Record<string, any>>,
+  res: Response<any, Record<string, any>>,
 ) {
   return await hentFlettefelter(datasett, avansertDokumentNavn).catch(err => {
     res.status(err.code).send(`Henting av flettefelter feilet: ${err.message}`);
@@ -193,7 +192,7 @@ async function hentDelmaler(
   datasett: Datasett,
   maalform: Maalform,
   avansertDokumentNavn: string,
-  res: e.Response<any, Record<string, any>>,
+  res: Response<any, Record<string, any>>,
 ) {
   return await hentDelmalerSortert(datasett, maalform, avansertDokumentNavn).catch(err => {
     res.status(err.code).send(`Henting av delmaler feilet: ${err.message}`);
@@ -205,7 +204,7 @@ async function hentBrevmeny(
   datasett: Datasett,
   maalform: Maalform,
   avansertDokumentNavn: string,
-  res: e.Response<any, Record<string, any>>,
+  res: Response<any, Record<string, any>>,
 ) {
   return await hentBrevmenyBlokker(datasett, maalform, avansertDokumentNavn).catch(err => {
     res.status(err.code).send(`Henting av brevmeny feilet: ${err.message}`);
@@ -220,12 +219,7 @@ router.get(
     const maalform = req.params.maalform as Maalform;
     const avansertDokumentNavn = req.params.dokumentApiNavn;
 
-    const brevmeny: BrevmenyBlokker = await hentBrevmeny(
-      datasett,
-      maalform,
-      avansertDokumentNavn,
-      res,
-    );
+    const brevmeny: Brevmeny = await hentBrevmeny(datasett, maalform, avansertDokumentNavn, res);
     const delmaler: Delmaler = await hentDelmaler(datasett, maalform, avansertDokumentNavn, res);
     const flettefelter = await hentAlleFlettefelter(datasett, avansertDokumentNavn, res);
 
@@ -261,7 +255,7 @@ router.get(
 
     const navn = await hentAvansertDokumentNavn(datasett, hentUpubliserte).catch(err => {
       res.status(err.code).send(`Henting av avanserte dokumenter feilet: ${err.message}`);
-      return '';
+      return;
     });
 
     logFerdigstilt(req);

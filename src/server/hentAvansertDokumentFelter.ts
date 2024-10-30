@@ -47,7 +47,7 @@ type DelmalBlokk = {
   _type: 'delmalBlock';
   innhold: DelmalerSortert;
 };
-export type BrevmenyBlokker = {
+export type Brevmeny = {
   brevmenyBlokker: BrevmenyBlokk[];
 };
 export type BrevmenyBlokk = FritekstBlokk | DelmalBlokk;
@@ -65,25 +65,6 @@ export const hentFlettefelter = async (
       throw new Feil(error.message, error.statusCode);
     });
 };
-
-// export const hentBrevstruktur = async (
-//   datasett: Datasett,
-//   maalform: Maalform,
-//   avansertDokumentNavn: string,
-// ): Promise<DokumentMal> => {
-//   const brevmenyBlokker: BrevmenyBlokk[] = await hentBrevmenyBlokker(
-//     datasett,
-//     maalform,
-//     avansertDokumentNavn,
-//   );
-//   const delmalerSortert: Delmaler = await hentDelmalerSortert(
-//     datasett,
-//     maalform,
-//     avansertDokumentNavn,
-//   );
-//   const dokumentMal: DokumentMal = { delmalerSortert, brevmenyBlokker };
-//   return dokumentMal;
-// };
 
 export const hentDelmalerSortert = async (
   datasett: Datasett,
@@ -125,7 +106,7 @@ export const hentBrevmenyBlokker = async (
   datasett: Datasett,
   maalform: Maalform,
   avansertDokumentNavn: string,
-): Promise<BrevmenyBlokker> => {
+): Promise<Brevmeny> => {
   const query = `*[apiNavn == "${avansertDokumentNavn}"]{
         "brevmenyBlokker": ${maalform}[defined(delmalReferanse) ||  _type == "fritekstområde" ] | { 
             _type,
