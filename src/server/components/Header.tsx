@@ -52,7 +52,7 @@ function Header(props: HeaderProps) {
         </div>
       </div>
       <div className={'tittel-og-personinfo'}>
-        <h2 className="tittel">{tittel.toUpperCase()}</h2>
+        <h2 className="tittel">{tittel}</h2>
         <div className="kolonner">
           <div className="personinfo">
             <div>
