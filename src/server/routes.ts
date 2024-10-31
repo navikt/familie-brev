@@ -16,14 +16,15 @@ import hentAvansertDokumentHtml from './hentAvansertDokumentHtml';
 import validerDokumentApiData from './utils/valideringer/validerDokumentApiData';
 import { logError, logInfo, logSecure } from '@navikt/familie-logging';
 import {
+  AlleFlettefelter,
   Brevmeny,
-  Delmaler,
+  BrevStruktur,
   DokumentMal,
   hentAvansertDokumentFelter,
   hentAvansertDokumentFelter_V20220307,
   hentBrevmenyBlokker,
-  hentDelmalerSortert,
   hentFlettefelter,
+  hentFlettefelterMedType,
 } from './hentAvansertDokumentFelter';
 import { hentAvansertDokumentNavn } from './hentAvansertDokumentNavn';
 import { lagManueltBrevHtml } from './lagManueltBrevHtml';
@@ -177,61 +178,76 @@ router.get(
   },
 );
 
-async function hentAlleFlettefelter(
+async function hentFlettefelterErrorWrapper(
   datasett: Datasett,
   avansertDokumentNavn: string,
   res: Response<any, Record<string, any>>,
-) {
-  return await hentFlettefelter(datasett, avansertDokumentNavn).catch(err => {
+): Promise<AlleFlettefelter> {
+  return await hentFlettefelterMedType(datasett, avansertDokumentNavn).catch(err => {
     res.status(err.code).send(`Henting av flettefelter feilet: ${err.message}`);
-    return '';
+    return { flettefeltReferanse: [] };
   });
 }
 
-async function hentDelmaler(
-  datasett: Datasett,
-  maalform: Maalform,
-  avansertDokumentNavn: string,
-  res: Response<any, Record<string, any>>,
-) {
-  return await hentDelmalerSortert(datasett, maalform, avansertDokumentNavn).catch(err => {
-    res.status(err.code).send(`Henting av delmaler feilet: ${err.message}`);
-    return { delmalerSortert: [] };
-  });
-}
+// async function hentDelmaler(
+//     datasett: Datasett,
+//     maalform: Maalform,
+//     avansertDokumentNavn: string,
+//     res: Response<any, Record<string, any>>,
+// ) {
+//     return await hentDelmalerSortert(datasett, maalform, avansertDokumentNavn).catch(err => {
+//         res.status(err.code).send(`Henting av delmaler feilet: ${err.message}`);
+//         return {delmalerSortert: []};
+//     });
+// }
 
 async function hentBrevmeny(
   datasett: Datasett,
   maalform: Maalform,
   avansertDokumentNavn: string,
   res: Response<any, Record<string, any>>,
-) {
+): Promise<Brevmeny> {
   return await hentBrevmenyBlokker(datasett, maalform, avansertDokumentNavn).catch(err => {
     res.status(err.code).send(`Henting av brevmeny feilet: ${err.message}`);
     return { brevmenyBlokker: [] };
   });
 }
 
+async function hentBrevStruktur(
+  datasett: Datasett,
+  maalform: Maalform,
+  avansertDokumentNavn: string,
+  res: Response<any, Record<string, any>>,
+): Promise<BrevStruktur> {
+  const brevmeny: Brevmeny = await hentBrevmeny(datasett, maalform, avansertDokumentNavn, res);
+  //const delmaler: Delmaler = await hentDelmaler(datasett, maalform, avansertDokumentNavn, res);
+  const flettefelter = await hentFlettefelterErrorWrapper(datasett, avansertDokumentNavn, res);
+
+  const dokumentMal: DokumentMal = {
+    //delmalerSortert: delmaler.delmalerSortert,
+    brevmenyBlokker: brevmeny.brevmenyBlokker,
+  };
+
+  return { dokument: dokumentMal, flettefelter: flettefelter };
+}
+
+export type RessursSuksess<T> = {
+  data: T;
+  status: string;
+};
+
 router.get(
   '/:datasett/avansert-dokument/:maalform/:dokumentApiNavn/felter/v3',
-  async (req: Request, res: Response) => {
+  async (req: Request, response: Response) => {
     const datasett = req.params.datasett as Datasett;
     const maalform = req.params.maalform as Maalform;
     const avansertDokumentNavn = req.params.dokumentApiNavn;
 
-    const brevmeny: Brevmeny = await hentBrevmeny(datasett, maalform, avansertDokumentNavn, res);
-    const delmaler: Delmaler = await hentDelmaler(datasett, maalform, avansertDokumentNavn, res);
-    const flettefelter = await hentAlleFlettefelter(datasett, avansertDokumentNavn, res);
+    const returData = await hentBrevStruktur(datasett, maalform, avansertDokumentNavn, response);
 
-    const dokumentMal: DokumentMal = {
-      delmalerSortert: delmaler.delmalerSortert,
-      brevmenyBlokker: brevmeny.brevmenyBlokker,
-    };
+    const responseData: RessursSuksess<BrevStruktur> = { data: returData, status: 'SUKSESS' };
 
-    res.send({
-      data: { dokument: dokumentMal, flettefelter },
-      status: 'SUKSESS',
-    });
+    response.send(responseData);
   },
 );
 

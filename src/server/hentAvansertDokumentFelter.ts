@@ -34,9 +34,26 @@ export interface DelmalerSortert {
   gruppeVisningsnavn: string;
 }
 
+export interface BrevStruktur {
+  dokument: DokumentMal;
+  flettefelter: AlleFlettefelter;
+}
+
 export interface DokumentMal {
-  delmalerSortert: DelmalerSortert[];
+  //delmalerSortert: DelmalerSortert[];
   brevmenyBlokker: BrevmenyBlokk[];
+}
+
+export interface AlleFlettefelter {
+  flettefeltReferanse: Flettefelt[];
+}
+
+interface Flettefelt {
+  felt: string;
+  erFritektsfelt?: boolean;
+  feltVisningsnavn?: string;
+  _id: string;
+  beskrivelse?: string;
 }
 
 export type FritekstBlokk = {
@@ -66,41 +83,55 @@ export const hentFlettefelter = async (
     });
 };
 
-export const hentDelmalerSortert = async (
+export const hentFlettefelterMedType = async (
   datasett: Datasett,
-  maalform: Maalform,
   avansertDokumentNavn: string,
-): Promise<Delmaler> => {
+): Promise<AlleFlettefelter> => {
   const query = `*[apiNavn == "${avansertDokumentNavn}"]{
-        "delmalerSortert": ${maalform}[defined(delmalReferanse)].delmalReferanse->{ 
-            "delmalApiNavn": apiNavn,
-            "delmalNavn": visningsnavn,
-            gruppeVisningsnavn,
-            "delmalFlettefelter": 
-                    ${maalform}[length(markDefs[].flettefeltReferanse) > 0 ]{
-                        "flettefelt": markDefs[].flettefeltReferanse
-                      },
-            "delmalValgfelt": ${maalform}[defined(valgReferanse)].valgReferanse ->{
-                    "valgfeltVisningsnavn":visningsnavn,
-                    "valgFeltApiNavn": apiNavn,
-                    "valgfeltBeskrivelse": beskrivelse,
-                    "valgMuligheter":
-                        valg[]{
-                            valgmulighet,
-                            "visningsnavnValgmulighet": delmal->.visningsnavn,
-                            "flettefelter": delmal-> ${maalform}[defined(markDefs)] {           
-                                 "flettefelt": markDefs[].flettefeltReferanse 
-                            }  
-                        }
-            }
-        }
-  }[0]`;
-  return clientV2(datasett, '2022-03-07')
+     "flettefeltReferanse" :  *[ _type=='flettefelt' ]
+    }[0]`;
+  return client(datasett)
     .fetch(query)
     .catch(error => {
       throw new Feil(error.message, error.statusCode);
     });
 };
+
+// export const hentDelmalerSortert = async (
+//   datasett: Datasett,
+//   maalform: Maalform,
+//   avansertDokumentNavn: string,
+// ): Promise<Delmaler> => {
+//   const query = `*[apiNavn == "${avansertDokumentNavn}"]{
+//         "delmalerSortert": ${maalform}[defined(delmalReferanse)].delmalReferanse->{
+//             "delmalApiNavn": apiNavn,
+//             "delmalNavn": visningsnavn,
+//             gruppeVisningsnavn,
+//             "delmalFlettefelter":
+//                     ${maalform}[length(markDefs[].flettefeltReferanse) > 0 ]{
+//                         "flettefelt": markDefs[].flettefeltReferanse
+//                       },
+//             "delmalValgfelt": ${maalform}[defined(valgReferanse)].valgReferanse ->{
+//                     "valgfeltVisningsnavn":visningsnavn,
+//                     "valgFeltApiNavn": apiNavn,
+//                     "valgfeltBeskrivelse": beskrivelse,
+//                     "valgMuligheter":
+//                         valg[]{
+//                             valgmulighet,
+//                             "visningsnavnValgmulighet": delmal->.visningsnavn,
+//                             "flettefelter": delmal-> ${maalform}[defined(markDefs)] {
+//                                  "flettefelt": markDefs[].flettefeltReferanse
+//                             }
+//                         }
+//             }
+//         }
+//   }[0]`;
+//   return clientV2(datasett, '2022-03-07')
+//     .fetch(query)
+//     .catch(error => {
+//       throw new Feil(error.message, error.statusCode);
+//     });
+// };
 
 export const hentBrevmenyBlokker = async (
   datasett: Datasett,
