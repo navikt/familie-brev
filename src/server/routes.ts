@@ -16,10 +16,8 @@ import hentAvansertDokumentHtml from './hentAvansertDokumentHtml';
 import validerDokumentApiData from './utils/valideringer/validerDokumentApiData';
 import { logError, logInfo, logSecure } from '@navikt/familie-logging';
 import {
-  AlleFlettefelter,
   Brevmeny,
   BrevStruktur,
-  DokumentMal,
   hentAvansertDokumentFelter,
   hentAvansertDokumentFelter_V20220307,
   hentBrevmenyBlokker,
@@ -177,58 +175,14 @@ router.get(
     res.send({ data: { dokument: felter, flettefelter }, status: 'SUKSESS' });
   },
 );
-
-async function hentFlettefelterErrorWrapper(
-  datasett: Datasett,
-  avansertDokumentNavn: string,
-  res: Response<any, Record<string, any>>,
-): Promise<AlleFlettefelter> {
-  return await hentFlettefelterMedType(datasett, avansertDokumentNavn).catch(err => {
-    res.status(err.code).send(`Henting av flettefelter feilet: ${err.message}`);
-    return { flettefeltReferanse: [] };
-  });
-}
-
-// async function hentDelmaler(
-//     datasett: Datasett,
-//     maalform: Maalform,
-//     avansertDokumentNavn: string,
-//     res: Response<any, Record<string, any>>,
-// ) {
-//     return await hentDelmalerSortert(datasett, maalform, avansertDokumentNavn).catch(err => {
-//         res.status(err.code).send(`Henting av delmaler feilet: ${err.message}`);
-//         return {delmalerSortert: []};
-//     });
-// }
-
-async function hentBrevmeny(
-  datasett: Datasett,
-  maalform: Maalform,
-  avansertDokumentNavn: string,
-  res: Response<any, Record<string, any>>,
-): Promise<Brevmeny> {
-  return await hentBrevmenyBlokker(datasett, maalform, avansertDokumentNavn).catch(err => {
-    res.status(err.code).send(`Henting av brevmeny feilet: ${err.message}`);
-    return { brevmenyBlokker: [] };
-  });
-}
-
 async function hentBrevStruktur(
   datasett: Datasett,
   maalform: Maalform,
   avansertDokumentNavn: string,
-  res: Response<any, Record<string, any>>,
 ): Promise<BrevStruktur> {
-  const brevmeny: Brevmeny = await hentBrevmeny(datasett, maalform, avansertDokumentNavn, res);
-  //const delmaler: Delmaler = await hentDelmaler(datasett, maalform, avansertDokumentNavn, res);
-  const flettefelter = await hentFlettefelterErrorWrapper(datasett, avansertDokumentNavn, res);
-
-  const dokumentMal: DokumentMal = {
-    //delmalerSortert: delmaler.delmalerSortert,
-    brevmenyBlokker: brevmeny.brevmenyBlokker,
-  };
-
-  return { dokument: dokumentMal, flettefelter: flettefelter };
+  const brevmeny: Brevmeny = await hentBrevmenyBlokker(datasett, maalform, avansertDokumentNavn);
+  const flettefelter = await hentFlettefelterMedType(datasett, avansertDokumentNavn);
+  return { dokument: brevmeny, flettefelter: flettefelter };
 }
 
 export type RessursSuksess<T> = {
@@ -243,8 +197,8 @@ router.get(
     const maalform = req.params.maalform as Maalform;
     const avansertDokumentNavn = req.params.dokumentApiNavn;
 
-    const returData = await hentBrevStruktur(datasett, maalform, avansertDokumentNavn, response);
-
+    // TODO hva med feilhåndtering?
+    const returData = await hentBrevStruktur(datasett, maalform, avansertDokumentNavn);
     const responseData: RessursSuksess<BrevStruktur> = { data: returData, status: 'SUKSESS' };
 
     response.send(responseData);

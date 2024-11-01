@@ -23,9 +23,6 @@ export interface ValgFelt {
   valgfeltBeskrivelse?: string;
 }
 
-export interface Delmaler {
-  delmalerSortert: DelmalerSortert[];
-}
 export interface DelmalerSortert {
   delmalApiNavn: string;
   delmalNavn: string;
@@ -40,7 +37,6 @@ export interface BrevStruktur {
 }
 
 export interface DokumentMal {
-  //delmalerSortert: DelmalerSortert[];
   brevmenyBlokker: BrevmenyBlokk[];
 }
 
@@ -96,42 +92,6 @@ export const hentFlettefelterMedType = async (
       throw new Feil(error.message, error.statusCode);
     });
 };
-
-// export const hentDelmalerSortert = async (
-//   datasett: Datasett,
-//   maalform: Maalform,
-//   avansertDokumentNavn: string,
-// ): Promise<Delmaler> => {
-//   const query = `*[apiNavn == "${avansertDokumentNavn}"]{
-//         "delmalerSortert": ${maalform}[defined(delmalReferanse)].delmalReferanse->{
-//             "delmalApiNavn": apiNavn,
-//             "delmalNavn": visningsnavn,
-//             gruppeVisningsnavn,
-//             "delmalFlettefelter":
-//                     ${maalform}[length(markDefs[].flettefeltReferanse) > 0 ]{
-//                         "flettefelt": markDefs[].flettefeltReferanse
-//                       },
-//             "delmalValgfelt": ${maalform}[defined(valgReferanse)].valgReferanse ->{
-//                     "valgfeltVisningsnavn":visningsnavn,
-//                     "valgFeltApiNavn": apiNavn,
-//                     "valgfeltBeskrivelse": beskrivelse,
-//                     "valgMuligheter":
-//                         valg[]{
-//                             valgmulighet,
-//                             "visningsnavnValgmulighet": delmal->.visningsnavn,
-//                             "flettefelter": delmal-> ${maalform}[defined(markDefs)] {
-//                                  "flettefelt": markDefs[].flettefeltReferanse
-//                             }
-//                         }
-//             }
-//         }
-//   }[0]`;
-//   return clientV2(datasett, '2022-03-07')
-//     .fetch(query)
-//     .catch(error => {
-//       throw new Feil(error.message, error.statusCode);
-//     });
-// };
 
 export const hentBrevmenyBlokker = async (
   datasett: Datasett,
