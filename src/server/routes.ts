@@ -197,11 +197,14 @@ router.get(
     const maalform = req.params.maalform as Maalform;
     const avansertDokumentNavn = req.params.dokumentApiNavn;
 
-    // TODO hva med feilhåndtering?
-    const returData = await hentBrevStruktur(datasett, maalform, avansertDokumentNavn);
-    const responseData: RessursSuksess<BrevStruktur> = { data: returData, status: 'SUKSESS' };
-
-    response.send(responseData);
+    hentBrevStruktur(datasett, maalform, avansertDokumentNavn)
+      .then(returData => {
+        const responseData: RessursSuksess<BrevStruktur> = { data: returData, status: 'SUKSESS' };
+        response.send(responseData);
+      })
+      .catch(err => {
+        response.status(err.code).send(`Henting av brevstruktur feilet: ${err.message}`);
+      });
   },
 );
 
