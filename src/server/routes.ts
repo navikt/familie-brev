@@ -16,9 +16,13 @@ import hentAvansertDokumentHtml from './hentAvansertDokumentHtml';
 import validerDokumentApiData from './utils/valideringer/validerDokumentApiData';
 import { logError, logInfo, logSecure } from '@navikt/familie-logging';
 import {
+  Brevmeny,
+  BrevStruktur,
   hentAvansertDokumentFelter,
   hentAvansertDokumentFelter_V20220307,
+  hentBrevmenyBlokker,
   hentFlettefelter,
+  hentFlettefelterMedType,
 } from './hentAvansertDokumentFelter';
 import { hentAvansertDokumentNavn } from './hentAvansertDokumentNavn';
 import { lagManueltBrevHtml } from './lagManueltBrevHtml';
@@ -169,6 +173,38 @@ router.get(
     });
     logFerdigstilt(req);
     res.send({ data: { dokument: felter, flettefelter }, status: 'SUKSESS' });
+  },
+);
+async function hentBrevStruktur(
+  datasett: Datasett,
+  maalform: Maalform,
+  avansertDokumentNavn: string,
+): Promise<BrevStruktur> {
+  const brevmeny: Brevmeny = await hentBrevmenyBlokker(datasett, maalform, avansertDokumentNavn);
+  const flettefelter = await hentFlettefelterMedType(datasett, avansertDokumentNavn);
+  return { dokument: brevmeny, flettefelter: flettefelter };
+}
+
+export type RessursSuksess<T> = {
+  data: T;
+  status: string;
+};
+
+router.get(
+  '/:datasett/avansert-dokument/:maalform/:dokumentApiNavn/felter/v3',
+  async (req: Request, response: Response) => {
+    const datasett = req.params.datasett as Datasett;
+    const maalform = req.params.maalform as Maalform;
+    const avansertDokumentNavn = req.params.dokumentApiNavn;
+
+    hentBrevStruktur(datasett, maalform, avansertDokumentNavn)
+      .then(returData => {
+        const responseData: RessursSuksess<BrevStruktur> = { data: returData, status: 'SUKSESS' };
+        response.send(responseData);
+      })
+      .catch(err => {
+        response.status(err.code).send(`Henting av brevstruktur feilet: ${err.message}`);
+      });
   },
 );
 
