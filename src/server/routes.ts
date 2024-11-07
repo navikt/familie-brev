@@ -18,10 +18,7 @@ import { logError, logInfo, logSecure } from '@navikt/familie-logging';
 import {
   Brevmeny,
   BrevStruktur,
-  hentAvansertDokumentFelter,
-  hentAvansertDokumentFelter_V20220307,
   hentBrevmenyBlokker,
-  hentFlettefelter,
   hentFlettefelterMedType,
 } from './hentAvansertDokumentFelter';
 import { hentAvansertDokumentNavn } from './hentAvansertDokumentNavn';
@@ -127,54 +124,6 @@ router.post(
   },
 );
 
-router.get(
-  '/:datasett/avansert-dokument/:maalform/:dokumentApiNavn/felter',
-  async (req: Request, res: Response) => {
-    const datasett = req.params.datasett as Datasett;
-    const maalform = req.params.maalform as Maalform;
-    const avansertDokumentNavn = req.params.dokumentApiNavn;
-
-    const felter = await hentAvansertDokumentFelter(datasett, maalform, avansertDokumentNavn).catch(
-      err => {
-        res.status(err.code).send(`Henting av felter feilet: ${err.message}`);
-        return;
-      },
-    );
-
-    const flettefelter = await hentFlettefelter(datasett, avansertDokumentNavn).catch(err => {
-      res.status(err.code).send(`Henting av flettefelter feilet: ${err.message}`);
-      return;
-    });
-
-    logFerdigstilt(req);
-    res.send({ data: { dokument: felter, flettefelter }, status: 'SUKSESS' });
-  },
-);
-
-router.get(
-  '/:datasett/avansert-dokument/:maalform/:dokumentApiNavn/felter/v2',
-  async (req: Request, res: Response) => {
-    const datasett = req.params.datasett as Datasett;
-    const maalform = req.params.maalform as Maalform;
-    const avansertDokumentNavn = req.params.dokumentApiNavn;
-
-    const felter = await hentAvansertDokumentFelter_V20220307(
-      datasett,
-      maalform,
-      avansertDokumentNavn,
-    ).catch(err => {
-      res.status(err.code).send(`Henting av felter feilet: ${err.message}`);
-      return;
-    });
-
-    const flettefelter = await hentFlettefelter(datasett, avansertDokumentNavn).catch(err => {
-      res.status(err.code).send(`Henting av flettefelter feilet: ${err.message}`);
-      return;
-    });
-    logFerdigstilt(req);
-    res.send({ data: { dokument: felter, flettefelter }, status: 'SUKSESS' });
-  },
-);
 async function hentBrevStruktur(
   datasett: Datasett,
   maalform: Maalform,
