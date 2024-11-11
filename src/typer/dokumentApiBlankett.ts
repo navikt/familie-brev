@@ -785,7 +785,7 @@ export const delvilkårTypeTilTekst: Record<IRegelId, string> = {
   DOKUMENTASJON_AV_UTDANNING: 'Er det dokumentert at bruker er under utdanning?',
   DOKUMENTASJON_AV_UTGIFTER_UTDANNING:
     'Er det dokumentert at brukeren har utgifter til utdanningen?',
-  NAVKONTOR_VURDERING: 'Har NAV-kontoret vurdert utdanningen?',
+  NAVKONTOR_VURDERING: 'Har Nav-kontoret vurdert utdanningen?',
   SAKSBEHANDLER_VURDERING: 'Er utdanningen nødvendig og hensiktsmessig?',
 };
 
