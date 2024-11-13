@@ -118,7 +118,7 @@ export const Klagevurdering: React.FC<{ vurdering?: IVurdering }> = ({ vurdering
       )}
       {vurdering.innstillingKlageinstans && (
         <>
-          <h4 className={'blankett'}>Innstilling til NAV Klageinstans</h4>
+          <h4 className={'blankett'}>Innstilling til Nav Klageinstans</h4>
           <span style={{ whiteSpace: 'pre-wrap' }}>{vurdering.innstillingKlageinstans}</span>
         </>
       )}
