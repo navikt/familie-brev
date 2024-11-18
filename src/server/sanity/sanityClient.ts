@@ -3,10 +3,9 @@ import { createClient } from '@sanity/client';
 const { NODE_ENV } = process.env;
 
 export enum Datasett {
-  TEST = 'testdata',
+  EF_TEST = 'ef-test',
   EF = 'ef-brev',
   BA = 'ba-brev',
-  EF_TEST = 'ef-test',
   KS = 'ks-brev',
 }
 
