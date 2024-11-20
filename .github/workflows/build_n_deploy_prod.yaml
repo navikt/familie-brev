@@ -33,7 +33,7 @@ jobs:
         uses: nais/docker-build-push@v0
         id: docker-build-push
         with:
-          platform: linux/amd64
+          platform: linux/amd64,linux/arm64
           team: teamfamilie
           tag: latest
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }} # Provided as Organization Secret
