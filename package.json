@@ -4,17 +4,18 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "NODE_ENV=production node --es-module-specifier-resolution=node dist/src/server/index.js",
+    "start": "yarn set-node-options NODE_ENV=production node dist/src/server/index.js",
     "build": "tsc -p tsconfig.json",
     "start:dev": "nodemon -e ts,tsx --exec \"yarn build:dev && yarn run:dev\"",
     "dev": "yarn start:dev",
     "build:dev": "tsc -p tsconfig.json",
-    "run:dev": "node --es-module-specifier-resolution=node dist/src/server/index.js",
+    "run:dev": "yarn set-node-options node dist/src/server/index.js",
     "prepare": "husky",
     "kjør-prettier": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,css}\"",
     "typecheck": "tsc --noEmit --skipLibCheck",
     "eslint-check": "eslint './src/**/*.{js,ts,tsx}'",
-    "prettier-check": "prettier --check \"./src/**/*.{js,jsx,ts,tsx,css}\""
+    "prettier-check": "prettier --check \"./src/**/*.{js,jsx,ts,tsx,css}\"",
+    "set-node-options": "NODE_OPTIONS='--import=./dist/src/server/register.js --es-module-specifier-resolution=node'"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,css}": [
@@ -33,6 +34,7 @@
     "express-session": "^1.18.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "ts-node": "^10.9.2",
     "styled-components": "^6.1.13"
   },
   "devDependencies": {

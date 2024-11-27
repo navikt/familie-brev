@@ -1,4 +1,4 @@
-FROM gcr.io/distroless/nodejs18-debian12:nonroot
+FROM gcr.io/distroless/nodejs20-debian12:nonroot
 WORKDIR /var/server
 
 COPY dist ./dist
@@ -9,5 +9,5 @@ EXPOSE 8001
 
 ENV NODE_ENV=production
 
-CMD ["--es-module-specifier-resolution=node", "dist/src/server/index.js"]
+CMD ["--import=./dist/src/server/register.js", "--es-module-specifier-resolution=node", "dist/src/server/index.js"]
 
