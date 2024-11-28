@@ -24,6 +24,7 @@ import {
 import { hentAvansertDokumentNavn } from './hentAvansertDokumentNavn';
 import { lagManueltBrevHtml } from './lagManueltBrevHtml';
 import { genererSøknadHtml } from './søknadgenerator';
+import { hentDelmalblokkHtml } from './hentDelmalBlockHtml';
 
 const router = express.Router();
 
@@ -82,6 +83,33 @@ router.post(
         logError(`Generering av dokument (pdf) feilet: ${feil.message}`);
         logSecure(`Generering av dokument (pdf) feilet: ${feil}`);
         res.status(500).send(`Generering av dokument (pdf) feilet: ${feil.message}`);
+      }
+    }
+  },
+);
+
+router.post(
+  '/:datasett/delmalblokk/:maalform/:delmalblokk/html',
+  async (req: Request, res: Response) => {
+    const datasett = req.params.datasett as Datasett;
+    const maalform = req.params.maalform as Maalform;
+    const delmalblokk = req.params.delmalblokk;
+    const brevMedSignatur = req.body as IBrevMedSignatur;
+    try {
+      const brevSomHtml = await hentDelmalblokkHtml(
+        brevMedSignatur,
+        maalform,
+        delmalblokk,
+        datasett,
+      );
+      res.send(brevSomHtml);
+    } catch (error: any) {
+      if (error instanceof Feil) {
+        res.status(error.code).send(error.message);
+      } else {
+        logError(`Generering av delmalBlock (html) feilet: ${error.message}`);
+        logSecure(`Generering av delmalBlock (html) feilet: ${error}`);
+        res.status(500).send(`Generering av delmalBlock (html) feilet: ${error.message}`);
       }
     }
   },
