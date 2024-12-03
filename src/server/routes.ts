@@ -5,6 +5,7 @@ import type { Maalform } from '../typer/sanitygrensesnitt';
 import type {
   IAvansertDokumentVariabler,
   IBrevMedSignatur,
+  IDelmal,
   IDokumentData,
   IFritekstbrevMedSignatur,
   ISøknad,
@@ -94,14 +95,9 @@ router.post(
     const datasett = req.params.datasett as Datasett;
     const maalform = req.params.maalform as Maalform;
     const delmalblokk = req.params.delmalblokk;
-    const brevMedSignatur = req.body as IBrevMedSignatur;
+    const delmal = req.body as IDelmal;
     try {
-      const brevSomHtml = await hentDelmalblokkHtml(
-        brevMedSignatur,
-        maalform,
-        delmalblokk,
-        datasett,
-      );
+      const brevSomHtml = await hentDelmalblokkHtml(delmal, maalform, delmalblokk, datasett);
       res.send(brevSomHtml);
     } catch (error: any) {
       if (error instanceof Feil) {

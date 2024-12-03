@@ -59,6 +59,10 @@ export interface IDelmaler {
   [delmalId: string]: IAvansertDokumentVariabler[];
 }
 
+export interface IDelmal {
+  verdier: IAvansertDokumentVariabler[];
+}
+
 export interface IFritekstområder {
   [id: string]: FritekstAvsnitt[];
 }

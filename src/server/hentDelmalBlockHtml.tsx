@@ -1,5 +1,5 @@
 import * as React from 'react';
-import type { IBrevMedSignatur } from '../typer/dokumentApiBrev';
+import type { IDelmal } from '../typer/dokumentApiBrev';
 import AvansertDokument from './components/AvansertDokument';
 import type { Datasett } from './sanity/sanityClient';
 import { renderToStaticMarkup } from 'react-dom/server';
@@ -8,23 +8,26 @@ import { Maalform } from '../typer/sanitygrensesnitt';
 import { DokumentType } from '../typer/dokumentType';
 
 export const hentDelmalblokkHtml = async (
-  brevMedSignatur: IBrevMedSignatur,
+  delmal: IDelmal,
   maalform: Maalform,
   delmalblokk: string,
   datasett: Datasett,
 ): Promise<string> => {
-  const { brevFraSaksbehandler: dokumentVariabler } = brevMedSignatur;
-
   const contextValue = { requests: [] };
   const asyncHtml = () => (
     <Context.Provider value={contextValue}>
-      <AvansertDokument
-        apiNavn={delmalblokk}
-        avanserteDokumentVariabler={dokumentVariabler}
-        maalform={maalform}
-        dokumentType={DokumentType.AVANSERT_DELMAL}
-        datasett={datasett}
-      />
+      {delmal.verdier.map((verdi, index) => {
+        return (
+          <AvansertDokument
+            key={index}
+            apiNavn={delmalblokk}
+            avanserteDokumentVariabler={verdi}
+            maalform={maalform}
+            dokumentType={DokumentType.AVANSERT_DELMAL}
+            datasett={datasett}
+          />
+        );
+      })}
     </Context.Provider>
   );
 
