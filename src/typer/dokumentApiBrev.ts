@@ -19,6 +19,11 @@ export interface IAvansertDokumentVariabler {
   fritekstområder: IFritekstområder;
   valgfelter: IValgfelter;
   htmlfelter: IHtmlfelter;
+  overstyrtDelmalblokk?: IOverstyrtDelmalblokk;
+}
+
+export interface IOverstyrtDelmalblokk {
+  htmlInnhold: string;
 }
 
 export interface IBrevMedSignatur {
