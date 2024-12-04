@@ -98,7 +98,8 @@ router.post(
     const delmal = req.body as IDelmal;
     try {
       const brevSomHtml = await hentDelmalblokkHtml(delmal, maalform, delmalblokk, datasett);
-      res.send(brevSomHtml);
+      const responseData: RessursSuksess<string> = { data: brevSomHtml, status: 'SUKSESS' };
+      res.send(responseData);
     } catch (error: any) {
       if (error instanceof Feil) {
         res.status(error.code).send(error.message);
