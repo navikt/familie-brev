@@ -48,7 +48,7 @@ function AvansertDokument(avansertDokumentProps: AvansertDokumentProps) {
     return null;
   }
 
-  if (avanserteDokumentVariabler?.overstyrtDelmalblokk) {
+  if (avanserteDokumentVariabler?.overstyrtDelmalblokk?.skalOverstyre) {
     // TODO: Håndtere htmlTabell her
     return (
       <div

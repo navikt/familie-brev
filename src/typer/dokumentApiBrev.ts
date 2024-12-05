@@ -24,6 +24,7 @@ export interface IAvansertDokumentVariabler {
 
 export interface IOverstyrtDelmalblokk {
   htmlInnhold: string;
+  skalOverstyre: boolean;
 }
 
 export interface IBrevMedSignatur {
