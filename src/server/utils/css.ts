@@ -106,4 +106,8 @@ export default `
     text-align: left;
     padding-bottom: 0.5rem;
   }
+  /** Sette riktig listevariant ift quill som gjør ul om til ol **/
+  li[data-list=bullet] {
+    list-style-type: disc;
+  }
 `;
