@@ -48,6 +48,17 @@ function AvansertDokument(avansertDokumentProps: AvansertDokumentProps) {
     return null;
   }
 
+  if (avanserteDokumentVariabler?.overstyrtDelmalblokk?.skalOverstyre) {
+    // TODO: Håndtere htmlTabell her
+    return (
+      <div
+        dangerouslySetInnerHTML={{
+          __html: avanserteDokumentVariabler.overstyrtDelmalblokk.htmlInnhold,
+        }}
+      />
+    );
+  }
+
   return (
     <PortableText
       value={avansertDokument}
