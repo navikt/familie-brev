@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SamlivGrunnlag = () => {
+export const SamlivGrunnlag = () => {
   return (
     <>
       <h3 className={'blankett'}>Registerdata</h3>
@@ -8,5 +8,3 @@ const SamlivGrunnlag = () => {
     </>
   );
 };
-
-export default SamlivGrunnlag;

@@ -10,7 +10,7 @@ interface IFlettefeltSerializerProps {
   erListe?: boolean;
 }
 
-const FlettefeltSerializer = (props: IFlettefeltSerializerProps) => {
+export const FlettefeltSerializer = (props: IFlettefeltSerializerProps) => {
   const { sanityProps, flettefelter, dokumentApiNavn, erListe } = props;
   const flettefeltNavn = hentFlettefeltNavn(sanityProps);
   const erFlettefeltListe = hentFlettefeltErListe(sanityProps, erListe);
@@ -59,5 +59,3 @@ const hentFlettefeltErListe = (sanityProps: any, erBegrunnelse?: boolean) => {
   const { flettefeltReferanse } = sanityProps.value;
   return !!(flettefeltReferanse?.erListe || erBegrunnelse);
 };
-
-export default FlettefeltSerializer;

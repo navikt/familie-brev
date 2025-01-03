@@ -1,8 +1,8 @@
 import * as React from 'react';
-import Dokument from './components/Dokument';
+import { Dokument } from './components/Dokument';
 import { renderToStaticMarkup } from 'react-dom/server';
 import css from '../utils/css';
-import Header from './components/Header';
+import { Header } from './components/Header';
 import { datoFormat } from '../utils/util';
 import { Behandling } from './components/Behandling';
 import { ÅrsakRevurdering } from './components/ÅrsakRevurdering';
@@ -13,7 +13,7 @@ enum HtmlLang {
   NB = 'nb',
 }
 
-const hentDokumentHtmlBlankett = async (data: IDokumentData): Promise<string> => {
+export const hentDokumentHtmlBlankett = async (data: IDokumentData): Promise<string> => {
   const asyncHtml = () => (
     <html lang={HtmlLang.NB}>
       <head>
@@ -43,5 +43,3 @@ const hentDokumentHtmlBlankett = async (data: IDokumentData): Promise<string> =>
 
   return dokument;
 };
-
-export default hentDokumentHtmlBlankett;

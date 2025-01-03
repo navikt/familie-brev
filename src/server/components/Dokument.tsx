@@ -3,18 +3,18 @@ import type { IDokumentData } from '../../typer/dokumentApiBrev';
 import { hentDokumentQuery } from '../sanity/Queries';
 import type { Datasett } from '../sanity/sanityClient';
 import { client } from '../sanity/sanityClient';
-import useServerEffect from '../utils/useServerEffect';
+import { useServerEffect } from '../utils/useServerEffect';
 import type { Maalform } from '../../typer/sanitygrensesnitt';
-import BlockSerializer from './serializers/BlockSerializer';
-import FlettefeltSerializer from './serializers/FlettefeltSerializer';
-import PeriodeSerializer from './serializers/PeriodeSerializer';
-import DelmalSerializer from './serializers/DelmalSerializer';
+import { BlockSerializer } from './serializers/BlockSerializer';
+import { FlettefeltSerializer } from './serializers/FlettefeltSerializer';
+import { PeriodeSerializer } from './serializers/PeriodeSerializer';
+import { DelmalSerializer } from './serializers/DelmalSerializer';
 import { DokumentType } from '../../typer/dokumentType';
 import { Feil } from '../utils/Feil';
-import LenkeSerializer from './serializers/LenkeSerializer';
+import { LenkeSerializer } from './serializers/LenkeSerializer';
 
 import { PortableText } from '@portabletext/react';
-import SammensattKontrollsakSerializer from './serializers/SammensattKontrollsakSerializer';
+import { SammensattKontrollsakSerializer } from './serializers/SammensattKontrollsakSerializer';
 
 interface DokumentProps {
   dokumentApiNavn: string;
@@ -23,7 +23,7 @@ interface DokumentProps {
   datasett: Datasett;
 }
 
-const Dokument = (dokumentProps: DokumentProps) => {
+export const Dokument = (dokumentProps: DokumentProps) => {
   const { dokumentApiNavn, dokumentData, maalform, datasett } = dokumentProps;
 
   const [dokument] = useServerEffect(undefined, dokumentApiNavn, () => {
@@ -91,5 +91,3 @@ const Dokument = (dokumentProps: DokumentProps) => {
     />
   );
 };
-
-export default Dokument;

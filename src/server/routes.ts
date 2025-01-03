@@ -10,11 +10,11 @@ import type {
   IFritekstbrevMedSignatur,
   ISøknad,
 } from '../typer/dokumentApiBrev';
-import hentDokumentHtml from './hentDokumentHtml';
+import { hentDokumentHtml } from './hentDokumentHtml';
 import { genererPdf } from './utils/api';
 import { Feil } from './utils/Feil';
-import hentAvansertDokumentHtml from './hentAvansertDokumentHtml';
-import validerDokumentApiData from './utils/valideringer/validerDokumentApiData';
+import { hentAvansertDokumentHtml } from './hentAvansertDokumentHtml';
+import { validerDokumentApiData } from './utils/valideringer/validerDokumentApiData';
 import { logError, logInfo, logSecure } from '@navikt/familie-logging';
 import {
   Brevmeny,

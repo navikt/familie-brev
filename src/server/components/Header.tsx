@@ -17,7 +17,7 @@ interface HeaderProps {
   datoPlaceholder?: string;
 }
 
-function Header(props: HeaderProps) {
+export const Header = (props: HeaderProps) => {
   const {
     tittel,
     navn,
@@ -70,7 +70,7 @@ function Header(props: HeaderProps) {
       </div>
     </div>
   );
-}
+};
 
 const navnTittel = (maalform: Maalform): string => {
   switch (maalform) {
@@ -89,5 +89,3 @@ const gjelderTittel = (maalform: Maalform): string => {
       return 'Gjeld';
   }
 };
-
-export default Header;

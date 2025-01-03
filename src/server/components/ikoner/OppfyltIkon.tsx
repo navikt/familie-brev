@@ -6,7 +6,7 @@ interface IOppfylt {
   width?: number;
 }
 
-const OppfyltIkon: React.FC<IOppfylt> = ({ className, heigth, width }) => {
+export const OppfyltIkon: React.FC<IOppfylt> = ({ className, heigth, width }) => {
   return (
     <svg
       aria-labelledby={'oppfylt'}
@@ -30,5 +30,3 @@ const OppfyltIkon: React.FC<IOppfylt> = ({ className, heigth, width }) => {
     </svg>
   );
 };
-
-export default OppfyltIkon;

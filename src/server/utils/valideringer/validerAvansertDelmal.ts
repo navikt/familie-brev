@@ -1,7 +1,7 @@
 import type { IDelmaler } from '../../../typer/dokumentApiBrev';
 import { Feil } from '../Feil';
 
-export default (
+export const validerAvansertDelmal = (
   delmaler: IDelmaler | undefined,
   delmalApiNavn: string,
   forelderDokument: string,

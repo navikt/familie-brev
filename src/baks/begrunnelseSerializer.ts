@@ -10,7 +10,7 @@ import { Feil } from '../server/utils/Feil';
 import { formaterFlettefelt, formaterValgfelt } from './formateringer';
 import { lagStorForbokstav } from '../server/utils/strenghåndtering';
 
-const begrunnelseSerializer = (
+export const begrunnelseSerializer = (
   blocks: BegrunnelseBlock[] | Record<string, never>,
   data: BegrunnelseMedData,
 ): string => {
@@ -52,5 +52,3 @@ const formaterSanityBlock = (
       );
   }
 };
-
-export default begrunnelseSerializer;

@@ -4,12 +4,12 @@ import type {
   IDokumentData,
   IDokumentDataMedUtbetalingerEøs,
 } from '../../../typer/dokumentApiBrev';
-import FlettefeltSerializer from './FlettefeltSerializer';
-import BlockSerializer from './BlockSerializer';
+import { FlettefeltSerializer } from './FlettefeltSerializer';
+import { BlockSerializer } from './BlockSerializer';
 import type { Maalform } from '../../../typer/sanitygrensesnitt';
-import LenkeSerializer from './LenkeSerializer';
+import { LenkeSerializer } from './LenkeSerializer';
 import { PortableText } from '@portabletext/react';
-import UtbetalingerSerializer from './UtbetalingerSerializer';
+import { UtbetalingerSerializer } from './UtbetalingerSerializer';
 import { css, styled } from 'styled-components';
 import { Feil } from '../../utils/Feil';
 import type { UtbetalingerPerMndEøs } from '../../../typer/utbetalingerEøs';
@@ -32,7 +32,7 @@ const StyledDelmalWrapper = styled.div<StyledDelmalWrapperProps>`
         `
       : ''}
 `;
-const DelmalSerializer = (props: IDelmalSerializerProps) => {
+export const DelmalSerializer = (props: IDelmalSerializerProps) => {
   const { sanityProps, dokumentData, maalform } = props;
   const delmalData = dokumentData?.delmalData;
   const { delmalReferanse, skalAlltidMed, skalBegynnePaaNySide } = sanityProps.value;
@@ -98,5 +98,3 @@ const DelmalSerializer = (props: IDelmalSerializerProps) => {
     </StyledDelmalWrapper>
   );
 };
-
-export default DelmalSerializer;

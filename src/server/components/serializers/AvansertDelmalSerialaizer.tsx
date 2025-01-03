@@ -1,9 +1,9 @@
 import React from 'react';
 import type { IAvansertDokumentVariabler, IDelmaler } from '../../../typer/dokumentApiBrev';
 import type { Datasett } from '../../sanity/sanityClient';
-import AvansertDokument from '../AvansertDokument';
+import { AvansertDokument } from '../AvansertDokument';
 import type { Maalform } from '../../../typer/sanitygrensesnitt';
-import validerAvansertDelmal from '../../utils/valideringer/validerAvansertDelmal';
+import { validerAvansertDelmal } from '../../utils/valideringer/validerAvansertDelmal';
 
 interface IAvansertDelmalSerializerProps {
   sanityProps: any;
@@ -13,7 +13,9 @@ interface IAvansertDelmalSerializerProps {
   forelderDokumentApiNavn: string;
 }
 
-const AvansertDelmalSerializer = (props: IAvansertDelmalSerializerProps): JSX.Element | null => {
+export const AvansertDelmalSerializer = (
+  props: IAvansertDelmalSerializerProps,
+): JSX.Element | null => {
   const { sanityProps, delmaler, maalform, datasett, forelderDokumentApiNavn } = props;
   const { delmalReferanse, erGjentagende, skalAlltidMed } = sanityProps.value;
   const delmalApiNavn = delmalReferanse.apiNavn;
@@ -51,5 +53,3 @@ const AvansertDelmalSerializer = (props: IAvansertDelmalSerializerProps): JSX.El
     </div>
   );
 };
-
-export default AvansertDelmalSerializer;

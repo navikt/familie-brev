@@ -78,7 +78,7 @@ Postman skal da vise html-responsen for deg.
 
 Spørsmål knyttet til koden eller prosjektet kan rettes som issues her på GitHub-repoet.
 
-## For NAV-ansatte
+## For Nav-ansatte
 
 Interne henvendelser kan sendes via Slack i kanalen #team-familie.
 

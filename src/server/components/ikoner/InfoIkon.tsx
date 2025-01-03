@@ -5,7 +5,7 @@ interface Props {
   heigth?: number;
   width?: number;
 }
-const InfoIkon: React.FC<Props> = ({ className, heigth, width }) => {
+export const InfoIkon: React.FC<Props> = ({ className, heigth, width }) => {
   return (
     <svg
       aria-labelledby={'ikke vurdert'}
@@ -27,5 +27,3 @@ const InfoIkon: React.FC<Props> = ({ className, heigth, width }) => {
     </svg>
   );
 };
-
-export default InfoIkon;

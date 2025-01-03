@@ -3,16 +3,16 @@ import type { IAvansertDokumentVariabler } from '../../typer/dokumentApiBrev';
 import { hentAvansertDokumentQuery } from '../sanity/Queries';
 import type { Datasett } from '../sanity/sanityClient';
 import { client } from '../sanity/sanityClient';
-import useServerEffect from '../utils/useServerEffect';
-import ValgfeltSerializer from './serializers/ValgfeltSerializer';
-import AvansertDelmalSerializer from './serializers/AvansertDelmalSerialaizer';
-import ListItemSerializer from './serializers/ListItemSerializer';
+import { useServerEffect } from '../utils/useServerEffect';
+import { ValgfeltSerializer } from './serializers/ValgfeltSerializer';
+import { AvansertDelmalSerializer } from './serializers/AvansertDelmalSerialaizer';
+import { ListItemSerializer } from './serializers/ListItemSerializer';
 import type { Maalform } from '../../typer/sanitygrensesnitt';
 import { DokumentType } from '../../typer/dokumentType';
-import FlettefeltSerializer from './serializers/FlettefeltSerializer';
-import BlockSerializer from './serializers/BlockSerializer';
-import LenkeSerializer from './serializers/LenkeSerializer';
-import HtmlfeltSerializer from './serializers/HtmlfeltSerializer';
+import { FlettefeltSerializer } from './serializers/FlettefeltSerializer';
+import { BlockSerializer } from './serializers/BlockSerializer';
+import { LenkeSerializer } from './serializers/LenkeSerializer';
+import { HtmlfeltSerializer } from './serializers/HtmlfeltSerializer';
 
 import { PortableText } from '@portabletext/react';
 import { FritekstområdeSerializer } from './serializers/FritekstområdeSerializer';
@@ -26,7 +26,7 @@ interface AvansertDokumentProps {
   dokumentType: DokumentType;
 }
 
-function AvansertDokument(avansertDokumentProps: AvansertDokumentProps) {
+export const AvansertDokument = (avansertDokumentProps: AvansertDokumentProps) => {
   const {
     apiNavn,
     avanserteDokumentVariabler,
@@ -130,6 +130,4 @@ function AvansertDokument(avansertDokumentProps: AvansertDokumentProps) {
       }}
     />
   );
-}
-
-export default AvansertDokument;
+};

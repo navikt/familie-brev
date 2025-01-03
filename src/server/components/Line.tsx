@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Line: React.FC = () => {
+export const Line: React.FC = () => {
   return (
     <div
       style={{
@@ -11,5 +11,3 @@ const Line: React.FC = () => {
     ></div>
   );
 };
-
-export default Line;

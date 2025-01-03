@@ -1,9 +1,9 @@
 import * as React from 'react';
 import type { IDelmal } from '../typer/dokumentApiBrev';
-import AvansertDokument from './components/AvansertDokument';
+import { AvansertDokument } from './components/AvansertDokument';
 import type { Datasett } from './sanity/sanityClient';
 import { renderToStaticMarkup } from 'react-dom/server';
-import Context from './utils/Context';
+import { Context } from './utils/Context';
 import { Maalform } from '../typer/sanitygrensesnitt';
 import { DokumentType } from '../typer/dokumentType';
 

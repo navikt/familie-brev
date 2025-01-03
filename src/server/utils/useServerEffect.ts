@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import Context from './Context';
+import { Context } from './Context';
 
 /*
  * Følger denne guiden:
@@ -8,7 +8,7 @@ import Context from './Context';
  * useServerEffect lagrer responsen til eksterne kall i contexten slik at man
  * kan bruke asynkrone kall selv om man bruker server side rendering.
  */
-const useServerEffect = (initial: any, key: any, effect: any) => {
+export const useServerEffect = (initial: any, key: any, effect: any) => {
   const context: any = useContext(Context);
   const [data] = useState(context[key] || initial);
   if (context.requests && !context[key]) {
@@ -20,4 +20,3 @@ const useServerEffect = (initial: any, key: any, effect: any) => {
   }
   return [data];
 };
-export default useServerEffect;
