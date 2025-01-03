@@ -7,7 +7,7 @@ interface Props {
   sivilstand: ISivilstandVilkår;
 }
 
-const SivilstandGrunnlag: React.FC<Props> = ({ sivilstand }) => {
+export const SivilstandGrunnlag: React.FC<Props> = ({ sivilstand }) => {
   const registergrunnlag = sivilstand.registergrunnlag;
   return (
     <>
@@ -20,5 +20,3 @@ const SivilstandGrunnlag: React.FC<Props> = ({ sivilstand }) => {
     </>
   );
 };
-
-export default SivilstandGrunnlag;

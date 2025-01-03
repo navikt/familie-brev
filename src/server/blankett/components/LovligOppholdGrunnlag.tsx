@@ -6,7 +6,7 @@ interface Props {
   medlemskap: IMedlemskap;
 }
 
-const LovligOppholdGrunnlag: React.FC<Props> = ({ medlemskap }) => {
+export const LovligOppholdGrunnlag: React.FC<Props> = ({ medlemskap }) => {
   return (
     <>
       <h3 className={'blankett'}>Registerdata</h3>
@@ -56,5 +56,3 @@ const LovligOppholdGrunnlag: React.FC<Props> = ({ medlemskap }) => {
     </>
   );
 };
-
-export default LovligOppholdGrunnlag;

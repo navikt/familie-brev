@@ -1,12 +1,12 @@
 import React from 'react';
-import AnnenForelder from './AnnenForelder';
+import { AnnenForelder } from './AnnenForelder';
 import type { IBarnMedSamvær } from '../../../typer/dokumentApiBlankett';
 
 interface Props {
   barnMedSamvær: IBarnMedSamvær[];
 }
 
-const NyttBarnSammePartner: React.FC<Props> = ({ barnMedSamvær }) => {
+export const NyttBarnSammePartner: React.FC<Props> = ({ barnMedSamvær }) => {
   return (
     <>
       <h3 className={'blankett'}>Registerdata</h3>
@@ -30,5 +30,3 @@ const NyttBarnSammePartner: React.FC<Props> = ({ barnMedSamvær }) => {
     </>
   );
 };
-
-export default NyttBarnSammePartner;

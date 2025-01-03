@@ -1,13 +1,13 @@
 import React from 'react';
-import Medlemskapsgrunnlag from './Medlemskapsgrunnlag';
-import LovligOppholdGrunnlag from './LovligOppholdGrunnlag';
-import SivilstandGrunnlag from './Sivilstand';
-import SamlivGrunnlag from './Samliv';
-import MorEllerFarGrunnlag from './MorEllerFarGrunnlag';
-import AleneomsorgGrunnlag from './AleneomsorgGrunnlag';
-import NyttBarnSammePartner from './NyttBarnSammePartner';
-import SagtOppEllerRedusertGrunnlag from './SagtOppEllerRedusertGrunnlag';
-import AlderPåBarnGrunnlag from './AlderPåBarnGrunnlag';
+import { Medlemskapsgrunnlag } from './Medlemskapsgrunnlag';
+import { LovligOppholdGrunnlag } from './LovligOppholdGrunnlag';
+import { SivilstandGrunnlag } from './Sivilstand';
+import { SamlivGrunnlag } from './Samliv';
+import { MorEllerFarGrunnlag } from './MorEllerFarGrunnlag';
+import { AleneomsorgGrunnlag } from './AleneomsorgGrunnlag';
+import { NyttBarnSammePartner } from './NyttBarnSammePartner';
+import { SagtOppEllerRedusertGrunnlag } from './SagtOppEllerRedusertGrunnlag';
+import { AlderPåBarnGrunnlag } from './AlderPåBarnGrunnlag';
 import { TidligereHistorikk } from './TidligereHistorikk';
 import type {
   IVilkårGrunnlag,

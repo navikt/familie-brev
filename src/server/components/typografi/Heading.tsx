@@ -5,7 +5,7 @@ type HeadingProps = {
   text: string;
 };
 
-const Heading: React.FC<HeadingProps> = ({ size, text }) => {
+export const Heading: React.FC<HeadingProps> = ({ size, text }) => {
   const HeadingTag = size === 'large' ? 'h1' : size === 'medium' ? 'h2' : 'h3';
 
   let headingStyle: React.CSSProperties = {};
@@ -42,5 +42,3 @@ const Heading: React.FC<HeadingProps> = ({ size, text }) => {
 
   return React.createElement(HeadingTag, { style: headingStyle }, text);
 };
-
-export default Heading;

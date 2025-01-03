@@ -1,12 +1,12 @@
 import * as React from 'react';
 import type { IDokumentData } from '../typer/dokumentApiBrev';
-import Dokument from './components/Dokument';
+import { Dokument } from './components/Dokument';
 import type { Datasett } from './sanity/sanityClient';
 import { client } from './sanity/sanityClient';
 import { renderToStaticMarkup } from 'react-dom/server';
-import Context from './utils/Context';
+import { Context } from './utils/Context';
 import css from './utils/css';
-import Header from './components/Header';
+import { Header } from './components/Header';
 import { Maalform } from '../typer/sanitygrensesnitt';
 import { Feil } from './utils/Feil';
 import { ServerStyleSheet } from 'styled-components';
@@ -16,7 +16,7 @@ enum HtmlLang {
   NN = 'nn',
 }
 
-const hentDokumentHtml = async (
+export const hentDokumentHtml = async (
   apiDokument: IDokumentData,
   maalform: Maalform,
   dokumentApiNavn: string,
@@ -123,5 +123,3 @@ const hentDokumentHtml = async (
   dokumentHtml = dokumentHtml.replace(/&#x27;/g, "'");
   return dokumentHtml.replace(/(\r\n|\n|\r)/gm, '');
 };
-
-export default hentDokumentHtml;

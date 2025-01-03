@@ -103,7 +103,7 @@ const SummaryTableRow = styled.tr`
   }
 `;
 
-const UtbetalingerSerializer = (props: UtbetalingerProps) => {
+export const UtbetalingerSerializer = (props: UtbetalingerProps) => {
   const { maalform, utbetalingerPerMndEøs } = props;
 
   const header = TabellHeaderForSpraak[maalform];
@@ -189,5 +189,3 @@ const UtbetalingerSerializer = (props: UtbetalingerProps) => {
     </ZebraStripedTable>
   );
 };
-
-export default UtbetalingerSerializer;

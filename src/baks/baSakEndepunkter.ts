@@ -7,7 +7,7 @@ import {
   hentBegrunnelseTekstQuery,
   hentHjemlerForBegrunnelseQuery,
 } from './queries';
-import begrunnelseSerializer from './begrunnelseSerializer';
+import { begrunnelseSerializer } from './begrunnelseSerializer';
 import type { BegrunnelseMedData } from './typer';
 import { Begrunnelsetype } from './typer';
 import {

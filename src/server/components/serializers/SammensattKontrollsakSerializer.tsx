@@ -12,7 +12,7 @@ interface Props {
 const StyledParagraph = styled.p`
   white-space: pre-wrap;
 `;
-const SammensattKontrollsakSerializer: React.FC<Props> = ({ dokumentData }) => {
+export const SammensattKontrollsakSerializer: React.FC<Props> = ({ dokumentData }) => {
   const erIDokumentDataSammensattKontrollsak = (
     dokumentData: IDokumentData | IDokumentDataSammensattKontrollsak | undefined,
   ): dokumentData is IDokumentDataSammensattKontrollsak => {
@@ -34,5 +34,3 @@ const SammensattKontrollsakSerializer: React.FC<Props> = ({ dokumentData }) => {
     <StyledParagraph key={index}>{avsnitt}</StyledParagraph>
   ));
 };
-
-export default SammensattKontrollsakSerializer;

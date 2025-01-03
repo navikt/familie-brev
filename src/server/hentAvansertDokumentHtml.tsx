@@ -1,12 +1,12 @@
 import * as React from 'react';
 import type { IBrevMedSignatur } from '../typer/dokumentApiBrev';
-import AvansertDokument from './components/AvansertDokument';
+import { AvansertDokument } from './components/AvansertDokument';
 import type { Datasett } from './sanity/sanityClient';
 import { client } from './sanity/sanityClient';
 import { renderToStaticMarkup } from 'react-dom/server';
-import Context from './utils/Context';
+import { Context } from './utils/Context';
 import css from './utils/css';
-import Header from './components/Header';
+import { Header } from './components/Header';
 import { Maalform } from '../typer/sanitygrensesnitt';
 import { DokumentType } from '../typer/dokumentType';
 import { dagensDatoFormatert } from './utils/util';
@@ -16,7 +16,7 @@ enum HtmlLang {
   NN = 'nn',
 }
 
-const hentAvansertDokumentHtml = async (
+export const hentAvansertDokumentHtml = async (
   brevMedSignatur: IBrevMedSignatur,
   maalform: Maalform,
   dokumentApiNavn: string,
@@ -114,5 +114,3 @@ const hentAvansertDokumentHtml = async (
 
   return dokument;
 };
-
-export default hentAvansertDokumentHtml;

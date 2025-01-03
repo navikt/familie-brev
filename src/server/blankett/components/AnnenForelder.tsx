@@ -7,7 +7,7 @@ interface AnnenForelderProps {
   erRegisterOpplysning?: boolean;
 }
 
-const AnnenForelder: React.FC<AnnenForelderProps> = ({
+export const AnnenForelder: React.FC<AnnenForelderProps> = ({
   annenForelder,
   erRegisterOpplysning = true,
 }) => {
@@ -28,5 +28,3 @@ const AnnenForelder: React.FC<AnnenForelderProps> = ({
     </div>
   );
 };
-
-export default AnnenForelder;
