@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { JSX } from 'react';
 import type { IValg, IValgfelter } from '../../../typer/dokumentApiBrev';
 import type { Datasett } from '../../sanity/sanityClient';
 import { AvansertDokument } from '../AvansertDokument';

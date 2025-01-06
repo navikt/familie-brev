@@ -43,7 +43,7 @@ Konsumenter kan få returnert html eller pdf/bytearray.
 ```
 * `familie-dokument` må kjøres med DevLauncher for at pdf-generering skal fungere
 * Kjør `yarn build`
-* Kjør `yarn dev:server`
+* Kjør `yarn run:dev`
 
 ### Bygg og deploy
 
