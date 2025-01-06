@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { JSX } from 'react';
 import { rightTrimLastProp } from '../../utils/openhtmltopdfBughåndtering';
 
 const settTag = (node: any) => {
