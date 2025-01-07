@@ -25,7 +25,7 @@ app.use('/api', routes);
 app.use('/ba-sak', baSakEndepunkter);
 app.use('/ks-sak', ksSakEndepunkter);
 app.use('/blankett', blankettRoutes);
-app.use('/næringsinntekt-kontroll', næringsinntektRoutes);
+app.use('/naeringsinntekt-kontroll', næringsinntektRoutes);
 
 const port = 8001;
 app.listen(port, () => {

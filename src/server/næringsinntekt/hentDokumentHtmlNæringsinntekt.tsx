@@ -3,7 +3,6 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import css from '../utils/css';
 import { NæringsinntektDokumentData } from '../../typer/dokumentApiNæringsinntekt';
 import { Header } from './components/Header';
-import { dagensDatoFormatert } from '../../../dist/src/utils/dato';
 import { Inntekt } from './components/Inntekt';
 
 enum HtmlLang {
@@ -23,7 +22,7 @@ export const hentDokumentHtmlNæringsinntekt = async (
       <body className={'body'}>
         <div>
           <Header
-            tittel={`Notat av ${dagensDatoFormatert}`}
+            saksid={data.saksid}
             navn={data.navn}
             personident={data.personIdent}
             saksbehandlernavn={data.saksbehandlernavn}

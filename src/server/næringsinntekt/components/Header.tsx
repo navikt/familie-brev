@@ -1,27 +1,25 @@
 import React from 'react';
 import { css, styled } from 'styled-components';
+import { dagensDatoFormatert } from '../../utils/util';
 
 interface HeaderProps {
+  saksid: string;
   personident: string;
   navn: string;
   saksbehandlernavn: string;
   enhet: string;
-  tittel: string;
   årstall: number;
 }
 
 const CommonCellCSS = css`
-  border: none;
   display: table-cell;
-  padding: 0.25rem 0.5rem;
   font-family:
     Source Sans Pro,
     sans-serif;
   font-size: 12pt;
   letter-spacing: 0;
-  line-height: 1.5rem;
   margin: 0;
-  border-bottom: 1px solid #838c9a;
+  border: 1px solid #838c9a;
 `;
 
 const StyledTableData = styled.td<{ $borderTop?: boolean }>`
@@ -43,13 +41,13 @@ const StyledTableDataRow = styled.tr<{ $borderTop?: boolean }>`
 `;
 
 export function Header(props: HeaderProps) {
-  const { personident, navn, saksbehandlernavn, enhet, tittel, årstall } = props;
+  const { saksid, personident, navn, saksbehandlernavn, enhet, årstall } = props;
 
   return (
     <div>
-      <h1>{tittel}</h1>
-      <StyledTableData>
-        <StyledTableHeader>Saksnummer: GENERELL_SAK</StyledTableHeader>
+      <h1>Notat av {dagensDatoFormatert()}</h1>
+      <table>
+        <StyledTableHeader colSpan={3}>Saksnummer: {saksid}</StyledTableHeader>
         <StyledTableDataRow>
           <StyledTableData>
             <b>Hvem saken gjelder</b>
@@ -66,9 +64,9 @@ export function Header(props: HeaderProps) {
         </StyledTableDataRow>
         <StyledTableDataRow>
           <StyledTableData>Saken gjelder:</StyledTableData>
-          <StyledTableData>Vurdering næringsinntekt {årstall}</StyledTableData>
+          <StyledTableData colSpan={2}>Vurdering næringsinntekt {årstall}</StyledTableData>
         </StyledTableDataRow>
-      </StyledTableData>
+      </table>
     </div>
   );
 }
