@@ -51,9 +51,9 @@ export const FlettefeltSerializer = (props: IFlettefeltSerializerProps) => {
   } else if (erFlettefeltFritekstfelt) {
     return (
       <span className={høyrestill ? 'høyrestill' : ''}>
-        {flettefelt[0].split('\n\n').map((avsnitt, index) => (
-          <StyledParagraph key={index}>{avsnitt}</StyledParagraph>
-        ))}
+        {flettefelt[0]
+          ?.split('\n\n')
+          .map((avsnitt, index) => <StyledParagraph key={index}>{avsnitt}</StyledParagraph>)}
       </span>
     );
   } else {
