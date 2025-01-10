@@ -99,6 +99,10 @@ export interface IDokumentDataSammensattKontrollsak extends IDokumentData {
   sammensattKontrollsakFritekst: string;
 }
 
+export interface IDokumentDataMedFritekst extends IDokumentData {
+  fritekst: string;
+}
+
 export interface ISøknad {
   label: string;
   verdiliste: IVerdiliste[];
