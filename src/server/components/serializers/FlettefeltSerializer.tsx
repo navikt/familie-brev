@@ -11,7 +11,7 @@ interface IFlettefeltSerializerProps {
   erListe?: boolean;
 }
 
-const StyledParagraph = styled.p`
+const StyledDiv = styled.div`
   white-space: pre-wrap;
 `;
 
@@ -51,9 +51,7 @@ export const FlettefeltSerializer = (props: IFlettefeltSerializerProps) => {
   } else if (erFlettefeltFritekstfelt) {
     return (
       <span className={høyrestill ? 'høyrestill' : ''}>
-        {flettefelt[0]
-          ?.split('\n\n')
-          .map((avsnitt, index) => <StyledParagraph key={index}>{avsnitt}</StyledParagraph>)}
+        {flettefelt[0]?.split('\n\n').map((avsnitt, i) => <StyledDiv key={i}>{avsnitt}</StyledDiv>)}
       </span>
     );
   } else {
