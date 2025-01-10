@@ -2,6 +2,11 @@ import type { Flettefelter } from '../../../typer/dokumentApiBrev';
 import React from 'react';
 import { Feil } from '../../utils/Feil';
 import { validerFlettefelt } from '../../utils/valideringer/validerFlettefelt';
+import { styled } from 'styled-components';
+
+const StyledDiv = styled.div`
+  white-space: pre-wrap;
+`;
 
 interface IFlettefeltSerializerProps {
   sanityProps: any;
@@ -14,6 +19,7 @@ export const FlettefeltSerializer = (props: IFlettefeltSerializerProps) => {
   const { sanityProps, flettefelter, dokumentApiNavn, erListe } = props;
   const flettefeltNavn = hentFlettefeltNavn(sanityProps);
   const erFlettefeltListe = hentFlettefeltErListe(sanityProps, erListe);
+  const erFlettefeltFritekstfelt = hentFlettefeltErFritekstfelt(sanityProps);
 
   if (!flettefelter) {
     throw new Feil(
@@ -42,6 +48,12 @@ export const FlettefeltSerializer = (props: IFlettefeltSerializerProps) => {
         ))}
       </ul>
     );
+  } else if (erFlettefeltFritekstfelt) {
+    return (
+      <span className={høyrestill ? 'høyrestill' : ''}>
+        {flettefelt[0]?.split('\n\n').map((avsnitt, i) => <StyledDiv key={i}>{avsnitt}</StyledDiv>)}
+      </span>
+    );
   } else {
     return <span className={høyrestill ? 'høyrestill' : ''}>{flettefelt[0]}</span>;
   }
@@ -58,4 +70,8 @@ const hentFlettefeltNavn = (sanityProps: any) => {
 const hentFlettefeltErListe = (sanityProps: any, erBegrunnelse?: boolean) => {
   const { flettefeltReferanse } = sanityProps.value;
   return !!(flettefeltReferanse?.erListe || erBegrunnelse);
+};
+
+const hentFlettefeltErFritekstfelt = (sanityProps: any) => {
+  return sanityProps.value.flettefeltReferanse?.erFritektsfelt == true;
 };
