@@ -12,14 +12,14 @@ const StyledDiv = styled.div`
 
 export const FritekstSerializer: React.FC<Props> = ({ dokumentData }) => {
   const dokumentDataHarFritekst = (dokumentData: any): dokumentData is IDokumentDataMedFritekst =>
-    (dokumentData as IDokumentDataMedFritekst)?.fritekst !== undefined;
+    typeof (dokumentData as IDokumentDataMedFritekst)?.fritekst === 'string';
 
   if (!dokumentDataHarFritekst(dokumentData)) {
     return null;
   }
 
   return dokumentData.fritekst
-    .split('\n')
+    ?.split('\n')
     .map((avsnitt, index) =>
       avsnitt.length > 0 ? <StyledDiv key={index}>{avsnitt}</StyledDiv> : <br key={index} />,
     );
