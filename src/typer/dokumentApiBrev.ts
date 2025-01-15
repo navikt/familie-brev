@@ -19,6 +19,12 @@ export interface IAvansertDokumentVariabler {
   fritekstområder: IFritekstområder;
   valgfelter: IValgfelter;
   htmlfelter: IHtmlfelter;
+  overstyrtDelmalblokk?: IOverstyrtDelmalblokk;
+}
+
+export interface IOverstyrtDelmalblokk {
+  htmlInnhold: string;
+  skalOverstyre: boolean;
 }
 
 export interface IBrevMedSignatur {
@@ -54,6 +60,10 @@ export interface IDelmaler {
   [delmalId: string]: IAvansertDokumentVariabler[];
 }
 
+export interface IDelmal {
+  verdier: IAvansertDokumentVariabler[];
+}
+
 export interface IFritekstområder {
   [id: string]: FritekstAvsnitt[];
 }
@@ -87,6 +97,10 @@ export interface IDokumentDataMedPeriode extends IDokumentData {
 
 export interface IDokumentDataSammensattKontrollsak extends IDokumentData {
   sammensattKontrollsakFritekst: string;
+}
+
+export interface IDokumentDataMedFritekst extends IDokumentData {
+  fritekst: string;
 }
 
 export interface ISøknad {

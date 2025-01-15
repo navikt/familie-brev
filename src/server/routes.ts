@@ -5,15 +5,16 @@ import type { Maalform } from '../typer/sanitygrensesnitt';
 import type {
   IAvansertDokumentVariabler,
   IBrevMedSignatur,
+  IDelmal,
   IDokumentData,
   IFritekstbrevMedSignatur,
   ISøknad,
 } from '../typer/dokumentApiBrev';
-import hentDokumentHtml from './hentDokumentHtml';
+import { hentDokumentHtml } from './hentDokumentHtml';
 import { genererPdf } from './utils/api';
 import { Feil } from './utils/Feil';
-import hentAvansertDokumentHtml from './hentAvansertDokumentHtml';
-import validerDokumentApiData from './utils/valideringer/validerDokumentApiData';
+import { hentAvansertDokumentHtml } from './hentAvansertDokumentHtml';
+import { validerDokumentApiData } from './utils/valideringer/validerDokumentApiData';
 import { logError, logInfo, logSecure } from '@navikt/familie-logging';
 import {
   Brevmeny,
@@ -24,6 +25,7 @@ import {
 import { hentAvansertDokumentNavn } from './hentAvansertDokumentNavn';
 import { lagManueltBrevHtml } from './lagManueltBrevHtml';
 import { genererSøknadHtml } from './søknadgenerator';
+import { hentDelmalblokkHtml } from './hentDelmalBlockHtml';
 
 const router = express.Router();
 
@@ -82,6 +84,29 @@ router.post(
         logError(`Generering av dokument (pdf) feilet: ${feil.message}`);
         logSecure(`Generering av dokument (pdf) feilet: ${feil}`);
         res.status(500).send(`Generering av dokument (pdf) feilet: ${feil.message}`);
+      }
+    }
+  },
+);
+
+router.post(
+  '/:datasett/delmalblokk/:maalform/:delmalblokk/html',
+  async (req: Request, res: Response) => {
+    const datasett = req.params.datasett as Datasett;
+    const maalform = req.params.maalform as Maalform;
+    const delmalblokk = req.params.delmalblokk;
+    const delmal = req.body as IDelmal;
+    try {
+      const brevSomHtml = await hentDelmalblokkHtml(delmal, maalform, delmalblokk, datasett);
+      const responseData: RessursSuksess<string> = { data: brevSomHtml, status: 'SUKSESS' };
+      res.send(responseData);
+    } catch (error: any) {
+      if (error instanceof Feil) {
+        res.status(error.code).send(error.message);
+      } else {
+        logError(`Generering av delmalBlock (html) feilet: ${error.message}`);
+        logSecure(`Generering av delmalBlock (html) feilet: ${error}`);
+        res.status(500).send(`Generering av delmalBlock (html) feilet: ${error.message}`);
       }
     }
   },

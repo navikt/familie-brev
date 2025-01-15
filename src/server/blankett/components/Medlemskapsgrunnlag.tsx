@@ -6,7 +6,7 @@ interface Props {
   medlemskap: IMedlemskap;
 }
 
-const Medlemskapsgrunnlag: React.FC<Props> = ({ medlemskap }) => {
+export const Medlemskapsgrunnlag: React.FC<Props> = ({ medlemskap }) => {
   return (
     <>
       <h3 className={'blankett'}>Registerdata</h3>
@@ -87,5 +87,3 @@ const Medlemskapsgrunnlag: React.FC<Props> = ({ medlemskap }) => {
     </>
   );
 };
-
-export default Medlemskapsgrunnlag;

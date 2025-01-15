@@ -2,7 +2,6 @@ import type { Request, Response } from 'express';
 import express from 'express';
 import { client } from '../server/sanity/sanityClient';
 import { hentBegrunnelseTekstQuery, hentKsBegrunnelserQuery } from './queries';
-import begrunnelseSerializer from './begrunnelseSerializer';
 import type { BegrunnelseMedData } from './typer';
 import { Begrunnelsetype } from './typer';
 import {
@@ -14,6 +13,7 @@ import { Feil } from '../server/utils/Feil';
 import { logError, logSecure } from '@navikt/familie-logging';
 import { hentMiljøvariabler } from '../server/environment';
 import { escape } from '../server/utils/escapeString';
+import { begrunnelseSerializer } from './begrunnelseSerializer';
 
 const router = express.Router();
 

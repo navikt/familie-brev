@@ -7,10 +7,10 @@ import {
   delvilkårTypeTilTekst,
   svarIdTilTekst,
 } from '../../../typer/dokumentApiBlankett';
-import IkkeOppfylt from '../../components/ikoner/IkkeOppfylt';
+import { IkkeOppfylt } from '../../components/ikoner/IkkeOppfylt';
 import { IkkeVurdert } from '../../components/ikoner/IkkeVurdert';
-import InfoIkon from '../../components/ikoner/InfoIkon';
-import OppfyltIkon from '../../components/ikoner/OppfyltIkon';
+import { InfoIkon } from '../../components/ikoner/InfoIkon';
+import { OppfyltIkon } from '../../components/ikoner/OppfyltIkon';
 
 interface Props {
   vurdering: IVurdering;
@@ -29,7 +29,7 @@ const resultatIkon = (resultat: Vilkårsresultat) => {
   }
 };
 
-const Vilkårsvurdering: React.FC<Props> = ({ vurdering }) => {
+export const Vilkårsvurdering: React.FC<Props> = ({ vurdering }) => {
   const resultat =
     vurdering.vilkårType === Vilkår.TIDLIGERE_VEDTAKSPERIODER
       ? Vilkårsresultat.OPPFYLT
@@ -75,5 +75,3 @@ const Vilkårsvurdering: React.FC<Props> = ({ vurdering }) => {
     </>
   );
 };
-
-export default Vilkårsvurdering;

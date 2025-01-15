@@ -9,7 +9,7 @@ interface HeaderProps {
   visLogo?: boolean;
 }
 
-function Header(props: HeaderProps) {
+export function Header(props: HeaderProps) {
   const { tittel, navn, fodselsnummer, visLogo, dato } = props;
 
   return (
@@ -32,5 +32,3 @@ function Header(props: HeaderProps) {
     </div>
   );
 }
-
-export default Header;

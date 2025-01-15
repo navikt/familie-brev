@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { JSX } from 'react';
 import type { IAvansertDokumentVariabler } from '../../../typer/dokumentApiBrev';
 import type { Datasett } from '../../sanity/sanityClient';
-import ValgfeltSerializer from './ValgfeltSerializer';
+import { ValgfeltSerializer } from './ValgfeltSerializer';
 import type { Maalform } from '../../../typer/sanitygrensesnitt';
-import AvansertDelmalSerializer from './AvansertDelmalSerialaizer';
-import FlettefeltSerializer from './FlettefeltSerializer';
+import { AvansertDelmalSerializer } from './AvansertDelmalSerialaizer';
+import { FlettefeltSerializer } from './FlettefeltSerializer';
 import { DokumentType } from '../../../typer/dokumentType';
 import { PortableText } from '@portabletext/react';
 
@@ -16,7 +16,7 @@ interface IListItemSerializerProps {
   apiNavn: string;
 }
 
-const ListItemSerializer = (props: IListItemSerializerProps): JSX.Element | null => {
+export const ListItemSerializer = (props: IListItemSerializerProps): JSX.Element | null => {
   const { sanityProps, avanserteDokumentVariabler, maalform, datasett, apiNavn } = props;
   const erDelmal = (markDef: any) => markDef._type === DokumentType.DELMAL;
   const delmalSkalMed = (mark: any): boolean =>
@@ -70,5 +70,3 @@ const ListItemSerializer = (props: IListItemSerializerProps): JSX.Element | null
     return null;
   }
 };
-
-export default ListItemSerializer;

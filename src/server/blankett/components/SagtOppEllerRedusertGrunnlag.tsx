@@ -4,7 +4,7 @@ interface Props {
   harAvsluttetArbeidsforhold: boolean;
 }
 
-const SagtOppEllerRedusertGrunnlag: React.FC<Props> = ({ harAvsluttetArbeidsforhold }) => {
+export const SagtOppEllerRedusertGrunnlag: React.FC<Props> = ({ harAvsluttetArbeidsforhold }) => {
   return (
     <>
       <h3 className={'blankett'}>Registerdata</h3>
@@ -14,8 +14,6 @@ const SagtOppEllerRedusertGrunnlag: React.FC<Props> = ({ harAvsluttetArbeidsforh
     </>
   );
 };
-
-export default SagtOppEllerRedusertGrunnlag;
 
 const booleanTilTekst = (b: boolean): string => {
   if (b) return 'Ja';

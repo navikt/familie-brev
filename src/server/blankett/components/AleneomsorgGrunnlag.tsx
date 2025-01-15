@@ -1,5 +1,5 @@
 import React from 'react';
-import AnnenForelder from './AnnenForelder';
+import { AnnenForelder } from './AnnenForelder';
 import type { IBarnMedSamvær, IPersonalia } from '../../../typer/dokumentApiBlankett';
 import { formaterNullableIsoDato } from '../../utils/util';
 
@@ -30,7 +30,7 @@ const utledBostedTekst = (harDeltBosted: boolean, harSammeAdresse: boolean | und
   return 'Ikke registrert på brukers adresse';
 };
 
-const AleneomsorgGrunnlag: React.FC<Props> = ({ barnMedSamvær, barnId, personalia }) => {
+export const AleneomsorgGrunnlag: React.FC<Props> = ({ barnMedSamvær, barnId, personalia }) => {
   return (
     <>
       <h3 className={'blankett'}>Registerdata</h3>
@@ -102,5 +102,3 @@ const AdresseTabell: React.FC<{ barn: IBarnMedSamvær; personalia: IPersonalia }
     </>
   );
 };
-
-export default AleneomsorgGrunnlag;

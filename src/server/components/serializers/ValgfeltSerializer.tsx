@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { JSX } from 'react';
 import type { IValg, IValgfelter } from '../../../typer/dokumentApiBrev';
 import type { Datasett } from '../../sanity/sanityClient';
-import AvansertDokument from '../AvansertDokument';
+import { AvansertDokument } from '../AvansertDokument';
 import type { Maalform } from '../../../typer/sanitygrensesnitt';
 import { validerValgfelt } from '../../utils/valideringer/validerValgfelt';
 import { Feil } from '../../utils/Feil';
@@ -14,7 +14,7 @@ interface IValgfeltSerializer {
   forelderDokumentApiNavn: string;
 }
 
-const ValgfeltSerializer = (props: IValgfeltSerializer): JSX.Element => {
+export const ValgfeltSerializer = (props: IValgfeltSerializer): JSX.Element => {
   const { sanityProps, valgfelter, maalform, datasett, forelderDokumentApiNavn } = props;
   const { valgReferanse, erGjentagende, skalAlltidMed } = sanityProps.value;
   const { apiNavn, valg: muligeValg } = valgReferanse;
@@ -58,5 +58,3 @@ const ValgfeltSerializer = (props: IValgfeltSerializer): JSX.Element => {
     </>
   );
 };
-
-export default ValgfeltSerializer;

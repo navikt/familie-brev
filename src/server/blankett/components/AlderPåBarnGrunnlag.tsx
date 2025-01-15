@@ -18,7 +18,7 @@ const navnPåBarnet = (barnMedSamvær: IBarnMedSamvær) => {
   return søknadsgrunnlag.erBarnetFødt ? 'Ikke utfylt' : 'Ikke født';
 };
 
-const AlderPåBarnGrunnlag: React.FC<Props> = ({ barnMedSamvær, barnId }) => {
+export const AlderPåBarnGrunnlag: React.FC<Props> = ({ barnMedSamvær, barnId }) => {
   return (
     <>
       <h3 className={'blankett'}>Registerdata</h3>
@@ -44,5 +44,3 @@ const AlderPåBarnGrunnlag: React.FC<Props> = ({ barnMedSamvær, barnId }) => {
     </>
   );
 };
-
-export default AlderPåBarnGrunnlag;

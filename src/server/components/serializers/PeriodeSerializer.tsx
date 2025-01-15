@@ -5,10 +5,10 @@ import type {
   IDokumentData,
   IDokumentDataMedPeriode,
 } from '../../../typer/dokumentApiBrev';
-import FlettefeltSerializer from './FlettefeltSerializer';
-import BlockSerializer from './BlockSerializer';
+import { FlettefeltSerializer } from './FlettefeltSerializer';
+import { BlockSerializer } from './BlockSerializer';
 import type { Maalform } from '../../../typer/sanitygrensesnitt';
-import useServerEffect from '../../utils/useServerEffect';
+import { useServerEffect } from '../../utils/useServerEffect';
 import { hentDokumentQuery } from '../../sanity/Queries';
 import type { Datasett } from '../../sanity/sanityClient';
 import { client } from '../../sanity/sanityClient';
@@ -23,7 +23,7 @@ import {
   validerStandardbegrunnelsedata,
 } from '../../../baks/valideringer';
 import { hentBegrunnelseTekstQuery } from '../../../baks/queries';
-import begrunnelseSerializer from '../../../baks/begrunnelseSerializer';
+import { begrunnelseSerializer } from '../../../baks/begrunnelseSerializer';
 
 import { PortableText } from '@portabletext/react';
 
@@ -35,7 +35,7 @@ interface IPeriodeProps {
   forelderApiNavn: string;
 }
 
-const PeriodeSerializer = (props: IPeriodeProps) => {
+export const PeriodeSerializer = (props: IPeriodeProps) => {
   const { dokumentData, maalform, datasett, forelderApiNavn } = props;
 
   const erIDokumentDataMedPeriode = (
@@ -175,5 +175,3 @@ const Periode = (props: { maalform: Maalform; datasett: Datasett; periodedata: I
     </div>
   );
 };
-
-export default PeriodeSerializer;

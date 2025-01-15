@@ -6,7 +6,7 @@ interface IIkkeOppfylt {
   width?: number;
 }
 
-const IkkeOppfylt: React.FC<IIkkeOppfylt> = ({ className, heigth, width }) => {
+export const IkkeOppfylt: React.FC<IIkkeOppfylt> = ({ className, heigth, width }) => {
   return (
     <svg
       aria-labelledby={'ikkeOppfylt'}
@@ -30,5 +30,3 @@ const IkkeOppfylt: React.FC<IIkkeOppfylt> = ({ className, heigth, width }) => {
     </svg>
   );
 };
-
-export default IkkeOppfylt;

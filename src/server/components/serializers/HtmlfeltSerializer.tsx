@@ -8,7 +8,7 @@ interface IHtmlfeltSerializerProps {
   dokumentApiNavn: string;
 }
 
-const HtmlfeltSerializer = (props: IHtmlfeltSerializerProps) => {
+export const HtmlfeltSerializer = (props: IHtmlfeltSerializerProps) => {
   const { sanityProps, htmlfelter, dokumentApiNavn } = props;
   const htmlfeltNavn = hentFeltnavn(sanityProps);
 
@@ -31,5 +31,3 @@ const hentFeltnavn = (sanityProps: any) => {
   // Dersom flettefeltet er en referanse ligger det i flettefeltReferanse og må hentes derifra
   return felt ? felt : htmlfeltReferanse.felt;
 };
-
-export default HtmlfeltSerializer;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { JSX } from 'react';
 import { rightTrimLastProp } from '../../utils/openhtmltopdfBughåndtering';
 
 const settTag = (node: any) => {
@@ -11,7 +11,7 @@ const settTag = (node: any) => {
   return 'div';
 };
 
-const BlockSerializer = (props: any): JSX.Element => {
+export const BlockSerializer = (props: any): JSX.Element => {
   const children = rightTrimLastProp(props);
 
   const Tag = settTag(props.value);
@@ -22,5 +22,3 @@ const BlockSerializer = (props: any): JSX.Element => {
     </Tag>
   );
 };
-
-export default BlockSerializer;

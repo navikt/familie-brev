@@ -1,11 +1,11 @@
 import type { Request, Response } from 'express';
 import type { IDokumentData } from '../../typer/dokumentApiBlankett';
-import hentDokumentHtmlBlankett from './hentDokumentHtmlBlankett';
+import { hentDokumentHtmlBlankett } from './hentDokumentHtmlBlankett';
 import { logError, logSecure } from '@navikt/familie-logging';
 import { genererMetadata } from '../utils/logging';
 import { genererPdfBlankett } from '../utils/apiBlankett';
 import type { IKlageDokumentData } from '../../typer/klageDokumentApi';
-import genererKlageDokumentHtml from './genererKlageDokumentHtml';
+import { hentDokumentHtml } from './genererKlageDokumentHtml';
 import fs from 'fs';
 import express from 'express';
 import { logFerdigstilt } from '../routes';
@@ -37,7 +37,7 @@ router.post('/klage/pdf', async (req: Request, res: Response) => {
   const dokument: IKlageDokumentData = req.body as IKlageDokumentData;
   const meta = genererMetadata(req);
   try {
-    const html = await genererKlageDokumentHtml(dokument);
+    const html = await hentDokumentHtml(dokument);
     const pdf = await genererPdfBlankett(html, meta);
     logFerdigstilt(req);
     res.setHeader('Content-Type', 'application/pdf');

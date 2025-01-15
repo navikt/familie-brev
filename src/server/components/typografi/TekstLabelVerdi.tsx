@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TekstLabelVerdi: React.FC<{ label: string; verdi: string; alternativer?: string }> = ({
+export const TekstLabelVerdi: React.FC<{ label: string; verdi: string; alternativer?: string }> = ({
   label,
   verdi,
   alternativer,
@@ -32,5 +32,3 @@ const TekstLabelVerdi: React.FC<{ label: string; verdi: string; alternativer?: s
     </div>
   );
 };
-
-export default TekstLabelVerdi;

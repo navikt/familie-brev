@@ -3,14 +3,14 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import type { IKlageDokumentData } from '../../typer/klageDokumentApi';
 import { stønadstypeTilTekst } from '../../typer/klageDokumentApi';
 import { KlageBehandling, KlageFormkrav, Klagevurdering } from './components/KlageBehandling';
-import Header from './components/Header';
+import { Header } from './components/Header';
 import css from '../utils/css';
 import { datoFormat } from '../utils/util';
 enum HtmlLang {
   NB = 'nb',
 }
 
-const hentDokumentHtml = async (data: IKlageDokumentData): Promise<string> => {
+export const hentDokumentHtml = async (data: IKlageDokumentData): Promise<string> => {
   const asyncHtml = () => (
     <html lang={HtmlLang.NB}>
       <head>
@@ -40,5 +40,3 @@ const hentDokumentHtml = async (data: IKlageDokumentData): Promise<string> => {
 
   return dokument;
 };
-
-export default hentDokumentHtml;

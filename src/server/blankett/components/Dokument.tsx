@@ -1,5 +1,5 @@
 import React from 'react';
-import Vilkårsvurdering from './Vilkårsvurdering';
+import { Vilkårsvurdering } from './Vilkårsvurdering';
 import { Vedtak } from './Vedtak';
 import type { IDokumentData, IVurdering } from '../../../typer/dokumentApiBlankett';
 import {
@@ -55,7 +55,7 @@ function gjelderDetteVilkåret(vurdering: IVurdering, vilkårgruppe: string): bo
   }
 }
 
-const Dokument = (dokumentProps: DokumentProps) => {
+export const Dokument = (dokumentProps: DokumentProps) => {
   const dokumentData = dokumentProps.dokumentData;
   const tidligereVedtaksperioder = dokumentData.behandling.tidligereVedtaksperioder;
   const grunnlag = dokumentData.vilkår.grunnlag;
@@ -101,5 +101,3 @@ const Dokument = (dokumentProps: DokumentProps) => {
     </div>
   );
 };
-
-export default Dokument;

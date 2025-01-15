@@ -1,10 +1,10 @@
 import React from 'react';
-import Heading from './typografi/Heading';
+import { Heading } from './typografi/Heading';
 import type { ISøknad } from '../../typer/dokumentApiBrev';
 import { dagensDatoTidFormatert } from '../utils/util';
 import { NavIkon } from './ikoner/navIkon';
 
-const SøknadTittelOgIkon: React.FC<{ søknad: ISøknad }> = ({ søknad }) => {
+export const SøknadTittelOgIkon: React.FC<{ søknad: ISøknad }> = ({ søknad }) => {
   const labelUtenBrevkode = søknad.label.replace(/\s*\(.*?\)\s*/g, '');
   const brevkode = søknad.label.match(/\((.*?)\)/)?.[1] || '';
 
@@ -44,5 +44,3 @@ const SøknadTittelOgIkon: React.FC<{ søknad: ISøknad }> = ({ søknad }) => {
     </div>
   );
 };
-
-export default SøknadTittelOgIkon;

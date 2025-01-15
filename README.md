@@ -43,7 +43,7 @@ Konsumenter kan få returnert html eller pdf/bytearray.
 ```
 * `familie-dokument` må kjøres med DevLauncher for at pdf-generering skal fungere
 * Kjør `yarn build`
-* Kjør `yarn dev:server`
+* Kjør `yarn run:dev`
 
 ### Bygg og deploy
 
@@ -78,7 +78,7 @@ Postman skal da vise html-responsen for deg.
 
 Spørsmål knyttet til koden eller prosjektet kan rettes som issues her på GitHub-repoet.
 
-## For NAV-ansatte
+## For Nav-ansatte
 
 Interne henvendelser kan sendes via Slack i kanalen #team-familie.
 
