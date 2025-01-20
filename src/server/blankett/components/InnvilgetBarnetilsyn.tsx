@@ -11,7 +11,8 @@ export const InnvilgetBarnetilsyn: React.FC<{
   søknadsdatoer?: ISøknadsdatoer;
   harKontantstøttePerioder?: boolean;
 }> = ({ vedtak, søknadsdatoer, harKontantstøttePerioder }) => {
-  const { perioder, perioderKontantstøtte, tilleggsstønad, begrunnelse } = vedtak;
+  const { perioder, perioderKontantstøtte, tilleggsstønad, begrunnelse, kontantstøtteBegrunnelse } =
+    vedtak;
   return (
     <div className={'blankett-page-break'}>
       <h2>Vedtak</h2>
@@ -71,7 +72,7 @@ export const InnvilgetBarnetilsyn: React.FC<{
               </table>
             )}
             <h4>Begrunnelse:</h4>
-            <p>{vedtak.kontantstøtteBeskrivelse}</p>
+            <p>{kontantstøtteBegrunnelse}</p>
           </>
         )}
       </div>
