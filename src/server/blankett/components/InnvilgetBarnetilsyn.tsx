@@ -71,8 +71,12 @@ export const InnvilgetBarnetilsyn: React.FC<{
                 ))}
               </table>
             )}
-            <h4>Begrunnelse:</h4>
-            <p>{kontantstøtteBegrunnelse}</p>
+            {kontantstøtteBegrunnelse !== undefined && (
+              <>
+                <h4>Begrunnelse:</h4>
+                <p>{kontantstøtteBegrunnelse}</p>
+              </>
+            )}
           </>
         )}
       </div>
