@@ -70,6 +70,8 @@ export const InnvilgetBarnetilsyn: React.FC<{
                 ))}
               </table>
             )}
+            <h4>Begrunnelse:</h4>
+            <p>{vedtak.kontantstøtteBeskrivelse}</p>
           </>
         )}
       </div>
