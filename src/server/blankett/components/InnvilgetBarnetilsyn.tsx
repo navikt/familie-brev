@@ -53,7 +53,7 @@ export const InnvilgetBarnetilsyn: React.FC<{
             <p>
               Skal stønaden reduseres fordi brukeren, eller en brukeren bor med, har fått utbetalt
               kontantstøtte i perioden(e) det er søkt om?{' '}
-              {mapBooleanTilJaNei(harKontantstøttePerioder, true)}
+              {mapBooleanTilJaNei(perioderKontantstøtte.length > 0, true)}
             </p>
             {perioderKontantstøtte.length > 0 && (
               <table className="tabellUtenBorder">
@@ -73,7 +73,7 @@ export const InnvilgetBarnetilsyn: React.FC<{
             )}
             {kontantstøtteBegrunnelse !== undefined && (
               <>
-                <h4>Begrunnelse:</h4>
+                <h4>Begrunnelse (hvis aktuelt):</h4>
                 <p>{kontantstøtteBegrunnelse}</p>
               </>
             )}
