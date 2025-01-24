@@ -103,7 +103,7 @@ export const InnvilgetBarnetilsyn: React.FC<{
             )}
             {tilleggsstønad.begrunnelse !== undefined && (
               <>
-                <h4>Begrunnelse:</h4>
+                <h4>Begrunnelse (hvis aktuelt):</h4>
                 <p>{tilleggsstønad.begrunnelse}</p>
               </>
             )}
