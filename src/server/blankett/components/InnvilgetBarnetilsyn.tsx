@@ -1,6 +1,7 @@
 import React from 'react';
-import type {
+import {
   IInnvilgeVedtakBarnetilsyn,
+  IKontantstøttePerioder,
   ISøknadsdatoer,
 } from '../../../typer/dokumentApiBlankett';
 import { mapBooleanTilJaNei, parseOgFormaterÅrMåned } from '../../utils/util';
@@ -10,7 +11,8 @@ export const InnvilgetBarnetilsyn: React.FC<{
   vedtak: IInnvilgeVedtakBarnetilsyn;
   søknadsdatoer?: ISøknadsdatoer;
   harKontantstøttePerioder?: boolean;
-}> = ({ vedtak, søknadsdatoer, harKontantstøttePerioder }) => {
+  kontantstøttePerioderFraKs: IKontantstøttePerioder[];
+}> = ({ vedtak, søknadsdatoer, harKontantstøttePerioder, kontantstøttePerioderFraKs }) => {
   const { perioder, perioderKontantstøtte, tilleggsstønad, begrunnelse } = vedtak;
   return (
     <div className={'blankett-page-break'}>
@@ -54,6 +56,15 @@ export const InnvilgetBarnetilsyn: React.FC<{
               eller en brukeren bor med i perioden(e) det er søkt om?{' '}
               {mapBooleanTilJaNei(harKontantstøttePerioder, true)}
             </p>
+            {kontantstøttePerioderFraKs.map((kontantstøtte, indeks) => (
+              <tr key={indeks}>
+                <td>{parseOgFormaterÅrMåned(kontantstøtte.fomMåned)}</td>
+                <td>
+                  {kontantstøtte.tomMåned ? parseOgFormaterÅrMåned(kontantstøtte.tomMåned) : ''}
+                </td>
+                <td>{'(kilde: ' + kontantstøtte.kilde + ')'}</td>
+              </tr>
+            ))}
             {perioderKontantstøtte.length > 0 && (
               <table className="tabellUtenBorder">
                 <tr>

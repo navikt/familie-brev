@@ -10,6 +10,7 @@ import type {
   IInnvilgeVedtakOvergangsstønad,
   IInnvilgeVedtakBarnetilsyn,
   IInnvilgeVedtakSkolepenger,
+  IKontantstøttePerioder,
 } from '../../../typer/dokumentApiBlankett';
 import {
   EStønadType,
@@ -23,7 +24,15 @@ export const Vedtak: React.FC<{
   søknadsdatoer?: ISøknadsdatoer;
   årsak: EBehandlingÅrsak;
   harKontantstøttePerioder?: boolean;
-}> = ({ stønadstype, vedtak, søknadsdatoer, årsak, harKontantstøttePerioder }) => {
+  kontantstøttePerioderFraKs: IKontantstøttePerioder[];
+}> = ({
+  stønadstype,
+  vedtak,
+  søknadsdatoer,
+  årsak,
+  harKontantstøttePerioder,
+  kontantstøttePerioderFraKs,
+}) => {
   switch (vedtak.resultatType) {
     case EBehandlingResultat.INNVILGE:
       return (
@@ -33,6 +42,7 @@ export const Vedtak: React.FC<{
           søknadsdatoer={søknadsdatoer}
           årsak={årsak}
           harKontantstøttePerioder={harKontantstøttePerioder}
+          kontantstøttePerioderFraKs={kontantstøttePerioderFraKs}
         />
       );
     case EBehandlingResultat.AVSLÅ:
@@ -48,7 +58,15 @@ const InnvilgetVedtak: React.FC<{
   søknadsdatoer?: ISøknadsdatoer;
   årsak: EBehandlingÅrsak;
   harKontantstøttePerioder?: boolean;
-}> = ({ stønadstype, vedtak, søknadsdatoer, årsak, harKontantstøttePerioder }) => {
+  kontantstøttePerioderFraKs: IKontantstøttePerioder[];
+}> = ({
+  stønadstype,
+  vedtak,
+  søknadsdatoer,
+  årsak,
+  harKontantstøttePerioder,
+  kontantstøttePerioderFraKs,
+}) => {
   if (årsak === EBehandlingÅrsak.G_OMREGNING) {
     return <InnvilgetGOmregning vedtak={vedtak as IInnvilgeVedtakOvergangsstønad} />;
   }
@@ -67,6 +85,7 @@ const InnvilgetVedtak: React.FC<{
           vedtak={vedtak as IInnvilgeVedtakBarnetilsyn}
           søknadsdatoer={søknadsdatoer}
           harKontantstøttePerioder={harKontantstøttePerioder}
+          kontantstøttePerioderFraKs={kontantstøttePerioderFraKs}
         />
       );
     case EStønadType.SKOLEPENGER:
