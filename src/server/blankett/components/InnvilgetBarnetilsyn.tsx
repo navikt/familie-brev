@@ -95,7 +95,6 @@ export const InnvilgetBarnetilsyn: React.FC<{
             </table>
           )}
         </>
-        )
       </div>
 
       <div className={'blankett-page-break'}>
