@@ -15,6 +15,7 @@ import { LenkeSerializer } from './serializers/LenkeSerializer';
 
 import { PortableText } from '@portabletext/react';
 import { SammensattKontrollsakSerializer } from './serializers/SammensattKontrollsakSerializer';
+import { FritekstSerializer } from './serializers/FritekstSerializer';
 
 interface DokumentProps {
   dokumentApiNavn: string;
@@ -69,6 +70,10 @@ export const Dokument = (dokumentProps: DokumentProps) => {
             }),
           sammensattKontrollsakFritekst: (_: any) =>
             SammensattKontrollsakSerializer({
+              dokumentData: dokumentData,
+            }),
+          fritekst: (_: any) =>
+            FritekstSerializer({
               dokumentData: dokumentData,
             }),
           perioder: (props: any) =>
