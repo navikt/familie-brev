@@ -55,23 +55,25 @@ export const InnvilgetBarnetilsyn: React.FC<{
                 ')'
               : 'Bruker har verken fått eller får kontantstøtte'}
           </p>
-          <table className="tabellUtenBorder">
-            <tr>
-              <th>Perioder fra og med</th>
-              <th>Perioder til og med</th>
-              <th>Kilde</th>
-              <th></th>
-            </tr>
-            {kontantstøttePerioderFraKs.map((kontantstøtte, indeks) => (
-              <tr key={indeks}>
-                <td>{parseOgFormaterÅrMåned(kontantstøtte.fomMåned)}</td>
-                <td>
-                  {kontantstøtte.tomMåned ? parseOgFormaterÅrMåned(kontantstøtte.tomMåned) : ''}
-                </td>
-                <td>{kontantstøtte.kilde}</td>
+          {harKontantstøttePerioder && (
+            <table className="tabellUtenBorder">
+              <tr>
+                <th>Perioder fra og med</th>
+                <th>Perioder til og med</th>
+                <th>Kilde</th>
+                <th></th>
               </tr>
-            ))}
-          </table>
+              {kontantstøttePerioderFraKs.map((kontantstøtte, indeks) => (
+                <tr key={indeks}>
+                  <td>{parseOgFormaterÅrMåned(kontantstøtte.fomMåned)}</td>
+                  <td>
+                    {kontantstøtte.tomMåned ? parseOgFormaterÅrMåned(kontantstøtte.tomMåned) : ''}
+                  </td>
+                  <td>{kontantstøtte.kilde}</td>
+                </tr>
+              ))}
+            </table>
+          )}
           <h4>Vurdering:</h4>
           <p>
             Er det søkt om, utbetales det eller har det blitt utbetalt kontantstøtte til brukeren
