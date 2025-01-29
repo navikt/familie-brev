@@ -16,7 +16,7 @@ export function Inntekt(props: InntektProps) {
       </p>
       <p>
         Bruker har hatt næringsinntekt på {næringsinntekt} og personsinntekt på {personinntekt} i{' '}
-        {årstall}. Inntekten er ikke økt. Bruker oppfyller aktivitetskrav som følge av høy nok
+        {årstall}. Inntekten har ikke økt. Bruker oppfyller aktivitetskrav som følge av høy nok
         inntekt, og det trengs ikke hentes inn dokumentasjon rundt aktivitet.
       </p>
     </div>
