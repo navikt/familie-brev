@@ -11,7 +11,6 @@ export interface IBehandling {
   stønadstype: EStønadType;
   årsakRevurdering?: IÅrsakRevurdering;
   tidligereVedtaksperioder?: ITidligereVedtaksperioder;
-  harKontantstøttePerioder?: boolean;
   kontantstøttePerioderFraKs: IKontantstøttePerioder[];
 }
 
@@ -107,6 +106,7 @@ export type IKontantstøttePerioder = {
   fomMåned: string;
   tomMåned?: string;
   kilde: string;
+  hentetDato: string;
 };
 
 export const studietypeTilTekst: Record<ESkolepengerStudietype, string> = {
