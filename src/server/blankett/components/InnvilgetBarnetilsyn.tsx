@@ -45,50 +45,57 @@ export const InnvilgetBarnetilsyn: React.FC<{
       <div className={'blankett-page-break'}>
         <h4 className={'blankett'}>Begrunnelse</h4>
         <p style={{ whiteSpace: 'pre-wrap' }}>{begrunnelse}</p>
-        {harKontantstøttePerioder && (
-          <>
-            <h3 className={'blankett'}>Kontantstøtte</h3>
-            <h4>Info fra KS Sak:</h4>
-            <p>
-              {harKontantstøttePerioder
-                ? 'Brukers kontantstøtteperioder (hentet ' +
-                  formaterNullableIsoDato(kontantstøttePerioderFraKs[0].hentetDato) +
-                  ')'
-                : 'Bruker har verken fått eller får kontantstøtte'}
-            </p>
-            <h4>Vurdering:</h4>
-            <p>
-              Er det søkt om, utbetales det eller har det blitt utbetalt kontantstøtte til brukeren
-              eller en brukeren bor med i perioden(e) det er søkt om?{' '}
-              {mapBooleanTilJaNei(harKontantstøttePerioder, true)}
-            </p>
+        <>
+          <h3 className={'blankett'}>Kontantstøtte</h3>
+          <h4>Info fra KS Sak:</h4>
+          <p>
+            {harKontantstøttePerioder
+              ? 'Brukers kontantstøtteperioder (hentet ' +
+                formaterNullableIsoDato(kontantstøttePerioderFraKs[0].hentetDato) +
+                ')'
+              : 'Bruker har verken fått eller får kontantstøtte'}
+          </p>
+          <table className="tabellUtenBorder">
+            <tr>
+              <th>Perioder fra og med</th>
+              <th>Perioder til og med</th>
+              <th>Kilde</th>
+              <th></th>
+            </tr>
             {kontantstøttePerioderFraKs.map((kontantstøtte, indeks) => (
               <tr key={indeks}>
                 <td>{parseOgFormaterÅrMåned(kontantstøtte.fomMåned)}</td>
                 <td>
                   {kontantstøtte.tomMåned ? parseOgFormaterÅrMåned(kontantstøtte.tomMåned) : ''}
                 </td>
-                <td>{'(kilde: ' + kontantstøtte.kilde + ')'}</td>
+                <td>{kontantstøtte.kilde}</td>
               </tr>
             ))}
-            {perioderKontantstøtte.length > 0 && (
-              <table className="tabellUtenBorder">
-                <tr>
-                  <th>Perioder fra og med</th>
-                  <th>Perioder til og med</th>
-                  <th>Kontantstøtte</th>
+          </table>
+          <h4>Vurdering:</h4>
+          <p>
+            Er det søkt om, utbetales det eller har det blitt utbetalt kontantstøtte til brukeren
+            eller en brukeren bor med i perioden(e) det er søkt om?{' '}
+            {mapBooleanTilJaNei(harKontantstøttePerioder, true)}
+          </p>
+          {perioderKontantstøtte.length > 0 && (
+            <table className="tabellUtenBorder">
+              <tr>
+                <th>Perioder fra og med</th>
+                <th>Perioder til og med</th>
+                <th>Kontantstøtte</th>
+              </tr>
+              {perioderKontantstøtte.map((kontantstøtte, indeks) => (
+                <tr key={indeks}>
+                  <td>{parseOgFormaterÅrMåned(kontantstøtte.årMånedFra)}</td>
+                  <td>{parseOgFormaterÅrMåned(kontantstøtte.årMånedTil)}</td>
+                  <td>{kontantstøtte.beløp}</td>
                 </tr>
-                {perioderKontantstøtte.map((kontantstøtte, indeks) => (
-                  <tr key={indeks}>
-                    <td>{parseOgFormaterÅrMåned(kontantstøtte.årMånedFra)}</td>
-                    <td>{parseOgFormaterÅrMåned(kontantstøtte.årMånedTil)}</td>
-                    <td>{kontantstøtte.beløp}</td>
-                  </tr>
-                ))}
-              </table>
-            )}
-          </>
-        )}
+              ))}
+            </table>
+          )}
+        </>
+        )
       </div>
 
       <div className={'blankett-page-break'}>
