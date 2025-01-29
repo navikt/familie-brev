@@ -18,6 +18,9 @@ export const InnvilgetBarnetilsyn: React.FC<{
 }> = ({ vedtak, søknadsdatoer, kontantstøttePerioderFraKs }) => {
   const { perioder, perioderKontantstøtte, tilleggsstønad, begrunnelse } = vedtak;
   const harKontantstøttePerioder = kontantstøttePerioderFraKs.length > 0;
+  const kontantstøtteKilde = (kilde: string): string => {
+    return kilde.toLowerCase().includes('kontantstøtte') ? 'KS sak' : kilde.toLowerCase();
+  };
   return (
     <div className={'blankett-page-break'}>
       <h2>Vedtak</h2>
@@ -69,7 +72,7 @@ export const InnvilgetBarnetilsyn: React.FC<{
                   <td>
                     {kontantstøtte.tomMåned ? parseOgFormaterÅrMåned(kontantstøtte.tomMåned) : ''}
                   </td>
-                  <td>{kontantstøtte.kilde}</td>
+                  <td>{kontantstøtteKilde(kontantstøtte.kilde)}</td>
                 </tr>
               ))}
             </table>
