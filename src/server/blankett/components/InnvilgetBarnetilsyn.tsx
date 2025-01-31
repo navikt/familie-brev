@@ -26,10 +26,10 @@ export const InnvilgetBarnetilsyn: React.FC<{
     kontantstøttePerioderFraGrunnlagsdata: IKontantstøttePerioder[],
     harKontantstøttePerioder?: boolean,
   ): React.ReactNode => {
-    if (!harKontantstøttePerioder || kontantstøttePerioderFraGrunnlagsdata.length === 0) {
+    if (!harKontantstøttePerioder && kontantstøttePerioderFraGrunnlagsdata.length === 0) {
       return <p>Bruker har verken fått eller får kontantstøtte</p>;
     }
-    if (kontantstøttePerioderFraGrunnlagsdata.length === 1) {
+    if (kontantstøttePerioderFraGrunnlagsdata.length > 0) {
       return (
         <p>
           Brukers kontantstøtteperioder (hentet{' '}
