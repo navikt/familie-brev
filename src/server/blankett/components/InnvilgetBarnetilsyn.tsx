@@ -14,12 +14,30 @@ import { Søknadsinformasjon } from './InnvilgeVedtak/Søknadsinformasjon';
 export const InnvilgetBarnetilsyn: React.FC<{
   vedtak: IInnvilgeVedtakBarnetilsyn;
   søknadsdatoer?: ISøknadsdatoer;
+  harKontantstøttePerioder: boolean;
   kontantstøttePerioderFraKs: IKontantstøttePerioder[];
-}> = ({ vedtak, søknadsdatoer, kontantstøttePerioderFraKs }) => {
+}> = ({ vedtak, søknadsdatoer, kontantstøttePerioderFraKs, harKontantstøttePerioder }) => {
   const { perioder, perioderKontantstøtte, tilleggsstønad, begrunnelse } = vedtak;
-  const harKontantstøttePerioder = kontantstøttePerioderFraKs.length > 0;
   const kontantstøtteKilde = (kilde: string): string => {
     return kilde.toLowerCase().includes('kontantstøtte') ? 'KS sak' : kilde.toLowerCase();
+  };
+
+  const utledKontantstøtteperioderAlertTekst = (
+    kontantstøttePerioderFraGrunnlagsdata: IKontantstøttePerioder[],
+    harKontantstøttePerioder?: boolean,
+  ): React.ReactNode => {
+    if (!harKontantstøttePerioder || kontantstøttePerioderFraGrunnlagsdata.length === 0) {
+      return <p>Bruker har verken fått eller får kontantstøtte</p>;
+    }
+    if (kontantstøttePerioderFraGrunnlagsdata.length === 1) {
+      return (
+        <p>
+          Brukers kontantstøtteperioder (hentet{' '}
+          {formaterNullableIsoDato(kontantstøttePerioderFraGrunnlagsdata[0].hentetDato)})
+        </p>
+      );
+    }
+    return <p>Bruker har eller har fått kontantstøtte</p>;
   };
   return (
     <div className={'blankett-page-break'}>
@@ -52,11 +70,10 @@ export const InnvilgetBarnetilsyn: React.FC<{
           <h3 className={'blankett'}>Kontantstøtte</h3>
           <h4>Info fra KS Sak:</h4>
           <p>
-            {harKontantstøttePerioder
-              ? 'Brukers kontantstøtteperioder (hentet ' +
-                formaterNullableIsoDato(kontantstøttePerioderFraKs[0].hentetDato) +
-                ')'
-              : 'Bruker har verken fått eller får kontantstøtte'}
+            {utledKontantstøtteperioderAlertTekst(
+              kontantstøttePerioderFraKs,
+              harKontantstøttePerioder,
+            )}
           </p>
           {harKontantstøttePerioder && (
             <table className="tabellUtenBorder">

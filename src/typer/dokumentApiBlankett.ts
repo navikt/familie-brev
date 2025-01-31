@@ -11,6 +11,7 @@ export interface IBehandling {
   stønadstype: EStønadType;
   årsakRevurdering?: IÅrsakRevurdering;
   tidligereVedtaksperioder?: ITidligereVedtaksperioder;
+  harKontantstøttePerioder: boolean;
   kontantstøttePerioderFraKs: IKontantstøttePerioder[];
 }
 
