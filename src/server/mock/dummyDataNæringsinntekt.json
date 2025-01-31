@@ -1,0 +1,11 @@
+{
+  "saksid": "12345",
+  "personIdent": "01010199999",
+  "navn": "Navn",
+  "saksbehandlernavn": "saksbehandlernavn",
+  "enhet": "enhet",
+  "forventetInntekt": 100000,
+  "næringsinntekt": 50000,
+  "personinntekt": 60000,
+  "årstall": 2023
+}
