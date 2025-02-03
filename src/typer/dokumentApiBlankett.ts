@@ -83,6 +83,7 @@ export type IInnvilgeVedtakBarnetilsyn = {
   begrunnelse?: string;
   perioder: Barnetilsynperiode[];
   perioderKontantstøtte: PeriodeMedBeløp[];
+  kontantstøtteBegrunnelse?: string;
   tilleggsstønad: Tilleggsstønad;
 };
 

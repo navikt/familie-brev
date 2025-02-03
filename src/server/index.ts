@@ -6,6 +6,7 @@ import baSakEndepunkter from '../baks/baSakEndepunkter';
 import dotenv from 'dotenv';
 import { logInfo } from '@navikt/familie-logging';
 import blankettRoutes from './blankett/blankettRoutes';
+import næringsinntektRoutes from './næringsinntekt/næringsinntektRoutes';
 
 dotenv.config();
 export const { NODE_ENV } = process.env;
@@ -24,6 +25,7 @@ app.use('/api', routes);
 app.use('/ba-sak', baSakEndepunkter);
 app.use('/ks-sak', ksSakEndepunkter);
 app.use('/blankett', blankettRoutes);
+app.use('/naeringsinntekt-kontroll', næringsinntektRoutes);
 
 const port = 8001;
 app.listen(port, () => {

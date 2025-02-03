@@ -16,11 +16,12 @@ export const InnvilgetBarnetilsyn: React.FC<{
 }> = ({
   vedtak,
   søknadsdatoer,
-  kontantstøttePerioderFraKs,
   harKontantstøttePerioder,
+  kontantstøttePerioderFraKs,
   registeropplysningerOpprettetDato,
 }) => {
-  const { perioder, perioderKontantstøtte, tilleggsstønad, begrunnelse } = vedtak;
+  const { perioder, perioderKontantstøtte, tilleggsstønad, begrunnelse, kontantstøtteBegrunnelse } =
+    vedtak;
   const kontantstøtteKilde = (kilde: string): string => {
     return kilde.toLowerCase().includes('kontantstøtte') ? 'KS sak' : kilde.toLowerCase();
   };
@@ -106,9 +107,9 @@ export const InnvilgetBarnetilsyn: React.FC<{
           )}
           <h4>Vurdering:</h4>
           <p>
-            Er det søkt om, utbetales det eller har det blitt utbetalt kontantstøtte til brukeren
-            eller en brukeren bor med i perioden(e) det er søkt om?{' '}
-            {mapBooleanTilJaNei(harKontantstøttePerioder, true)}
+            Skal stønaden reduseres fordi brukeren, eller en brukeren bor med, har fått utbetalt
+            kontantstøtte i perioden(e) det er søkt om?{' '}
+            {mapBooleanTilJaNei(perioderKontantstøtte.length > 0, true)}
           </p>
           {perioderKontantstøtte.length > 0 && (
             <table className="tabellUtenBorder">
@@ -125,6 +126,12 @@ export const InnvilgetBarnetilsyn: React.FC<{
                 </tr>
               ))}
             </table>
+          )}
+          {kontantstøtteBegrunnelse !== undefined && (
+            <>
+              <h4>Begrunnelse (hvis aktuelt):</h4>
+              <p>{kontantstøtteBegrunnelse}</p>
+            </>
           )}
         </>
       </div>
