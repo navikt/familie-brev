@@ -82,38 +82,38 @@ export const InnvilgetBarnetilsyn: React.FC<{
       </div>
 
       <div className={'blankett-page-break'}>
-        {tilleggsstønad && tilleggsstønad.harTilleggsstønad && (
+        {tilleggsstønad && (
           <>
             <h3 className={'blankett'}>Tilleggstønad</h3>
             <h4>Vurdering:</h4>
-            <p>
-              Er det søkt om, utbetales det eller har det blitt utbetalt stønad for utgifter til
-              tilsyn av barn etter tilleggsstønadsforskriften i perioden(e) det er søkt om?{' '}
-              {mapBooleanTilJaNei(tilleggsstønad.harTilleggsstønad, true)}
-            </p>
 
             <p>
               Skal stønaden reduseres fordi brukeren har fått utbetalt stønad for tilsyn av barn
               etter tilleggsstønadsforskriften?{' '}
               {mapBooleanTilJaNei(tilleggsstønad.perioder.length > 0, true)}
             </p>
-
-            <table className="tabellUtenBorder">
-              <tr>
-                <th>Perioder fra og med</th>
-                <th>Perioder til og med</th>
-                <th>Stønadsreduksjon</th>
-              </tr>
-              {tilleggsstønad.perioder.map((tilleggstønadperiode, indeks) => (
-                <tr key={indeks}>
-                  <td>{parseOgFormaterÅrMåned(tilleggstønadperiode.årMånedFra)}</td>
-                  <td>{parseOgFormaterÅrMåned(tilleggstønadperiode.årMånedTil)}</td>
-                  <td>{tilleggstønadperiode.beløp}</td>
+            {tilleggsstønad.perioder.length > 0 && (
+              <table className="tabellUtenBorder">
+                <tr>
+                  <th>Perioder fra og med</th>
+                  <th>Perioder til og med</th>
+                  <th>Stønadsreduksjon</th>
                 </tr>
-              ))}
-            </table>
-            <h4>Begrunnelse:</h4>
-            <p>{tilleggsstønad.begrunnelse}</p>
+                {tilleggsstønad.perioder.map((tilleggstønadperiode, indeks) => (
+                  <tr key={indeks}>
+                    <td>{parseOgFormaterÅrMåned(tilleggstønadperiode.årMånedFra)}</td>
+                    <td>{parseOgFormaterÅrMåned(tilleggstønadperiode.årMånedTil)}</td>
+                    <td>{tilleggstønadperiode.beløp}</td>
+                  </tr>
+                ))}
+              </table>
+            )}
+            {tilleggsstønad.begrunnelse !== undefined && (
+              <>
+                <h4>Begrunnelse (hvis aktuelt):</h4>
+                <p>{tilleggsstønad.begrunnelse}</p>
+              </>
+            )}
           </>
         )}
       </div>
