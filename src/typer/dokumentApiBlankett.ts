@@ -13,6 +13,7 @@ export interface IBehandling {
   tidligereVedtaksperioder?: ITidligereVedtaksperioder;
   harKontantstøttePerioder: boolean;
   kontantstøttePerioderFraKs: IKontantstøttePerioder[];
+  registeropplysningerOpprettetDato: string;
 }
 
 export interface ITidligereVedtaksperioder {
@@ -107,7 +108,6 @@ export type IKontantstøttePerioder = {
   fomMåned: string;
   tomMåned?: string;
   kilde: string;
-  hentetDato: string;
 };
 
 export const studietypeTilTekst: Record<ESkolepengerStudietype, string> = {

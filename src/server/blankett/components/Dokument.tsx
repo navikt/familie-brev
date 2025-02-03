@@ -98,6 +98,9 @@ export const Dokument = (dokumentProps: DokumentProps) => {
         årsak={dokumentData.behandling.årsak}
         harKontantstøttePerioder={dokumentData.behandling.harKontantstøttePerioder}
         kontantstøttePerioderFraKs={dokumentData.behandling.kontantstøttePerioderFraKs}
+        registeropplysningerOpprettetDato={
+          dokumentData.behandling.registeropplysningerOpprettetDato
+        }
       />
     </div>
   );

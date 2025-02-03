@@ -16,7 +16,14 @@ export const InnvilgetBarnetilsyn: React.FC<{
   søknadsdatoer?: ISøknadsdatoer;
   harKontantstøttePerioder: boolean;
   kontantstøttePerioderFraKs: IKontantstøttePerioder[];
-}> = ({ vedtak, søknadsdatoer, kontantstøttePerioderFraKs, harKontantstøttePerioder }) => {
+  registeropplysningerOpprettetDato: string;
+}> = ({
+  vedtak,
+  søknadsdatoer,
+  kontantstøttePerioderFraKs,
+  harKontantstøttePerioder,
+  registeropplysningerOpprettetDato,
+}) => {
   const { perioder, perioderKontantstøtte, tilleggsstønad, begrunnelse } = vedtak;
   const kontantstøtteKilde = (kilde: string): string => {
     return kilde.toLowerCase().includes('kontantstøtte') ? 'KS sak' : kilde.toLowerCase();
@@ -27,13 +34,18 @@ export const InnvilgetBarnetilsyn: React.FC<{
     harKontantstøttePerioder?: boolean,
   ): React.ReactNode => {
     if (!harKontantstøttePerioder && kontantstøttePerioderFraGrunnlagsdata.length === 0) {
-      return <p>Bruker har verken fått eller får kontantstøtte</p>;
+      return (
+        <p>
+          Bruker har verken fått eller får kontantstøtte (oppdatert{' '}
+          {formaterNullableIsoDato(registeropplysningerOpprettetDato)})
+        </p>
+      );
     }
     if (kontantstøttePerioderFraGrunnlagsdata.length > 0) {
       return (
         <p>
           Brukers kontantstøtteperioder (hentet{' '}
-          {formaterNullableIsoDato(kontantstøttePerioderFraGrunnlagsdata[0].hentetDato)})
+          {formaterNullableIsoDato(registeropplysningerOpprettetDato)})
         </p>
       );
     }
