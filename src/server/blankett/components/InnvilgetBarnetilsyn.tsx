@@ -4,11 +4,7 @@ import {
   IKontantstøttePerioder,
   ISøknadsdatoer,
 } from '../../../typer/dokumentApiBlankett';
-import {
-  formaterNullableIsoDato,
-  mapBooleanTilJaNei,
-  parseOgFormaterÅrMåned,
-} from '../../utils/util';
+import { formaterIsoDato, mapBooleanTilJaNei, parseOgFormaterÅrMåned } from '../../utils/util';
 import { Søknadsinformasjon } from './InnvilgeVedtak/Søknadsinformasjon';
 
 export const InnvilgetBarnetilsyn: React.FC<{
@@ -37,15 +33,15 @@ export const InnvilgetBarnetilsyn: React.FC<{
       return (
         <p>
           Bruker har verken fått eller får kontantstøtte (oppdatert{' '}
-          {formaterNullableIsoDato(registeropplysningerOpprettetDato)})
+          {formaterIsoDato(registeropplysningerOpprettetDato)})
         </p>
       );
     }
     if (kontantstøttePerioderFraGrunnlagsdata.length > 0) {
       return (
         <p>
-          Brukers kontantstøtteperioder (hentet{' '}
-          {formaterNullableIsoDato(registeropplysningerOpprettetDato)})
+          Brukers kontantstøtteperioder (hentet {formaterIsoDato(registeropplysningerOpprettetDato)}
+          )
         </p>
       );
     }
