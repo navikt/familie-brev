@@ -11,7 +11,8 @@ export const InnvilgetBarnetilsyn: React.FC<{
   søknadsdatoer?: ISøknadsdatoer;
   harKontantstøttePerioder?: boolean;
 }> = ({ vedtak, søknadsdatoer, harKontantstøttePerioder }) => {
-  const { perioder, perioderKontantstøtte, tilleggsstønad, begrunnelse } = vedtak;
+  const { perioder, perioderKontantstøtte, tilleggsstønad, begrunnelse, kontantstøtteBegrunnelse } =
+    vedtak;
   return (
     <div className={'blankett-page-break'}>
       <h2>Vedtak</h2>
@@ -50,9 +51,9 @@ export const InnvilgetBarnetilsyn: React.FC<{
             </p>
             <h4>Vurdering:</h4>
             <p>
-              Er det søkt om, utbetales det eller har det blitt utbetalt kontantstøtte til brukeren
-              eller en brukeren bor med i perioden(e) det er søkt om?{' '}
-              {mapBooleanTilJaNei(harKontantstøttePerioder, true)}
+              Skal stønaden reduseres fordi brukeren, eller en brukeren bor med, har fått utbetalt
+              kontantstøtte i perioden(e) det er søkt om?{' '}
+              {mapBooleanTilJaNei(perioderKontantstøtte.length > 0, true)}
             </p>
             {perioderKontantstøtte.length > 0 && (
               <table className="tabellUtenBorder">
@@ -69,6 +70,12 @@ export const InnvilgetBarnetilsyn: React.FC<{
                   </tr>
                 ))}
               </table>
+            )}
+            {kontantstøtteBegrunnelse !== undefined && (
+              <>
+                <h4>Begrunnelse (hvis aktuelt):</h4>
+                <p>{kontantstøtteBegrunnelse}</p>
+              </>
             )}
           </>
         )}
