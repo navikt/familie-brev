@@ -27,6 +27,7 @@ export const InnvilgetBarnetilsyn: React.FC<{
 
   const utledKontantstøtteperioderAlertTekst = (
     kontantstøttePerioderFraGrunnlagsdata: IKontantstøttePerioder[],
+    registeropplysningerOpprettetDato: string,
     harKontantstøttePerioder?: boolean,
   ): React.ReactNode => {
     if (!harKontantstøttePerioder && kontantstøttePerioderFraGrunnlagsdata.length === 0) {
@@ -80,6 +81,7 @@ export const InnvilgetBarnetilsyn: React.FC<{
           <p>
             {utledKontantstøtteperioderAlertTekst(
               kontantstøttePerioderFraKs,
+              registeropplysningerOpprettetDato,
               harKontantstøttePerioder,
             )}
           </p>
