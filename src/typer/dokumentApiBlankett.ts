@@ -127,7 +127,6 @@ export type ISkolepengerUtgift = {
 };
 
 export type Tilleggsstønad = {
-  harTilleggsstønad: boolean;
   perioder: PeriodeMedBeløp[];
   begrunnelse?: string;
 };
