@@ -11,7 +11,9 @@ export interface IBehandling {
   stønadstype: EStønadType;
   årsakRevurdering?: IÅrsakRevurdering;
   tidligereVedtaksperioder?: ITidligereVedtaksperioder;
-  harKontantstøttePerioder?: boolean;
+  harKontantstøttePerioder: boolean;
+  kontantstøttePerioderFraKs: IKontantstøttePerioder[];
+  registeropplysningerOpprettetDato: string;
 }
 
 export interface ITidligereVedtaksperioder {
@@ -103,6 +105,12 @@ export type IDelårsperiodeSkoleårDto = {
   studiebelastning: number;
 };
 
+export type IKontantstøttePerioder = {
+  fomMåned: string;
+  tomMåned?: string;
+  kilde: string;
+};
+
 export const studietypeTilTekst: Record<ESkolepengerStudietype, string> = {
   HØGSKOLE_UNIVERSITET: 'Høgskole / Universitet',
   VIDEREGÅENDE: 'Videregående',
@@ -119,7 +127,6 @@ export type ISkolepengerUtgift = {
 };
 
 export type Tilleggsstønad = {
-  harTilleggsstønad: boolean;
   perioder: PeriodeMedBeløp[];
   begrunnelse?: string;
 };

@@ -10,6 +10,7 @@ import type {
   IInnvilgeVedtakOvergangsstønad,
   IInnvilgeVedtakBarnetilsyn,
   IInnvilgeVedtakSkolepenger,
+  IKontantstøttePerioder,
 } from '../../../typer/dokumentApiBlankett';
 import {
   EStønadType,
@@ -22,8 +23,18 @@ export const Vedtak: React.FC<{
   vedtak: IVedtak;
   søknadsdatoer?: ISøknadsdatoer;
   årsak: EBehandlingÅrsak;
-  harKontantstøttePerioder?: boolean;
-}> = ({ stønadstype, vedtak, søknadsdatoer, årsak, harKontantstøttePerioder }) => {
+  harKontantstøttePerioder: boolean;
+  kontantstøttePerioderFraKs: IKontantstøttePerioder[];
+  registeropplysningerOpprettetDato: string;
+}> = ({
+  stønadstype,
+  vedtak,
+  søknadsdatoer,
+  årsak,
+  kontantstøttePerioderFraKs,
+  harKontantstøttePerioder,
+  registeropplysningerOpprettetDato,
+}) => {
   switch (vedtak.resultatType) {
     case EBehandlingResultat.INNVILGE:
       return (
@@ -33,6 +44,8 @@ export const Vedtak: React.FC<{
           søknadsdatoer={søknadsdatoer}
           årsak={årsak}
           harKontantstøttePerioder={harKontantstøttePerioder}
+          kontantstøttePerioderFraKs={kontantstøttePerioderFraKs}
+          registeropplysningerOpprettetDato={registeropplysningerOpprettetDato}
         />
       );
     case EBehandlingResultat.AVSLÅ:
@@ -47,8 +60,18 @@ const InnvilgetVedtak: React.FC<{
   vedtak: IVedtak;
   søknadsdatoer?: ISøknadsdatoer;
   årsak: EBehandlingÅrsak;
-  harKontantstøttePerioder?: boolean;
-}> = ({ stønadstype, vedtak, søknadsdatoer, årsak, harKontantstøttePerioder }) => {
+  harKontantstøttePerioder: boolean;
+  kontantstøttePerioderFraKs: IKontantstøttePerioder[];
+  registeropplysningerOpprettetDato: string;
+}> = ({
+  stønadstype,
+  vedtak,
+  søknadsdatoer,
+  årsak,
+  kontantstøttePerioderFraKs,
+  harKontantstøttePerioder,
+  registeropplysningerOpprettetDato,
+}) => {
   if (årsak === EBehandlingÅrsak.G_OMREGNING) {
     return <InnvilgetGOmregning vedtak={vedtak as IInnvilgeVedtakOvergangsstønad} />;
   }
@@ -67,6 +90,8 @@ const InnvilgetVedtak: React.FC<{
           vedtak={vedtak as IInnvilgeVedtakBarnetilsyn}
           søknadsdatoer={søknadsdatoer}
           harKontantstøttePerioder={harKontantstøttePerioder}
+          kontantstøttePerioderFraKs={kontantstøttePerioderFraKs}
+          registeropplysningerOpprettetDato={registeropplysningerOpprettetDato}
         />
       );
     case EStønadType.SKOLEPENGER:
