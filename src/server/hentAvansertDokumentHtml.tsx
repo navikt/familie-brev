@@ -81,7 +81,7 @@ export const hentAvansertDokumentHtml = async (
                     <span style={{ marginRight: '20px' }}>{besluttersignatur}</span>
                   </>
                 )}
-                <span>{saksbehandlersignatur}</span>
+                <span>{saksbehandlersignatur} saksbehandler</span>
               </p>
             </div>
           </div>
