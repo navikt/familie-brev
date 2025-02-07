@@ -35,8 +35,8 @@ export const lagManueltBrevHtml = (brevMedSignatur: IFritekstbrevMedSignatur) =>
             <div>Med vennlig hilsen</div>
             <div>{brevMedSignatur.enhet || 'Nav Arbeid og ytelser'}</div>
             <br />
-            <div>
-              {brevMedSignatur.besluttersignatur && (
+            <div style={{ marginRight: '20px' }}>
+              {brevMedSignatur.besluttersignatur && brevMedSignatur.besluttersignatur?.trim() && (
                 <span style={{ marginRight: '20px' }}>{brevMedSignatur.besluttersignatur}</span>
               )}
               {brevMedSignatur.saksbehandlersignatur}
