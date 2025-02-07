@@ -78,7 +78,7 @@ export const hentAvansertDokumentHtml = async (
               <p style={{ float: 'left' }}>
                 {!skjulBeslutterSignatur && besluttersignatur?.trim() && (
                   <>
-                    <span>{besluttersignatur}</span>
+                    <span style={{ marginRight: '20px' }}>{besluttersignatur}</span>
                   </>
                 )}
                 <span>{saksbehandlersignatur}</span>
