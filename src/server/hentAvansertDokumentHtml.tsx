@@ -75,14 +75,14 @@ export const hentAvansertDokumentHtml = async (
             />
             <div>
               <div>{enhet || 'Nav Arbeid og ytelser'}</div>
-              <div style={{ float: 'left' }}>
+              <p style={{ float: 'left' }}>
                 {!skjulBeslutterSignatur && besluttersignatur && besluttersignatur?.trim() && (
                   <>
-                    <span style={{ marginRight: '20px' }}>{besluttersignatur}</span>
+                    <span>{besluttersignatur}</span>
                   </>
                 )}
                 <span>{saksbehandlersignatur}</span>
-              </div>
+              </p>
             </div>
           </div>
         </body>
