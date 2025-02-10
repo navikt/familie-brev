@@ -43,7 +43,20 @@ export const FlettefeltSerializer = (props: IFlettefeltSerializerProps) => {
       </ul>
     );
   } else {
-    return <span className={høyrestill ? 'høyrestill' : ''}>{flettefelt[0]}</span>;
+    return flettefelt[0]?.split('\n').map((avsnitt, index, total) => {
+      const erLinjeskiftMellomToAvsnitt = total.length - 1 !== index;
+      const erAvsnittMedTekst = avsnitt.length > 0;
+      return erAvsnittMedTekst ? (
+        <>
+          <span key={index} className={høyrestill ? 'høyrestill' : ''}>
+            {avsnitt}
+          </span>
+          {erLinjeskiftMellomToAvsnitt && <br />}
+        </>
+      ) : (
+        <br key={index} />
+      );
+    });
   }
 };
 
