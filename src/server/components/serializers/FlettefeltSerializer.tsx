@@ -43,24 +43,8 @@ export const FlettefeltSerializer = (props: IFlettefeltSerializerProps) => {
       </ul>
     );
   } else {
-    return konverterFlettefeltTekstMedNewLineTilBrTag(flettefelt[0], høyrestill);
+    return <span className={høyrestill ? 'høyrestill' : ''}>{flettefelt[0]}</span>;
   }
-};
-
-const konverterFlettefeltTekstMedNewLineTilBrTag = (
-  flettefeltElement: string,
-  høyrestill: boolean,
-) => {
-  return flettefeltElement?.split('\n').map((avsnitt, index) => {
-    return (
-      <>
-        <span key={index} className={høyrestill ? 'høyrestill' : ''}>
-          {avsnitt}
-        </span>
-        <br key={index} />
-      </>
-    );
-  });
 };
 
 const hentFlettefeltNavn = (sanityProps: any) => {
