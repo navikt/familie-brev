@@ -49,7 +49,7 @@ export const FlettefeltSerializer = (props: IFlettefeltSerializerProps) => {
 
 /**
  * Skal ikke ha en ekstra linjeskift på slutten av hvert avsnitt
- * Dersom siste element er ikke er "tomt" (som betyr \n) så skippes <br />-taggen
+ * Dersom siste elementet ikke er "tomt" (som betyr \n) så skippes <br />-taggen på slutten
  */
 const konverterFlettefeltTekstMedNewLineTilBrTag = (
   flettefeltElement: string,
