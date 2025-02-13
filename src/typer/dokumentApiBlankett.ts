@@ -4,6 +4,7 @@ export interface IDokumentData {
   personopplysninger: IPersonopplysninger;
   vedtak: IVedtak;
   søknadsdatoer?: ISøknadsdatoer;
+  samværsavtaler?: Samværsavtale[]; // TODO: Fjern nullable her og alle etterfølgende steder etter at familie-ef-sak er prodsatt
 }
 
 export interface IBehandling {
@@ -915,4 +916,38 @@ export const avslagÅrsakTilTekst: Record<EAvslagÅrsak, string> = {
   STØNADSTID_OPPBRUKT: 'Stønadstiden er brukt opp',
   MINDRE_INNTEKTSENDRINGER: 'Ikke 10 % endring inntekt',
   KORTVARIG_AVBRUDD_JOBB: 'Kortvarig avbrudd jobb',
+};
+
+export interface Samværsavtale {
+  behandlingId: string;
+  behandlingBarnId: string;
+  uker: Samværsuke[];
+}
+
+export interface Samværsuke {
+  mandag: Samværsdag;
+  tirsdag: Samværsdag;
+  onsdag: Samværsdag;
+  torsdag: Samværsdag;
+  fredag: Samværsdag;
+  lørdag: Samværsdag;
+  søndag: Samværsdag;
+}
+
+export interface Samværsdag {
+  andeler: Samværsandel[];
+}
+
+export enum Samværsandel {
+  KVELD_NATT = 'KVELD_NATT',
+  MORGEN = 'MORGEN',
+  BARNEHAGE_SKOLE = 'BARNEHAGE_SKOLE',
+  ETTERMIDDAG = 'ETTERMIDDAG',
+}
+
+export const samværsandelTilVerdi: Record<Samværsandel, number> = {
+  KVELD_NATT: 4,
+  MORGEN: 1,
+  BARNEHAGE_SKOLE: 2,
+  ETTERMIDDAG: 1,
 };
