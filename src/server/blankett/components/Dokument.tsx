@@ -61,6 +61,7 @@ export const Dokument = (dokumentProps: DokumentProps) => {
   const grunnlag = dokumentData.vilkår.grunnlag;
   const erManuellGOmregning = dokumentData.behandling.årsak === EBehandlingÅrsak.G_OMREGNING;
   const stønadstype = dokumentData.behandling.stønadstype;
+  const samværsavtaler = dokumentData.samværsavtaler;
 
   return (
     <div>
@@ -84,6 +85,7 @@ export const Dokument = (dokumentProps: DokumentProps) => {
                   barnId={vurdering.barnId}
                   tidligereVedtaksperioder={tidligereVedtaksperioder}
                   stønadstype={stønadstype}
+                  samværsavtaler={samværsavtaler}
                 />
                 <Vilkårsvurdering vurdering={vurdering} />
               </div>
