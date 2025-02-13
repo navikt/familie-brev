@@ -43,7 +43,32 @@ export const FlettefeltSerializer = (props: IFlettefeltSerializerProps) => {
       </ul>
     );
   } else {
-    return <span className={høyrestill ? 'høyrestill' : ''}>{flettefelt[0]}</span>;
+    return konverterFlettefeltTekstMedNewLineTilBrTag(flettefelt[0], høyrestill);
+  }
+};
+
+/**
+ * Skal ikke ha en ekstra linjeskift på slutten av hvert avsnitt
+ * Dersom siste elementet ikke er "tomt" (som betyr \n) så skippes <br />-taggen på slutten
+ */
+const konverterFlettefeltTekstMedNewLineTilBrTag = (
+  flettefeltElement: string,
+  høyrestill: boolean,
+) => {
+  if (flettefeltElement?.includes('\n')) {
+    return flettefeltElement?.split('\n').map((avsnitt, index, total) => {
+      const erSisteElement = total.length - 1 === index;
+      const erLinjeskiftElement = avsnitt.length === 0;
+      const skalHaBreaklineTag = erLinjeskiftElement || !erSisteElement;
+      return (
+        <React.Fragment key={index}>
+          <span className={høyrestill ? 'høyrestill' : ''}>{avsnitt}</span>
+          {skalHaBreaklineTag && <br />}
+        </React.Fragment>
+      );
+    });
+  } else {
+    return <span className={høyrestill ? 'høyrestill' : ''}>{flettefeltElement}</span>;
   }
 };
 
