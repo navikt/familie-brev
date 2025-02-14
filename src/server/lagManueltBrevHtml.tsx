@@ -31,17 +31,17 @@ export const lagManueltBrevHtml = (brevMedSignatur: IFritekstbrevMedSignatur) =>
         ))}
         <div>
           <br />
-          <p style={{ float: 'left' }}>
-            <div>Med vennlig hilsen </div>
+          <div style={{ float: 'left' }}>
+            <div>Med vennlig hilsen</div>
             <div>{brevMedSignatur.enhet || 'Nav Arbeid og ytelser'}</div>
             <br />
-            <div style={{ marginRight: '20px' }}>
-              {brevMedSignatur.saksbehandlersignatur}{' '}
-              {brevMedSignatur.besluttersignatur && (
-                <span style={{ marginLeft: '20px' }}>{brevMedSignatur.besluttersignatur}</span>
+            <div>
+              {brevMedSignatur.besluttersignatur && brevMedSignatur.besluttersignatur?.trim() && (
+                <span style={{ marginRight: '20px' }}>{brevMedSignatur.besluttersignatur}</span>
               )}
+              {brevMedSignatur.saksbehandlersignatur}
             </div>
-          </p>
+          </div>
         </div>
       </body>
     </html>,
