@@ -55,17 +55,21 @@ const konverterFlettefeltTekstMedNewLineTilBrTag = (
   flettefeltElement: string,
   høyrestill: boolean,
 ) => {
-  return flettefeltElement?.split('\n').map((avsnitt, index, total) => {
-    const erSisteElement = total.length - 1 === index;
-    const erLinjeskiftElement = avsnitt.length === 0;
-    const skalHaBreaklineTag = erLinjeskiftElement || !erSisteElement;
-    return (
-      <React.Fragment key={index}>
-        <span className={høyrestill ? 'høyrestill' : ''}>{avsnitt}</span>
-        {skalHaBreaklineTag && <br />}
-      </React.Fragment>
-    );
-  });
+  if (flettefeltElement?.includes('\n')) {
+    return flettefeltElement?.split('\n').map((avsnitt, index, total) => {
+      const erSisteElement = total.length - 1 === index;
+      const erLinjeskiftElement = avsnitt.length === 0;
+      const skalHaBreaklineTag = erLinjeskiftElement || !erSisteElement;
+      return (
+        <React.Fragment key={index}>
+          <span className={høyrestill ? 'høyrestill' : ''}>{avsnitt}</span>
+          {skalHaBreaklineTag && <br />}
+        </React.Fragment>
+      );
+    });
+  } else {
+    return <span className={høyrestill ? 'høyrestill' : ''}>{flettefeltElement}</span>;
+  }
 };
 
 const hentFlettefeltNavn = (sanityProps: any) => {
