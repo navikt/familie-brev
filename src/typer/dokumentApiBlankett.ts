@@ -4,7 +4,7 @@ export interface IDokumentData {
   personopplysninger: IPersonopplysninger;
   vedtak: IVedtak;
   søknadsdatoer?: ISøknadsdatoer;
-  samværsavtaler?: Samværsavtale[]; // TODO: Fjern nullable her og alle etterfølgende steder etter at familie-ef-sak er prodsatt
+  samværsavtaler: Samværsavtale[];
 }
 
 export interface IBehandling {

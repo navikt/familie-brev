@@ -13,7 +13,6 @@ import type {
   IVilkårGrunnlag,
   ITidligereVedtaksperioder,
   EStønadType,
-  Samværsavtale,
 } from '../../../typer/dokumentApiBlankett';
 import { EStønadType as StønadType } from '../../../typer/dokumentApiBlankett';
 import { VilkårGruppe, Vilkår } from '../../../typer/dokumentApiBlankett';
@@ -25,7 +24,6 @@ export interface RegistergrunnlagForVilkårProps {
   barnId?: string;
   tidligereVedtaksperioder?: ITidligereVedtaksperioder;
   stønadstype: EStønadType;
-  samværsavtaler?: Samværsavtale[];
 }
 
 export const RegistergrunnlagForVilkår: React.FC<RegistergrunnlagForVilkårProps> = ({
@@ -34,7 +32,6 @@ export const RegistergrunnlagForVilkår: React.FC<RegistergrunnlagForVilkårProp
   barnId,
   tidligereVedtaksperioder,
   stønadstype,
-  samværsavtaler,
 }) => {
   switch (vilkårgruppe) {
     case VilkårGruppe.MEDLEMSKAP:
@@ -53,7 +50,6 @@ export const RegistergrunnlagForVilkår: React.FC<RegistergrunnlagForVilkårProp
           barnMedSamvær={grunnlag.barnMedSamvær}
           barnId={barnId}
           personalia={grunnlag.personalia}
-          samværsavtaler={samværsavtaler}
         />
       );
     case VilkårGruppe.ALDER_PÅ_BARN:

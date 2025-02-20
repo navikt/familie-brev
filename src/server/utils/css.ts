@@ -58,6 +58,10 @@ export default `
     margin-bottom: 5px;
   }
   
+  .blankett-samværsavtale {
+    margin-bottom: 5px;
+  }
+  
   .blankett-vilkårsresultat {
     font-size: 1.2rem;
     margin-bottom: 16px;

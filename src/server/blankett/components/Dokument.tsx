@@ -1,14 +1,16 @@
 import React from 'react';
 import { Vilkårsvurdering } from './Vilkårsvurdering';
 import { Vedtak } from './Vedtak';
-import type { IDokumentData, IVurdering } from '../../../typer/dokumentApiBlankett';
 import {
-  VilkårGruppe,
-  Vilkår,
   EBehandlingÅrsak,
+  IDokumentData,
+  IVurdering,
+  Vilkår,
+  VilkårGruppe,
   vilkårTypeTilTekst,
 } from '../../../typer/dokumentApiBlankett';
 import { RegistergrunnlagForVilkår } from './RegistergrunnlagForVilkår';
+import { SamværsavtaleVisning } from './SamværsavtaleVisning';
 
 interface DokumentProps {
   dokumentData: IDokumentData;
@@ -76,6 +78,11 @@ export const Dokument = (dokumentProps: DokumentProps) => {
           }
 
           return vurderinger.map(vurdering => {
+            const samværsavtale =
+              vurdering.vilkårType === Vilkår.ALENEOMSORG
+                ? samværsavtaler.find(avtale => avtale.behandlingBarnId === vurdering.barnId)
+                : undefined;
+
             return (
               <div key={vurdering.id} className={'blankett-page-break'}>
                 <h2>{vilkårTypeTilTekst[vurdering.vilkårType]}</h2>
@@ -85,9 +92,9 @@ export const Dokument = (dokumentProps: DokumentProps) => {
                   barnId={vurdering.barnId}
                   tidligereVedtaksperioder={tidligereVedtaksperioder}
                   stønadstype={stønadstype}
-                  samværsavtaler={samværsavtaler}
                 />
-                <Vilkårsvurdering vurdering={vurdering} />
+                <Vilkårsvurdering vurdering={vurdering} samværsavtaler={samværsavtaler} />
+                {samværsavtale && <SamværsavtaleVisning avtale={samværsavtale} />}
               </div>
             );
           });
