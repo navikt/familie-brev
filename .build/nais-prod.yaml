@@ -38,8 +38,7 @@ spec:
         - application: familie-ba-sak
         - application: familie-ks-sak
         - application: familie-klage
-        - application: tilleggsstonader-klage
-          namespace: tilleggsstonader
+
     outbound:
       rules:
         - application: familie-dokument
