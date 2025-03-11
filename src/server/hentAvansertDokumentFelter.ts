@@ -106,7 +106,8 @@ export const hentBrevmenyBlokker = async (
                                   valgmulighet,
                                   "visningsnavnValgmulighet": delmal->.visningsnavn,
                                   "flettefelter": delmal-> ${maalform}[defined(markDefs)] {           
-                                       "flettefelt": markDefs[].flettefeltReferanse 
+                                      "felt": felt,
+                                      "_ref": _id,
                                   }  
                               }
                   }
