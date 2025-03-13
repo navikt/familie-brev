@@ -42,6 +42,7 @@ export interface IFritekstbrevMedSignatur {
   saksbehandlersignatur: string;
   enhet?: string;
   datoPlaceholder?: string;
+  erSamværsberegning?: boolean;
 }
 
 export interface IAvsnitt {

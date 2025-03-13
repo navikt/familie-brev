@@ -7,6 +7,7 @@ import css from './utils/css';
 
 export const lagManueltBrevHtml = (brevMedSignatur: IFritekstbrevMedSignatur) => {
   const brev = brevMedSignatur.brevFraSaksbehandler;
+  const erSamværsberegning = brevMedSignatur.erSamværsberegning || false;
 
   return renderToStaticMarkup(
     <html lang={'nb'}>
@@ -31,19 +32,36 @@ export const lagManueltBrevHtml = (brevMedSignatur: IFritekstbrevMedSignatur) =>
         ))}
         <div>
           <br />
-          <div style={{ float: 'left' }}>
-            <div>Med vennlig hilsen</div>
-            <div>{brevMedSignatur.enhet || 'Nav Arbeid og ytelser'}</div>
-            <br />
-            <div>
-              {brevMedSignatur.besluttersignatur && brevMedSignatur.besluttersignatur?.trim() && (
-                <span style={{ marginRight: '20px' }}>{brevMedSignatur.besluttersignatur}</span>
-              )}
-              {brevMedSignatur.saksbehandlersignatur}
-            </div>
-          </div>
+          {utledBrevsignatur(erSamværsberegning, brevMedSignatur)}
         </div>
       </body>
     </html>,
+  );
+};
+
+const utledBrevsignatur = (
+  erSamværsberegning: boolean,
+  brevMedSignatur: IFritekstbrevMedSignatur,
+) => {
+  if (erSamværsberegning) {
+    return (
+      <div style={{ float: 'left' }}>
+        <div>{`Journalført av ${brevMedSignatur.saksbehandlersignatur}`}</div>
+      </div>
+    );
+  }
+
+  return (
+    <div style={{ float: 'left' }}>
+      <div>Med vennlig hilsen</div>
+      <div>{brevMedSignatur.enhet || 'Nav Arbeid og ytelser'}</div>
+      <br />
+      <div>
+        {brevMedSignatur.besluttersignatur && brevMedSignatur.besluttersignatur?.trim() && (
+          <span style={{ marginRight: '20px' }}>{brevMedSignatur.besluttersignatur}</span>
+        )}
+        {brevMedSignatur.saksbehandlersignatur}
+      </div>
+    </div>
   );
 };
