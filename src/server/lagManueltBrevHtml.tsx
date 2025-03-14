@@ -54,7 +54,7 @@ const utledBrevsignatur = (
   return (
     <div style={{ float: 'left' }}>
       <div>Med vennlig hilsen</div>
-      <div>{brevMedSignatur.enhet || 'Nav Arbeid og ytelser'}</div>
+      <div>{brevMedSignatur.enhet || 'Nav arbeid og ytelser'}</div>
       <br />
       <div>
         {brevMedSignatur.besluttersignatur && brevMedSignatur.besluttersignatur?.trim() && (
