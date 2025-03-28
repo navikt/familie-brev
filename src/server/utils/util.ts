@@ -7,6 +7,12 @@ export const datoFormat: DateTimeFormatOptions = {
   year: 'numeric',
 };
 
+export const datoFormatLang: DateTimeFormatOptions = {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+};
+
 const datoTidFormat: DateTimeFormatOptions = {
   day: '2-digit',
   month: '2-digit',
@@ -21,6 +27,9 @@ export const månedÅrFormat: DateTimeFormatOptions = {
 };
 
 export const dagensDatoFormatert = (): string => new Date().toLocaleDateString('no-NO', datoFormat);
+
+export const dagensDatoFormatertLang = (): string =>
+  new Date().toLocaleDateString('no-NO', datoFormatLang);
 
 export const dagensDatoTidFormatert = (): string =>
   new Date().toLocaleString('no-NO', datoTidFormat);

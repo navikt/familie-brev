@@ -23,7 +23,7 @@ import {
   hentFlettefelterMedType,
 } from './hentAvansertDokumentFelter';
 import { hentAvansertDokumentNavn } from './hentAvansertDokumentNavn';
-import { lagManueltBrevHtml } from './lagManueltBrevHtml';
+import { lagManueltBrevBaksHtml, lagManueltBrevHtml } from './lagManueltBrevHtml';
 import { genererSøknadHtml } from './søknadgenerator';
 import { hentDelmalblokkHtml } from './hentDelmalBlockHtml';
 
@@ -272,6 +272,23 @@ router.post('/fritekst-brev/html', async (req: Request, res: Response) => {
   const brev = req.body as IFritekstbrevMedSignatur;
   try {
     const html = lagManueltBrevHtml(brev);
+    logFerdigstilt(req);
+    res.send(html);
+  } catch (error: any) {
+    if (error instanceof Feil) {
+      res.status(error.code).send(error.message);
+    } else {
+      logError(`Generering av fritekstbrev (pdf) feilet: ${error.message}`);
+      logSecure(`Generering av fritekstbrev (pdf) feilet: ${error}`);
+      res.status(500).send(`Generering av avansert dokument (pdf) feilet: ${error.message}`);
+    }
+  }
+});
+
+router.post('/fritekst-brev/baks/html', async (req: Request, res: Response) => {
+  const brev = req.body as IFritekstbrevMedSignatur;
+  try {
+    const html = lagManueltBrevBaksHtml(brev);
     logFerdigstilt(req);
     res.send(html);
   } catch (error: any) {
