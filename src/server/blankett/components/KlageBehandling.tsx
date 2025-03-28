@@ -122,6 +122,35 @@ export const Klagevurdering: React.FC<{ vurdering?: IVurdering }> = ({ vurdering
           <span style={{ whiteSpace: 'pre-wrap' }}>{vurdering.innstillingKlageinstans}</span>
         </>
       )}
+      {vurdering.dokumentasjonOgUtredning &&
+        vurdering.spørsmåletISaken &&
+        vurdering.aktuelleRettskilder &&
+        vurdering.klagersAnførsler &&
+        vurdering.vurderingAvKlagen && (
+          <>
+            <h4 className={'blankett'}>Innstilling til Nav Klageinstans</h4>
+            <p>
+              <strong className={'blankett'}>Dokumentasjon og utredning</strong>
+            </p>
+            <span style={{ whiteSpace: 'pre-wrap' }}>{vurdering.dokumentasjonOgUtredning}</span>
+            <p>
+              <strong className={'blankett'}>Spørsmålet i saken</strong>
+            </p>
+            <span style={{ whiteSpace: 'pre-wrap' }}>{vurdering.spørsmåletISaken}</span>
+            <p>
+              <strong className={'blankett'}>Aktuelle rettskilder</strong>
+            </p>
+            <span style={{ whiteSpace: 'pre-wrap' }}>{vurdering.aktuelleRettskilder}</span>
+            <p>
+              <strong className={'blankett'}>Klagers anførsler</strong>
+            </p>
+            <span style={{ whiteSpace: 'pre-wrap' }}>{vurdering.klagersAnførsler}</span>
+            <p>
+              <strong className={'blankett'}>Vurdering av klagen</strong>
+            </p>
+            <span style={{ whiteSpace: 'pre-wrap' }}>{vurdering.vurderingAvKlagen}</span>
+          </>
+        )}
       {vurdering.interntNotat && (
         <>
           <h4 className={'blankett'}>Internt notat</h4>
