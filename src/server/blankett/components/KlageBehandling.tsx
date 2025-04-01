@@ -152,10 +152,10 @@ export const Klagevurdering: React.FC<{
         vurdering.vurderingAvKlagen && (
           <>
             <h4 className={'blankett'}>Innstilling til Nav Klageinstans</h4>
-            <p style={{ whiteSpace: 'pre-wrap' }}>{vurdering.dokumentasjonOgUtredning}</p>
             {skalInkludereKlagefristUnntakBegrunnelse && (
               <p style={{ whiteSpace: 'pre-wrap' }}>{formkrav.brevtekst}</p>
             )}
+            <p style={{ whiteSpace: 'pre-wrap' }}>{vurdering.dokumentasjonOgUtredning}</p>
             <p style={{ whiteSpace: 'pre-wrap' }}>{vurdering.spørsmåletISaken}</p>
             <p style={{ whiteSpace: 'pre-wrap' }}>{vurdering.aktuelleRettskilder}</p>
             <p style={{ whiteSpace: 'pre-wrap' }}>{vurdering.klagersAnførsler}</p>
