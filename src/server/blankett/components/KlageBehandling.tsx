@@ -27,12 +27,6 @@ const påklagetVedtak = (påklagetVedtak?: IPåklagetVedtak) => {
   }
 };
 
-const alleFormkravOppfylt = (formkrav: IFormkravVilkår): boolean =>
-  formkrav.klagePart == EFormVilkår.OPPFYLT &&
-  formkrav.klageKonkret == EFormVilkår.OPPFYLT &&
-  formkrav.klagefristOverholdt == EFormVilkår.OPPFYLT &&
-  formkrav.klageSignert == EFormVilkår.OPPFYLT;
-
 const alleFormkravUtenomKlagefristOppfylt = (formkrav: IFormkravVilkår): boolean =>
   formkrav.klagePart == EFormVilkår.OPPFYLT &&
   formkrav.klageKonkret == EFormVilkår.OPPFYLT &&
@@ -94,7 +88,7 @@ export const KlageFormkrav: React.FC<{ formkrav: IFormkravVilkår }> = ({ formkr
             <span style={{ whiteSpace: 'pre-wrap' }}>{formkrav.saksbehandlerBegrunnelse}</span>
           </>
         )}
-        {!alleFormkravOppfylt(formkrav) && !klagefristUnntakOppfylt && formkrav.brevtekst && (
+        {!alleFormkravUtenomKlagefristOppfylt(formkrav) && formkrav.brevtekst && (
           <>
             <h4 className={'blankett'}>Fritekst til brev</h4>
             <span style={{ whiteSpace: 'pre-wrap' }}>{formkrav.brevtekst}</span>
