@@ -93,7 +93,7 @@ export const Dokument = (dokumentProps: DokumentProps) => {
                   tidligereVedtaksperioder={tidligereVedtaksperioder}
                   stønadstype={stønadstype}
                 />
-                <Vilkårsvurdering vurdering={vurdering} samværsavtaler={samværsavtaler} />
+                <Vilkårsvurdering vurdering={vurdering} />
                 {samværsavtale && <SamværsavtaleVisning avtale={samværsavtale} />}
               </div>
             );
