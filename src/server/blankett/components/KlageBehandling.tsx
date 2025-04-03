@@ -42,8 +42,8 @@ const klagefristUnntakOppfylt = (
   klagefristOverholdtUnntak: FormkravFristUnntak | undefined,
 ): boolean =>
   klagefristOverholdtUnntak != undefined &&
-  !![FormkravFristUnntak.UNNTAK_SÆRLIG_GRUNN, FormkravFristUnntak.UNNTAK_KAN_IKKE_LASTES].find(
-    formkravFristUnntak => formkravFristUnntak == klagefristOverholdtUnntak,
+  [FormkravFristUnntak.UNNTAK_SÆRLIG_GRUNN, FormkravFristUnntak.UNNTAK_KAN_IKKE_LASTES].includes(
+    klagefristOverholdtUnntak,
   );
 
 export const KlageBehandling: React.FC<{ behandling: IKlageBehandling }> = ({ behandling }) => {
