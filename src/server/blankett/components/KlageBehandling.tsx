@@ -27,6 +27,12 @@ const påklagetVedtak = (påklagetVedtak?: IPåklagetVedtak) => {
   }
 };
 
+const alleFormkravOppfylt = (formkrav: IFormkravVilkår) =>
+  formkrav.klagePart == EFormVilkår.OPPFYLT &&
+  formkrav.klageKonkret == EFormVilkår.OPPFYLT &&
+  formkrav.klagefristOverholdt == EFormVilkår.OPPFYLT &&
+  formkrav.klageSignert == EFormVilkår.OPPFYLT;
+
 const alleFormkravUtenomKlagefristOppfylt = (formkrav: IFormkravVilkår): boolean =>
   formkrav.klagePart == EFormVilkår.OPPFYLT &&
   formkrav.klageKonkret == EFormVilkår.OPPFYLT &&
@@ -88,12 +94,14 @@ export const KlageFormkrav: React.FC<{ formkrav: IFormkravVilkår }> = ({ formkr
             <span style={{ whiteSpace: 'pre-wrap' }}>{formkrav.saksbehandlerBegrunnelse}</span>
           </>
         )}
-        {!alleFormkravUtenomKlagefristOppfylt(formkrav) && formkrav.brevtekst && (
-          <>
-            <h4 className={'blankett'}>Fritekst til brev</h4>
-            <span style={{ whiteSpace: 'pre-wrap' }}>{formkrav.brevtekst}</span>
-          </>
-        )}
+        {!alleFormkravOppfylt(formkrav) &&
+          !klagefristUnntakOppfylt(formkrav.klagefristOverholdtUnntak) &&
+          formkrav.brevtekst && (
+            <>
+              <h4 className={'blankett'}>Fritekst til brev</h4>
+              <span style={{ whiteSpace: 'pre-wrap' }}>{formkrav.brevtekst}</span>
+            </>
+          )}
       </>
     </div>
   );
@@ -108,7 +116,8 @@ export const Klagevurdering: React.FC<{
   }
 
   const skalInkludereKlagefristUnntakBegrunnelse =
-    alleFormkravUtenomKlagefristOppfylt(formkrav) && klagefristUnntakOppfylt;
+    alleFormkravUtenomKlagefristOppfylt(formkrav) &&
+    klagefristUnntakOppfylt(formkrav.klagefristOverholdtUnntak);
 
   return (
     <div className={'blankett-page-break'}>
