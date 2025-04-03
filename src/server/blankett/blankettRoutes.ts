@@ -54,6 +54,7 @@ router.post('/klage/pdf', async (req: Request, res: Response) => {
 
 if (NODE_ENV != 'production' && NODE_ENV != 'preprod') {
   const lesMockFil = () => {
+    console.log('leser mock fil');
     const fileString = fs.readFileSync('./src/server/mock/dummyDataBlankett.json', {
       encoding: 'utf-8',
     });
@@ -62,9 +63,13 @@ if (NODE_ENV != 'production' && NODE_ENV != 'preprod') {
 
   router.post('/dummy-pdf', async (req: Request, res: Response) => {
     try {
+      console.log('start');
       const html = await hentDokumentHtmlBlankett(lesMockFil());
+      console.log('html');
       const meta = genererMetadata(req);
+      console.log('metadata');
       const pdf = await genererPdfBlankett(html, meta);
+      console.log('pdf');
       res.setHeader('Content-Type', 'application/pdf');
       res.setHeader('Content-Disposition', `attachment; filename=saksbehandlingsblankett.pdf`);
       res.end(pdf);

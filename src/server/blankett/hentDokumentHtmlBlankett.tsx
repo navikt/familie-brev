@@ -14,6 +14,7 @@ enum HtmlLang {
 }
 
 export const hentDokumentHtmlBlankett = async (data: IDokumentData): Promise<string> => {
+  console.log('lager asyncHtml');
   const asyncHtml = () => (
     <html lang={HtmlLang.NB}>
       <head>
@@ -39,7 +40,8 @@ export const hentDokumentHtmlBlankett = async (data: IDokumentData): Promise<str
   );
 
   const htmldokument = asyncHtml();
-  const dokument = await renderToStaticMarkup(htmldokument);
-
+  console.log('rendrer til static markup');
+  const dokument = renderToStaticMarkup(htmldokument);
+  console.log('returnerer dokument');
   return dokument;
 };
