@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import type { IKlageDokumentData } from '../../typer/klageDokumentApi';
-import { stønadstypeTilTekst } from '../../typer/klageDokumentApi';
+import { IKlageDokumentData, stønadstypeTilTekst } from '../../typer/klageDokumentApi';
 import { KlageBehandling, KlageFormkrav, Klagevurdering } from './components/KlageBehandling';
 import { Header } from './components/Header';
 import css from '../utils/css';
 import { datoFormat } from '../utils/util';
+
 enum HtmlLang {
   NB = 'nb',
 }
@@ -29,7 +29,7 @@ export const hentDokumentHtml = async (data: IKlageDokumentData): Promise<string
           />
           <KlageBehandling behandling={data.behandling} />
           <KlageFormkrav formkrav={data.formkrav} />
-          <Klagevurdering vurdering={data.vurdering} />
+          <Klagevurdering vurdering={data.vurdering} formkrav={data.formkrav} />
         </div>
       </body>
     </html>

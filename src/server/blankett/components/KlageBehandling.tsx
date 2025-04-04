@@ -1,17 +1,16 @@
 import React from 'react';
 
 import { formaterIsoDato, formaterIsoDatoTid } from '../../utils/util';
-import type {
-  IFormkravVilkår,
-  IKlageBehandling,
-  IPåklagetVedtak,
-} from '../../../typer/klageDokumentApi';
 import {
   behandlingResultatTilTekst,
   EFormVilkår,
+  FormkravFristUnntak,
   formkravFristUnntakTilTekst,
   formVilkårTilTekst,
   hjemmelTilVisningstekst,
+  IFormkravVilkår,
+  IKlageBehandling,
+  IPåklagetVedtak,
   IVurdering,
   klagebehandlingsårakTilTekst,
   vedtakTilTekst,
@@ -27,6 +26,25 @@ const påklagetVedtak = (påklagetVedtak?: IPåklagetVedtak) => {
     )}`;
   }
 };
+
+const alleFormkravOppfylt = (formkrav: IFormkravVilkår) =>
+  formkrav.klagePart == EFormVilkår.OPPFYLT &&
+  formkrav.klageKonkret == EFormVilkår.OPPFYLT &&
+  formkrav.klagefristOverholdt == EFormVilkår.OPPFYLT &&
+  formkrav.klageSignert == EFormVilkår.OPPFYLT;
+
+const alleFormkravUtenomKlagefristOppfylt = (formkrav: IFormkravVilkår): boolean =>
+  formkrav.klagePart == EFormVilkår.OPPFYLT &&
+  formkrav.klageKonkret == EFormVilkår.OPPFYLT &&
+  formkrav.klageSignert == EFormVilkår.OPPFYLT;
+
+const klagefristUnntakOppfylt = (
+  klagefristOverholdtUnntak: FormkravFristUnntak | undefined,
+): boolean =>
+  klagefristOverholdtUnntak != undefined &&
+  [FormkravFristUnntak.UNNTAK_SÆRLIG_GRUNN, FormkravFristUnntak.UNNTAK_KAN_IKKE_LASTES].includes(
+    klagefristOverholdtUnntak,
+  );
 
 export const KlageBehandling: React.FC<{ behandling: IKlageBehandling }> = ({ behandling }) => {
   return (
@@ -77,21 +95,30 @@ export const KlageFormkrav: React.FC<{ formkrav: IFormkravVilkår }> = ({ formkr
             <span style={{ whiteSpace: 'pre-wrap' }}>{formkrav.saksbehandlerBegrunnelse}</span>
           </>
         )}
-        {formkrav.brevtekst && (
-          <>
-            <h4 className={'blankett'}>Fritekst til brev</h4>
-            <span style={{ whiteSpace: 'pre-wrap' }}>{formkrav.brevtekst}</span>
-          </>
-        )}
+        {!alleFormkravOppfylt(formkrav) &&
+          !klagefristUnntakOppfylt(formkrav.klagefristOverholdtUnntak) &&
+          formkrav.brevtekst && (
+            <>
+              <h4 className={'blankett'}>Fritekst til brev</h4>
+              <span style={{ whiteSpace: 'pre-wrap' }}>{formkrav.brevtekst}</span>
+            </>
+          )}
       </>
     </div>
   );
 };
 
-export const Klagevurdering: React.FC<{ vurdering?: IVurdering }> = ({ vurdering }) => {
-  if (!vurdering) {
+export const Klagevurdering: React.FC<{
+  vurdering?: IVurdering;
+  formkrav?: IFormkravVilkår;
+}> = ({ vurdering, formkrav }) => {
+  if (!vurdering || !formkrav) {
     return null;
   }
+
+  const skalInkludereKlagefristUnntakBegrunnelse =
+    alleFormkravUtenomKlagefristOppfylt(formkrav) &&
+    klagefristUnntakOppfylt(formkrav.klagefristOverholdtUnntak);
 
   return (
     <div className={'blankett-page-break'}>
@@ -129,6 +156,9 @@ export const Klagevurdering: React.FC<{ vurdering?: IVurdering }> = ({ vurdering
         vurdering.vurderingAvKlagen && (
           <>
             <h4 className={'blankett'}>Innstilling til Nav Klageinstans</h4>
+            {skalInkludereKlagefristUnntakBegrunnelse && (
+              <p style={{ whiteSpace: 'pre-wrap' }}>{formkrav.brevtekst}</p>
+            )}
             <p style={{ whiteSpace: 'pre-wrap' }}>{vurdering.dokumentasjonOgUtredning}</p>
             <p style={{ whiteSpace: 'pre-wrap' }}>{vurdering.spørsmåletISaken}</p>
             <p style={{ whiteSpace: 'pre-wrap' }}>{vurdering.aktuelleRettskilder}</p>
