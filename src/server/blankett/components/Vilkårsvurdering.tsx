@@ -1,5 +1,5 @@
 import React from 'react';
-import type { IVurdering, Samværsavtale } from '../../../typer/dokumentApiBlankett';
+import type { IVurdering } from '../../../typer/dokumentApiBlankett';
 import {
   Vilkårsresultat,
   Vilkår,
@@ -14,7 +14,6 @@ import { OppfyltIkon } from '../../components/ikoner/OppfyltIkon';
 
 interface Props {
   vurdering: IVurdering;
-  samværsavtaler?: Samværsavtale[];
 }
 
 const resultatIkon = (resultat: Vilkårsresultat) => {

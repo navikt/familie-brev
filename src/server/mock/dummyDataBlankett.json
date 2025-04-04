@@ -525,5 +525,130 @@
   "søknadsdatoer": {
     "søkerStønadFra": "2021-07",
     "søknadsdato": "2021-03-24T16:46:02.725"
-  }
+  },
+  "samværsavtaler": [
+    {
+      "behandlingId": "caa2b1c3-9fa8-43d3-ad28-d8ea9cf5477a",
+      "behandlingBarnId": "6acb3212-5ca1-49b3-b40b-116afd8cbf97",
+      "uker": [
+        {
+          "mandag": {
+            "andeler": [
+              "MORGEN"
+            ]
+          },
+          "tirsdag": {
+            "andeler": [
+              "MORGEN"
+            ]
+          },
+          "onsdag": {
+            "andeler": [
+              "MORGEN"
+            ]
+          },
+          "torsdag": {
+            "andeler": [
+              "MORGEN"
+            ]
+          },
+          "fredag": {
+            "andeler": [
+              "MORGEN"
+            ]
+          },
+          "lørdag": {
+            "andeler": [
+              "MORGEN"
+            ]
+          },
+          "søndag": {
+            "andeler": [
+              "MORGEN"
+            ]
+          }
+        },
+        {
+          "mandag": {
+            "andeler": [
+              "BARNEHAGE_SKOLE"
+            ]
+          },
+          "tirsdag": {
+            "andeler": [
+              "BARNEHAGE_SKOLE"
+            ]
+          },
+          "onsdag": {
+            "andeler": [
+              "BARNEHAGE_SKOLE"
+            ]
+          },
+          "torsdag": {
+            "andeler": [
+              "BARNEHAGE_SKOLE"
+            ]
+          },
+          "fredag": {
+            "andeler": [
+              "BARNEHAGE_SKOLE"
+            ]
+          },
+          "lørdag": {
+            "andeler": [
+              "BARNEHAGE_SKOLE"
+            ]
+          },
+          "søndag": {
+            "andeler": [
+              "BARNEHAGE_SKOLE"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "behandlingId": "caa2b1c3-9fa8-43d3-ad28-d8ea9cf5477a",
+      "behandlingBarnId": "f00393fc-5e8b-48c1-9a6c-df84cdc9f322",
+      "uker": [
+        {
+          "mandag": {
+            "andeler": [
+              "ETTERMIDDAG", "KVELD_NATT"
+            ]
+          },
+          "tirsdag": {
+            "andeler": [
+              "ETTERMIDDAG", "KVELD_NATT"
+            ]
+          },
+          "onsdag": {
+            "andeler": [
+              "ETTERMIDDAG", "KVELD_NATT"
+            ]
+          },
+          "torsdag": {
+            "andeler": [
+              "ETTERMIDDAG", "KVELD_NATT"
+            ]
+          },
+          "fredag": {
+            "andeler": [
+              "ETTERMIDDAG", "KVELD_NATT"
+            ]
+          },
+          "lørdag": {
+            "andeler": [
+              "ETTERMIDDAG", "KVELD_NATT"
+            ]
+          },
+          "søndag": {
+            "andeler": [
+              "ETTERMIDDAG", "KVELD_NATT"
+            ]
+          }
+        }
+      ]
+    }
+  ]
 }
