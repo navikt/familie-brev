@@ -54,14 +54,13 @@ const utledBrevsignatur = (
   return (
     <div style={{ float: 'left' }}>
       <div>Med vennlig hilsen</div>
-      <div>{brevMedSignatur.enhet || 'Nav Arbeid og ytelser'}</div>
-      <br />
       <div>
         {brevMedSignatur.besluttersignatur && brevMedSignatur.besluttersignatur?.trim() && (
           <span style={{ marginRight: '20px' }}>{brevMedSignatur.besluttersignatur}</span>
         )}
         {brevMedSignatur.saksbehandlersignatur}
       </div>
+      <div>{brevMedSignatur.enhet || 'Nav Arbeid og ytelser'}</div>
     </div>
   );
 };

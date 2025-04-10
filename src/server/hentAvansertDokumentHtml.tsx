@@ -74,15 +74,15 @@ export const hentAvansertDokumentHtml = async (
               datasett={datasett}
             />
             <div>
-              <div>{enhet || 'Nav Arbeid og ytelser'}</div>
-              <p style={{ float: 'left' }}>
+              <div style={{ float: 'left' }}>
                 {!skjulBeslutterSignatur && (
                   <>
                     <span style={{ marginRight: '70px' }}>{besluttersignatur?.trim()}</span>
                   </>
                 )}
                 <span>{saksbehandlersignatur}</span>
-              </p>
+              </div>
+              <div>{enhet || 'Nav Arbeid og ytelser'}</div>
             </div>
           </div>
         </body>
