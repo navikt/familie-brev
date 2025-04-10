@@ -84,6 +84,11 @@ export const hentAvansertDokumentHtml = async (
               </div>
               <br />
               <div>{enhet || 'Nav arbeid og ytelser'}</div>
+              {!skjulBeslutterSignatur && (
+                <>
+                  <span style={{ marginRight: '70px' }}>{enhet || 'Nav arbeid og ytelser'}</span>
+                </>
+              )}
             </div>
           </div>
         </body>
