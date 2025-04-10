@@ -60,7 +60,7 @@ const utledBrevsignatur = (
         )}
         {brevMedSignatur.saksbehandlersignatur}
       </div>
-      <div>{brevMedSignatur.enhet || 'Nav Arbeid og ytelser'}</div>
+      <div>{brevMedSignatur.enhet || 'Nav arbeid og ytelser'}</div>
     </div>
   );
 };
