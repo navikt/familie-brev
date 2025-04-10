@@ -82,6 +82,7 @@ export const hentAvansertDokumentHtml = async (
                 )}
                 <span>{saksbehandlersignatur}</span>
               </div>
+              <br />
               <div>{enhet || 'Nav arbeid og ytelser'}</div>
             </div>
           </div>
