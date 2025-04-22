@@ -10,7 +10,6 @@ import { Header } from './components/Header';
 import { Maalform } from '../typer/sanitygrensesnitt';
 import { DokumentType } from '../typer/dokumentType';
 import { dagensDatoFormatert } from './utils/util';
-import { Box, HGrid } from '@navikt/ds-react';
 
 enum HtmlLang {
   NB = 'nb',
@@ -74,16 +73,21 @@ export const hentAvansertDokumentHtml = async (
               dokumentType={DokumentType.DOKUMENTMAL}
               datasett={datasett}
             />
-            <Box maxWidth="1000px">
-              <HGrid gap="1 0" columns={2} align="start" maxWidth="2">
-                {!skjulBeslutterSignatur && (
-                  <span style={{ marginRight: '70px' }}>{besluttersignatur?.trim()}</span>
-                )}
-                <span>{saksbehandlersignatur}</span>
-                {!skjulBeslutterSignatur && <span>{enhet || 'Nav arbeid og ytelser'}</span>}
-                <span>{enhet || 'Nav arbeid og ytelser'}</span>
-              </HGrid>
-            </Box>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                alignItems: 'center',
+                gap: '10px',
+              }}
+            >
+              <span>{saksbehandlersignatur}</span>
+              {skjulBeslutterSignatur && <br />}
+              {!skjulBeslutterSignatur && <span>{besluttersignatur?.trim()}</span>}
+
+              <span>{enhet || 'Nav arbeid og ytelser'}</span>
+              {!skjulBeslutterSignatur && <span>{enhet || 'Nav arbeid og ytelser'}</span>}
+            </div>
           </div>
         </body>
       </html>
