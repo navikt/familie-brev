@@ -78,12 +78,12 @@ export const hentAvansertDokumentHtml = async (
                 display: 'grid',
                 gridTemplateColumns: '1fr 1fr',
                 alignItems: 'center',
-                gap: '10px',
+                gap: '6px',
               }}
             >
+              {!skjulBeslutterSignatur && <span>{besluttersignatur?.trim()}</span>}
               <span>{saksbehandlersignatur}</span>
               {skjulBeslutterSignatur && <br />}
-              {!skjulBeslutterSignatur && <span>{besluttersignatur?.trim()}</span>}
 
               <span>{enhet || 'Nav arbeid og ytelser'}</span>
               {!skjulBeslutterSignatur && <span>{enhet || 'Nav arbeid og ytelser'}</span>}
