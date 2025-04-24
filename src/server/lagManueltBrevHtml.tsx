@@ -6,6 +6,7 @@ import { dagensDatoFormatert, dagensDatoFormatertLang } from './utils/util';
 import css from './utils/css';
 import cssFritekstbrevBaks from './utils/css-fritekstbrev-baks';
 import { BrevhodeBaks } from './components/BrevhodeBaks';
+import { SaksbehandlerSignatur } from './components/SaksbehandlerSignatur';
 
 export const lagManueltBrevHtml = (brevMedSignatur: IFritekstbrevMedSignatur) => {
   const brev = brevMedSignatur.brevFraSaksbehandler;
@@ -108,18 +109,17 @@ const utledBrevsignatur = (
       </div>
     );
   }
+  const skjulBeslutterSignatur: boolean = !brevMedSignatur.besluttersignatur;
 
   return (
     <div style={{ float: 'left' }}>
       <div>Med vennlig hilsen</div>
-      <div>{brevMedSignatur.enhet || 'Nav Arbeid og ytelser'}</div>
-      <br />
-      <div>
-        {brevMedSignatur.besluttersignatur && brevMedSignatur.besluttersignatur?.trim() && (
-          <span style={{ marginRight: '20px' }}>{brevMedSignatur.besluttersignatur}</span>
-        )}
-        {brevMedSignatur.saksbehandlersignatur}
-      </div>
+      <SaksbehandlerSignatur
+        saksbehandlersignatur={brevMedSignatur.saksbehandlersignatur}
+        besluttersignatur={brevMedSignatur.besluttersignatur}
+        skjulBeslutterSignatur={skjulBeslutterSignatur}
+        navEnhet={brevMedSignatur.enhet || 'Nav arbeid og ytelser'}
+      />
     </div>
   );
 };
