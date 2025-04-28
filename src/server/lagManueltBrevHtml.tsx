@@ -102,23 +102,23 @@ const utledBrevsignatur = (
   erSamværsberegning: boolean,
   brevMedSignatur: IFritekstbrevMedSignatur,
 ) => {
+  const { saksbehandlersignatur, besluttersignatur, enhet } = brevMedSignatur;
+
   if (erSamværsberegning) {
     return (
       <div style={{ float: 'left' }}>
-        <div>{`Journalført av ${brevMedSignatur.saksbehandlersignatur}`}</div>
+        <div>{`Journalført av ${saksbehandlersignatur}`}</div>
       </div>
     );
   }
-  const skjulBeslutterSignatur: boolean = !brevMedSignatur.besluttersignatur;
 
   return (
     <div style={{ float: 'left' }}>
       <div>Med vennlig hilsen</div>
       <SaksbehandlerSignatur
-        saksbehandlersignatur={brevMedSignatur.saksbehandlersignatur}
-        besluttersignatur={brevMedSignatur.besluttersignatur}
-        skjulBeslutterSignatur={skjulBeslutterSignatur}
-        navEnhet={brevMedSignatur.enhet || 'Nav arbeid og ytelser'}
+        saksbehandlersignatur={saksbehandlersignatur}
+        besluttersignatur={besluttersignatur}
+        navEnhet={enhet || 'Nav arbeid og ytelser'}
       />
     </div>
   );

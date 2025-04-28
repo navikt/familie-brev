@@ -3,19 +3,17 @@ import React from 'react';
 interface Props {
   saksbehandlersignatur: string;
   besluttersignatur?: string;
-  skjulBeslutterSignatur?: boolean;
   navEnhet: string;
 }
 
 export const SaksbehandlerSignatur: React.FC<Props> = ({
   saksbehandlersignatur,
   besluttersignatur,
-  skjulBeslutterSignatur,
   navEnhet,
 }) => (
   <div>
     <p style={{ float: 'left' }}>
-      {!skjulBeslutterSignatur && (
+      {besluttersignatur && (
         <span
           style={{
             display: 'inline-block',
@@ -27,7 +25,7 @@ export const SaksbehandlerSignatur: React.FC<Props> = ({
               display: 'block',
             }}
           >
-            {besluttersignatur?.trim()}
+            {besluttersignatur.trim()}
           </span>
           <span>{navEnhet}</span>
         </span>

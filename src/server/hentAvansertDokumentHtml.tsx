@@ -76,8 +76,7 @@ export const hentAvansertDokumentHtml = async (
             />
             <SaksbehandlerSignatur
               saksbehandlersignatur={saksbehandlersignatur}
-              besluttersignatur={besluttersignatur}
-              skjulBeslutterSignatur={skjulBeslutterSignatur}
+              besluttersignatur={skjulBeslutterSignatur ? undefined : besluttersignatur}
               navEnhet={enhet || 'Nav arbeid og ytelser'}
             />
           </div>
