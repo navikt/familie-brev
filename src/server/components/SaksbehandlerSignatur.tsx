@@ -17,7 +17,7 @@ export const SaksbehandlerSignatur: React.FC<Props> = ({
         <span
           style={{
             display: 'inline-block',
-            marginRight: '70px',
+            marginRight: '140px',
           }}
         >
           <span
