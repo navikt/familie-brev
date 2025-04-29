@@ -1,20 +1,16 @@
 import React from 'react';
 import {
   samværsandelTilVerdi,
-  Samværsavtale,
+  Samværsavtale as Avtale,
   Samværsdag,
   Samværsuke,
 } from '../../../typer/dokumentApiBlankett';
 
 interface Props {
-  avtale: Samværsavtale;
+  samværsavtale: Avtale;
 }
 
-export const SamværsavtaleVisning: React.FC<Props> = ({ avtale }) => (
-  <div className={'blankett-samværsavtale'}>{utledVisningstekstForSamværsavtale(avtale.uker)}</div>
-);
-
-const utledVisningstekstForSamværsavtale = (samværsuker: Samværsuke[]) => {
+const utledOppsummering = (samværsuker: Samværsuke[]) => {
   const summertSamvær = samværsuker
     .flatMap(samværsuke =>
       Object.values(samværsuke).flatMap((samværsdag: Samværsdag) => samværsdag.andeler),
@@ -35,3 +31,13 @@ const utledVisningstekstForSamværsavtale = (samværsuker: Samværsuke[]) => {
   const visningstekstProsentandel = `${Math.round(prosentandel * 1000) / 10}%`;
   return `Samvær: ${visningstekstAntallDager} av totalt ${samværsuker.length} uker = ${visningstekstProsentandel}`;
 };
+
+export const Samværsavtale: React.FC<Props> = ({ samværsavtale }) => (
+  <div>
+    <Oppsummering samværsavtale={samværsavtale} />;
+  </div>
+);
+
+const Oppsummering: React.FC<Props> = ({ samværsavtale }) => (
+  <div className={'blankett-samværsavtale'}>{utledOppsummering(samværsavtale.uker)}</div>
+);

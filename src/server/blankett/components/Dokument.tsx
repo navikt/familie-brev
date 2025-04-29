@@ -10,7 +10,7 @@ import {
   vilkårTypeTilTekst,
 } from '../../../typer/dokumentApiBlankett';
 import { RegistergrunnlagForVilkår } from './RegistergrunnlagForVilkår';
-import { SamværsavtaleVisning } from './SamværsavtaleVisning';
+import { Samværsavtale } from './Samværsavtale';
 
 interface DokumentProps {
   dokumentData: IDokumentData;
@@ -93,8 +93,8 @@ export const Dokument = (dokumentProps: DokumentProps) => {
                   tidligereVedtaksperioder={tidligereVedtaksperioder}
                   stønadstype={stønadstype}
                 />
-                <Vilkårsvurdering vurdering={vurdering} samværsavtaler={samværsavtaler} />
-                {samværsavtale && <SamværsavtaleVisning avtale={samværsavtale} />}
+                <Vilkårsvurdering vurdering={vurdering} />
+                {samværsavtale && <Samværsavtale samværsavtale={samværsavtale} />}
               </div>
             );
           });

@@ -1,3 +1,5 @@
+import { IAvsnitt } from './dokumentApiBrev';
+
 export interface IDokumentData {
   behandling: IBehandling;
   vilkår: IVilkår;
@@ -5,6 +7,7 @@ export interface IDokumentData {
   vedtak: IVedtak;
   søknadsdatoer?: ISøknadsdatoer;
   samværsavtaler: Samværsavtale[];
+  samværsavtalerV2: IAvsnitt[];
 }
 
 export interface IBehandling {
@@ -922,6 +925,11 @@ export interface Samværsavtale {
   behandlingId: string;
   behandlingBarnId: string;
   uker: Samværsuke[];
+}
+
+export interface SamværsavtaleV2 {
+  behandlingId: string;
+  behandlingBarnId: string;
 }
 
 export interface Samværsuke {
