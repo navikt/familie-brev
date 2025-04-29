@@ -6,6 +6,7 @@ import { dagensDatoFormatert, dagensDatoFormatertLang } from './utils/util';
 import css from './utils/css';
 import cssFritekstbrevBaks from './utils/css-fritekstbrev-baks';
 import { BrevhodeBaks } from './components/BrevhodeBaks';
+import { SaksbehandlerSignatur } from './components/SaksbehandlerSignatur';
 
 export const lagManueltBrevHtml = (brevMedSignatur: IFritekstbrevMedSignatur) => {
   const brev = brevMedSignatur.brevFraSaksbehandler;
@@ -101,10 +102,12 @@ const utledBrevsignatur = (
   erSamværsberegning: boolean,
   brevMedSignatur: IFritekstbrevMedSignatur,
 ) => {
+  const { saksbehandlersignatur, besluttersignatur, enhet } = brevMedSignatur;
+
   if (erSamværsberegning) {
     return (
       <div style={{ float: 'left' }}>
-        <div>{`Journalført av ${brevMedSignatur.saksbehandlersignatur}`}</div>
+        <div>{`Journalført av ${saksbehandlersignatur}`}</div>
       </div>
     );
   }
@@ -112,14 +115,11 @@ const utledBrevsignatur = (
   return (
     <div style={{ float: 'left' }}>
       <div>Med vennlig hilsen</div>
-      <div>{brevMedSignatur.enhet || 'Nav Arbeid og ytelser'}</div>
-      <br />
-      <div>
-        {brevMedSignatur.besluttersignatur && brevMedSignatur.besluttersignatur?.trim() && (
-          <span style={{ marginRight: '20px' }}>{brevMedSignatur.besluttersignatur}</span>
-        )}
-        {brevMedSignatur.saksbehandlersignatur}
-      </div>
+      <SaksbehandlerSignatur
+        saksbehandlersignatur={saksbehandlersignatur}
+        besluttersignatur={besluttersignatur}
+        navEnhet={enhet || 'Nav arbeid og ytelser'}
+      />
     </div>
   );
 };

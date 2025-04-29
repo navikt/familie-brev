@@ -10,6 +10,7 @@ import { Header } from './components/Header';
 import { Maalform } from '../typer/sanitygrensesnitt';
 import { DokumentType } from '../typer/dokumentType';
 import { dagensDatoFormatert } from './utils/util';
+import { SaksbehandlerSignatur } from './components/SaksbehandlerSignatur';
 
 enum HtmlLang {
   NB = 'nb',
@@ -73,17 +74,11 @@ export const hentAvansertDokumentHtml = async (
               dokumentType={DokumentType.DOKUMENTMAL}
               datasett={datasett}
             />
-            <div>
-              <div>{enhet || 'Nav Arbeid og ytelser'}</div>
-              <p style={{ float: 'left' }}>
-                {!skjulBeslutterSignatur && (
-                  <>
-                    <span style={{ marginRight: '70px' }}>{besluttersignatur?.trim()}</span>
-                  </>
-                )}
-                <span>{saksbehandlersignatur}</span>
-              </p>
-            </div>
+            <SaksbehandlerSignatur
+              saksbehandlersignatur={saksbehandlersignatur}
+              besluttersignatur={skjulBeslutterSignatur ? undefined : besluttersignatur}
+              navEnhet={enhet || 'Nav arbeid og ytelser'}
+            />
           </div>
         </body>
       </html>
