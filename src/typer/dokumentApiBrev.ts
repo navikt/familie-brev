@@ -27,10 +27,13 @@ export interface IOverstyrtDelmalblokk {
   skalOverstyre: boolean;
 }
 
+// TODO: Fjern enhet og deprecatedEnhet
 export interface IBrevMedSignatur {
   brevFraSaksbehandler: IAvansertDokumentVariabler;
-  besluttersignatur?: string;
   saksbehandlersignatur: string;
+  saksbehandlerEnhet?: string;
+  besluttersignatur?: string;
+  beslutterEnhet?: string;
   enhet?: string;
   skjulBeslutterSignatur?: boolean;
   datoPlaceholder?: string;
