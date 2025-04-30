@@ -2,14 +2,18 @@ import React from 'react';
 
 interface Props {
   saksbehandlersignatur: string;
+  saksbehandlerEnhet?: string;
   besluttersignatur?: string;
-  navEnhet: string;
+  beslutterEnhet?: string;
+  deprecatedEnhet?: string;
 }
 
 export const SaksbehandlerSignatur: React.FC<Props> = ({
   saksbehandlersignatur,
+  saksbehandlerEnhet,
   besluttersignatur,
-  navEnhet,
+  beslutterEnhet,
+  deprecatedEnhet,
 }) => (
   <div>
     <p style={{ float: 'left' }}>
@@ -27,7 +31,7 @@ export const SaksbehandlerSignatur: React.FC<Props> = ({
           >
             {besluttersignatur.trim()}
           </span>
-          <span>{navEnhet}</span>
+          <span>{beslutterEnhet ?? 'Nav arbeid og ytelser'}</span>
         </span>
       )}
       <span style={{ display: 'inline-block' }}>
@@ -38,7 +42,7 @@ export const SaksbehandlerSignatur: React.FC<Props> = ({
         >
           {saksbehandlersignatur}
         </span>
-        <span>{navEnhet}</span>
+        <span>{saksbehandlerEnhet ?? deprecatedEnhet ?? 'Nav arbeid og ytelser'}</span>
       </span>
     </p>
   </div>

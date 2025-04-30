@@ -30,8 +30,10 @@ export const hentAvansertDokumentHtml = async (
 
   const {
     brevFraSaksbehandler: dokumentVariabler,
-    besluttersignatur,
     saksbehandlersignatur,
+    saksbehandlerEnhet,
+    besluttersignatur,
+    beslutterEnhet,
     enhet,
     skjulBeslutterSignatur,
     datoPlaceholder,
@@ -76,8 +78,10 @@ export const hentAvansertDokumentHtml = async (
             />
             <SaksbehandlerSignatur
               saksbehandlersignatur={saksbehandlersignatur}
+              saksbehandlerEnhet={saksbehandlerEnhet}
               besluttersignatur={skjulBeslutterSignatur ? undefined : besluttersignatur}
-              navEnhet={enhet || 'Nav arbeid og ytelser'}
+              beslutterEnhet={beslutterEnhet}
+              deprecatedEnhet={enhet}
             />
           </div>
         </body>

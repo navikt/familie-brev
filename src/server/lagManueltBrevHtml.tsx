@@ -117,8 +117,8 @@ const utledBrevsignatur = (
       <div>Med vennlig hilsen</div>
       <SaksbehandlerSignatur
         saksbehandlersignatur={saksbehandlersignatur}
+        saksbehandlerEnhet={enhet}
         besluttersignatur={besluttersignatur}
-        navEnhet={enhet || 'Nav arbeid og ytelser'}
       />
     </div>
   );
