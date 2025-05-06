@@ -540,6 +540,9 @@ export enum ISvarId {
   // Inntekt
   NOEN_MÅNEDER_OVERSTIGER_6G = 'NOEN_MÅNEDER_OVERSTIGER_6G',
   BRUKER_MOTTAR_IKKE_OVERGANGSSTØNAD = 'BRUKER_MOTTAR_IKKE_OVERGANGSSTØNAD',
+
+  // Sagt opp arbeidsforhold
+  IKKE_RELEVANT = 'IKKE_RELEVANT',
 }
 export interface IVurderingDelvilkår {
   regelId: IRegelId;
@@ -705,6 +708,7 @@ export const resultatTilTekst: Record<Vilkårsresultat, string> = {
 export const svarIdTilTekst: Record<ISvarId, string> = {
   JA: 'Ja',
   NEI: 'Nei',
+  IKKE_RELEVANT: 'Ikke relevant',
   ARBEID_NORSK_ARBEIDSGIVER: 'Arbeid for norsk arbeidsgiver',
   UTENLANDSOPPHOLD_MINDRE_ENN_6_UKER: 'Utenlandsopphold på mindre enn 6 uker',
   GJENLEVENDE_OVERTAR_OMSORG:
