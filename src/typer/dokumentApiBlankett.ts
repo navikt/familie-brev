@@ -542,7 +542,7 @@ export enum ISvarId {
   BRUKER_MOTTAR_IKKE_OVERGANGSSTØNAD = 'BRUKER_MOTTAR_IKKE_OVERGANGSSTØNAD',
 
   // Sagt opp arbeidsforhold
-  IKKE_RELEVANT = 'IKKE_RELEVANT',
+  IKKE_RELEVANT_IKKE_FØRSTEGANGSØKNAD = 'IKKE_RELEVANT_IKKE_FØRSTEGANGSSØKNAD',
 }
 export interface IVurderingDelvilkår {
   regelId: IRegelId;
@@ -708,7 +708,7 @@ export const resultatTilTekst: Record<Vilkårsresultat, string> = {
 export const svarIdTilTekst: Record<ISvarId, string> = {
   JA: 'Ja',
   NEI: 'Nei',
-  IKKE_RELEVANT: 'Ikke relevant',
+  IKKE_RELEVANT_IKKE_FØRSTEGANGSSØKNAD: 'Ikke relevant - ikke førstegangssøknad',
   ARBEID_NORSK_ARBEIDSGIVER: 'Arbeid for norsk arbeidsgiver',
   UTENLANDSOPPHOLD_MINDRE_ENN_6_UKER: 'Utenlandsopphold på mindre enn 6 uker',
   GJENLEVENDE_OVERTAR_OMSORG:
