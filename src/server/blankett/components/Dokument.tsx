@@ -63,7 +63,7 @@ export const Dokument = (dokumentProps: DokumentProps) => {
   const grunnlag = dokumentData.vilkår.grunnlag;
   const erManuellGOmregning = dokumentData.behandling.årsak === EBehandlingÅrsak.G_OMREGNING;
   const stønadstype = dokumentData.behandling.stønadstype;
-  const samværsavtaler = dokumentData.samværsavtaler;
+  const beregnetSamvær = dokumentData.beregnetSamvær;
 
   return (
     <div>
@@ -78,9 +78,9 @@ export const Dokument = (dokumentProps: DokumentProps) => {
           }
 
           return vurderinger.map(vurdering => {
-            const samværsavtale =
+            const beregnetSamværForVilkårsvurdering =
               vurdering.vilkårType === Vilkår.ALENEOMSORG
-                ? samværsavtaler.find(avtale => avtale.behandlingBarnId === vurdering.barnId)
+                ? beregnetSamvær.find(beregning => beregning.behandlingBarnId === vurdering.barnId)
                 : undefined;
 
             return (
@@ -94,7 +94,9 @@ export const Dokument = (dokumentProps: DokumentProps) => {
                   stønadstype={stønadstype}
                 />
                 <Vilkårsvurdering vurdering={vurdering} />
-                {samværsavtale && <Samværsavtale samværsavtale={samværsavtale} />}
+                {beregnetSamværForVilkårsvurdering && (
+                  <Samværsavtale beregnetSamvær={beregnetSamværForVilkårsvurdering} />
+                )}
               </div>
             );
           });
