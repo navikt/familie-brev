@@ -58,7 +58,7 @@ export default `
     margin-bottom: 5px;
   }
   
-  .blankett-samværsavtale {
+  .blankett-samværsavtale-oppsummering {
     margin-bottom: 5px;
   }
   

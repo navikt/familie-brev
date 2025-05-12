@@ -7,13 +7,16 @@ interface Props {
 }
 
 export const Samværsavtale: React.FC<Props> = ({ beregnetSamvær }) => (
-  <div className={'blankett-samværsavtale'}>
+  <>
+    <div>
+      <strong>Samværsberegning</strong>
+    </div>
     {beregnetSamvær.uker.map(avsnitt => (
       <>
         {avsnitt.deloverskrift && utledDeloverskrift(avsnitt)}
         {avsnitt.innhold && <p style={{ whiteSpace: 'pre-wrap' }}>{avsnitt.innhold}</p>}
       </>
     ))}
-    <div>{beregnetSamvær.oppsummering}</div>
-  </div>
+    <div className={'blankett-samværsavtale-oppsummering'}>{beregnetSamvær.oppsummering}</div>
+  </>
 );
