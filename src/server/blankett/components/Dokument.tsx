@@ -10,7 +10,7 @@ import {
   vilkårTypeTilTekst,
 } from '../../../typer/dokumentApiBlankett';
 import { RegistergrunnlagForVilkår } from './RegistergrunnlagForVilkår';
-import { SamværsavtaleVisning } from './SamværsavtaleVisning';
+import { Samværsavtale } from './Samværsavtale';
 
 interface DokumentProps {
   dokumentData: IDokumentData;
@@ -63,7 +63,7 @@ export const Dokument = (dokumentProps: DokumentProps) => {
   const grunnlag = dokumentData.vilkår.grunnlag;
   const erManuellGOmregning = dokumentData.behandling.årsak === EBehandlingÅrsak.G_OMREGNING;
   const stønadstype = dokumentData.behandling.stønadstype;
-  const samværsavtaler = dokumentData.samværsavtaler;
+  const beregnetSamvær = dokumentData.beregnetSamvær;
 
   return (
     <div>
@@ -78,9 +78,9 @@ export const Dokument = (dokumentProps: DokumentProps) => {
           }
 
           return vurderinger.map(vurdering => {
-            const samværsavtale =
+            const beregnetSamværForVilkårsvurdering =
               vurdering.vilkårType === Vilkår.ALENEOMSORG
-                ? samværsavtaler.find(avtale => avtale.behandlingBarnId === vurdering.barnId)
+                ? beregnetSamvær.find(beregning => beregning.behandlingBarnId === vurdering.barnId)
                 : undefined;
 
             return (
@@ -93,8 +93,10 @@ export const Dokument = (dokumentProps: DokumentProps) => {
                   tidligereVedtaksperioder={tidligereVedtaksperioder}
                   stønadstype={stønadstype}
                 />
-                <Vilkårsvurdering vurdering={vurdering} samværsavtaler={samværsavtaler} />
-                {samværsavtale && <SamværsavtaleVisning avtale={samværsavtale} />}
+                <Vilkårsvurdering vurdering={vurdering} />
+                {beregnetSamværForVilkårsvurdering && (
+                  <Samværsavtale beregnetSamvær={beregnetSamværForVilkårsvurdering} />
+                )}
               </div>
             );
           });

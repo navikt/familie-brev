@@ -60,21 +60,19 @@ export const lagManueltBrevBaksHtml = (brevMedSignatur: IFritekstbrevMedSignatur
           brevOpprettetDato={brevMedSignatur.datoPlaceholder || dagensDatoFormatertLang()}
         />
         <h1>{brev.overskrift}</h1>
-        {brev.avsnitt?.map((avsnitt, _) => {
-          return (
-            <>
-              {avsnitt.deloverskrift && utledDeloverskrift(avsnitt)}
-              {avsnitt.innhold && <p style={{ whiteSpace: 'pre-wrap' }}>{avsnitt.innhold}</p>}
-            </>
-          );
-        })}
+        {brev.avsnitt?.map(avsnitt => (
+          <>
+            {avsnitt.deloverskrift && utledDeloverskrift(avsnitt)}
+            {avsnitt.innhold && <p style={{ whiteSpace: 'pre-wrap' }}>{avsnitt.innhold}</p>}
+          </>
+        ))}
         <div className="signatur">{utledBrevsignatur(erSamværsberegning, brevMedSignatur)}</div>
       </body>
     </html>,
   );
 };
 
-const utledDeloverskrift = (avsnitt: IAvsnitt) => {
+export const utledDeloverskrift = (avsnitt: IAvsnitt) => {
   switch (avsnitt.deloverskriftHeading) {
     case Heading.H1:
       return <h1>{avsnitt.deloverskrift}</h1>;

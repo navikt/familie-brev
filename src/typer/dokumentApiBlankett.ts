@@ -1,10 +1,12 @@
+import { IAvsnitt } from './dokumentApiBrev';
+
 export interface IDokumentData {
   behandling: IBehandling;
   vilkår: IVilkår;
   personopplysninger: IPersonopplysninger;
   vedtak: IVedtak;
   søknadsdatoer?: ISøknadsdatoer;
-  samværsavtaler: Samværsavtale[];
+  beregnetSamvær: BeregnetSamvær[];
 }
 
 export interface IBehandling {
@@ -68,7 +70,7 @@ export interface ISøknadsdatoer {
 export type IAvslåVedtak = {
   resultatType: EBehandlingResultat.AVSLÅ;
   avslåBegrunnelse: string;
-  avslåÅrsak: EAvslagÅrsak;
+  avslåÅrsak: AvslagÅrsak;
 };
 
 export type IInnvilgeVedtakOvergangsstønad = {
@@ -164,13 +166,6 @@ export enum EBehandlingResultat {
   BEHANDLE_I_GOSYS = 'BEHANDLE_I_GOSYS',
 }
 
-export const behandlingResultatTilTekst: Record<EBehandlingResultat, string> = {
-  INNVILGE: 'Innvilge',
-  AVSLÅ: 'Avslå',
-  HENLEGGE: 'Henlegge',
-  BEHANDLE_I_GOSYS: 'Behandle i Gosys',
-};
-
 export enum EStønadType {
   OVERGANGSSTØNAD = 'OVERGANGSSTØNAD',
   BARNETILSYN = 'BARNETILSYN',
@@ -218,12 +213,6 @@ export interface IPeriode {
   årMånedTil: string;
 }
 
-export interface IPeriodeBarnetilsyn {
-  årMånedFra: string;
-  årMånedTil: string;
-  utgifter: number;
-  antallBarn: number;
-}
 export enum EPeriodetype {
   PERIODE_FØR_FØDSEL = 'PERIODE_FØR_FØDSEL',
   HOVEDPERIODE = 'HOVEDPERIODE',
@@ -393,13 +382,14 @@ export interface IMedlemskapRegistergrunnlag {
   nåværendeStatsborgerskap: string[];
   oppholdstatus: IOppholdstatus[];
   statsborgerskap: IStatsborgerskap[];
-  folkeregisterpersonstatus: Folkeregisterpersonstatus; //TODO: Definere typen et annet sted enn personopplysninger?
+  folkeregisterpersonstatus: Folkeregisterpersonstatus;
   innflytting: IInnflyttingTilNorge[];
   utflytting: IUtflyttingFraNorge[];
   medlUnntak: IGyldigeVedtakPerioderIMedl;
 }
 
 export type IGyldigeVedtakPerioderIMedl = { gyldigeVedtaksPerioder: IGyldigVedtakPeriode[] };
+
 export interface IGyldigVedtakPeriode {
   fraogmedDato: string;
   tilogmedDato: string;
@@ -429,10 +419,6 @@ export interface IVurdering {
   delvilkårsvurderinger: IDelvilkår[];
   endretAv: string;
   endretTid: string;
-}
-
-export interface Vurderingsfeilmelding {
-  [Key: string]: string;
 }
 
 export enum IRegelId {
@@ -496,6 +482,7 @@ export enum IRegelId {
   NAVKONTOR_VURDERING = 'NAVKONTOR_VURDERING',
   SAKSBEHANDLER_VURDERING = 'SAKSBEHANDLER_VURDERING',
 }
+
 export enum ISvarId {
   // Felles
   JA = 'JA',
@@ -544,6 +531,7 @@ export enum ISvarId {
   // Sagt opp arbeidsforhold
   IKKE_RELEVANT_IKKE_FØRSTEGANGSSØKNAD = 'IKKE_RELEVANT_IKKE_FØRSTEGANGSSØKNAD',
 }
+
 export interface IVurderingDelvilkår {
   regelId: IRegelId;
   svar?: ISvarId;
@@ -671,6 +659,7 @@ export const vilkårTypeTilTekst: Record<VilkårType, string> = {
   ER_UTDANNING_HENSIKTSMESSIG: 'Vilkår om utdanningens nødvendighet og hensiktsmessighet',
   RETT_TIL_OVERGANGSSTØNAD: 'Vilkåret om rett til overgangsstønad',
 };
+
 // ------ VILKÅRGRUPPE
 /**
  * Gjør det mulig å splitte opp vurderinger i eks Medlemskap, Aleneomsorg, etc.
@@ -756,6 +745,7 @@ export const svarIdTilTekst: Record<ISvarId, string> = {
   MEDLEM_MER_ENN_5_ÅR_EØS_ANNEN_FORELDER_TRYGDEDEKKET_I_NORGE:
     'Ja, EØS-borger fyller vilkåret om 5 års forutgående medlemskap etter bestemmelsene i annet EU/EØS-land, og den andre forelderen er EØS-borger og trygdedekket i Norge som yrkesaktiv',
 };
+
 export const delvilkårTypeTilTekst: Record<IRegelId, string> = {
   SØKER_MEDLEM_I_FOLKETRYGDEN: 'Har bruker vært medlem i folketrygden i de siste 5 årene?',
   BOR_OG_OPPHOLDER_SEG_I_NORGE: 'Bor og oppholder bruker og barna seg i Norge?',
@@ -898,7 +888,7 @@ export const opplysningskildeTilTekst: Record<Opplysningskilde, string> = {
   OPPLYSNINGER_INTERNE_KONTROLLER: 'Opplysninger fra intern kontroll',
 };
 
-export enum EAvslagÅrsak {
+export enum AvslagÅrsak {
   BARN_OVER_ÅTTE_ÅR = 'BARN_OVER_ÅTTE_ÅR',
   MANGLENDE_OPPLYSNINGER = 'MANGLENDE_OPPLYSNINGER',
   STØNADSTID_OPPBRUKT = 'STØNADSTID_OPPBRUKT',
@@ -906,15 +896,7 @@ export enum EAvslagÅrsak {
   KORTVARIG_AVBRUDD_JOBB = 'KORTVARIG_AVBRUDD_JOBB',
 }
 
-export const årsakerTilAvslag: EAvslagÅrsak[] = [
-  EAvslagÅrsak.BARN_OVER_ÅTTE_ÅR,
-  EAvslagÅrsak.MANGLENDE_OPPLYSNINGER,
-  EAvslagÅrsak.STØNADSTID_OPPBRUKT,
-  EAvslagÅrsak.MINDRE_INNTEKTSENDRINGER,
-  EAvslagÅrsak.KORTVARIG_AVBRUDD_JOBB,
-];
-
-export const avslagÅrsakTilTekst: Record<EAvslagÅrsak, string> = {
+export const avslagÅrsakTilTekst: Record<AvslagÅrsak, string> = {
   BARN_OVER_ÅTTE_ÅR: 'Barnet er over 8 år',
   MANGLENDE_OPPLYSNINGER: 'Manglende opplysninger',
   STØNADSTID_OPPBRUKT: 'Stønadstiden er brukt opp',
@@ -922,36 +904,8 @@ export const avslagÅrsakTilTekst: Record<EAvslagÅrsak, string> = {
   KORTVARIG_AVBRUDD_JOBB: 'Kortvarig avbrudd jobb',
 };
 
-export interface Samværsavtale {
-  behandlingId: string;
+export interface BeregnetSamvær {
   behandlingBarnId: string;
-  uker: Samværsuke[];
+  uker: IAvsnitt[];
+  oppsummering: string;
 }
-
-export interface Samværsuke {
-  mandag: Samværsdag;
-  tirsdag: Samværsdag;
-  onsdag: Samværsdag;
-  torsdag: Samværsdag;
-  fredag: Samværsdag;
-  lørdag: Samværsdag;
-  søndag: Samværsdag;
-}
-
-export interface Samværsdag {
-  andeler: Samværsandel[];
-}
-
-export enum Samværsandel {
-  KVELD_NATT = 'KVELD_NATT',
-  MORGEN = 'MORGEN',
-  BARNEHAGE_SKOLE = 'BARNEHAGE_SKOLE',
-  ETTERMIDDAG = 'ETTERMIDDAG',
-}
-
-export const samværsandelTilVerdi: Record<Samværsandel, number> = {
-  KVELD_NATT: 4,
-  MORGEN: 1,
-  BARNEHAGE_SKOLE: 2,
-  ETTERMIDDAG: 1,
-};
