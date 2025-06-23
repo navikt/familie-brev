@@ -16,7 +16,6 @@ export const Heading: React.FC<HeadingProps> = ({ size, text }) => {
         fontSize: '32px',
         fontWeight: '600',
         lineHeight: '40px',
-        letterSpacing: '-0.8%',
       };
       break;
     case 'medium':
@@ -24,7 +23,6 @@ export const Heading: React.FC<HeadingProps> = ({ size, text }) => {
         fontSize: '24px',
         fontWeight: '600',
         lineHeight: '32px',
-        letterSpacing: '-0.2%',
       };
       break;
     case 'small':
@@ -32,7 +30,6 @@ export const Heading: React.FC<HeadingProps> = ({ size, text }) => {
         fontSize: '20px',
         fontWeight: '600',
         lineHeight: '28px',
-        letterSpacing: '-0.1%',
         textDecoration: 'underline',
       };
       break;
