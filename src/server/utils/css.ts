@@ -82,10 +82,8 @@ export default `
     padding:0;
   }
   
-  h3, h4 {
-    &.blankett {
-      margin-bottom: 3px;
-    }
+  h3.blankett, h4.blankett {
+    margin-bottom: 3px;
   }
   
   table, th, td {
