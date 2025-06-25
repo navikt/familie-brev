@@ -176,14 +176,25 @@ export const hentDuFårEllerHarRettTilUtvidetValg = (
   }
 };
 
-export const søkersAktivitetValg = (data: BegrunnelseMedData): ValgfeltMuligheter => {
+export const hentSøkersAktivitetValg = (data: BegrunnelseMedData): ValgfeltMuligheter => {
   const valgfeltNavn = `'søkers aktivitet'`;
 
   if (data.type !== Begrunnelsetype.EØS_BEGRUNNELSE) {
     throw lagFeilStøttesKunForEØS(valgfeltNavn, data);
   }
 
-  switch (data.sokersAktivitet) {
+  // Dersom annen forelder er omfattet av norsk lovgivning (søker har selvstendig rett) skal vi mappe søkers aktivitet slik vi vanligvis mapper annen forelders aktivitet
+  return data.erAnnenForelderOmfattetAvNorskLovgivning
+    ? annenForeldersAktivitetValg(data.sokersAktivitet, data.apiNavn, valgfeltNavn)
+    : søkersAktivitetValg(data.sokersAktivitet, data.apiNavn, valgfeltNavn);
+};
+
+export const søkersAktivitetValg = (
+  aktivitet: Aktivitet,
+  apiNavn: string,
+  valgfeltNavn: string,
+): ValgfeltMuligheter => {
+  switch (aktivitet) {
     case Aktivitet.ARBEIDER:
     case Aktivitet.SELVSTENDIG_NÆRINGSDRIVENDE:
       return ValgfeltMuligheter.ARBEIDER;
@@ -221,20 +232,32 @@ export const søkersAktivitetValg = (data: BegrunnelseMedData): ValgfeltMulighet
       return ValgfeltMuligheter.UTSENDT_ARBEIDSTAKER;
     default:
       throw new Feil(
-        `Ingen valg for søkers aktivitet="${data.sokersAktivitet}" ved bruk av
-      ${valgfeltNavn} formulering for begrunnelse med apiNavn=${data.apiNavn}`,
+        `Ingen valg for søkers aktivitet="${aktivitet}" ved bruk av
+      ${valgfeltNavn} formulering for begrunnelse med apiNavn=${apiNavn}`,
         400,
       );
   }
 };
 
-export const annenForeldersAktivitetValg = (data: BegrunnelseMedData): ValgfeltMuligheter => {
-  const valgfeltNavn = 'annen forelders aktivitet';
+export const hentAnnenForeldersAktivitetValg = (data: BegrunnelseMedData) => {
+  const valgfeltNavn = `'annen forelders aktivitet'`;
 
   if (data.type !== Begrunnelsetype.EØS_BEGRUNNELSE) {
     throw lagFeilStøttesKunForEØS(valgfeltNavn, data);
   }
-  switch (data.annenForeldersAktivitet) {
+
+  // Dersom annen forelder er omfattet av norsk lovgivning (søker har selvstendig rett) skal vi mappe annen forelders aktivitet slik vi vanligvis mapper søkers aktivitet
+  return data.erAnnenForelderOmfattetAvNorskLovgivning
+    ? søkersAktivitetValg(data.annenForeldersAktivitet, data.apiNavn, valgfeltNavn)
+    : annenForeldersAktivitetValg(data.annenForeldersAktivitet, data.apiNavn, valgfeltNavn);
+};
+
+export const annenForeldersAktivitetValg = (
+  aktivitet: Aktivitet,
+  apiNavn: string,
+  valgfeltNavn: string,
+): ValgfeltMuligheter => {
+  switch (aktivitet) {
     case Aktivitet.I_ARBEID:
       return ValgfeltMuligheter.EOS_ANNEN_FORELDER_I_ARBEID;
     case Aktivitet.MOTTAR_UTBETALING_SOM_ERSTATTER_LØNN:
@@ -273,8 +296,8 @@ export const annenForeldersAktivitetValg = (data: BegrunnelseMedData): ValgfeltM
     case Aktivitet.IKKE_AKTUELT:
     default:
       throw new Feil(
-        `Ingen valg for annen forelders aktivitet="${data.annenForeldersAktivitet}" ved bruk av
-        ${valgfeltNavn} formulering for begrunnelse med apiNavn=${data.apiNavn}`,
+        `Ingen valg for annen forelders aktivitet="${aktivitet}" ved bruk av
+        ${valgfeltNavn} formulering for begrunnelse med apiNavn=${apiNavn}`,
         400,
       );
   }
@@ -286,7 +309,10 @@ const lagFeilStøttesIkkeForEØS = (valgfeltNavn: string, data: IEØSBegrunnelse
     400,
   );
 
-const lagFeilStøttesKunForEØS = (valgfeltNavn: string, data: IStandardbegrunnelsedata): Feil =>
+export const lagFeilStøttesKunForEØS = (
+  valgfeltNavn: string,
+  data: IStandardbegrunnelsedata,
+): Feil =>
   new Feil(
     `${valgfeltNavn} støttes kun for EØS-begrunnelser, men brukes i begrunnelse med apiNavn=${data.apiNavn}`,
     400,

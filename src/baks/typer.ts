@@ -35,6 +35,7 @@ export interface IEØSBegrunnelsedata {
   maalform: Maalform;
   type: Begrunnelsetype.EØS_BEGRUNNELSE;
   gjelderSoker?: boolean;
+  erAnnenForelderOmfattetAvNorskLovgivning?: boolean;
 }
 
 export interface IFritekst {
