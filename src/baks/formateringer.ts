@@ -1,14 +1,14 @@
 import { Feil } from '../server/utils/Feil';
-import type {
+import {
   BegrunnelseMedData,
   FlettefeltBlock,
   MarkDef,
   ValgfeltBlock,
   ValgfeltMuligheter,
+  Valgfelttype,
 } from './typer';
-import { Valgfelttype } from './typer';
 import {
-  annenForeldersAktivitetValg,
+  hentAnnenForeldersAktivitetValg,
   hentBarnetBarnaDineDittValg,
   hentBarnetBarnaValg,
   hentDegDereEllerSegValg,
@@ -18,7 +18,7 @@ import {
   hentForBarnFodtValg,
   hentFraDatoValg,
   hentSøkerOgEllerBarnetBarnaValg,
-  søkersAktivitetValg,
+  hentSøkersAktivitetValg,
 } from './formateringsvalg';
 
 export const formaterValgfelt = (valgfeltBlock: ValgfeltBlock, data: BegrunnelseMedData) => {
@@ -44,9 +44,9 @@ export const formaterValgfelt = (valgfeltBlock: ValgfeltBlock, data: Begrunnelse
       return valgfeltSerializer(valgfeltBlock, hentDuFårEllerHarRettTilUtvidetValg(data), data);
     case Valgfelttype.EOS_SOKERS_AKTIVITET_1:
     case Valgfelttype.EOS_SOKERS_AKTIVITET_2:
-      return valgfeltSerializer(valgfeltBlock, søkersAktivitetValg(data), data);
+      return valgfeltSerializer(valgfeltBlock, hentSøkersAktivitetValg(data), data);
     case Valgfelttype.EOS_ANNEN_FORELDERS_AKTIVITET:
-      return valgfeltSerializer(valgfeltBlock, annenForeldersAktivitetValg(data), data);
+      return valgfeltSerializer(valgfeltBlock, hentAnnenForeldersAktivitetValg(data), data);
     default:
       throw new Feil(
         `Ukjent formulering fra sanity. Det er ikke laget noen funksjonalitet for ${valgfeltBlock.apiNavn}`,
