@@ -246,10 +246,7 @@ export const hentAnnenForeldersAktivitetValg = (data: BegrunnelseMedData) => {
     throw lagFeilStøttesKunForEØS(valgfeltNavn, data);
   }
 
-  // Dersom annen forelder er omfattet av norsk lovgivning (søker har selvstendig rett) skal vi mappe annen forelders aktivitet slik vi vanligvis mapper søkers aktivitet
-  return data.erAnnenForelderOmfattetAvNorskLovgivning
-    ? søkersAktivitetValg(data.annenForeldersAktivitet, data.apiNavn, valgfeltNavn)
-    : annenForeldersAktivitetValg(data.annenForeldersAktivitet, data.apiNavn, valgfeltNavn);
+  return annenForeldersAktivitetValg(data.annenForeldersAktivitet, data.apiNavn, valgfeltNavn);
 };
 
 export const annenForeldersAktivitetValg = (
