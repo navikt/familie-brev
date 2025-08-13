@@ -65,8 +65,6 @@ export const Dokument = (dokumentProps: DokumentProps) => {
   const stønadstype = dokumentData.behandling.stønadstype;
   const beregnetSamvær = dokumentData.beregnetSamvær;
 
-  console.log('hei dokumentdata', dokumentData);
-
   return (
     <div>
       {!erManuellGOmregning &&
