@@ -34,8 +34,6 @@ export const Vedtak: React.FC<{
   harKontantstøttePerioder,
   registeropplysningerOpprettetDato,
 }) => {
-  console.log('hei vedtak', vedtak);
-
   switch (vedtak.resultatType) {
     case EBehandlingResultat.INNVILGE:
       return (
@@ -52,7 +50,6 @@ export const Vedtak: React.FC<{
     case EBehandlingResultat.AVSLÅ:
       return <AvslåVedtak {...vedtak} />;
     case EBehandlingResultat.OPPHØRT:
-      console.log('Inne i opphørt', vedtak);
       return <OpphørVedtak {...vedtak} />;
     default:
       return null;

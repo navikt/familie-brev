@@ -77,7 +77,7 @@ export type IAvslåVedtak = {
 export type IOpphørVedtak = {
   resultatType: EBehandlingResultat.OPPHØRT;
   opphørBegrunnelse: string;
-  opphørÅrsak: OpphørÅrsak;
+  opphørFOM: string;
 };
 
 export type IInnvilgeVedtakOvergangsstønad = {
@@ -913,14 +913,6 @@ export const avslagÅrsakTilTekst: Record<AvslagÅrsak, string> = {
   STØNADSTID_OPPBRUKT: 'Stønadstiden er brukt opp',
   MINDRE_INNTEKTSENDRINGER: 'Ikke 10 % endring inntekt',
   KORTVARIG_AVBRUDD_JOBB: 'Kortvarig avbrudd jobb',
-};
-
-export enum OpphørÅrsak {
-  TEST = 'TEST',
-}
-
-export const opphørÅrsakTilTekst: Record<OpphørÅrsak, string> = {
-  TEST: 'TEST',
 };
 
 export interface BeregnetSamvær {
