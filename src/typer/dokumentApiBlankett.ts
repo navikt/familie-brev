@@ -75,7 +75,7 @@ export type IAvslåVedtak = {
 };
 
 export type IOpphørVedtak = {
-  resultatType: EBehandlingResultat.OPPHØR;
+  resultatType: EBehandlingResultat.OPPHØRT;
   opphørBegrunnelse: string;
   opphørÅrsak: OpphørÅrsak;
 };
@@ -172,7 +172,7 @@ export interface IInntekt {
 export enum EBehandlingResultat {
   INNVILGE = 'INNVILGE',
   AVSLÅ = 'AVSLÅ',
-  OPPHØR = 'OPPHØR',
+  OPPHØRT = 'OPPHØRT',
   HENLEGGE = 'HENLEGGE',
   BEHANDLE_I_GOSYS = 'BEHANDLE_I_GOSYS',
 }

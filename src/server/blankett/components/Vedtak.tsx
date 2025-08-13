@@ -49,7 +49,7 @@ export const Vedtak: React.FC<{
       );
     case EBehandlingResultat.AVSLÅ:
       return <AvslåVedtak {...vedtak} />;
-    case EBehandlingResultat.OPPHØR:
+    case EBehandlingResultat.OPPHØRT:
       return <OpphørVedtak {...vedtak} />;
     default:
       return null;
