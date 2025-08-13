@@ -34,6 +34,8 @@ export const Vedtak: React.FC<{
   harKontantstøttePerioder,
   registeropplysningerOpprettetDato,
 }) => {
+  console.log('hei vedtak', vedtak);
+
   switch (vedtak.resultatType) {
     case EBehandlingResultat.INNVILGE:
       return (
