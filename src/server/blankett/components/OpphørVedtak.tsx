@@ -1,6 +1,6 @@
 import React from 'react';
 import { IOpphørVedtak } from '../../../typer/dokumentApiBlankett';
-import { formaterYearMonthTilNorskFormat } from '../../utils/datoformatering';
+import { parseOgFormaterÅrMåned } from '../../utils/util';
 
 export const OpphørVedtak: React.FC<IOpphørVedtak> = ({ opphørFom, begrunnelse }) => {
   return (
@@ -9,7 +9,7 @@ export const OpphørVedtak: React.FC<IOpphørVedtak> = ({ opphørFom, begrunnels
       <h3 className={'blankett'}>Resultat</h3>
       <div>Opphørt</div>
       <h4 className={'blankett'}>Opphør fra og med:</h4>
-      <p>{formaterYearMonthTilNorskFormat(opphørFom)}</p>
+      <p>{parseOgFormaterÅrMåned(opphørFom)}</p>
       <h4 className={'blankett'}>Begrunnelse</h4>
       <p style={{ whiteSpace: 'pre-wrap' }}>{begrunnelse}</p>
     </div>
