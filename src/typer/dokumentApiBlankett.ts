@@ -76,8 +76,8 @@ export type IAvslåVedtak = {
 
 export type IOpphørVedtak = {
   resultatType: EBehandlingResultat.OPPHØRT;
-  opphørBegrunnelse: string;
-  opphørFOM: string;
+  begrunnelse: string;
+  opphørFom: string;
 };
 
 export type IInnvilgeVedtakOvergangsstønad = {
