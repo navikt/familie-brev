@@ -4,19 +4,18 @@ import { InnvilgetOvergangsstønad } from './InnvilgetOvergangsstønad';
 import { InnvilgetBarnetilsyn } from './InnvilgetBarnetilsyn';
 import { InnvilgetSkolepenger } from './InnvilgetSkolepenger';
 import { InnvilgetGOmregning } from './InnvilgetGOmregning';
-import type {
-  IVedtak,
-  ISøknadsdatoer,
-  IInnvilgeVedtakOvergangsstønad,
+import {
+  EBehandlingResultat,
+  EBehandlingÅrsak,
+  EStønadType,
   IInnvilgeVedtakBarnetilsyn,
+  IInnvilgeVedtakOvergangsstønad,
   IInnvilgeVedtakSkolepenger,
   IKontantstøttePerioder,
+  ISøknadsdatoer,
+  IVedtak,
 } from '../../../typer/dokumentApiBlankett';
-import {
-  EStønadType,
-  EBehandlingÅrsak,
-  EBehandlingResultat,
-} from '../../../typer/dokumentApiBlankett';
+import { OpphørVedtak } from './OpphørVedtak';
 
 export const Vedtak: React.FC<{
   stønadstype: EStønadType;
@@ -50,6 +49,8 @@ export const Vedtak: React.FC<{
       );
     case EBehandlingResultat.AVSLÅ:
       return <AvslåVedtak {...vedtak} />;
+    case EBehandlingResultat.OPPHØRT:
+      return <OpphørVedtak {...vedtak} />;
     default:
       return null;
   }

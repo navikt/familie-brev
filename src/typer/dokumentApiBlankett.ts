@@ -56,6 +56,7 @@ export enum OverlappMedOvergangsstønad {
   NEI = 'NEI',
   DELVIS = 'DELVIS',
 }
+
 export interface IGrunnlagsdataPeriodeHistorikkBarnetilsyn {
   fom: string;
   tom: string;
@@ -71,6 +72,12 @@ export type IAvslåVedtak = {
   resultatType: EBehandlingResultat.AVSLÅ;
   avslåBegrunnelse: string;
   avslåÅrsak: AvslagÅrsak;
+};
+
+export type IOpphørVedtak = {
+  resultatType: EBehandlingResultat.OPPHØRT;
+  begrunnelse: string;
+  opphørFom: string;
 };
 
 export type IInnvilgeVedtakOvergangsstønad = {
@@ -149,9 +156,11 @@ export type Barnetilsynperiode = {
 
 export type IVedtak =
   | IAvslåVedtak
+  | IOpphørVedtak
   | IInnvilgeVedtakOvergangsstønad
   | IInnvilgeVedtakBarnetilsyn
   | IInnvilgeVedtakSkolepenger;
+
 export interface IInntekt {
   årMånedFra: string;
   forventetInntekt?: number;
@@ -159,9 +168,11 @@ export interface IInntekt {
   dagsats?: number;
   månedsinntekt?: number;
 }
+
 export enum EBehandlingResultat {
   INNVILGE = 'INNVILGE',
   AVSLÅ = 'AVSLÅ',
+  OPPHØRT = 'OPPHØRT',
   HENLEGGE = 'HENLEGGE',
   BEHANDLE_I_GOSYS = 'BEHANDLE_I_GOSYS',
 }
