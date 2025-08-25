@@ -34,7 +34,6 @@ export const hentAvansertDokumentHtml = async (
     saksbehandlerEnhet,
     besluttersignatur,
     beslutterEnhet,
-    enhet,
     skjulBeslutterSignatur,
     datoPlaceholder,
   } = brevMedSignatur;
@@ -81,7 +80,6 @@ export const hentAvansertDokumentHtml = async (
               saksbehandlerEnhet={saksbehandlerEnhet}
               besluttersignatur={skjulBeslutterSignatur ? undefined : besluttersignatur}
               beslutterEnhet={beslutterEnhet}
-              deprecatedEnhet={enhet}
             />
           </div>
         </body>

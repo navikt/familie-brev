@@ -5,7 +5,6 @@ interface Props {
   saksbehandlerEnhet?: string;
   besluttersignatur?: string;
   beslutterEnhet?: string;
-  deprecatedEnhet?: string;
 }
 
 export const SaksbehandlerSignatur: React.FC<Props> = ({
@@ -13,7 +12,6 @@ export const SaksbehandlerSignatur: React.FC<Props> = ({
   saksbehandlerEnhet,
   besluttersignatur,
   beslutterEnhet,
-  deprecatedEnhet,
 }) => (
   <div>
     <p style={{ float: 'left' }}>
@@ -42,7 +40,7 @@ export const SaksbehandlerSignatur: React.FC<Props> = ({
         >
           {saksbehandlersignatur}
         </span>
-        <span>{saksbehandlerEnhet ?? deprecatedEnhet ?? 'Nav arbeid og ytelser'}</span>
+        <span>{saksbehandlerEnhet ?? 'Nav arbeid og ytelser'}</span>
       </span>
     </p>
   </div>
