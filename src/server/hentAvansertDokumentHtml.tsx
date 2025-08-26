@@ -6,11 +6,12 @@ import { client } from './sanity/sanityClient';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { Context } from './utils/Context';
 import css from './utils/css';
-import { Header } from './components/Header';
+import { HeaderDeprecated } from './components/HeaderDeprecated';
 import { Maalform } from '../typer/sanitygrensesnitt';
 import { DokumentType } from '../typer/dokumentType';
 import { dagensDatoFormatert } from './utils/util';
 import { SaksbehandlerSignatur } from './components/SaksbehandlerSignatur';
+import { Header } from './components/Header';
 
 enum HtmlLang {
   NB = 'nb',
@@ -58,16 +59,30 @@ export const hentAvansertDokumentHtml = async (
         </head>
         <body className={'body'}>
           <div>
-            <Header
-              visLogo={true}
-              tittel={tittel}
-              navn={dokumentVariabler?.flettefelter?.navn}
-              fodselsnummer={dokumentVariabler?.flettefelter?.fodselsnummer}
-              apiNavn={dokumentApiNavn}
-              brevOpprettetDato={[dagensDatoFormatert()]}
-              maalform={maalform}
-              datoPlaceholder={datoPlaceholder}
-            />
+            {dokumentVariabler.featureToggleBrukNyBrevHeader ? (
+              <Header
+                visLogo={true}
+                tittel={tittel}
+                navn={dokumentVariabler?.flettefelter?.navn}
+                fodselsnummer={dokumentVariabler?.flettefelter?.fodselsnummer}
+                apiNavn={dokumentApiNavn}
+                brevOpprettetDato={[dagensDatoFormatert()]}
+                maalform={maalform}
+                datoPlaceholder={datoPlaceholder}
+                brevmottakere={dokumentVariabler?.brevmottakere}
+              />
+            ) : (
+              <HeaderDeprecated
+                visLogo={true}
+                tittel={tittel}
+                navn={dokumentVariabler?.flettefelter?.navn}
+                fodselsnummer={dokumentVariabler?.flettefelter?.fodselsnummer}
+                apiNavn={dokumentApiNavn}
+                brevOpprettetDato={[dagensDatoFormatert()]}
+                maalform={maalform}
+                datoPlaceholder={datoPlaceholder}
+              />
+            )}
             <AvansertDokument
               apiNavn={dokumentApiNavn}
               avanserteDokumentVariabler={dokumentVariabler}
