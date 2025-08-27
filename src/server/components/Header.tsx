@@ -88,7 +88,9 @@ const BrevmottakerePrivatpersoner: React.FC<{
 
 const utledHarVergeEllerFullmektig = (brevmottakere: Brevmottakere | undefined) =>
   brevmottakere !== undefined &&
-  (brevmottakere.personer.length > 0 || brevmottakere.organisasjoner.length > 0);
+  (brevmottakere.personer.filter(mottaker => mottaker.mottakerRolle !== BrevmottakerRolle.BRUKER)
+    .length > 0 ||
+    brevmottakere.organisasjoner.length > 0);
 
 const utledBrevDato = (opprettetDato: Flettefelt, placeholder?: string | undefined) =>
   `Dato: ${placeholder || opprettetDato[0]}`;
