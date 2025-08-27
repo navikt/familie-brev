@@ -76,11 +76,13 @@ const BrevmottakerePrivatpersoner: React.FC<{
   mottakere: BrevmottakerPrivatperson[] | undefined;
 }> = ({ mottakere }) => (
   <>
-    {mottakere?.map((person, index) => (
-      <div
-        key={index}
-      >{`${person.mottakerRolle === BrevmottakerRolle.VERGE ? 'Verge:' : 'Fullmektig:'} ${person.navn}`}</div>
-    ))}
+    {mottakere
+      ?.filter(person => person.mottakerRolle !== BrevmottakerRolle.BRUKER)
+      .map((person, index) => (
+        <div
+          key={index}
+        >{`${person.mottakerRolle === BrevmottakerRolle.VERGE ? 'Verge:' : 'Fullmektig:'} ${person.navn}`}</div>
+      ))}
   </>
 );
 
