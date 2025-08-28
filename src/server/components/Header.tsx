@@ -1,10 +1,16 @@
 import React from 'react';
 import { NavIkon } from './ikoner/navIkon';
-import type { Flettefelt } from '../../typer/dokumentApiBrev';
+import {
+  Brevmottakere,
+  BrevmottakerOrganisasjon,
+  BrevmottakerPrivatperson,
+  BrevmottakerRolle,
+  Flettefelt,
+} from '../../typer/dokumentApiBrev';
 import { validerFlettefelt } from '../utils/valideringer/validerFlettefelt';
 import { Maalform } from '../../typer/sanitygrensesnitt';
 
-interface HeaderProps {
+interface Props {
   tittel: string;
   navn: Flettefelt;
   fodselsnummer: Flettefelt;
@@ -12,58 +18,42 @@ interface HeaderProps {
   visLogo?: boolean;
   apiNavn: string;
   maalform: Maalform;
-  organisasjonsnummer?: Flettefelt;
-  gjelder?: Flettefelt;
   datoPlaceholder?: string;
+  brevmottakere?: Brevmottakere;
 }
 
-export const Header = (props: HeaderProps) => {
-  const {
-    tittel,
-    navn,
-    fodselsnummer,
-    visLogo,
-    brevOpprettetDato,
-    apiNavn,
-    maalform,
-    organisasjonsnummer,
-    gjelder,
-    datoPlaceholder,
-  } = props;
-
+export const Header: React.FC<Props> = ({
+  tittel,
+  navn,
+  fodselsnummer,
+  visLogo,
+  brevOpprettetDato,
+  apiNavn,
+  maalform,
+  datoPlaceholder,
+  brevmottakere,
+}) => {
   validerFlettefelt(navn, 'navn', apiNavn, false);
   validerFlettefelt(fodselsnummer, 'fodselsnummer', apiNavn, false);
   validerFlettefelt(brevOpprettetDato, 'brevOpprettetDato', apiNavn, false);
 
-  organisasjonsnummer &&
-    validerFlettefelt(organisasjonsnummer, 'organisasjonsnummer', apiNavn, false);
-  gjelder && validerFlettefelt(gjelder, 'gjelder', apiNavn, false);
-
-  const brevDato = () => {
-    return `Dato: ${datoPlaceholder || brevOpprettetDato[0]}`;
-  };
+  const harVergeEllerFullmektig = utledHarVergeEllerFullmektig(brevmottakere);
 
   return (
     <div className={'header'}>
       <div className="ikon-og-dato-wrapper">
         <div className="ikon-og-dato">
           {visLogo && <NavIkon />}
-          <p>{brevDato()}</p>
+          <p>{utledBrevDato(brevOpprettetDato, datoPlaceholder)}</p>
         </div>
       </div>
       <div className={'tittel-og-personinfo'}>
         <h2 className="tittel">{tittel}</h2>
         <div className="kolonner">
           <div className="personinfo">
-            <div>
-              {navnTittel(maalform)}: {navn}
-            </div>
-            {organisasjonsnummer && <div>Organisasjonsnummer: {organisasjonsnummer}</div>}
-            {gjelder && (
-              <div>
-                {gjelderTittel(maalform)}: {gjelder}
-              </div>
-            )}
+            <BrevmottakereOrganisasjoner mottakere={brevmottakere?.organisasjoner} />
+            <BrevmottakerePrivatpersoner mottakere={brevmottakere?.personer} />
+            <div>{utledHvemBrevetGjelderFor(maalform, navn, harVergeEllerFullmektig)}</div>
             <div>Fødselsnummer: {fodselsnummer}</div>
           </div>
         </div>
@@ -72,20 +62,57 @@ export const Header = (props: HeaderProps) => {
   );
 };
 
-const navnTittel = (maalform: Maalform): string => {
-  switch (maalform) {
-    case Maalform.NB:
-      return 'Navn';
-    case Maalform.NN:
-      return 'Namn';
-  }
-};
+const BrevmottakereOrganisasjoner: React.FC<{
+  mottakere: BrevmottakerOrganisasjon[] | undefined;
+}> = ({ mottakere }) => (
+  <>
+    {mottakere?.map((organisasjon, index) => (
+      <div key={index}>{`Fullmektig: ${organisasjon.navnHosOrganisasjon}`}</div>
+    ))}
+  </>
+);
 
-const gjelderTittel = (maalform: Maalform): string => {
+const BrevmottakerePrivatpersoner: React.FC<{
+  mottakere: BrevmottakerPrivatperson[] | undefined;
+}> = ({ mottakere }) => (
+  <>
+    {mottakere
+      ?.filter(person => person.mottakerRolle !== BrevmottakerRolle.BRUKER)
+      .map((person, index) => (
+        <div
+          key={index}
+        >{`${person.mottakerRolle === BrevmottakerRolle.VERGE ? 'Verge:' : 'Fullmektig:'} ${person.navn}`}</div>
+      ))}
+  </>
+);
+
+const utledHarVergeEllerFullmektig = (brevmottakere: Brevmottakere | undefined) =>
+  brevmottakere !== undefined &&
+  (brevmottakere.personer.filter(mottaker => mottaker.mottakerRolle !== BrevmottakerRolle.BRUKER)
+    .length > 0 ||
+    brevmottakere.organisasjoner.length > 0);
+
+const utledBrevDato = (opprettetDato: Flettefelt, placeholder?: string | undefined) =>
+  `Dato: ${placeholder || opprettetDato[0]}`;
+
+const utledHvemBrevetGjelderFor = (
+  maalform: Maalform,
+  navn: Flettefelt,
+  harVergeEllerFullmektig: boolean,
+): string => {
+  if (harVergeEllerFullmektig) {
+    switch (maalform) {
+      case Maalform.NB:
+        return `Saken gjelder: ${navn}`;
+      case Maalform.NN:
+        return `Saka gjeld: ${navn}`;
+    }
+  }
+
   switch (maalform) {
     case Maalform.NB:
-      return 'Gjelder';
+      return `Navn: ${navn}`;
     case Maalform.NN:
-      return 'Gjeld';
+      return `Namn: ${navn}`;
   }
 };

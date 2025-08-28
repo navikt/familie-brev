@@ -6,7 +6,7 @@ import { client } from './sanity/sanityClient';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { Context } from './utils/Context';
 import css from './utils/css';
-import { Header } from './components/Header';
+import { HeaderDeprecated } from './components/HeaderDeprecated';
 import { Maalform } from '../typer/sanitygrensesnitt';
 import { Feil } from './utils/Feil';
 import { ServerStyleSheet } from 'styled-components';
@@ -55,7 +55,7 @@ export const hentDokumentHtml = async (
         </head>
         <body className={'body'}>
           <div>
-            <Header
+            <HeaderDeprecated
               visLogo={true}
               tittel={tittel}
               navn={apiDokument?.flettefelter?.navn}

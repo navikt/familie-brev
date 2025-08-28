@@ -20,6 +20,32 @@ export interface IAvansertDokumentVariabler {
   valgfelter: IValgfelter;
   htmlfelter: IHtmlfelter;
   overstyrtDelmalblokk?: IOverstyrtDelmalblokk;
+  brevmottakere?: Brevmottakere;
+  featureToggleBrukNyBrevHeader?: boolean;
+}
+
+export interface Brevmottakere {
+  personer: BrevmottakerPrivatperson[];
+  organisasjoner: BrevmottakerOrganisasjon[];
+}
+
+export interface BrevmottakerPrivatperson {
+  personIdent: string;
+  navn: string;
+  mottakerRolle: BrevmottakerRolle;
+}
+
+export interface BrevmottakerOrganisasjon {
+  organisasjonsnummer: string;
+  navnHosOrganisasjon: string;
+  mottakerRolle: BrevmottakerRolle.FULLMEKTIG;
+}
+
+export enum BrevmottakerRolle {
+  BRUKER = 'BRUKER',
+  VERGE = 'VERGE',
+  FULLMEKTIG = 'FULLMEKTIG',
+  FULLMAKT = 'FULLMAKT',
 }
 
 export interface IOverstyrtDelmalblokk {
