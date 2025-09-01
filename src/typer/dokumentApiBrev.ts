@@ -30,7 +30,6 @@ export interface Brevmottakere {
 }
 
 export interface BrevmottakerPrivatperson {
-  personIdent: string;
   navn: string;
   mottakerRolle: BrevmottakerRolle;
 }
@@ -38,7 +37,6 @@ export interface BrevmottakerPrivatperson {
 export interface BrevmottakerOrganisasjon {
   organisasjonsnummer: string;
   navnHosOrganisasjon: string;
-  mottakerRolle: BrevmottakerRolle.FULLMEKTIG;
 }
 
 export enum BrevmottakerRolle {
