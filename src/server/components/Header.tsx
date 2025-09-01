@@ -15,7 +15,6 @@ interface Props {
   navn: Flettefelt;
   fodselsnummer: Flettefelt;
   brevOpprettetDato: Flettefelt;
-  visLogo?: boolean;
   apiNavn: string;
   maalform: Maalform;
   datoPlaceholder?: string;
@@ -26,7 +25,6 @@ export const Header: React.FC<Props> = ({
   tittel,
   navn,
   fodselsnummer,
-  visLogo,
   brevOpprettetDato,
   apiNavn,
   maalform,
@@ -43,7 +41,7 @@ export const Header: React.FC<Props> = ({
     <div className={'header'}>
       <div className="ikon-og-dato-wrapper">
         <div className="ikon-og-dato">
-          {visLogo && <NavIkon />}
+          <NavIkon />
           <p>{utledBrevDato(brevOpprettetDato, datoPlaceholder)}</p>
         </div>
       </div>

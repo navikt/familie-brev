@@ -1,16 +1,21 @@
 import * as React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { Heading, IAvsnitt, IFritekstbrevMedSignatur } from '../typer/dokumentApiBrev';
-import { Brevhode } from './components/Brevhode';
 import { dagensDatoFormatert, dagensDatoFormatertLang } from './utils/util';
 import css from './utils/css';
 import cssFritekstbrevBaks from './utils/css-fritekstbrev-baks';
 import { BrevhodeBaks } from './components/BrevhodeBaks';
 import { SaksbehandlerSignatur } from './components/SaksbehandlerSignatur';
+import { Header } from './components/Header';
+import { Maalform } from '../typer/sanitygrensesnitt';
 
 export const lagManueltBrevHtml = (brevMedSignatur: IFritekstbrevMedSignatur) => {
   const brev = brevMedSignatur.brevFraSaksbehandler;
   const erSamværsberegning = brevMedSignatur.erSamværsberegning || false;
+  const brevOpprettetDato = brevMedSignatur.datoPlaceholder
+    ? [brevMedSignatur.datoPlaceholder]
+    : [dagensDatoFormatert()];
+  const brevmottakere = brevMedSignatur.brevmottakere;
 
   return renderToStaticMarkup(
     <html lang={'nb'}>
@@ -20,11 +25,14 @@ export const lagManueltBrevHtml = (brevMedSignatur: IFritekstbrevMedSignatur) =>
         <title>{brev.overskrift}</title>
       </head>
       <body className={'body'}>
-        <Brevhode
+        <Header
           tittel={brev.overskrift}
-          navn={brev.navn}
-          fodselsnummer={brev.personIdent}
-          brevOpprettetDato={brevMedSignatur.datoPlaceholder || dagensDatoFormatert()}
+          navn={[brev.navn]}
+          fodselsnummer={[brev.personIdent]}
+          apiNavn={'fritekstbrev'}
+          brevOpprettetDato={brevOpprettetDato}
+          maalform={Maalform.NB}
+          brevmottakere={brevmottakere}
         />
         {brev.avsnitt?.map((avsnitt, index) => (
           <p key={index}>

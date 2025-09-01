@@ -61,7 +61,6 @@ export const hentAvansertDokumentHtml = async (
           <div>
             {dokumentVariabler.featureToggleBrukNyBrevHeader ? (
               <Header
-                visLogo={true}
                 tittel={tittel}
                 navn={dokumentVariabler?.flettefelter?.navn}
                 fodselsnummer={dokumentVariabler?.flettefelter?.fodselsnummer}
