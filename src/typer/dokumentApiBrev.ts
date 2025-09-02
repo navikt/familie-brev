@@ -68,6 +68,7 @@ export interface IFritekstbrevMedSignatur {
   enhet?: string;
   datoPlaceholder?: string;
   erSamværsberegning?: boolean;
+  brevmottakere?: Brevmottakere;
 }
 
 export interface IAvsnitt {
