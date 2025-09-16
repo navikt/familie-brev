@@ -37,6 +37,7 @@ export interface BrevmottakerPrivatperson {
 export interface BrevmottakerOrganisasjon {
   organisasjonsnummer: string;
   navnHosOrganisasjon: string;
+  mottakerRolle: BrevmottakerRolle.FULLMEKTIG | BrevmottakerRolle.MOTTAKER;
 }
 
 export enum BrevmottakerRolle {
@@ -44,7 +45,16 @@ export enum BrevmottakerRolle {
   VERGE = 'VERGE',
   FULLMEKTIG = 'FULLMEKTIG',
   FULLMAKT = 'FULLMAKT',
+  MOTTAKER = 'MOTTAKER',
 }
+
+export const brevmottakerRolleTilTekst: Record<BrevmottakerRolle, string> = {
+  BRUKER: 'Bruker',
+  VERGE: 'Verge',
+  FULLMEKTIG: 'Fullmektig',
+  FULLMAKT: 'Fullmakt',
+  MOTTAKER: 'Brevmottaker',
+};
 
 export interface IOverstyrtDelmalblokk {
   htmlInnhold: string;
