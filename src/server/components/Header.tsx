@@ -65,11 +65,13 @@ const BrevmottakereOrganisasjoner: React.FC<{
   mottakere: BrevmottakerOrganisasjon[] | undefined;
 }> = ({ mottakere }) => (
   <>
-    {mottakere?.map((organisasjon, index) => (
-      <div
-        key={index}
-      >{`${brevmottakerRolleTilTekst[organisasjon.mottakerRolle]}: ${organisasjon.navnHosOrganisasjon}`}</div>
-    ))}
+    {mottakere?.map((organisasjon, index) => {
+      const prefix = organisasjon.mottakerRolle
+        ? brevmottakerRolleTilTekst[organisasjon.mottakerRolle]
+        : 'Fullmektig';
+
+      return <div key={index}>{`${prefix}: ${organisasjon.navnHosOrganisasjon}`}</div>;
+    })}
   </>
 );
 
