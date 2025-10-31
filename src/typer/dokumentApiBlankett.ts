@@ -527,6 +527,7 @@ export enum ISvarId {
   GJENLEVENDE_IKKE_RETT_TIL_YTELSER = 'GJENLEVENDE_IKKE_RETT_TIL_YTELSER',
   GJENLEVENDE_OVERTAR_OMSORG = 'GJENLEVENDE_OVERTAR_OMSORG',
   GJENLEVENDE_SEPARERT_FØR_DØDSFALL = 'GJENLEVENDE_SEPARERT_FØR_DØDSFALL',
+  FØDSEL_ETTER_ANNEN_FORELDERS_DØDSFALL = 'FØDSEL_ETTER_ANNEN_FORELDERS_DØDSFALL',
 
   // Aktivtet barnetilsyn
   ER_I_ARBEID = 'ER_I_ARBEID',
@@ -718,6 +719,7 @@ export const svarIdTilTekst: Record<ISvarId, string> = {
     'Ja, gjenlevende har fått barn etter dødsfallet som avdøde ikke er mor/far til',
   GJENLEVENDE_SEPARERT_FØR_DØDSFALL:
     'Ja, gjenlevende og den andre forelderen ble separert før dødsfallet',
+  FØDSEL_ETTER_ANNEN_FORELDERS_DØDSFALL: 'Ja, barnet fødes etter den andre forelderens dødsfall',
   ANDRE_FORELDER_MEDLEM_MINST_5_ÅR_AVBRUDD_MINDRE_ENN_10_ÅR:
     'Ja, medlem og bosatt når stønadstilfellet oppstod, den andre forelderen har vært medlem i minst 5 år etter fylte 16 år når krav fremsettes, og avbruddet er mindre enn 10 år',
   ANDRE_FORELDER_MEDLEM_MINST_7_ÅR_AVBRUDD_MER_ENN_10_ÅR:
