@@ -5,6 +5,7 @@ import {
   BrevmottakerOrganisasjon,
   BrevmottakerPrivatperson,
   BrevmottakerRolle,
+  brevmottakerRolleTilTekst,
   Flettefelt,
 } from '../../typer/dokumentApiBrev';
 import { validerFlettefelt } from '../utils/valideringer/validerFlettefelt';
@@ -35,7 +36,7 @@ export const Header: React.FC<Props> = ({
   validerFlettefelt(fodselsnummer, 'fodselsnummer', apiNavn, false);
   validerFlettefelt(brevOpprettetDato, 'brevOpprettetDato', apiNavn, false);
 
-  const harVergeEllerFullmektig = utledHarVergeEllerFullmektig(brevmottakere);
+  const harFlereBrevmottakere = utledHarFlereBrevmottakere(brevmottakere);
 
   return (
     <div className={'header'}>
@@ -51,7 +52,7 @@ export const Header: React.FC<Props> = ({
           <div className="personinfo">
             <BrevmottakereOrganisasjoner mottakere={brevmottakere?.organisasjoner} />
             <BrevmottakerePrivatpersoner mottakere={brevmottakere?.personer} />
-            <div>{utledHvemBrevetGjelderFor(maalform, navn, harVergeEllerFullmektig)}</div>
+            <div>{utledHvemBrevetGjelderFor(maalform, navn, harFlereBrevmottakere)}</div>
             <div>Fødselsnummer: {fodselsnummer}</div>
           </div>
         </div>
@@ -64,9 +65,13 @@ const BrevmottakereOrganisasjoner: React.FC<{
   mottakere: BrevmottakerOrganisasjon[] | undefined;
 }> = ({ mottakere }) => (
   <>
-    {mottakere?.map((organisasjon, index) => (
-      <div key={index}>{`Fullmektig: ${organisasjon.navnHosOrganisasjon}`}</div>
-    ))}
+    {mottakere?.map((organisasjon, index) => {
+      const prefix = organisasjon.mottakerRolle
+        ? brevmottakerRolleTilTekst[organisasjon.mottakerRolle]
+        : 'Fullmektig';
+
+      return <div key={index}>{`${prefix}: ${organisasjon.navnHosOrganisasjon}`}</div>;
+    })}
   </>
 );
 
@@ -79,12 +84,12 @@ const BrevmottakerePrivatpersoner: React.FC<{
       .map((person, index) => (
         <div
           key={index}
-        >{`${person.mottakerRolle === BrevmottakerRolle.VERGE ? 'Verge:' : 'Fullmektig:'} ${person.navn}`}</div>
+        >{`${brevmottakerRolleTilTekst[person.mottakerRolle]}: ${person.navn}`}</div>
       ))}
   </>
 );
 
-const utledHarVergeEllerFullmektig = (brevmottakere: Brevmottakere | undefined) =>
+const utledHarFlereBrevmottakere = (brevmottakere: Brevmottakere | undefined) =>
   brevmottakere !== undefined &&
   (brevmottakere.personer.filter(mottaker => mottaker.mottakerRolle !== BrevmottakerRolle.BRUKER)
     .length > 0 ||
