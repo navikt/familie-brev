@@ -41,7 +41,7 @@
     "@types/body-parser": "^1.19.6",
     "@types/express": "^5.0.6",
     "@types/express-session": "^1.18.2",
-    "@types/node": "^24.10.1",
+    "@types/node": "^24.10.2",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "@types/styled-components": "^5.1.36",
@@ -55,9 +55,9 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
     "nodemon": "^3.1.11",
-    "prettier": "^3.7.3",
+    "prettier": "^3.7.4",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.48.1"
+    "typescript-eslint": "^8.49.0"
   },
   "browserslist": {
     "production": [
