@@ -24,9 +24,9 @@
     ]
   },
   "dependencies": {
-    "@navikt/familie-logging": "^7.0.5",
+    "@navikt/familie-logging": "^7.0.6",
     "@portabletext/react": "^6.0.0",
-    "@sanity/client": "^7.13.1",
+    "@sanity/client": "^7.13.2",
     "axios": "^1.13.2",
     "date-fns": "^4.1.0",
     "dotenv": "^17.2.3",
@@ -45,7 +45,7 @@
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "@types/styled-components": "^5.1.36",
-    "eslint": "^9.39.1",
+    "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-prettier": "^5.5.4",
@@ -55,9 +55,9 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
     "nodemon": "^3.1.11",
-    "prettier": "^3.7.3",
+    "prettier": "^3.7.4",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.48.1"
+    "typescript-eslint": "^8.50.0"
   },
   "browserslist": {
     "production": [
