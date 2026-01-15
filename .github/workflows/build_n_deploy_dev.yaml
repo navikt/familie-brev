@@ -13,7 +13,7 @@ jobs:
     outputs:
       image: ${{ steps.docker-build-push.outputs.image }}
     steps:
-      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # ratchet:actions/checkout@v4
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # ratchet:actions/checkout@v4
       - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # ratchet:actions/setup-node@v4
         with:
           node-version: '20'
@@ -28,7 +28,7 @@ jobs:
           yarn build
           yarn install --production
       - name: Push docker image to GAR
-        uses: nais/docker-build-push@791ebb6f74b82849c742a9bc9c97abe44c6c111f # ratchet:nais/docker-build-push@v0
+        uses: nais/docker-build-push@3909895eaba1e9312b99a7f23c087f980a421506 # ratchet:nais/docker-build-push@v0
         id: docker-build-push
         with:
           team: teamfamilie
@@ -41,8 +41,8 @@ jobs:
       contents: read
       id-token: write
     steps:
-      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # ratchet:actions/checkout@v4
-      - uses: nais/deploy/actions/deploy@961addd1e4d4211f1a7333ada5fde85f7c9aa5b7 # ratchet:nais/deploy/actions/deploy@v2
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # ratchet:actions/checkout@v4
+      - uses: nais/deploy/actions/deploy@fa754451577294aae42872a69b888b3470478ec1 # ratchet:nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-gcp
           RESOURCE: .nais/app-dev.yaml
