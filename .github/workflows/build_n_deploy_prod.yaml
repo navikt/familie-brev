@@ -30,7 +30,7 @@ jobs:
           yarn install --production 
 
       - name: Push docker image to GAR
-        uses: nais/docker-build-push@3909895eaba1e9312b99a7f23c087f980a421506 # ratchet:nais/docker-build-push@v0
+        uses: nais/docker-build-push@87f920b0411b987d9a1fd4113aa384e1e3b54f2c # ratchet:nais/docker-build-push@v0
         id: docker-build-push
         with:
           team: teamfamilie
