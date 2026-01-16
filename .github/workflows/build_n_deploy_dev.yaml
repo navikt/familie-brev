@@ -24,9 +24,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
         run: |
-          yarn install
+          yarn install --prefer-offline --frozen-lockfile --ignore-scripts
           yarn build
-          yarn install --production
+          yarn install --production --prefer-offline --frozen-lockfile --ignore-scripts
       - name: Push docker image to GAR
         uses: nais/docker-build-push@87f920b0411b987d9a1fd4113aa384e1e3b54f2c # ratchet:nais/docker-build-push@v0
         id: docker-build-push
