@@ -23,7 +23,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
         run: |
-          yarn install
+          yarn install --prefer-offline --frozen-lockfile --ignore-scripts
           yarn build
 
   eslint:
@@ -43,7 +43,7 @@ jobs:
       - name: 📥 Install deps
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-        run: yarn
+        run: yarn --prefer-offline --frozen-lockfile --ignore-scripts
 
       - name: 🔬 Kjør sjekk med esLint
         run: yarn eslint-check
@@ -65,7 +65,7 @@ jobs:
       - name: 📥 Install deps
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-        run: yarn
+        run: yarn --prefer-offline --frozen-lockfile --ignore-scripts
 
       - name: 🔬 Kjør sjekk med prettier
         run: yarn prettier-check
@@ -87,7 +87,7 @@ jobs:
       - name: 📥 Install deps
         env:
           NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-        run: yarn
+        run: yarn --prefer-offline --frozen-lockfile --ignore-scripts
 
       - name: 🔎 Type check
         run: yarn typecheck
