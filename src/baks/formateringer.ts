@@ -20,6 +20,7 @@ import {
   hentSøkerOgEllerBarnetBarnaValg,
   hentSøkersAktivitetValg,
 } from './formateringsvalg';
+import { ManglerFletteFeltFeil } from '../server/utils/ManglerFletteFeltFeil';
 
 export const formaterValgfelt = (valgfeltBlock: ValgfeltBlock, data: BegrunnelseMedData) => {
   switch (valgfeltBlock.apiNavn) {
@@ -59,7 +60,7 @@ export const formaterFlettefelt = (flettefeltBlock: FlettefeltBlock, data: any):
   const flettefeltVerdi = data[flettefeltBlock.flettefelt];
 
   if (flettefeltVerdi === undefined || flettefeltVerdi === '') {
-    throw new Feil(
+    throw new ManglerFletteFeltFeil(
       `Flettefeltet "${flettefeltBlock.flettefelt}" mangler for begrunnelse ${data.apiNavn}`,
       400,
     );
