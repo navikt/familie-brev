@@ -19,6 +19,7 @@ import { Feil } from '../server/utils/Feil';
 import { logError, logSecure } from '@navikt/familie-logging';
 import { hentMiljøvariabler } from '../server/environment';
 import router from '../server/routes';
+import { ManglerFlettefeltFeil } from '../server/utils/ManglerFlettefeltFeil';
 
 const { BA_DATASETT } = hentMiljøvariabler();
 
@@ -68,7 +69,7 @@ router.post('/begrunnelser/:begrunnelseApiNavn/tekst/', async (req: Request, res
 
     res.status(200).send(begrunnelse);
   } catch (error: any) {
-    if (error instanceof Feil) {
+    if (error instanceof Feil || error instanceof ManglerFlettefeltFeil) {
       res.status(error.code).send(error.message);
     } else {
       logError(`Generering av begrunnelse feilet: ${error.message}`);
