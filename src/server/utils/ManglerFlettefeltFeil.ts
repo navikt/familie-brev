@@ -1,6 +1,6 @@
 import { logSecure, logWarn } from '@navikt/familie-logging';
 
-export class ManglerFletteFeltFeil extends Error {
+export class ManglerFlettefeltFeil extends Error {
   public code: number;
   public error?: Error;
 
