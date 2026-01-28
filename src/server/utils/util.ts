@@ -1,4 +1,4 @@
-import { parse, getYear, getMonth, format, parseISO } from 'date-fns';
+import { format, getMonth, getYear, parse, parseISO } from 'date-fns';
 import DateTimeFormatOptions = Intl.DateTimeFormatOptions;
 
 export const datoFormat: DateTimeFormatOptions = {
@@ -62,6 +62,9 @@ export const formaterBeløp = (verdi: number): string =>
 
 export const formaterBeløpMedPostfix = (verdi: number, postfix: string): string =>
   `${verdi.toLocaleString('no-NO')} ${postfix}`;
+
+export const formaterOrgNummer = (orgNummer: string): string =>
+  orgNummer.replace(/(\d{3})(\d{3})(\d{3})/, '$1 $2 $3');
 
 export const mapBooleanTilJaNei = (bool?: boolean, storeBokstaver: boolean = false): string => {
   const ja = storeBokstaver ? 'JA' : 'Ja';

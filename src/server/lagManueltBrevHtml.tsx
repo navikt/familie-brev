@@ -1,6 +1,11 @@
 import * as React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { Heading, IAvsnitt, IFritekstbrevMedSignatur } from '../typer/dokumentApiBrev';
+import {
+  BrevmottakerRolle,
+  Heading,
+  IAvsnitt,
+  IFritekstbrevMedSignatur,
+} from '../typer/dokumentApiBrev';
 import { dagensDatoFormatert, dagensDatoFormatertLang } from './utils/util';
 import css from './utils/css';
 import cssFritekstbrevBaks from './utils/css-fritekstbrev-baks';
@@ -53,6 +58,9 @@ export const lagManueltBrevHtml = (brevMedSignatur: IFritekstbrevMedSignatur) =>
 export const lagManueltBrevBaksHtml = (brevMedSignatur: IFritekstbrevMedSignatur) => {
   const brev = brevMedSignatur.brevFraSaksbehandler;
   const erSamværsberegning = brevMedSignatur.erSamværsberegning || false;
+  const institusjon = brevMedSignatur.brevmottakere?.organisasjoner?.find(
+    mottaker => mottaker.mottakerRolle === BrevmottakerRolle.INSTITUSJON,
+  );
 
   return renderToStaticMarkup(
     <html lang={'nb'}>
@@ -66,6 +74,7 @@ export const lagManueltBrevBaksHtml = (brevMedSignatur: IFritekstbrevMedSignatur
           navn={brev.navn}
           fødselsnummer={brev.personIdent}
           brevOpprettetDato={brevMedSignatur.datoPlaceholder || dagensDatoFormatertLang()}
+          institusjon={institusjon}
         />
         <h1>{brev.overskrift}</h1>
         {brev.avsnitt?.map(avsnitt => (
