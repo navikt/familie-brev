@@ -31,13 +31,17 @@ export interface Brevmottakere {
 
 export interface BrevmottakerPrivatperson {
   navn: string;
-  mottakerRolle: BrevmottakerRolle;
+  mottakerRolle: Exclude<BrevmottakerRolle, BrevmottakerRolle.INSTITUSJON>;
 }
 
 export interface BrevmottakerOrganisasjon {
   organisasjonsnummer: string;
+  organisasjonsnavn: string;
   navnHosOrganisasjon: string;
-  mottakerRolle?: BrevmottakerRolle.FULLMEKTIG | BrevmottakerRolle.MOTTAKER;
+  mottakerRolle?:
+    | BrevmottakerRolle.FULLMEKTIG
+    | BrevmottakerRolle.MOTTAKER
+    | BrevmottakerRolle.INSTITUSJON;
 }
 
 export enum BrevmottakerRolle {
@@ -46,6 +50,7 @@ export enum BrevmottakerRolle {
   FULLMEKTIG = 'FULLMEKTIG',
   FULLMAKT = 'FULLMAKT',
   MOTTAKER = 'MOTTAKER',
+  INSTITUSJON = 'INSTITUSJON',
 }
 
 export const brevmottakerRolleTilTekst: Record<BrevmottakerRolle, string> = {
@@ -54,6 +59,7 @@ export const brevmottakerRolleTilTekst: Record<BrevmottakerRolle, string> = {
   FULLMEKTIG: 'Fullmektig',
   FULLMAKT: 'Fullmakt',
   MOTTAKER: 'Brevmottaker',
+  INSTITUSJON: 'Institusjon',
 };
 
 export interface IOverstyrtDelmalblokk {
