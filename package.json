@@ -26,10 +26,10 @@
   "dependencies": {
     "@navikt/familie-logging": "7.0.7",
     "@portabletext/react": "6.0.2",
-    "@sanity/client": "7.14.1",
+    "@sanity/client": "7.15.0",
     "axios": "1.13.5",
     "date-fns": "4.1.0",
-    "dotenv": "17.2.4",
+    "dotenv": "17.3.1",
     "express": "5.2.1",
     "express-session": "1.19.0",
     "react": "19.2.4",
@@ -41,7 +41,7 @@
     "@types/express": "5.0.6",
     "@types/express-session": "1.18.2",
     "@types/node": "25.2.3",
-    "@types/react": "19.2.13",
+    "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "@types/styled-components": "5.1.36",
     "eslint": "9.39.2",
@@ -55,7 +55,7 @@
     "nodemon": "3.1.11",
     "prettier": "3.8.1",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.55.0"
+    "typescript-eslint": "8.56.0"
   },
   "browserslist": {
     "production": [
