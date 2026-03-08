@@ -14,7 +14,7 @@ jobs:
       image: ${{ steps.docker-build-push.outputs.image }}
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v4
-      - uses: actions/setup-node@6044e13b5dc448c55e2357c09f80417699197238 # ratchet:actions/setup-node@v4
+      - uses: actions/setup-node@53b83947a5a98c8d113130e565377fae1a50d02f # ratchet:actions/setup-node@v4
         with:
           node-version: '20'
           registry-url: "https://npm.pkg.github.com"
@@ -28,7 +28,7 @@ jobs:
           yarn build
           yarn install --production --prefer-offline --frozen-lockfile --ignore-scripts
       - name: Push docker image to GAR
-        uses: nais/docker-build-push@87f920b0411b987d9a1fd4113aa384e1e3b54f2c # ratchet:nais/docker-build-push@v0
+        uses: nais/docker-build-push@ae613eff6f44f0323476eda1c3994a7c518761c3 # ratchet:nais/docker-build-push@v0
         id: docker-build-push
         with:
           team: teamfamilie
