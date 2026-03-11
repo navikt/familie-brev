@@ -10,7 +10,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-read-timeout: "120"
 
 spec:
-  image: {{image}}
+  image: {{ image }}
   replicas:
     min: 2
     max: 2
