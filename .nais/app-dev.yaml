@@ -38,7 +38,7 @@ spec:
         - application: familie-ba-sak
         - application: familie-ks-sak
         - application: familie-klage
-
+    
     outbound:
       rules:
         - application: familie-dokument
@@ -53,8 +53,6 @@ spec:
       value: https://appres.nav.no
     - name: ENV
       value: preprod
-  secureLogs:
-    enabled: true
   resources:
     limits:
       memory: 1024Mi
