@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Context } from './Context';
 
 /*
@@ -14,6 +14,7 @@ export const useServerEffect = (initial: any, key: any, effect: any) => {
   if (context.requests && !context[key]) {
     context.requests.push(
       effect().then((data: any) => {
+        // eslint-disable-next-line react-hooks/immutability
         return (context[key] = data);
       }),
     );
