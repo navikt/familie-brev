@@ -26,8 +26,8 @@
   "dependencies": {
     "@navikt/familie-logging": "7.0.7",
     "@portabletext/react": "6.0.3",
-    "@sanity/client": "7.17.0",
-    "axios": "1.13.6",
+    "@sanity/client": "7.20.0",
+    "axios": "1.14.0",
     "date-fns": "4.1.0",
     "dotenv": "17.3.1",
     "express": "5.2.1",
@@ -35,12 +35,12 @@
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "ts-node": "10.9.2",
-    "styled-components": "6.3.11"
+    "styled-components": "6.3.12"
   },
   "devDependencies": {
     "@types/express": "5.0.6",
     "@types/express-session": "1.18.2",
-    "@types/node": "25.4.0",
+    "@types/node": "25.5.0",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "@types/styled-components": "5.1.36",
@@ -51,11 +51,11 @@
     "eslint-plugin-react": "7.37.5",
     "eslint-plugin-react-hooks": "7.0.1",
     "husky": "9.1.7",
-    "lint-staged": "16.3.3",
+    "lint-staged": "16.4.0",
     "nodemon": "3.1.14",
     "prettier": "3.8.1",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.57.0"
+    "typescript-eslint": "8.58.0"
   },
   "browserslist": {
     "production": [
