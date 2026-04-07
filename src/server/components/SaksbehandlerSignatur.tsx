@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface Props {
-  saksbehandlersignatur: string;
+  saksbehandlersignatur?: string;
   saksbehandlerEnhet?: string;
   besluttersignatur?: string;
   beslutterEnhet?: string;
@@ -33,13 +33,15 @@ export const SaksbehandlerSignatur: React.FC<Props> = ({
         </span>
       )}
       <span style={{ display: 'inline-block' }}>
-        <span
-          style={{
-            display: 'block',
-          }}
-        >
-          {saksbehandlersignatur}
-        </span>
+        {saksbehandlersignatur && (
+          <span
+            style={{
+              display: 'block',
+            }}
+          >
+            {saksbehandlersignatur}
+          </span>
+        )}
         <span>{saksbehandlerEnhet ?? 'Nav arbeid og ytelser'}</span>
       </span>
     </p>
