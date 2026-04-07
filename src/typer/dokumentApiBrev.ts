@@ -69,7 +69,7 @@ export interface IOverstyrtDelmalblokk {
 
 export interface IBrevMedSignatur {
   brevFraSaksbehandler: IAvansertDokumentVariabler;
-  saksbehandlersignatur: string;
+  saksbehandlersignatur?: string;
   saksbehandlerEnhet?: string;
   besluttersignatur?: string;
   beslutterEnhet?: string;
