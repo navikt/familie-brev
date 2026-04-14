@@ -2,7 +2,7 @@ import { hentMiljøvariabler } from '../environment';
 import { Feil } from './Feil';
 import { logInfo } from '@navikt/familie-logging';
 
-export const genererPdf = async (html: string): Promise<ArrayBuffer> => {
+export const genererPdf = async (html: string): Promise<Buffer> => {
   const url = `${hentMiljøvariabler().FAMILIE_DOKUMENT_API_URL}/api/html-til-pdf`;
 
   logInfo(`Generer pdf mot ${url}`);
@@ -20,5 +20,5 @@ export const genererPdf = async (html: string): Promise<ArrayBuffer> => {
     throw new Feil(`Feil mot familie-dokument`, 500);
   }
 
-  return res.arrayBuffer();
+  return Buffer.from(await res.arrayBuffer());
 };
