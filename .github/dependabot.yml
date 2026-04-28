@@ -11,17 +11,27 @@ updates:
     default-days: 4
   open-pull-requests-limit: 10
   groups:
-    minor-and-patch-dependencies:
+    react-core:
       patterns:
-        - "*"
+        - "react"
+        - "react-dom"
+        - "@types/react"
+        - "@types/react-dom"
+    lint-and-format:
+      patterns:
+        - "eslint*"
+        - "prettier"
+        - "@typescript-eslint/eslint-plugin"
+        - "@typescript-eslint/parser"
+        - "husky"
+        - "lint-staged"
+    type-definitions:
+      patterns:
+        - "@types/*"
+    minor-and-patch-dependencies:
       update-types:
         - "minor"
         - "patch"
-    major-dependencies:
-      patterns:
-        - "*"
-      update-types:
-        - "major"
 
 - package-ecosystem: "github-actions"
   directory: "/"
