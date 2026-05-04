@@ -26,7 +26,7 @@
   "dependencies": {
     "@navikt/familie-logging": "7.0.7",
     "@portabletext/react": "6.0.3",
-    "@sanity/client": "7.21.0",
+    "@sanity/client": "7.22.0",
     "axios": "1.15.2",
     "date-fns": "4.1.0",
     "dotenv": "17.4.2",
@@ -55,7 +55,7 @@
     "nodemon": "3.1.14",
     "prettier": "3.8.3",
     "typescript": "5.9.3",
-    "typescript-eslint": "8.59.0"
+    "typescript-eslint": "8.59.1"
   },
   "browserslist": {
     "production": [
