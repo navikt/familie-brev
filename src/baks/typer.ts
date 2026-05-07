@@ -8,11 +8,7 @@ export interface IStandardbegrunnelsedata {
   apiNavn: string;
   gjelderSoker: boolean;
   barnasFodselsdatoer: string;
-  fodselsdatoerBarnOppfyllerTriggereOgHarUtbetaling: string;
-  fodselsdatoerBarnOppfyllerTriggereOgHarNullutbetaling: string;
   antallBarn: number;
-  antallBarnOppfyllerTriggereOgHarUtbetaling: number;
-  antallBarnOppfyllerTriggereOgHarNullutbetaling: number;
   maanedOgAarBegrunnelsenGjelderFor: string;
   maalform: Maalform;
   soknadstidspunkt: string;
