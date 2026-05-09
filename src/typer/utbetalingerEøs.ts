@@ -14,7 +14,7 @@ export interface UtbetalingMndEøsOppsummering {
 }
 
 export interface UtbetalingEøs {
-  fnr: string;
+  fødselsdato: string;
   ytelseType: YtelseType;
   satsINorge: number;
   utbetaltFraAnnetLand: UtbetaltFraAnnetLand | null;
