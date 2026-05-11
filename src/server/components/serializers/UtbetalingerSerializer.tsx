@@ -41,19 +41,12 @@ const YtelseTypeText: Record<YtelseType, string> = {
   [YtelseType.SMÅBARNSTILLEGG]: 'Småbarnstillegg',
 };
 
-const barnetrygdTekst = (fnr: string, ytelseType: YtelseType) => {
+const barnetrygdTekst = (fødselsdato: string, ytelseType: YtelseType) => {
   if (ytelseType === YtelseType.ORDINÆR_BARNETRYGD) {
-    return `Barn ${formatterFnr(fnr)}`;
+    return `Barn ${fødselsdato}`;
   } else {
     return YtelseTypeText[ytelseType];
   }
-};
-
-const formatterFnr = (fnr: string) => {
-  if (fnr.length === 11) {
-    return `${fnr.substring(0, 6)} ${fnr.substring(6)}`;
-  }
-  return fnr;
 };
 
 const ZebraStripedTable = styled.table`
@@ -140,7 +133,7 @@ export const UtbetalingerSerializer = (props: UtbetalingerProps) => {
                   key={mndÅr + '-' + index}
                 >
                   <StyledTableData align="left">
-                    {barnetrygdTekst(utbetalingEØS.fnr, utbetalingEØS.ytelseType)}
+                    {barnetrygdTekst(utbetalingEØS.fødselsdato, utbetalingEØS.ytelseType)}
                   </StyledTableData>
                   <StyledTableData align="left">{mndÅr}</StyledTableData>
                   <StyledTableData align="right">
