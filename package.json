@@ -41,7 +41,7 @@
     "@types/express": "5.0.6",
     "@types/express-session": "1.19.0",
     "@types/node": "25.7.0",
-    "@types/react": "19.2.14",
+    "@types/react": "19.2.15",
     "@types/react-dom": "19.2.3",
     "@types/styled-components": "5.1.36",
     "eslint": "9.39.2",
