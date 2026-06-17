@@ -10,13 +10,18 @@ import { formaterIsoDato, mapBooleanTilString } from '../../utils/util';
 
 export const TidligereHistorikk: React.FC<{
   tidligereVedtaksperioder: ITidligereVedtaksperioder | undefined;
-}> = ({ tidligereVedtaksperioder }) => {
+  erRegelendring2026: boolean;
+}> = ({ tidligereVedtaksperioder, erRegelendring2026 }) => {
   const periodeHistorikkOvergangsstønad =
     tidligereVedtaksperioder?.sak?.periodeHistorikkOvergangsstønad;
   const periodeHistorikkBarnetilsyn = tidligereVedtaksperioder?.sak?.periodeHistorikkBarnetilsyn;
 
   return (
     <>
+      <div>
+        <strong>Regelverk: </strong>
+        {erRegelendring2026 ? 'Nytt regelverk (fra 01.07.2026)' : 'Gammelt regelverk'}
+      </div>
       <h3 className={'blankett'}>Registerdata</h3>
       <p>Har bruker tidligere vedtaksperioder i EF Sak eller Infotrygd?</p>
       <h3 className={'blankett'}>Overgangsstønad</h3>

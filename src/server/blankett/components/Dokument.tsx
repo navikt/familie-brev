@@ -92,6 +92,7 @@ export const Dokument = (dokumentProps: DokumentProps) => {
                   barnId={vurdering.barnId}
                   tidligereVedtaksperioder={tidligereVedtaksperioder}
                   stønadstype={stønadstype}
+                  erRegelendring2026={dokumentData.behandling.erRegelendring2026}
                 />
                 <Vilkårsvurdering vurdering={vurdering} />
                 {beregnetSamværForVilkårsvurdering && (
