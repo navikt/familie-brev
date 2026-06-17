@@ -63,6 +63,7 @@ export const RegistergrunnlagForVilkår: React.FC<RegistergrunnlagForVilkårProp
         <TidligereHistorikk
           tidligereVedtaksperioder={tidligereVedtaksperioder}
           erRegelendring2026={erRegelendring2026}
+          stønadstype={stønadstype}
         />
       );
     case Vilkår.INNTEKT:
