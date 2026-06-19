@@ -22,7 +22,9 @@ export const TidligereHistorikk: React.FC<{
       {stønadstype === EStønadType.OVERGANGSSTØNAD && (
         <div>
           <strong>Regelverk: </strong>
-          {erRegelendring2026 ? 'Nytt regelverk (fra 01.07.2026)' : 'Gammelt regelverk'}
+          {erRegelendring2026
+            ? 'Nytt regelverk (fra 01.07.2026)'
+            : 'Gammelt regelverk (før 1. juli 2026)'}
         </div>
       )}
       <h3 className={'blankett'}>Registerdata</h3>
