@@ -11,15 +11,21 @@ import { formaterIsoDato, mapBooleanTilString } from '../../utils/util';
 export const TidligereHistorikk: React.FC<{
   tidligereVedtaksperioder: ITidligereVedtaksperioder | undefined;
   erRegelendring2026: boolean;
+  featureToggleRegelendringer2026: boolean;
   stønadstype: EStønadType;
-}> = ({ tidligereVedtaksperioder, erRegelendring2026, stønadstype }) => {
+}> = ({
+  tidligereVedtaksperioder,
+  erRegelendring2026,
+  featureToggleRegelendringer2026,
+  stønadstype,
+}) => {
   const periodeHistorikkOvergangsstønad =
     tidligereVedtaksperioder?.sak?.periodeHistorikkOvergangsstønad;
   const periodeHistorikkBarnetilsyn = tidligereVedtaksperioder?.sak?.periodeHistorikkBarnetilsyn;
 
   return (
     <>
-      {stønadstype === EStønadType.OVERGANGSSTØNAD && (
+      {stønadstype === EStønadType.OVERGANGSSTØNAD && featureToggleRegelendringer2026 && (
         <div>
           <strong>Regelverk: </strong>
           {erRegelendring2026
