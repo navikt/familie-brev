@@ -786,8 +786,7 @@ export const delvilkårTypeTilTekst: Record<IRegelId, string> = {
     'Har søker sagt opp jobben, tatt frivillig permisjon eller redusert arbeidstiden de siste 6 månedene før søknadstidspunktet?',
   MEDLEMSKAP_UNNTAK: 'Er unntak fra hovedregelen oppfylt?',
   OPPHOLD_UNNTAK: 'Er unntak fra hovedregelen oppfylt?',
-  FYLLER_BRUKER_AKTIVITETSPLIKT:
-    'Fyller bruker aktivitetsplikt, unntak for aktivitetsplikt eller har barn under 1 år?',
+  FYLLER_BRUKER_AKTIVITETSPLIKT: 'Har bruker rett til stønad? Hvis ja, på hvilket grunnlag?',
   SIVILSTAND_UNNTAK: 'Er unntak fra krav om sivilstand oppfylt?',
   RIMELIG_GRUNN_SAGT_OPP:
     'Hadde søker rimelig grunn til å si opp jobben eller redusere arbeidstiden?',
