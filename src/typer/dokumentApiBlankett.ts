@@ -749,7 +749,8 @@ export const svarIdTilTekst: Record<ISvarId, string> = {
   TILSTØTENDE_BOLIGER_ELLER_REKKEHUS_I_SAMMEGATE:
     'Ja, foreldrene bor i tilstøtende boliger eller rekkehus i samme gate',
   ER_I_ARBEID: 'Ja, det er dokumentert at brukeren er i arbeid',
-  ETABLERER_EGEN_VIRKSOMHET: 'Ja, det er dokumentert at brukeren etablerer egen virksomhet',
+  ETABLERER_EGEN_VIRKSOMHET:
+    'Ja, det er dokumentert at brukeren etablerer egen virksomhet (gjelder kun tidligere regelverk)',
   HAR_FORBIGÅENDE_SYKDOM: 'Ja, det er dokumentert at brukeren har forbigående sykdom',
   TRENGER_MER_TILSYN_ENN_JEVNALDRENDE:
     'Ja, barnet har fullført fjerde skoleår og det er dokumentert at barnet trenger vesentlig mer tilsyn enn jevnaldrene',
