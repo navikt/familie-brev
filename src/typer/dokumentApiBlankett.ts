@@ -799,8 +799,9 @@ export const delvilkårTypeTilTekst: Record<IRegelId, string> = {
   INNTEKT_LAVERE_ENN_INNTEKTSGRENSE: 'Har brukeren inntekt under 6 ganger grunnbeløpet?',
   INNTEKT_SAMSVARER_MED_OS:
     'Er inntekten i samsvar med den inntekten som er lagt til grunn ved beregning av overgangsstønad?',
-  HAR_ALDER_LAVERE_ENN_GRENSEVERDI: 'Har barnet fullført 4.skoleår?',
-  UNNTAK_ALDER: 'Oppfylles unntak etter å ha fullført 4. skoleår?',
+  HAR_ALDER_LAVERE_ENN_GRENSEVERDI:
+    'Er barnet over 14 måneder (nytt regelverk) eller har barnet fullført 4. skoleår (tidligere regelverk)?',
+  UNNTAK_ALDER: 'Fyller bruker vilkårene for å stå stønad utover aldersgrensen?',
   HAR_DOKUMENTERTE_TILSYNSUTGIFTER: 'Har brukeren dokumenterte tilsynsutgifter?',
   RETT_TIL_OVERGANGSSTØNAD: 'Er vilkårene for rett til overgangsstønad oppfylt?',
   DOKUMENTASJON_AV_UTDANNING: 'Er det dokumentert at bruker er under utdanning?',
