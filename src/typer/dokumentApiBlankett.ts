@@ -273,27 +273,25 @@ export enum EAktivitet {
 export const aktivitetsTypeTilTekst: Record<EAktivitet, string> = {
   IKKE_AKTIVITETSPLIKT: 'Ikke aktivitetsplikt',
   BARN_UNDER_ETT_ÅR: 'Barn er under 1 år',
-  FORSØRGER_I_ARBEID: 'Forsørger er i arbeid (§15-6 første ledd)',
-  FORSØRGER_I_UTDANNING: 'Forsørger er i utdanning (§15-6 første ledd)',
-  FORSØRGER_REELL_ARBEIDSSØKER: ' Forsørger er reell arbeidssøker (§15-6 første ledd)',
-  FORSØRGER_ETABLERER_VIRKSOMHET: 'Forsørger etablerer egen virksomhet (§15-6 første ledd)',
-  BARNET_SÆRLIG_TILSYNSKREVENDE: 'Barnet er særlig tilsynskrevende (§15-6 fjerde ledd)',
-  FORSØRGER_MANGLER_TILSYNSORDNING: 'Forsørger mangler tilsynsordning (§15-6 femte ledd)',
-  FORSØRGER_ER_SYK: 'Forsørger er syk (§15-6 femte ledd)',
-  BARNET_ER_SYKT: 'Barnet er sykt (§15-6 femte ledd)',
-  UTVIDELSE_BARNET_SÆRLIG_TILSYNSKREVENDE: 'Barnet er særlig tilsynskrevende (§15-8 tredje ledd)',
-  UTVIDELSE_FORSØRGER_I_UTDANNING: 'Forsørgeren er i utdanning (§15-8 andre ledd)',
-  FORLENGELSE_MIDLERTIDIG_SYKDOM:
-    'Forsørger eller barnet har en midlertidig sykdom (§15-8 fjerde ledd)',
-  FORLENGELSE_STØNAD_UT_SKOLEÅRET: 'Stønad ut skoleåret (§15-8 andre ledd)',
-  FORLENGELSE_STØNAD_PÅVENTE_ARBEID: 'Stønad i påvente av arbeid (§15-8 femte ledd)',
-  FORLENGELSE_STØNAD_PÅVENTE_UTDANNING: 'Stønad i påvente av utdanning (§15-8 femte ledd)',
+  FORSØRGER_I_ARBEID: 'Forsørger er i arbeid',
+  FORSØRGER_I_UTDANNING: 'Forsørger er i utdanning',
+  FORSØRGER_REELL_ARBEIDSSØKER: ' Forsørger er reell arbeidssøker',
+  FORSØRGER_ETABLERER_VIRKSOMHET: 'Forsørger etablerer egen virksomhet',
+  BARNET_SÆRLIG_TILSYNSKREVENDE: 'Barnet er særlig tilsynskrevende',
+  FORSØRGER_MANGLER_TILSYNSORDNING: 'Forsørger mangler tilsynsordning',
+  FORSØRGER_ER_SYK: 'Forsørger er syk',
+  BARNET_ER_SYKT: 'Barnet er sykt',
+  UTVIDELSE_BARNET_SÆRLIG_TILSYNSKREVENDE: 'Barnet er særlig tilsynskrevende',
+  UTVIDELSE_FORSØRGER_I_UTDANNING: 'Forsørgeren er i utdanning',
+  FORLENGELSE_MIDLERTIDIG_SYKDOM: 'Forsørger eller barnet har en midlertidig sykdom',
+  FORLENGELSE_STØNAD_UT_SKOLEÅRET: 'Stønad ut skoleåret',
+  FORLENGELSE_STØNAD_PÅVENTE_ARBEID: 'Stønad i påvente av arbeid',
+  FORLENGELSE_STØNAD_PÅVENTE_UTDANNING: 'Stønad i påvente av utdanning',
   FORLENGELSE_STØNAD_PÅVENTE_ARBEID_REELL_ARBEIDSSØKER:
-    'Stønad i påvente av arbeid - reell arbeidssøker (§15-8 femte ledd)',
+    'Stønad i påvente av arbeid - reell arbeidssøker',
   FORLENGELSE_STØNAD_PÅVENTE_OPPSTART_KVALIFISERINGSPROGRAM:
     'Stønad i påvente av oppstart kvalifiseringsprogram',
-  FORLENGELSE_STØNAD_PÅVENTE_TILSYNSORDNING:
-    'Stønad i påvente av tilsynsordning (§15-8 femte ledd)',
+  FORLENGELSE_STØNAD_PÅVENTE_TILSYNSORDNING: 'Stønad i påvente av tilsynsordning',
 };
 
 export interface IPersonopplysninger {
