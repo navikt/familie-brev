@@ -12,25 +12,39 @@ export const TidligereHistorikk: React.FC<{
   tidligereVedtaksperioder: ITidligereVedtaksperioder | undefined;
   erRegelendring2026: boolean;
   featureToggleRegelendringer2026: boolean;
+  regelendring2026Begrunnelse?: string;
   stønadstype: EStønadType;
 }> = ({
   tidligereVedtaksperioder,
   erRegelendring2026,
   featureToggleRegelendringer2026,
+  regelendring2026Begrunnelse,
   stønadstype,
 }) => {
   const periodeHistorikkOvergangsstønad =
     tidligereVedtaksperioder?.sak?.periodeHistorikkOvergangsstønad;
   const periodeHistorikkBarnetilsyn = tidligereVedtaksperioder?.sak?.periodeHistorikkBarnetilsyn;
 
+  const skalViseRegelverk =
+    featureToggleRegelendringer2026 &&
+    (stønadstype === EStønadType.OVERGANGSSTØNAD || stønadstype === EStønadType.BARNETILSYN);
+
   return (
     <>
-      {stønadstype === EStønadType.OVERGANGSSTØNAD && featureToggleRegelendringer2026 && (
+      {skalViseRegelverk && (
         <div>
-          <strong>Regelverk: </strong>
-          {erRegelendring2026
-            ? 'Nytt regelverk fra 01.07.2026'
-            : 'Gammelt regelverk før 01.07.2026'}
+          <div>
+            <strong>Regelverk: </strong>
+            {erRegelendring2026
+              ? 'Nytt regelverk fra 01.07.2026'
+              : 'Gammelt regelverk før 01.07.2026'}
+          </div>
+          {regelendring2026Begrunnelse && (
+            <div>
+              <strong>Begrunnelse for valg av regelverk: </strong>
+              {regelendring2026Begrunnelse}
+            </div>
+          )}
         </div>
       )}
       <h3 className={'blankett'}>Registerdata</h3>
