@@ -7,16 +7,19 @@ import type {
 } from '../../../typer/dokumentApiBlankett';
 import { EPeriodetype, EStønadType, periodetypeTilTekst } from '../../../typer/dokumentApiBlankett';
 import { formaterIsoDato, mapBooleanTilString } from '../../utils/util';
+import { Regelendring2026Visning } from './Regelendring2026Visning';
 
 export const TidligereHistorikk: React.FC<{
   tidligereVedtaksperioder: ITidligereVedtaksperioder | undefined;
   erRegelendring2026: boolean;
   featureToggleRegelendringer2026: boolean;
+  regelendring2026Begrunnelse?: string;
   stønadstype: EStønadType;
 }> = ({
   tidligereVedtaksperioder,
   erRegelendring2026,
   featureToggleRegelendringer2026,
+  regelendring2026Begrunnelse,
   stønadstype,
 }) => {
   const periodeHistorikkOvergangsstønad =
@@ -25,14 +28,12 @@ export const TidligereHistorikk: React.FC<{
 
   return (
     <>
-      {stønadstype === EStønadType.OVERGANGSSTØNAD && featureToggleRegelendringer2026 && (
-        <div>
-          <strong>Regelverk: </strong>
-          {erRegelendring2026
-            ? 'Nytt regelverk fra 01.07.2026'
-            : 'Gammelt regelverk før 01.07.2026'}
-        </div>
-      )}
+      <Regelendring2026Visning
+        erRegelendring2026={erRegelendring2026}
+        featureToggleRegelendringer2026={featureToggleRegelendringer2026}
+        regelendring2026Begrunnelse={regelendring2026Begrunnelse}
+        stønadstype={stønadstype}
+      />
       <h3 className={'blankett'}>Registerdata</h3>
       <p>Har bruker tidligere vedtaksperioder i EF Sak eller Infotrygd?</p>
       <h3 className={'blankett'}>Overgangsstønad</h3>

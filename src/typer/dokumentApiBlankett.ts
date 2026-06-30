@@ -19,6 +19,7 @@ export interface IBehandling {
   registeropplysningerOpprettetDato: string;
   erRegelendring2026: boolean;
   featureToggleRegelendringer2026: boolean;
+  regelendring2026Begrunnelse?: string;
 }
 
 export interface ITidligereVedtaksperioder {

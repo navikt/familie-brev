@@ -3,6 +3,7 @@ import { Vilkårsvurdering } from './Vilkårsvurdering';
 import { Vedtak } from './Vedtak';
 import {
   EBehandlingÅrsak,
+  EStønadType,
   IDokumentData,
   IVurdering,
   Vilkår,
@@ -11,6 +12,7 @@ import {
 } from '../../../typer/dokumentApiBlankett';
 import { RegistergrunnlagForVilkår } from './RegistergrunnlagForVilkår';
 import { Samværsavtale } from './Samværsavtale';
+import { Regelendring2026Visning } from './Regelendring2026Visning';
 
 interface DokumentProps {
   dokumentData: IDokumentData;
@@ -64,9 +66,18 @@ export const Dokument = (dokumentProps: DokumentProps) => {
   const erManuellGOmregning = dokumentData.behandling.årsak === EBehandlingÅrsak.G_OMREGNING;
   const stønadstype = dokumentData.behandling.stønadstype;
   const beregnetSamvær = dokumentData.beregnetSamvær;
+  const erBarnetilsyn = stønadstype === EStønadType.BARNETILSYN;
 
   return (
     <div>
+      {!erManuellGOmregning && erBarnetilsyn && (
+        <Regelendring2026Visning
+          erRegelendring2026={dokumentData.behandling.erRegelendring2026}
+          featureToggleRegelendringer2026={dokumentData.behandling.featureToggleRegelendringer2026}
+          regelendring2026Begrunnelse={dokumentData.behandling.regelendring2026Begrunnelse}
+          stønadstype={stønadstype}
+        />
+      )}
       {!erManuellGOmregning &&
         Object.keys(VilkårGruppe).map(vilkårgruppe => {
           const vurderinger = dokumentData.vilkår.vurderinger.filter(vurdering =>
@@ -96,6 +107,7 @@ export const Dokument = (dokumentProps: DokumentProps) => {
                   featureToggleRegelendringer2026={
                     dokumentData.behandling.featureToggleRegelendringer2026
                   }
+                  regelendring2026Begrunnelse={dokumentData.behandling.regelendring2026Begrunnelse}
                 />
                 <Vilkårsvurdering vurdering={vurdering} />
                 {beregnetSamværForVilkårsvurdering && (
