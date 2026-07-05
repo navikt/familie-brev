@@ -291,6 +291,7 @@ export const annenForeldersAktivitetValg = (
     case Aktivitet.MOTTAR_UFØRETRYGD_FRA_NAV_UNDER_OPPHOLD_I_UTLANDET:
       return ValgfeltMuligheter.EOS_ANNEN_FORELDER_MOTTAR_UFOERETRYGD_FRA_NAV_UNDER_OPPHOLD_I_UTLANDET;
     case Aktivitet.IKKE_AKTUELT:
+      return ValgfeltMuligheter.EOS_ANNEN_FORELDER_IKKE_AKTUELT;
     default:
       throw new Feil(
         `Ingen valg for annen forelders aktivitet="${aktivitet}" ved bruk av
