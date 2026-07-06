@@ -117,6 +117,7 @@ export enum ValgfeltMuligheter {
   EOS_ANNEN_FORELDER_MOTTAR_PENSJON_FRA_NAV_UNDER_OPPHOLD_I_UTLANDET = 'eosAnnenForelderMottarPensjonFraNavUnderOppholdIUtlandet',
   EOS_ANNEN_FORELDER_MOTTAR_UTBETALING_FRA_NAV_UNDER_OPPHOLD_I_UTLANDET = 'eosAnnenForelderMottarUtbetalingFraNavUnderOppholdIUtlandet',
   EOS_ANNEN_FORELDER_MOTTAR_UFOERETRYGD_FRA_NAV_UNDER_OPPHOLD_I_UTLANDET = 'eosAnnenForelderMottarUfoeretrygdFraNavUnderOppholdIUtlandet',
+  EOS_ANNEN_FORELDER_IKKE_AKTUELT = 'eosAnnenForelderIkkeAktuelt',
 }
 
 export interface SpanBlock {
