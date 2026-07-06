@@ -17,6 +17,9 @@ export interface IBehandling {
   harKontantstøttePerioder: boolean;
   kontantstøttePerioderFraKs: IKontantstøttePerioder[];
   registeropplysningerOpprettetDato: string;
+  erRegelendring2026: boolean;
+  featureToggleRegelendringer2026: boolean;
+  regelendring2026Begrunnelse?: string;
 }
 
 export interface ITidligereVedtaksperioder {
@@ -271,27 +274,25 @@ export enum EAktivitet {
 export const aktivitetsTypeTilTekst: Record<EAktivitet, string> = {
   IKKE_AKTIVITETSPLIKT: 'Ikke aktivitetsplikt',
   BARN_UNDER_ETT_ÅR: 'Barn er under 1 år',
-  FORSØRGER_I_ARBEID: 'Forsørger er i arbeid (§15-6 første ledd)',
-  FORSØRGER_I_UTDANNING: 'Forsørger er i utdanning (§15-6 første ledd)',
-  FORSØRGER_REELL_ARBEIDSSØKER: ' Forsørger er reell arbeidssøker (§15-6 første ledd)',
-  FORSØRGER_ETABLERER_VIRKSOMHET: 'Forsørger etablerer egen virksomhet (§15-6 første ledd)',
-  BARNET_SÆRLIG_TILSYNSKREVENDE: 'Barnet er særlig tilsynskrevende (§15-6 fjerde ledd)',
-  FORSØRGER_MANGLER_TILSYNSORDNING: 'Forsørger mangler tilsynsordning (§15-6 femte ledd)',
-  FORSØRGER_ER_SYK: 'Forsørger er syk (§15-6 femte ledd)',
-  BARNET_ER_SYKT: 'Barnet er sykt (§15-6 femte ledd)',
-  UTVIDELSE_BARNET_SÆRLIG_TILSYNSKREVENDE: 'Barnet er særlig tilsynskrevende (§15-8 tredje ledd)',
-  UTVIDELSE_FORSØRGER_I_UTDANNING: 'Forsørgeren er i utdanning (§15-8 andre ledd)',
-  FORLENGELSE_MIDLERTIDIG_SYKDOM:
-    'Forsørger eller barnet har en midlertidig sykdom (§15-8 fjerde ledd)',
-  FORLENGELSE_STØNAD_UT_SKOLEÅRET: 'Stønad ut skoleåret (§15-8 andre ledd)',
-  FORLENGELSE_STØNAD_PÅVENTE_ARBEID: 'Stønad i påvente av arbeid (§15-8 femte ledd)',
-  FORLENGELSE_STØNAD_PÅVENTE_UTDANNING: 'Stønad i påvente av utdanning (§15-8 femte ledd)',
+  FORSØRGER_I_ARBEID: 'Forsørger er i arbeid',
+  FORSØRGER_I_UTDANNING: 'Forsørger er i utdanning',
+  FORSØRGER_REELL_ARBEIDSSØKER: ' Forsørger er reell arbeidssøker',
+  FORSØRGER_ETABLERER_VIRKSOMHET: 'Forsørger etablerer egen virksomhet',
+  BARNET_SÆRLIG_TILSYNSKREVENDE: 'Barnet er særlig tilsynskrevende',
+  FORSØRGER_MANGLER_TILSYNSORDNING: 'Forsørger mangler tilsynsordning',
+  FORSØRGER_ER_SYK: 'Forsørger er syk',
+  BARNET_ER_SYKT: 'Barnet er sykt',
+  UTVIDELSE_BARNET_SÆRLIG_TILSYNSKREVENDE: 'Barnet er særlig tilsynskrevende',
+  UTVIDELSE_FORSØRGER_I_UTDANNING: 'Forsørgeren er i utdanning',
+  FORLENGELSE_MIDLERTIDIG_SYKDOM: 'Forsørger eller barnet har en midlertidig sykdom',
+  FORLENGELSE_STØNAD_UT_SKOLEÅRET: 'Stønad ut skoleåret',
+  FORLENGELSE_STØNAD_PÅVENTE_ARBEID: 'Stønad i påvente av arbeid',
+  FORLENGELSE_STØNAD_PÅVENTE_UTDANNING: 'Stønad i påvente av utdanning',
   FORLENGELSE_STØNAD_PÅVENTE_ARBEID_REELL_ARBEIDSSØKER:
-    'Stønad i påvente av arbeid - reell arbeidssøker (§15-8 femte ledd)',
+    'Stønad i påvente av arbeid - reell arbeidssøker',
   FORLENGELSE_STØNAD_PÅVENTE_OPPSTART_KVALIFISERINGSPROGRAM:
     'Stønad i påvente av oppstart kvalifiseringsprogram',
-  FORLENGELSE_STØNAD_PÅVENTE_TILSYNSORDNING:
-    'Stønad i påvente av tilsynsordning (§15-8 femte ledd)',
+  FORLENGELSE_STØNAD_PÅVENTE_TILSYNSORDNING: 'Stønad i påvente av tilsynsordning',
 };
 
 export interface IPersonopplysninger {
@@ -747,7 +748,8 @@ export const svarIdTilTekst: Record<ISvarId, string> = {
   TILSTØTENDE_BOLIGER_ELLER_REKKEHUS_I_SAMMEGATE:
     'Ja, foreldrene bor i tilstøtende boliger eller rekkehus i samme gate',
   ER_I_ARBEID: 'Ja, det er dokumentert at brukeren er i arbeid',
-  ETABLERER_EGEN_VIRKSOMHET: 'Ja, det er dokumentert at brukeren etablerer egen virksomhet',
+  ETABLERER_EGEN_VIRKSOMHET:
+    'Ja, det er dokumentert at brukeren etablerer egen virksomhet (gjelder kun tidligere regelverk)',
   HAR_FORBIGÅENDE_SYKDOM: 'Ja, det er dokumentert at brukeren har forbigående sykdom',
   TRENGER_MER_TILSYN_ENN_JEVNALDRENDE:
     'Ja, barnet har fullført fjerde skoleår og det er dokumentert at barnet trenger vesentlig mer tilsyn enn jevnaldrene',
@@ -784,8 +786,7 @@ export const delvilkårTypeTilTekst: Record<IRegelId, string> = {
     'Har søker sagt opp jobben, tatt frivillig permisjon eller redusert arbeidstiden de siste 6 månedene før søknadstidspunktet?',
   MEDLEMSKAP_UNNTAK: 'Er unntak fra hovedregelen oppfylt?',
   OPPHOLD_UNNTAK: 'Er unntak fra hovedregelen oppfylt?',
-  FYLLER_BRUKER_AKTIVITETSPLIKT:
-    'Fyller bruker aktivitetsplikt, unntak for aktivitetsplikt eller har barn under 1 år?',
+  FYLLER_BRUKER_AKTIVITETSPLIKT: 'Har bruker rett til stønad? Hvis ja, på hvilket grunnlag?',
   SIVILSTAND_UNNTAK: 'Er unntak fra krav om sivilstand oppfylt?',
   RIMELIG_GRUNN_SAGT_OPP:
     'Hadde søker rimelig grunn til å si opp jobben eller redusere arbeidstiden?',
@@ -797,8 +798,9 @@ export const delvilkårTypeTilTekst: Record<IRegelId, string> = {
   INNTEKT_LAVERE_ENN_INNTEKTSGRENSE: 'Har brukeren inntekt under 6 ganger grunnbeløpet?',
   INNTEKT_SAMSVARER_MED_OS:
     'Er inntekten i samsvar med den inntekten som er lagt til grunn ved beregning av overgangsstønad?',
-  HAR_ALDER_LAVERE_ENN_GRENSEVERDI: 'Har barnet fullført 4.skoleår?',
-  UNNTAK_ALDER: 'Oppfylles unntak etter å ha fullført 4. skoleår?',
+  HAR_ALDER_LAVERE_ENN_GRENSEVERDI:
+    'Er barnet over 14 måneder (nytt regelverk) eller har barnet fullført 4. skoleår (tidligere regelverk)?',
+  UNNTAK_ALDER: 'Fyller bruker vilkårene for å stå stønad utover aldersgrensen?',
   HAR_DOKUMENTERTE_TILSYNSUTGIFTER: 'Har brukeren dokumenterte tilsynsutgifter?',
   RETT_TIL_OVERGANGSSTØNAD: 'Er vilkårene for rett til overgangsstønad oppfylt?',
   DOKUMENTASJON_AV_UTDANNING: 'Er det dokumentert at bruker er under utdanning?',
