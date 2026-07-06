@@ -16,7 +16,7 @@ jobs:
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # ratchet:actions/setup-node@v4
         with:
           cache: yarn
-          node-version: 20
+          node-version-file: '.node-version'
           registry-url: "https://npm.pkg.github.com"
 
       - name: Yarn build
@@ -37,7 +37,7 @@ jobs:
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # ratchet:actions/setup-node@v4
         with:
           cache: yarn
-          node-version: 20
+          node-version-file: '.node-version'
           registry-url: "https://npm.pkg.github.com"
 
       - name: 📥 Install deps
@@ -59,7 +59,7 @@ jobs:
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # ratchet:actions/setup-node@v4
         with:
           cache: yarn
-          node-version: 20
+          node-version-file: '.node-version'
           registry-url: "https://npm.pkg.github.com"
 
       - name: 📥 Install deps
@@ -81,7 +81,7 @@ jobs:
         uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e # ratchet:actions/setup-node@v4
         with:
           cache: yarn
-          node-version: 20
+          node-version-file: '.node-version'
           registry-url: "https://npm.pkg.github.com"
 
       - name: 📥 Install deps
