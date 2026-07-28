@@ -24,6 +24,9 @@ export interface RegistergrunnlagForVilkårProps {
   barnId?: string;
   tidligereVedtaksperioder?: ITidligereVedtaksperioder;
   stønadstype: EStønadType;
+  erRegelendring2026: boolean;
+  featureToggleRegelendringer2026: boolean;
+  regelendring2026Begrunnelse?: string;
 }
 
 export const RegistergrunnlagForVilkår: React.FC<RegistergrunnlagForVilkårProps> = ({
@@ -32,6 +35,9 @@ export const RegistergrunnlagForVilkår: React.FC<RegistergrunnlagForVilkårProp
   barnId,
   tidligereVedtaksperioder,
   stønadstype,
+  erRegelendring2026,
+  featureToggleRegelendringer2026,
+  regelendring2026Begrunnelse,
 }) => {
   switch (vilkårgruppe) {
     case VilkårGruppe.MEDLEMSKAP:
@@ -57,7 +63,15 @@ export const RegistergrunnlagForVilkår: React.FC<RegistergrunnlagForVilkårProp
     case VilkårGruppe.NYTT_BARN_SAMME_PARTNER:
       return <NyttBarnSammePartner barnMedSamvær={grunnlag.barnMedSamvær} />;
     case Vilkår.TIDLIGERE_VEDTAKSPERIODER:
-      return <TidligereHistorikk tidligereVedtaksperioder={tidligereVedtaksperioder} />;
+      return (
+        <TidligereHistorikk
+          tidligereVedtaksperioder={tidligereVedtaksperioder}
+          erRegelendring2026={erRegelendring2026}
+          featureToggleRegelendringer2026={featureToggleRegelendringer2026}
+          regelendring2026Begrunnelse={regelendring2026Begrunnelse}
+          stønadstype={stønadstype}
+        />
+      );
     case Vilkår.INNTEKT:
     case VilkårGruppe.RETT_TIL_OVERGANGSSTØNAD:
       if (stønadstype !== StønadType.OVERGANGSSTØNAD) {
