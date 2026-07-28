@@ -73,7 +73,6 @@ export const Dokument = (dokumentProps: DokumentProps) => {
       {!erManuellGOmregning && erBarnetilsyn && (
         <Regelendring2026Visning
           erRegelendring2026={dokumentData.behandling.erRegelendring2026}
-          featureToggleRegelendringer2026={dokumentData.behandling.featureToggleRegelendringer2026}
           regelendring2026Begrunnelse={dokumentData.behandling.regelendring2026Begrunnelse}
           stønadstype={stønadstype}
         />
@@ -104,9 +103,6 @@ export const Dokument = (dokumentProps: DokumentProps) => {
                   tidligereVedtaksperioder={tidligereVedtaksperioder}
                   stønadstype={stønadstype}
                   erRegelendring2026={dokumentData.behandling.erRegelendring2026}
-                  featureToggleRegelendringer2026={
-                    dokumentData.behandling.featureToggleRegelendringer2026
-                  }
                   regelendring2026Begrunnelse={dokumentData.behandling.regelendring2026Begrunnelse}
                 />
                 <Vilkårsvurdering vurdering={vurdering} />

@@ -3,18 +3,11 @@ import { EStønadType } from '../../../typer/dokumentApiBlankett';
 
 export const Regelendring2026Visning: React.FC<{
   erRegelendring2026: boolean;
-  featureToggleRegelendringer2026: boolean;
   regelendring2026Begrunnelse?: string;
   stønadstype: EStønadType;
-}> = ({
-  erRegelendring2026,
-  featureToggleRegelendringer2026,
-  regelendring2026Begrunnelse,
-  stønadstype,
-}) => {
+}> = ({ erRegelendring2026, regelendring2026Begrunnelse, stønadstype }) => {
   const skalVise =
-    featureToggleRegelendringer2026 &&
-    (stønadstype === EStønadType.OVERGANGSSTØNAD || stønadstype === EStønadType.BARNETILSYN);
+    stønadstype === EStønadType.OVERGANGSSTØNAD || stønadstype === EStønadType.BARNETILSYN;
 
   if (!skalVise) return null;
 

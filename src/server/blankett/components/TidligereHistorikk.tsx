@@ -12,13 +12,11 @@ import { Regelendring2026Visning } from './Regelendring2026Visning';
 export const TidligereHistorikk: React.FC<{
   tidligereVedtaksperioder: ITidligereVedtaksperioder | undefined;
   erRegelendring2026: boolean;
-  featureToggleRegelendringer2026: boolean;
   regelendring2026Begrunnelse?: string;
   stønadstype: EStønadType;
 }> = ({
   tidligereVedtaksperioder,
   erRegelendring2026,
-  featureToggleRegelendringer2026,
   regelendring2026Begrunnelse,
   stønadstype,
 }) => {
@@ -30,7 +28,6 @@ export const TidligereHistorikk: React.FC<{
     <>
       <Regelendring2026Visning
         erRegelendring2026={erRegelendring2026}
-        featureToggleRegelendringer2026={featureToggleRegelendringer2026}
         regelendring2026Begrunnelse={regelendring2026Begrunnelse}
         stønadstype={stønadstype}
       />
