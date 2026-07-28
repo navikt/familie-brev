@@ -25,7 +25,6 @@ export interface RegistergrunnlagForVilkårProps {
   tidligereVedtaksperioder?: ITidligereVedtaksperioder;
   stønadstype: EStønadType;
   erRegelendring2026: boolean;
-  featureToggleRegelendringer2026: boolean;
   regelendring2026Begrunnelse?: string;
 }
 
@@ -36,7 +35,6 @@ export const RegistergrunnlagForVilkår: React.FC<RegistergrunnlagForVilkårProp
   tidligereVedtaksperioder,
   stønadstype,
   erRegelendring2026,
-  featureToggleRegelendringer2026,
   regelendring2026Begrunnelse,
 }) => {
   switch (vilkårgruppe) {
@@ -67,7 +65,6 @@ export const RegistergrunnlagForVilkår: React.FC<RegistergrunnlagForVilkårProp
         <TidligereHistorikk
           tidligereVedtaksperioder={tidligereVedtaksperioder}
           erRegelendring2026={erRegelendring2026}
-          featureToggleRegelendringer2026={featureToggleRegelendringer2026}
           regelendring2026Begrunnelse={regelendring2026Begrunnelse}
           stønadstype={stønadstype}
         />
