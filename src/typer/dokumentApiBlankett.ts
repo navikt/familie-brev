@@ -18,7 +18,6 @@ export interface IBehandling {
   kontantstøttePerioderFraKs: IKontantstøttePerioder[];
   registeropplysningerOpprettetDato: string;
   erRegelendring2026: boolean;
-  featureToggleRegelendringer2026: boolean;
   regelendring2026Begrunnelse?: string;
 }
 
