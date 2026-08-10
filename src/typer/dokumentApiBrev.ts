@@ -39,9 +39,7 @@ export interface BrevmottakerOrganisasjon {
   organisasjonsnavn: string;
   navnHosOrganisasjon: string;
   mottakerRolle?:
-    | BrevmottakerRolle.FULLMEKTIG
-    | BrevmottakerRolle.MOTTAKER
-    | BrevmottakerRolle.INSTITUSJON;
+    BrevmottakerRolle.FULLMEKTIG | BrevmottakerRolle.MOTTAKER | BrevmottakerRolle.INSTITUSJON;
 }
 
 export enum BrevmottakerRolle {
