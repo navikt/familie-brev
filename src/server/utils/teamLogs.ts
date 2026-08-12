@@ -1,6 +1,6 @@
 import axios from 'axios';
 import type { Meta } from '@navikt/familie-logging';
-import { logWarn } from '@navikt/familie-logging';
+import { logInfo, logWarn } from '@navikt/familie-logging';
 
 /**
  * Erstatning for `logSecure` fra @navikt/familie-logging.
@@ -15,6 +15,24 @@ import { logWarn } from '@navikt/familie-logging';
  */
 const TEAM_LOGS_URL = 'http://team-logs.nais-system/';
 
+const PÅKREVDE_ENV_VARIABLER = [
+  'GOOGLE_CLOUD_PROJECT',
+  'NAIS_NAMESPACE',
+  'NAIS_POD_NAME',
+  'NAIS_APP_NAME',
+] as const;
+
+// Logges kun én gang ved oppstart, slik at vi lett kan se i vanlige (ikke-sikre)
+// logger om noen av variablene Team Logs-formatet krever faktisk mangler i podden.
+const manglendeVariabler = PÅKREVDE_ENV_VARIABLER.filter(navn => !process.env[navn]);
+if (manglendeVariabler.length > 0) {
+  logWarn(
+    `Team-logs: mangler miljøvariabler ${manglendeVariabler.join(
+      ', ',
+    )}. Feltene vil mangle i loggene som sendes til team-logs.nais-system.`,
+  );
+}
+
 export const logSecure = (message: string, meta: Meta = {}): void => {
   const body = {
     google_cloud_project: process.env.GOOGLE_CLOUD_PROJECT,
@@ -26,9 +44,17 @@ export const logSecure = (message: string, meta: Meta = {}): void => {
     ...meta,
   };
 
-  axios.post(TEAM_LOGS_URL, body).catch(feil => {
-    // Skal aldri kaste videre - vi vil ikke at en feilet team-logs-forsendelse
-    // skal føre til en ny, ubehandlet feil i appen.
-    logWarn(`Sending av team-logs feilet: ${feil}`);
-  });
+  axios
+    .post(TEAM_LOGS_URL, body, { timeout: 5_000, headers: { 'Content-Type': 'application/json' } })
+    .then(res => {
+      logInfo(`Team-logs: sendt OK (status=${res.status})`);
+    })
+    .catch(feil => {
+      // Skal aldri kaste videre - vi vil ikke at en feilet team-logs-forsendelse
+      // skal føre til en ny, ubehandlet feil i appen. Logger status/data slik at
+      // vi kan se årsaken i vanlige (ikke-sikre) logger.
+      const status = feil?.response?.status;
+      const data = JSON.stringify(feil?.response?.data);
+      logWarn(`Team-logs: sending feilet (status=${status}, data=${data}): ${feil}`);
+    });
 };
