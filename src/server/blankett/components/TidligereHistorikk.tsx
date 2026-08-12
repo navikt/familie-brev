@@ -6,7 +6,7 @@ import type {
   OverlappMedOvergangsstønad,
 } from '../../../typer/dokumentApiBlankett';
 import { EPeriodetype, EStønadType, periodetypeTilTekst } from '../../../typer/dokumentApiBlankett';
-import { formaterIsoDato, mapBooleanTilString } from '../../utils/util';
+import { formaterNullableIsoDato, mapBooleanTilString } from '../../utils/util';
 import { Regelendring2026Visning } from './Regelendring2026Visning';
 
 export const TidligereHistorikk: React.FC<{
@@ -92,7 +92,8 @@ const TidligereHistorikkOvergangsstønadTabell: React.FC<{
         return (
           <tr key={periode.fom + index}>
             <td>
-              {formaterIsoDato(periode.fom)} - {formaterIsoDato(periode.tom)}
+              {formaterNullableIsoDato(periode.fom) || '-'} -{' '}
+              {formaterNullableIsoDato(periode.tom) || '-'}
             </td>
             <td>{periodetypeTilTekst[periode.vedtaksperiodeType] || ''}</td>
             <td>{periode.antallMåneder}</td>
@@ -123,7 +124,8 @@ const TidligereHistorikkBarnetilsynTabell: React.FC<{
         return (
           <tr key={periode.fom + index}>
             <td>
-              {formaterIsoDato(periode.fom)} - {formaterIsoDato(periode.tom)}
+              {formaterNullableIsoDato(periode.fom) || '-'} -{' '}
+              {formaterNullableIsoDato(periode.tom) || '-'}
             </td>
             <td>
               {overlappMedOvergangsstønadTilTekst[periode.overlapperMedOvergangsstønad || '']}

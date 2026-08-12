@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { formaterIsoDato, formaterIsoDatoTid } from '../../utils/util';
+import { formaterIsoDatoTid, formaterNullableIsoDato } from '../../utils/util';
 import {
   behandlingResultatTilTekst,
   EFormVilkår,
@@ -54,7 +54,7 @@ export const KlageBehandling: React.FC<{ behandling: IKlageBehandling }> = ({ be
         <strong>Saksnummer:</strong> {behandling.eksternFagsakId}
       </div>
       <div>
-        <strong>Klage mottatt:</strong> {formaterIsoDato(behandling.klageMottatt)}
+        <strong>Klage mottatt:</strong> {formaterNullableIsoDato(behandling.klageMottatt) || '-'}
       </div>
       <div>
         <strong>Resultat:</strong> {behandlingResultatTilTekst[behandling.resultat]}

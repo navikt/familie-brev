@@ -1,5 +1,5 @@
 import React from 'react';
-import { formaterIsoDato } from '../../utils/util';
+import { formaterNullableIsoDato } from '../../utils/util';
 import type {
   ITidligereVedtaksperioder,
   IGrunnlagsdataSistePeriodeOvergangsstønad,
@@ -45,7 +45,8 @@ export const InntektGrunnlag: React.FC<{
             (periode: IGrunnlagsdataSistePeriodeOvergangsstønad, index) => (
               <tr key={index}>
                 <td>
-                  {formaterIsoDato(periode.fom)} - {formaterIsoDato(periode.tom)}
+                  {formaterNullableIsoDato(periode.fom) || '-'} -{' '}
+                  {formaterNullableIsoDato(periode.tom) || '-'}
                 </td>
                 <td>{periodetypeTilTekst[periode.vedtaksperiodeType]}</td>
                 {stønadstype === StønadType.BARNETILSYN ? (
