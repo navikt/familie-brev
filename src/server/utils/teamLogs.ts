@@ -2,17 +2,6 @@ import axios from 'axios';
 import type { Meta } from '@navikt/familie-logging';
 import { logWarn } from '@navikt/familie-logging';
 
-/**
- * Erstatning for `logSecure` fra @navikt/familie-logging.
- *
- * @navikt/familie-logging sin `logSecure` skriver til filen /secure-logs/secure.log,
- * som kun fantes fordi nais.yaml tidligere hadde `spec.secureLogs.enabled: true`.
- * Det feltet finnes ikke lenger i Nais Application-CRD-en (erstattet av Team Logs),
- * så volumet blir ikke montert og loggene forsvinner.
- *
- * Team Logs krever at appen selv sender strukturerte JSON-logger til
- * team-logs.nais-system. Se https://doc.nais.io/observability/logging/how-to/team-logs/
- */
 const TEAM_LOGS_URL = 'http://team-logs.nais-system/';
 
 export const logSecure = (message: string, meta: Meta = {}): void => {
@@ -29,9 +18,6 @@ export const logSecure = (message: string, meta: Meta = {}): void => {
   axios
     .post(TEAM_LOGS_URL, body, { timeout: 5_000, headers: { 'Content-Type': 'application/json' } })
     .catch(feil => {
-      // Skal aldri kaste videre - vi vil ikke at en feilet team-logs-forsendelse
-      // skal føre til en ny, ubehandlet feil i appen. Logger status/data slik at
-      // vi kan se årsaken i vanlige (ikke-sikre) logger.
       const status = feil?.response?.status;
       const data = JSON.stringify(feil?.response?.data);
       logWarn(`Team-logs: sending feilet (status=${status}, data=${data}): ${feil}`);
