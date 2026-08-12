@@ -49,7 +49,10 @@ export const formaterIsoDato = (dato: string): string =>
 export const formaterIsoDatoTid = (dato: string): string =>
   format(parseISO(dato), "dd.MM.yyyy 'kl'.HH:mm");
 
-export const tilSkoleår = (årMåned: string): number => {
+export const tilSkoleår = (årMåned?: string): number | undefined => {
+  if (!årMåned) {
+    return undefined;
+  }
   const dato = månedÅrTilDate(årMåned);
   const år = getYear(dato);
   return getMonth(dato) > 6 ? år : år - 1;

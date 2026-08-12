@@ -27,10 +27,16 @@ export const InnvilgetSkolepenger: React.FC<{
       )}
 
       {vedtak.skoleårsperioder.map((skoleårsperiode, i) => {
-        const skoleår = tilSkoleår(skoleårsperiode.perioder[0]?.årMånedFra);
+        const førsteÅrMåned =
+          skoleårsperiode.perioder[0]?.årMånedFra ?? skoleårsperiode.utgiftsperioder[0]?.årMånedFra;
+        const skoleår = tilSkoleår(førsteÅrMåned);
         return (
           <div key={i}>
-            <h3 className={'blankett'}>{`Utgifter til skoleåret ${skoleår}/${skoleår + 1}`}</h3>
+            <h3 className={'blankett'}>
+              {skoleår !== undefined
+                ? `Utgifter til skoleåret ${skoleår}/${skoleår + 1}`
+                : 'Utgifter til skoleåret'}
+            </h3>
             <h4 className={'blankett'}>Utgifter</h4>
             <table>
               <thead>
