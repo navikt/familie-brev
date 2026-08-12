@@ -27,8 +27,6 @@ spec:
     failureThreshold: 30
   prometheus:
     enabled: false
-  secureLogs:
-    enabled: true
   ingresses:
     - https://familie-brev.intern.dev.nav.no
   accessPolicy:
