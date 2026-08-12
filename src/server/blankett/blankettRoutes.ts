@@ -1,7 +1,8 @@
 import type { Request, Response } from 'express';
 import type { IDokumentData } from '../../typer/dokumentApiBlankett';
 import { hentDokumentHtmlBlankett } from './hentDokumentHtmlBlankett';
-import { logError, logSecure } from '@navikt/familie-logging';
+import { logError } from '@navikt/familie-logging';
+import { logSecure } from '../utils/teamLogs';
 import { genererMetadata } from '../utils/logging';
 import { genererPdfBlankett } from '../utils/apiBlankett';
 import type { IKlageDokumentData } from '../../typer/klageDokumentApi';

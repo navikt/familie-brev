@@ -1,4 +1,5 @@
-import { logError, logSecure } from '@navikt/familie-logging';
+import { logError } from '@navikt/familie-logging';
+import { logSecure } from './teamLogs';
 
 export class Feil extends Error {
   public code: number;

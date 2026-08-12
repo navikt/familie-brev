@@ -1,4 +1,5 @@
-import { logSecure, logWarn } from '@navikt/familie-logging';
+import { logWarn } from '@navikt/familie-logging';
+import { logSecure } from './teamLogs';
 
 export class ManglerFlettefeltFeil extends Error {
   public code: number;
