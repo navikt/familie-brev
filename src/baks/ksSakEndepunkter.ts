@@ -10,7 +10,8 @@ import {
   validerStandardbegrunnelsedata,
 } from './valideringer';
 import { Feil } from '../server/utils/Feil';
-import { logError, logSecure } from '@navikt/familie-logging';
+import { logError } from '@navikt/familie-logging';
+import { logSecure } from '../server/utils/teamLogs';
 import { hentMiljøvariabler } from '../server/environment';
 import { escape } from '../server/utils/escapeString';
 import { begrunnelseSerializer } from './begrunnelseSerializer';

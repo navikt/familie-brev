@@ -16,7 +16,8 @@ import {
   validerStandardbegrunnelsedata,
 } from './valideringer';
 import { Feil } from '../server/utils/Feil';
-import { logError, logSecure } from '@navikt/familie-logging';
+import { logError } from '@navikt/familie-logging';
+import { logSecure } from '../server/utils/teamLogs';
 import { hentMiljøvariabler } from '../server/environment';
 import router from '../server/routes';
 import { ManglerFlettefeltFeil } from '../server/utils/ManglerFlettefeltFeil';

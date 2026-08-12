@@ -15,7 +15,8 @@ import { genererPdf } from './utils/api';
 import { Feil } from './utils/Feil';
 import { hentAvansertDokumentHtml } from './hentAvansertDokumentHtml';
 import { validerDokumentApiData } from './utils/valideringer/validerDokumentApiData';
-import { logError, logInfo, logSecure } from '@navikt/familie-logging';
+import { logError, logInfo } from '@navikt/familie-logging';
+import { logSecure } from './utils/teamLogs';
 import {
   Brevmeny,
   BrevStruktur,
