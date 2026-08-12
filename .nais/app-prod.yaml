@@ -63,6 +63,7 @@ spec:
       destinations:
         - id: elastic
         - id: loki
+        - id: team_logs
     autoInstrumentation:
       enabled: true
       runtime: nodejs
