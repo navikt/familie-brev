@@ -18,7 +18,6 @@ const { NODE_ENV } = process.env;
 router.post('/pdf', async (req: Request, res: Response) => {
   const dokument: IDokumentData = req.body as IDokumentData;
   const meta = genererMetadata(req);
-  loggSkolepengerRequestForFeilsøking(dokument, req);
 
   try {
     const html = await hentDokumentHtmlBlankett(dokument);
@@ -49,6 +48,7 @@ router.post('/klage/pdf', async (req: Request, res: Response) => {
   } catch (feil) {
     const error = feil as Error;
     logError(`Generering av klagedokument (pdf) feilet: Sjekk secure-logs`, undefined, meta);
+    loggFeilMedDataTilSecurelog<IKlageDokumentData>(dokument, req, error);
 
     res.status(500).send(`Generering av dokument (pdf) feilet: ${error.message}`);
   }
