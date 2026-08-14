@@ -1,6 +1,5 @@
 import type { Request, Response } from 'express';
-import type { IDokumentData, IInnvilgeVedtakSkolepenger } from '../../typer/dokumentApiBlankett';
-import { EBehandlingResultat, EStønadType } from '../../typer/dokumentApiBlankett';
+import type { IDokumentData } from '../../typer/dokumentApiBlankett';
 import { hentDokumentHtmlBlankett } from './hentDokumentHtmlBlankett';
 import { logError } from '@navikt/familie-logging';
 import { logSecure } from '../utils/teamLogs';
