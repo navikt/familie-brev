@@ -1,5 +1,6 @@
 import type { Request, Response } from 'express';
-import type { IDokumentData } from '../../typer/dokumentApiBlankett';
+import type { IDokumentData, IInnvilgeVedtakSkolepenger } from '../../typer/dokumentApiBlankett';
+import { EBehandlingResultat, EStønadType } from '../../typer/dokumentApiBlankett';
 import { hentDokumentHtmlBlankett } from './hentDokumentHtmlBlankett';
 import { logError } from '@navikt/familie-logging';
 import { logSecure } from '../utils/teamLogs';
@@ -14,9 +15,34 @@ import { logFerdigstilt } from '../routes';
 const router = express.Router();
 const { NODE_ENV } = process.env;
 
+/**
+ * Midlertidig logging for å kunne reprodusere at skoleårsperioder mangler perioder
+ * (delårsperioder) i requesten fra familie-ef-sak. Fjernes når vi har bekreftet at
+ * dette ikke lenger forekommer.
+ */
+const loggSkolepengerRequestForFeilsøking = (dokument: IDokumentData, req: Request) => {
+  if (
+    dokument.behandling.stønadstype === EStønadType.SKOLEPENGER &&
+    dokument.vedtak.resultatType === EBehandlingResultat.INNVILGE
+  ) {
+    const skoleårsperioder = (dokument.vedtak as IInnvilgeVedtakSkolepenger).skoleårsperioder;
+    const skoleårsperioderMedTommePerioder = skoleårsperioder.filter(
+      skoleårsperiode => skoleårsperiode.perioder.length === 0,
+    );
+    logSecure(
+      `[${req.method} - ${req.originalUrl}] Skolepenger-vedtak mottatt for blankett-pdf: ` +
+        `${skoleårsperioder.length} skoleårsperiode(r), ` +
+        `${skoleårsperioderMedTommePerioder.length} med tom perioder-liste. ` +
+        `Full payload: ${JSON.stringify(skoleårsperioder)}`,
+      genererMetadata(req),
+    );
+  }
+};
+
 router.post('/pdf', async (req: Request, res: Response) => {
   const dokument: IDokumentData = req.body as IDokumentData;
   const meta = genererMetadata(req);
+  loggSkolepengerRequestForFeilsøking(dokument, req);
 
   try {
     const html = await hentDokumentHtmlBlankett(dokument);
