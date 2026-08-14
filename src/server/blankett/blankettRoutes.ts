@@ -30,6 +30,7 @@ router.post('/pdf', async (req: Request, res: Response) => {
   } catch (feil) {
     const error = feil as Error;
     logError(`Generering av dokument (pdf) feilet: Sjekk secure-logs`, undefined, meta);
+    loggFeilMedDataTilSecurelog<IDokumentData>(dokument, req, error);
 
     res.status(500).send(`Generering av dokument (pdf) feilet: ${error.message}`);
   }
@@ -48,7 +49,6 @@ router.post('/klage/pdf', async (req: Request, res: Response) => {
   } catch (feil) {
     const error = feil as Error;
     logError(`Generering av klagedokument (pdf) feilet: Sjekk secure-logs`, undefined, meta);
-    loggFeilMedDataTilSecurelog<IKlageDokumentData>(dokument, req, error);
 
     res.status(500).send(`Generering av dokument (pdf) feilet: ${error.message}`);
   }
