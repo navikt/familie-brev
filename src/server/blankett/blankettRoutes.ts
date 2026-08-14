@@ -15,30 +15,6 @@ import { logFerdigstilt } from '../routes';
 const router = express.Router();
 const { NODE_ENV } = process.env;
 
-/**
- * Midlertidig logging for å kunne reprodusere at skoleårsperioder mangler perioder
- * (delårsperioder) i requesten fra familie-ef-sak. Fjernes når vi har bekreftet at
- * dette ikke lenger forekommer.
- */
-const loggSkolepengerRequestForFeilsøking = (dokument: IDokumentData, req: Request) => {
-  if (
-    dokument.behandling.stønadstype === EStønadType.SKOLEPENGER &&
-    dokument.vedtak.resultatType === EBehandlingResultat.INNVILGE
-  ) {
-    const skoleårsperioder = (dokument.vedtak as IInnvilgeVedtakSkolepenger).skoleårsperioder;
-    const skoleårsperioderMedTommePerioder = skoleårsperioder.filter(
-      skoleårsperiode => skoleårsperiode.perioder.length === 0,
-    );
-    logSecure(
-      `[${req.method} - ${req.originalUrl}] Skolepenger-vedtak mottatt for blankett-pdf: ` +
-        `${skoleårsperioder.length} skoleårsperiode(r), ` +
-        `${skoleårsperioderMedTommePerioder.length} med tom perioder-liste. ` +
-        `Full payload: ${JSON.stringify(skoleårsperioder)}`,
-      genererMetadata(req),
-    );
-  }
-};
-
 router.post('/pdf', async (req: Request, res: Response) => {
   const dokument: IDokumentData = req.body as IDokumentData;
   const meta = genererMetadata(req);
@@ -54,7 +30,6 @@ router.post('/pdf', async (req: Request, res: Response) => {
   } catch (feil) {
     const error = feil as Error;
     logError(`Generering av dokument (pdf) feilet: Sjekk secure-logs`, undefined, meta);
-    loggFeilMedDataTilSecurelog<IDokumentData>(dokument, req, error);
 
     res.status(500).send(`Generering av dokument (pdf) feilet: ${error.message}`);
   }
