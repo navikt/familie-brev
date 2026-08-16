@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "@navikt/familie-logging": "7.0.8",
-    "@portabletext/react": "6.2.0",
+    "@portabletext/react": "7.0.1",
     "@sanity/client": "7.26.2",
     "axios": "1.19.0",
     "date-fns": "4.4.0",
