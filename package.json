@@ -2,14 +2,15 @@
   "name": "famile-brev",
   "type": "module",
   "version": "0.1.0",
+  "packageManager": "pnpm@11.15.0",
   "private": true,
   "scripts": {
-    "start": "yarn set-node-options NODE_ENV=production node dist/src/server/index.js",
+    "start": "pnpm set-node-options NODE_ENV=production node dist/src/server/index.js",
     "build": "tsc -p tsconfig.json",
-    "start:dev": "nodemon -e ts,tsx --exec \"yarn build:dev && yarn run:dev\"",
-    "dev": "yarn start:dev",
+    "start:dev": "nodemon -e ts,tsx --exec \"pnpm build:dev && pnpm run:dev\"",
+    "dev": "pnpm start:dev",
     "build:dev": "tsc -p tsconfig.json",
-    "run:dev": "yarn set-node-options node dist/src/server/index.js",
+    "run:dev": "pnpm set-node-options node dist/src/server/index.js",
     "prepare": "husky",
     "kjør-prettier": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,css}\"",
     "typecheck": "tsc --noEmit --skipLibCheck",
@@ -35,7 +36,8 @@
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "ts-node": "10.9.2",
-    "styled-components": "6.5.3"
+    "styled-components": "6.5.3",
+    "typescript": "5.9.3"
   },
   "devDependencies": {
     "@types/express": "5.0.6",
@@ -54,7 +56,6 @@
     "lint-staged": "17.3.0",
     "nodemon": "3.1.14",
     "prettier": "3.9.6",
-    "typescript": "5.9.3",
     "typescript-eslint": "8.68.0"
   },
   "browserslist": {

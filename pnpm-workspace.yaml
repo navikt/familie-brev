@@ -1,0 +1,20 @@
+# Flat node_modules (som yarn) slik at Docker-imaget, som kopierer inn hele
+# node_modules, får en resolverbar struktur i produksjon. Strict/isolated
+# linking legger avhengigheter kun under .pnpm/ uten topp-nivå-oppslag, noe
+# som gjør at Node (og ts-node/esm-loaderen i register.js) ikke finner dem
+# fra dist/src/server/index.js i containeren. Samme oppsett som sak-frontendene.
+nodeLinker: hoisted
+# Nye avhengigheter pinnes eksakt (pnpm 11 leser bare auth/registry fra .npmrc,
+# så save-exact der har ingen effekt — tilsvarer 'save-exact true' i .yarnrc).
+saveExact: true
+# Avhengigheter får ikke kjøre (pre|post)install-scripts (sikkerhetstiltak).
+# Tilsvarer 'ignore-scripts true' som lå i .yarnrc. NB: en ny avhengighet med
+# install-script gjør at 'pnpm install' feiler med ERR_PNPM_IGNORED_BUILDS og
+# skriver en ugyldig placeholder inn i denne fila — erstatt den med
+# 'pakke: false' (eller 'true' for å tillate scriptet).
+allowBuilds: {}
+# Egne pakker fra GitHub Packages tas i bruk med en gang (pnpm venter ellers
+# minimumReleaseAge, som standard 1 dag, før nye versjoner installeres).
+minimumReleaseAgeExclude:
+  - '@navikt/*'
+  - '@nais/*'
