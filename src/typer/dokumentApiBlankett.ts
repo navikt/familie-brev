@@ -906,6 +906,7 @@ export const opplysningskildeTilTekst: Record<Opplysningskilde, string> = {
 };
 
 export enum AvslagÅrsak {
+  BARN_OVER_FJORTEN_MÅNEDER = 'BARN_OVER_FJORTEN_MÅNEDER',
   BARN_OVER_ÅTTE_ÅR = 'BARN_OVER_ÅTTE_ÅR',
   MANGLENDE_OPPLYSNINGER = 'MANGLENDE_OPPLYSNINGER',
   STØNADSTID_OPPBRUKT = 'STØNADSTID_OPPBRUKT',
@@ -914,6 +915,7 @@ export enum AvslagÅrsak {
 }
 
 export const avslagÅrsakTilTekst: Record<AvslagÅrsak, string> = {
+  BARN_OVER_FJORTEN_MÅNEDER: 'Barnet er over 14 måneder',
   BARN_OVER_ÅTTE_ÅR: 'Barnet er over 8 år',
   MANGLENDE_OPPLYSNINGER: 'Manglende opplysninger',
   STØNADSTID_OPPBRUKT: 'Stønadstiden er brukt opp',
