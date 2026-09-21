@@ -1,8 +1,8 @@
 import React from 'react';
-import { NavIkon } from './ikoner/navIkon';
-import { Flettefelt } from '../../typer/dokumentApiBrev';
-import { validerFlettefelt } from '../utils/valideringer/validerFlettefelt';
-import { Maalform } from '../../typer/sanitygrensesnitt';
+import { NavIkon } from './ikoner/navIkon.js';
+import { Flettefelt } from '../../typer/dokumentApiBrev.js';
+import { validerFlettefelt } from '../utils/valideringer/validerFlettefelt.js';
+import { Maalform } from '../../typer/sanitygrensesnitt.js';
 
 interface Props {
   tittel: string;

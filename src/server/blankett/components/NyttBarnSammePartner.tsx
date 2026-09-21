@@ -1,6 +1,6 @@
 import React from 'react';
-import { AnnenForelder } from './AnnenForelder';
-import type { IBarnMedSamvær } from '../../../typer/dokumentApiBlankett';
+import { AnnenForelder } from './AnnenForelder.js';
+import type { IBarnMedSamvær } from '../../../typer/dokumentApiBlankett.js';
 
 interface Props {
   barnMedSamvær: IBarnMedSamvær[];

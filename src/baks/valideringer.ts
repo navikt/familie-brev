@@ -1,6 +1,6 @@
-import type { IEØSBegrunnelsedata, IStandardbegrunnelsedata } from './typer';
-import { Feil } from '../server/utils/Feil';
-import { Maalform } from '../typer/sanitygrensesnitt';
+import type { IEØSBegrunnelsedata, IStandardbegrunnelsedata } from './typer.js';
+import { Feil } from '../server/utils/Feil.js';
+import { Maalform } from '../typer/sanitygrensesnitt.js';
 
 export const validerStandardbegrunnelsedata = (data: IStandardbegrunnelsedata) => {
   if (data === null) {

@@ -1,6 +1,6 @@
 import React from 'react';
-import type { IMedlemskap } from '../../../typer/dokumentApiBlankett';
-import { formaterNullableIsoDato } from '../../utils/util';
+import type { IMedlemskap } from '../../../typer/dokumentApiBlankett.js';
+import { formaterNullableIsoDato } from '../../utils/util.js';
 
 interface Props {
   medlemskap: IMedlemskap;

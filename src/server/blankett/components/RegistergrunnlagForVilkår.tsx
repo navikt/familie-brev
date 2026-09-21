@@ -1,22 +1,22 @@
 import React from 'react';
-import { Medlemskapsgrunnlag } from './Medlemskapsgrunnlag';
-import { LovligOppholdGrunnlag } from './LovligOppholdGrunnlag';
-import { SivilstandGrunnlag } from './Sivilstand';
-import { SamlivGrunnlag } from './Samliv';
-import { MorEllerFarGrunnlag } from './MorEllerFarGrunnlag';
-import { AleneomsorgGrunnlag } from './AleneomsorgGrunnlag';
-import { NyttBarnSammePartner } from './NyttBarnSammePartner';
-import { SagtOppEllerRedusertGrunnlag } from './SagtOppEllerRedusertGrunnlag';
-import { AlderPåBarnGrunnlag } from './AlderPåBarnGrunnlag';
-import { TidligereHistorikk } from './TidligereHistorikk';
+import { Medlemskapsgrunnlag } from './Medlemskapsgrunnlag.js';
+import { LovligOppholdGrunnlag } from './LovligOppholdGrunnlag.js';
+import { SivilstandGrunnlag } from './Sivilstand.js';
+import { SamlivGrunnlag } from './Samliv.js';
+import { MorEllerFarGrunnlag } from './MorEllerFarGrunnlag.js';
+import { AleneomsorgGrunnlag } from './AleneomsorgGrunnlag.js';
+import { NyttBarnSammePartner } from './NyttBarnSammePartner.js';
+import { SagtOppEllerRedusertGrunnlag } from './SagtOppEllerRedusertGrunnlag.js';
+import { AlderPåBarnGrunnlag } from './AlderPåBarnGrunnlag.js';
+import { TidligereHistorikk } from './TidligereHistorikk.js';
 import type {
   IVilkårGrunnlag,
   ITidligereVedtaksperioder,
   EStønadType,
-} from '../../../typer/dokumentApiBlankett';
-import { EStønadType as StønadType } from '../../../typer/dokumentApiBlankett';
-import { VilkårGruppe, Vilkår } from '../../../typer/dokumentApiBlankett';
-import { InntektGrunnlag } from './InntektGrunnlag';
+} from '../../../typer/dokumentApiBlankett.js';
+import { EStønadType as StønadType } from '../../../typer/dokumentApiBlankett.js';
+import { VilkårGruppe, Vilkår } from '../../../typer/dokumentApiBlankett.js';
+import { InntektGrunnlag } from './InntektGrunnlag.js';
 
 export interface RegistergrunnlagForVilkårProps {
   grunnlag: IVilkårGrunnlag;

@@ -1,5 +1,5 @@
-import type { IDelmaler } from '../../../typer/dokumentApiBrev';
-import { Feil } from '../Feil';
+import type { IDelmaler } from '../../../typer/dokumentApiBrev.js';
+import { Feil } from '../Feil.js';
 
 export const validerAvansertDelmal = (
   delmaler: IDelmaler | undefined,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavIkon } from './ikoner/navIkon';
+import { NavIkon } from './ikoner/navIkon.js';
 import {
   Brevmottakere,
   BrevmottakerOrganisasjon,
@@ -7,9 +7,9 @@ import {
   BrevmottakerRolle,
   brevmottakerRolleTilTekst,
   Flettefelt,
-} from '../../typer/dokumentApiBrev';
-import { validerFlettefelt } from '../utils/valideringer/validerFlettefelt';
-import { Maalform } from '../../typer/sanitygrensesnitt';
+} from '../../typer/dokumentApiBrev.js';
+import { validerFlettefelt } from '../utils/valideringer/validerFlettefelt.js';
+import { Maalform } from '../../typer/sanitygrensesnitt.js';
 
 interface Props {
   tittel: string;

@@ -1,26 +1,26 @@
 import type { Request, Response } from 'express';
-import { client } from '../server/sanity/sanityClient';
+import { client } from '../server/sanity/sanityClient.js';
 import {
   hentBegrunnelseQuery,
   hentBegrunnelserAvTypeQuery,
   hentBegrunnelserForVilkårQuery,
   hentBegrunnelseTekstQuery,
   hentHjemlerForBegrunnelseQuery,
-} from './queries';
-import { begrunnelseSerializer } from './begrunnelseSerializer';
-import type { BegrunnelseMedData } from './typer';
-import { Begrunnelsetype } from './typer';
+} from './queries.js';
+import { begrunnelseSerializer } from './begrunnelseSerializer.js';
+import type { BegrunnelseMedData } from './typer.js';
+import { Begrunnelsetype } from './typer.js';
 import {
   validerBegrunnelse,
   validerEøsbegrunnelsedata,
   validerStandardbegrunnelsedata,
-} from './valideringer';
-import { Feil } from '../server/utils/Feil';
+} from './valideringer.js';
+import { Feil } from '../server/utils/Feil.js';
 import { logError } from '@navikt/familie-logging';
-import { logSecure } from '../server/utils/teamLogs';
-import { hentMiljøvariabler } from '../server/environment';
-import router from '../server/routes';
-import { ManglerFlettefeltFeil } from '../server/utils/ManglerFlettefeltFeil';
+import { logSecure } from '../server/utils/teamLogs.js';
+import { hentMiljøvariabler } from '../server/environment.js';
+import router from '../server/routes.js';
+import { ManglerFlettefeltFeil } from '../server/utils/ManglerFlettefeltFeil.js';
 
 const { BA_DATASETT } = hentMiljøvariabler();
 

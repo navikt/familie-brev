@@ -1,8 +1,8 @@
 # Flat node_modules (som yarn) slik at Docker-imaget, som kopierer inn hele
 # node_modules, får en resolverbar struktur i produksjon. Strict/isolated
 # linking legger avhengigheter kun under .pnpm/ uten topp-nivå-oppslag, noe
-# som gjør at Node (og ts-node/esm-loaderen i register.js) ikke finner dem
-# fra dist/src/server/index.js i containeren. Samme oppsett som sak-frontendene.
+# som gjør at Node ikke finner dem fra dist/src/server/index.js i containeren.
+# Samme oppsett som sak-frontendene.
 nodeLinker: hoisted
 # Nye avhengigheter pinnes eksakt (pnpm 11 leser bare auth/registry fra .npmrc,
 # så save-exact der har ingen effekt — tilsvarer 'save-exact true' i .yarnrc).

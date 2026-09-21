@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavIkon } from '../../components/ikoner/navIkon';
+import { NavIkon } from '../../components/ikoner/navIkon.js';
 
 interface HeaderProps {
   tittel: string;

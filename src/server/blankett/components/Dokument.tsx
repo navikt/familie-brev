@@ -1,6 +1,6 @@
 import React from 'react';
-import { Vilkårsvurdering } from './Vilkårsvurdering';
-import { Vedtak } from './Vedtak';
+import { Vilkårsvurdering } from './Vilkårsvurdering.js';
+import { Vedtak } from './Vedtak.js';
 import {
   EBehandlingÅrsak,
   EStønadType,
@@ -9,10 +9,10 @@ import {
   Vilkår,
   VilkårGruppe,
   vilkårTypeTilTekst,
-} from '../../../typer/dokumentApiBlankett';
-import { RegistergrunnlagForVilkår } from './RegistergrunnlagForVilkår';
-import { Samværsavtale } from './Samværsavtale';
-import { Regelendring2026Visning } from './Regelendring2026Visning';
+} from '../../../typer/dokumentApiBlankett.js';
+import { RegistergrunnlagForVilkår } from './RegistergrunnlagForVilkår.js';
+import { Samværsavtale } from './Samværsavtale.js';
+import { Regelendring2026Visning } from './Regelendring2026Visning.js';
 
 interface DokumentProps {
   dokumentData: IDokumentData;

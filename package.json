@@ -5,18 +5,17 @@
   "packageManager": "pnpm@11.15.0",
   "private": true,
   "scripts": {
-    "start": "pnpm set-node-options NODE_ENV=production node dist/src/server/index.js",
+    "start": "NODE_ENV=production node dist/src/server/index.js",
     "build": "tsc -p tsconfig.json",
     "start:dev": "nodemon -e ts,tsx --exec \"pnpm build:dev && pnpm run:dev\"",
     "dev": "pnpm start:dev",
     "build:dev": "tsc -p tsconfig.json",
-    "run:dev": "pnpm set-node-options node dist/src/server/index.js",
+    "run:dev": "node dist/src/server/index.js",
     "prepare": "husky",
     "kjør-prettier": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,css}\"",
     "typecheck": "tsc --noEmit --skipLibCheck",
     "eslint-check": "eslint './src/**/*.{js,ts,tsx}'",
-    "prettier-check": "prettier --check \"./src/**/*.{js,jsx,ts,tsx,css}\"",
-    "set-node-options": "NODE_OPTIONS='--import=./dist/src/server/register.js --es-module-specifier-resolution=node'"
+    "prettier-check": "prettier --check \"./src/**/*.{js,jsx,ts,tsx,css}\""
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,css}": [
@@ -35,9 +34,9 @@
     "express-session": "1.19.0",
     "react": "19.2.8",
     "react-dom": "19.2.8",
-    "ts-node": "10.9.2",
     "styled-components": "6.5.3",
-    "typescript": "5.9.3"
+    "tslib": "2.8.1",
+    "typescript": "6.0.3"
   },
   "devDependencies": {
     "@types/express": "5.0.6",

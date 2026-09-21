@@ -1,13 +1,13 @@
 import * as React from 'react';
-import { Dokument } from './components/Dokument';
+import { Dokument } from './components/Dokument.js';
 import { renderToStaticMarkup } from 'react-dom/server';
-import css from '../utils/css';
-import { Header } from './components/Header';
-import { datoFormat } from '../utils/util';
-import { Behandling } from './components/Behandling';
-import { ÅrsakRevurdering } from './components/ÅrsakRevurdering';
-import type { IDokumentData } from '../../typer/dokumentApiBlankett';
-import { stønadstypeTilTekst } from '../../typer/dokumentApiBlankett';
+import css from '../utils/css.js';
+import { Header } from './components/Header.js';
+import { datoFormat } from '../utils/util.js';
+import { Behandling } from './components/Behandling.js';
+import { ÅrsakRevurdering } from './components/ÅrsakRevurdering.js';
+import type { IDokumentData } from '../../typer/dokumentApiBlankett.js';
+import { stønadstypeTilTekst } from '../../typer/dokumentApiBlankett.js';
 
 enum HtmlLang {
   NB = 'nb',

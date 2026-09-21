@@ -1,6 +1,6 @@
-import type { Maalform } from '../typer/sanitygrensesnitt';
-import { client, clientV2, Datasett } from './sanity/sanityClient';
-import { Feil } from './utils/Feil';
+import type { Maalform } from '../typer/sanitygrensesnitt.js';
+import { client, clientV2, Datasett } from './sanity/sanityClient.js';
+import { Feil } from './utils/Feil.js';
 
 export interface Flettefeltreferanse {
   _ref: string;

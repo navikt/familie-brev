@@ -1,6 +1,6 @@
 import type { AxiosResponse } from 'axios';
 import axios from 'axios';
-import { hentMiljøvariabler } from '../environment';
+import { hentMiljøvariabler } from '../environment.js';
 import type { Meta } from '@navikt/familie-logging';
 import { logInfo } from '@navikt/familie-logging';
 

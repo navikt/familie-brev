@@ -1,6 +1,6 @@
-import { Feil } from '../server/utils/Feil';
-import type { BegrunnelseMedData, IEØSBegrunnelsedata, IStandardbegrunnelsedata } from './typer';
-import { Aktivitet, Begrunnelsetype, SøkersRettTilUtvidet, ValgfeltMuligheter } from './typer';
+import { Feil } from '../server/utils/Feil.js';
+import type { BegrunnelseMedData, IEØSBegrunnelsedata, IStandardbegrunnelsedata } from './typer.js';
+import { Aktivitet, Begrunnelsetype, SøkersRettTilUtvidet, ValgfeltMuligheter } from './typer.js';
 
 export const hentForBarnFodtValg = (data: BegrunnelseMedData): ValgfeltMuligheter => {
   if (data.antallBarn === 0) {

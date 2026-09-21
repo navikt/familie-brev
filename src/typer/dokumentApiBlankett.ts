@@ -1,4 +1,4 @@
-import { IAvsnitt } from './dokumentApiBrev';
+import { IAvsnitt } from './dokumentApiBrev.js';
 
 export interface IDokumentData {
   behandling: IBehandling;

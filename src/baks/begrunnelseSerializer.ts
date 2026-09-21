@@ -5,10 +5,10 @@ import type {
   SpanBlock,
   ValgfeltBlock,
   ValgfeltV2Block,
-} from './typer';
-import { Feil } from '../server/utils/Feil';
-import { formaterFlettefelt, formaterValgfelt } from './formateringer';
-import { lagStorForbokstav } from '../server/utils/strenghåndtering';
+} from './typer.js';
+import { Feil } from '../server/utils/Feil.js';
+import { formaterFlettefelt, formaterValgfelt } from './formateringer.js';
+import { lagStorForbokstav } from '../server/utils/strenghåndtering.js';
 
 export const begrunnelseSerializer = (
   blocks: BegrunnelseBlock[] | Record<string, never>,

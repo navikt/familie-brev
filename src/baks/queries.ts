@@ -1,5 +1,5 @@
-import { hentDelmalQuery } from '../server/sanity/Queries';
-import { Datasett } from '../server/sanity/sanityClient';
+import { hentDelmalQuery } from '../server/sanity/Queries.js';
+import { Datasett } from '../server/sanity/sanityClient.js';
 
 export const hentKsBegrunnelserQuery = () => `
  *[_type == "ksBegrunnelse"]

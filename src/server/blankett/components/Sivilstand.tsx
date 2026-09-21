@@ -1,7 +1,7 @@
 import React from 'react';
-import type { ISivilstandVilkår } from '../../../typer/dokumentApiBlankett';
-import { sivilstandTilTekst } from '../../../typer/dokumentApiBlankett';
-import { formaterNullableIsoDato } from '../../utils/util';
+import type { ISivilstandVilkår } from '../../../typer/dokumentApiBlankett.js';
+import { sivilstandTilTekst } from '../../../typer/dokumentApiBlankett.js';
+import { formaterNullableIsoDato } from '../../utils/util.js';
 
 interface Props {
   sivilstand: ISivilstandVilkår;

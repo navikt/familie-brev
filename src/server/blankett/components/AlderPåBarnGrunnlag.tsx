@@ -1,6 +1,6 @@
 import React from 'react';
-import type { IBarnMedSamvær } from '../../../typer/dokumentApiBlankett';
-import { formaterNullableIsoDato } from '../../utils/util';
+import type { IBarnMedSamvær } from '../../../typer/dokumentApiBlankett.js';
+import { formaterNullableIsoDato } from '../../utils/util.js';
 
 interface Props {
   barnMedSamvær: IBarnMedSamvær[];

@@ -3,9 +3,9 @@ import {
   IInnvilgeVedtakBarnetilsyn,
   IKontantstøttePerioder,
   ISøknadsdatoer,
-} from '../../../typer/dokumentApiBlankett';
-import { formaterIsoDato, mapBooleanTilJaNei, parseOgFormaterÅrMåned } from '../../utils/util';
-import { Søknadsinformasjon } from './InnvilgeVedtak/Søknadsinformasjon';
+} from '../../../typer/dokumentApiBlankett.js';
+import { formaterIsoDato, mapBooleanTilJaNei, parseOgFormaterÅrMåned } from '../../utils/util.js';
+import { Søknadsinformasjon } from './InnvilgeVedtak/Søknadsinformasjon.js';
 
 export const InnvilgetBarnetilsyn: React.FC<{
   vedtak: IInnvilgeVedtakBarnetilsyn;

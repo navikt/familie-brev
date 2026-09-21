@@ -1,14 +1,14 @@
 import * as React from 'react';
-import type { IDokumentData } from '../typer/dokumentApiBrev';
-import { Dokument } from './components/Dokument';
-import type { Datasett } from './sanity/sanityClient';
-import { client } from './sanity/sanityClient';
+import type { IDokumentData } from '../typer/dokumentApiBrev.js';
+import { Dokument } from './components/Dokument.js';
+import type { Datasett } from './sanity/sanityClient.js';
+import { client } from './sanity/sanityClient.js';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { Context } from './utils/Context';
-import css from './utils/css';
-import { HeaderDeprecated } from './components/HeaderDeprecated';
-import { Maalform } from '../typer/sanitygrensesnitt';
-import { Feil } from './utils/Feil';
+import { Context } from './utils/Context.js';
+import css from './utils/css.js';
+import { HeaderDeprecated } from './components/HeaderDeprecated.js';
+import { Maalform } from '../typer/sanitygrensesnitt.js';
+import { Feil } from './utils/Feil.js';
 import { ServerStyleSheet } from 'styled-components';
 
 enum HtmlLang {

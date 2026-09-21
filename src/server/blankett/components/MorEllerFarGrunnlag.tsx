@@ -1,5 +1,5 @@
 import React from 'react';
-import type { IBarnMedSamvær } from '../../../typer/dokumentApiBlankett';
+import type { IBarnMedSamvær } from '../../../typer/dokumentApiBlankett.js';
 
 interface Props {
   barnMedSamvær: IBarnMedSamvær[];

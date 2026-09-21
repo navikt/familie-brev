@@ -1,8 +1,8 @@
 import React from 'react';
-import { Heading } from './typografi/Heading';
-import type { ISøknad } from '../../typer/dokumentApiBrev';
-import { dagensDatoTidFormatert } from '../utils/util';
-import { NavIkon } from './ikoner/navIkon';
+import { Heading } from './typografi/Heading.js';
+import type { ISøknad } from '../../typer/dokumentApiBrev.js';
+import { dagensDatoTidFormatert } from '../utils/util.js';
+import { NavIkon } from './ikoner/navIkon.js';
 
 export const SøknadTittelOgIkon: React.FC<{ søknad: ISøknad }> = ({ søknad }) => {
   const labelUtenBrevkode = søknad.label.replace(/\s*\(.*?\)\s*/g, '');
