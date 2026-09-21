@@ -1,6 +1,6 @@
 import React from 'react';
 import { css, styled } from 'styled-components';
-import { dagensDatoFormatert } from '../../utils/util';
+import { dagensDatoFormatert } from '../../utils/util.js';
 
 interface HeaderProps {
   saksid: string;

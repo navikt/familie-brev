@@ -1,20 +1,20 @@
 import type { Request, Response } from 'express';
 import express from 'express';
-import { client } from '../server/sanity/sanityClient';
-import { hentBegrunnelseTekstQuery, hentKsBegrunnelserQuery } from './queries';
-import type { BegrunnelseMedData } from './typer';
-import { Begrunnelsetype } from './typer';
+import { client } from '../server/sanity/sanityClient.js';
+import { hentBegrunnelseTekstQuery, hentKsBegrunnelserQuery } from './queries.js';
+import type { BegrunnelseMedData } from './typer.js';
+import { Begrunnelsetype } from './typer.js';
 import {
   validerBegrunnelse,
   validerEøsbegrunnelsedata,
   validerStandardbegrunnelsedata,
-} from './valideringer';
-import { Feil } from '../server/utils/Feil';
+} from './valideringer.js';
+import { Feil } from '../server/utils/Feil.js';
 import { logError } from '@navikt/familie-logging';
-import { logSecure } from '../server/utils/teamLogs';
-import { hentMiljøvariabler } from '../server/environment';
-import { escape } from '../server/utils/escapeString';
-import { begrunnelseSerializer } from './begrunnelseSerializer';
+import { logSecure } from '../server/utils/teamLogs.js';
+import { hentMiljøvariabler } from '../server/environment.js';
+import { escape } from '../server/utils/escapeString.js';
+import { begrunnelseSerializer } from './begrunnelseSerializer.js';
 
 const router = express.Router();
 

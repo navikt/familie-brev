@@ -1,5 +1,5 @@
 import { logError } from '@navikt/familie-logging';
-import { logSecure } from './teamLogs';
+import { logSecure } from './teamLogs.js';
 
 export class Feil extends Error {
   public code: number;

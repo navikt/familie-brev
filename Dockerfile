@@ -9,5 +9,5 @@ EXPOSE 8001
 
 ENV NODE_ENV=production
 
-CMD ["--import=./dist/src/server/register.js", "--es-module-specifier-resolution=node", "dist/src/server/index.js"]
+CMD ["dist/src/server/index.js"]
 

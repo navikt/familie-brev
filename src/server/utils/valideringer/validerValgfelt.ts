@@ -1,5 +1,5 @@
-import type { IValgfelter } from '../../../typer/dokumentApiBrev';
-import { Feil } from '../Feil';
+import type { IValgfelter } from '../../../typer/dokumentApiBrev.js';
+import { Feil } from '../Feil.js';
 
 export const validerValgfelt = (
   valgfelter: IValgfelter | undefined,

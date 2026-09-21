@@ -1,9 +1,9 @@
 import React from 'react';
-import { AvslåVedtak } from './AvslåVedtak';
-import { InnvilgetOvergangsstønad } from './InnvilgetOvergangsstønad';
-import { InnvilgetBarnetilsyn } from './InnvilgetBarnetilsyn';
-import { InnvilgetSkolepenger } from './InnvilgetSkolepenger';
-import { InnvilgetGOmregning } from './InnvilgetGOmregning';
+import { AvslåVedtak } from './AvslåVedtak.js';
+import { InnvilgetOvergangsstønad } from './InnvilgetOvergangsstønad.js';
+import { InnvilgetBarnetilsyn } from './InnvilgetBarnetilsyn.js';
+import { InnvilgetSkolepenger } from './InnvilgetSkolepenger.js';
+import { InnvilgetGOmregning } from './InnvilgetGOmregning.js';
 import {
   EBehandlingResultat,
   EBehandlingÅrsak,
@@ -14,8 +14,8 @@ import {
   IKontantstøttePerioder,
   ISøknadsdatoer,
   IVedtak,
-} from '../../../typer/dokumentApiBlankett';
-import { OpphørVedtak } from './OpphørVedtak';
+} from '../../../typer/dokumentApiBlankett.js';
+import { OpphørVedtak } from './OpphørVedtak.js';
 
 export const Vedtak: React.FC<{
   stønadstype: EStønadType;

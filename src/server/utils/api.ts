@@ -1,7 +1,7 @@
 import type { AxiosResponse } from 'axios';
 import axios from 'axios';
-import { hentMiljøvariabler } from '../environment';
-import { Feil } from './Feil';
+import { hentMiljøvariabler } from '../environment.js';
+import { Feil } from './Feil.js';
 import { logInfo } from '@navikt/familie-logging';
 
 export const genererPdf = async (html: string): Promise<ArrayBuffer> => {

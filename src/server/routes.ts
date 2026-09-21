@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express';
 import express from 'express';
-import type { Datasett } from './sanity/sanityClient';
-import type { Maalform } from '../typer/sanitygrensesnitt';
+import type { Datasett } from './sanity/sanityClient.js';
+import type { Maalform } from '../typer/sanitygrensesnitt.js';
 import type {
   IAvansertDokumentVariabler,
   IBrevMedSignatur,
@@ -9,24 +9,24 @@ import type {
   IDokumentData,
   IFritekstbrevMedSignatur,
   ISøknad,
-} from '../typer/dokumentApiBrev';
-import { hentDokumentHtml } from './hentDokumentHtml';
-import { genererPdf } from './utils/api';
-import { Feil } from './utils/Feil';
-import { hentAvansertDokumentHtml } from './hentAvansertDokumentHtml';
-import { validerDokumentApiData } from './utils/valideringer/validerDokumentApiData';
+} from '../typer/dokumentApiBrev.js';
+import { hentDokumentHtml } from './hentDokumentHtml.js';
+import { genererPdf } from './utils/api.js';
+import { Feil } from './utils/Feil.js';
+import { hentAvansertDokumentHtml } from './hentAvansertDokumentHtml.js';
+import { validerDokumentApiData } from './utils/valideringer/validerDokumentApiData.js';
 import { logError, logInfo } from '@navikt/familie-logging';
-import { logSecure } from './utils/teamLogs';
+import { logSecure } from './utils/teamLogs.js';
 import {
   Brevmeny,
   BrevStruktur,
   hentBrevmenyBlokker,
   hentFlettefelterMedType,
-} from './hentAvansertDokumentFelter';
-import { hentAvansertDokumentNavn } from './hentAvansertDokumentNavn';
-import { lagManueltBrevBaksHtml, lagManueltBrevHtml } from './lagManueltBrevHtml';
-import { genererSøknadHtml } from './søknadgenerator';
-import { hentDelmalblokkHtml } from './hentDelmalBlockHtml';
+} from './hentAvansertDokumentFelter.js';
+import { hentAvansertDokumentNavn } from './hentAvansertDokumentNavn.js';
+import { lagManueltBrevBaksHtml, lagManueltBrevHtml } from './lagManueltBrevHtml.js';
+import { genererSøknadHtml } from './søknadgenerator.js';
+import { hentDelmalblokkHtml } from './hentDelmalBlockHtml.js';
 
 const router = express.Router();
 

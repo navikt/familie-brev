@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { formaterIsoDato, formaterIsoDatoTid } from '../../utils/util';
+import { formaterIsoDato, formaterIsoDatoTid } from '../../utils/util.js';
 import {
   behandlingResultatTilTekst,
   EFormVilkår,
@@ -15,7 +15,7 @@ import {
   klagebehandlingsårakTilTekst,
   vedtakTilTekst,
   årsakTilTekst,
-} from '../../../typer/klageDokumentApi';
+} from '../../../typer/klageDokumentApi.js';
 
 const påklagetVedtak = (påklagetVedtak?: IPåklagetVedtak) => {
   if (!påklagetVedtak) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { EStønadType } from '../../../typer/dokumentApiBlankett';
+import { EStønadType } from '../../../typer/dokumentApiBlankett.js';
 
 export const Regelendring2026Visning: React.FC<{
   erRegelendring2026: boolean;

@@ -1,6 +1,6 @@
-import { Datasett } from '../../sanity/sanityClient';
-import { Maalform } from '../../../typer/sanitygrensesnitt';
-import { Feil } from '../Feil';
+import { Datasett } from '../../sanity/sanityClient.js';
+import { Maalform } from '../../../typer/sanitygrensesnitt.js';
+import { Feil } from '../Feil.js';
 
 export const validerDokumentApiData = async (datasett: Datasett, maalform: Maalform) => {
   if (!Object.values(Datasett).includes(datasett)) {

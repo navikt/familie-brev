@@ -5,14 +5,14 @@ import {
   Heading,
   IAvsnitt,
   IFritekstbrevMedSignatur,
-} from '../typer/dokumentApiBrev';
-import { dagensDatoFormatert, dagensDatoFormatertLang } from './utils/util';
-import css from './utils/css';
-import cssFritekstbrevBaks from './utils/css-fritekstbrev-baks';
-import { BrevhodeBaks } from './components/BrevhodeBaks';
-import { SaksbehandlerSignatur } from './components/SaksbehandlerSignatur';
-import { Header } from './components/Header';
-import { Maalform } from '../typer/sanitygrensesnitt';
+} from '../typer/dokumentApiBrev.js';
+import { dagensDatoFormatert, dagensDatoFormatertLang } from './utils/util.js';
+import css from './utils/css.js';
+import cssFritekstbrevBaks from './utils/css-fritekstbrev-baks.js';
+import { BrevhodeBaks } from './components/BrevhodeBaks.js';
+import { SaksbehandlerSignatur } from './components/SaksbehandlerSignatur.js';
+import { Header } from './components/Header.js';
+import { Maalform } from '../typer/sanitygrensesnitt.js';
 
 export const lagManueltBrevHtml = (brevMedSignatur: IFritekstbrevMedSignatur) => {
   const brev = brevMedSignatur.brevFraSaksbehandler;

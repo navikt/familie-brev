@@ -1,4 +1,4 @@
-import type { UtbetalingerPerMndEøs } from './utbetalingerEøs';
+import type { UtbetalingerPerMndEøs } from './utbetalingerEøs.js';
 
 export interface IDokumentData {
   delmalData: IDelmalData;

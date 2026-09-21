@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import { Context } from './Context';
+import { Context } from './Context.js';
 
 /*
  * Følger denne guiden:

@@ -2,11 +2,11 @@ import React from 'react';
 import type {
   IInnvilgeVedtakOvergangsstønad,
   ISøknadsdatoer,
-} from '../../../typer/dokumentApiBlankett';
-import { Begrunnelse } from './InnvilgeVedtak/Begrunnelse';
-import { Inntektsperioder } from './InnvilgeVedtak/Inntektsperioder';
-import { Søknadsinformasjon } from './InnvilgeVedtak/Søknadsinformasjon';
-import { Vedtaksperioder } from './InnvilgeVedtak/Vedtaksperioder';
+} from '../../../typer/dokumentApiBlankett.js';
+import { Begrunnelse } from './InnvilgeVedtak/Begrunnelse.js';
+import { Inntektsperioder } from './InnvilgeVedtak/Inntektsperioder.js';
+import { Søknadsinformasjon } from './InnvilgeVedtak/Søknadsinformasjon.js';
+import { Vedtaksperioder } from './InnvilgeVedtak/Vedtaksperioder.js';
 
 export const InnvilgetOvergangsstønad: React.FC<{
   vedtak: IInnvilgeVedtakOvergangsstønad;

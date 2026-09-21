@@ -1,7 +1,10 @@
 import React from 'react';
-import type { IPeriode } from '../../../../typer/dokumentApiBlankett';
-import { aktivitetsTypeTilTekst, periodetypeTilTekst } from '../../../../typer/dokumentApiBlankett';
-import { parseOgFormaterÅrMåned } from '../../../utils/util';
+import type { IPeriode } from '../../../../typer/dokumentApiBlankett.js';
+import {
+  aktivitetsTypeTilTekst,
+  periodetypeTilTekst,
+} from '../../../../typer/dokumentApiBlankett.js';
+import { parseOgFormaterÅrMåned } from '../../../utils/util.js';
 
 export const Vedtaksperioder: React.FC<{
   perioder: IPeriode[];

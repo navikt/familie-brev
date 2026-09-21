@@ -1,5 +1,5 @@
 import React, { JSX } from 'react';
-import { rightTrimLastProp } from '../../utils/openhtmltopdfBughåndtering';
+import { rightTrimLastProp } from '../../utils/openhtmltopdfBughåndtering.js';
 
 const settTag = (node: any) => {
   const style = node.style;

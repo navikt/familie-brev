@@ -1,11 +1,11 @@
 import React, { JSX } from 'react';
-import type { IAvansertDokumentVariabler } from '../../../typer/dokumentApiBrev';
-import type { Datasett } from '../../sanity/sanityClient';
-import { ValgfeltSerializer } from './ValgfeltSerializer';
-import type { Maalform } from '../../../typer/sanitygrensesnitt';
-import { AvansertDelmalSerializer } from './AvansertDelmalSerialaizer';
-import { FlettefeltSerializer } from './FlettefeltSerializer';
-import { DokumentType } from '../../../typer/dokumentType';
+import type { IAvansertDokumentVariabler } from '../../../typer/dokumentApiBrev.js';
+import type { Datasett } from '../../sanity/sanityClient.js';
+import { ValgfeltSerializer } from './ValgfeltSerializer.js';
+import type { Maalform } from '../../../typer/sanitygrensesnitt.js';
+import { AvansertDelmalSerializer } from './AvansertDelmalSerialaizer.js';
+import { FlettefeltSerializer } from './FlettefeltSerializer.js';
+import { DokumentType } from '../../../typer/dokumentType.js';
 import { PortableText } from '@portabletext/react';
 
 interface IListItemSerializerProps {

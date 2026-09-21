@@ -1,21 +1,21 @@
 import React from 'react';
-import type { IDokumentData } from '../../typer/dokumentApiBrev';
-import { hentDokumentQuery } from '../sanity/Queries';
-import type { Datasett } from '../sanity/sanityClient';
-import { client } from '../sanity/sanityClient';
-import { useServerEffect } from '../utils/useServerEffect';
-import type { Maalform } from '../../typer/sanitygrensesnitt';
-import { BlockSerializer } from './serializers/BlockSerializer';
-import { FlettefeltSerializer } from './serializers/FlettefeltSerializer';
-import { PeriodeSerializer } from './serializers/PeriodeSerializer';
-import { DelmalSerializer } from './serializers/DelmalSerializer';
-import { DokumentType } from '../../typer/dokumentType';
-import { Feil } from '../utils/Feil';
-import { LenkeSerializer } from './serializers/LenkeSerializer';
+import type { IDokumentData } from '../../typer/dokumentApiBrev.js';
+import { hentDokumentQuery } from '../sanity/Queries.js';
+import type { Datasett } from '../sanity/sanityClient.js';
+import { client } from '../sanity/sanityClient.js';
+import { useServerEffect } from '../utils/useServerEffect.js';
+import type { Maalform } from '../../typer/sanitygrensesnitt.js';
+import { BlockSerializer } from './serializers/BlockSerializer.js';
+import { FlettefeltSerializer } from './serializers/FlettefeltSerializer.js';
+import { PeriodeSerializer } from './serializers/PeriodeSerializer.js';
+import { DelmalSerializer } from './serializers/DelmalSerializer.js';
+import { DokumentType } from '../../typer/dokumentType.js';
+import { Feil } from '../utils/Feil.js';
+import { LenkeSerializer } from './serializers/LenkeSerializer.js';
 
 import { PortableText } from '@portabletext/react';
-import { SammensattKontrollsakSerializer } from './serializers/SammensattKontrollsakSerializer';
-import { FritekstSerializer } from './serializers/FritekstSerializer';
+import { SammensattKontrollsakSerializer } from './serializers/SammensattKontrollsakSerializer.js';
+import { FritekstSerializer } from './serializers/FritekstSerializer.js';
 
 interface DokumentProps {
   dokumentApiNavn: string;

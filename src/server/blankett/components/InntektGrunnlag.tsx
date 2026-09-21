@@ -1,12 +1,12 @@
 import React from 'react';
-import { formaterIsoDato } from '../../utils/util';
+import { formaterIsoDato } from '../../utils/util.js';
 import type {
   ITidligereVedtaksperioder,
   IGrunnlagsdataSistePeriodeOvergangsstønad,
   EStønadType,
-} from '../../../typer/dokumentApiBlankett';
-import { aktivitetsTypeTilTekst, periodetypeTilTekst } from '../../../typer/dokumentApiBlankett';
-import { EStønadType as StønadType } from '../../../typer/dokumentApiBlankett';
+} from '../../../typer/dokumentApiBlankett.js';
+import { aktivitetsTypeTilTekst, periodetypeTilTekst } from '../../../typer/dokumentApiBlankett.js';
+import { EStønadType as StønadType } from '../../../typer/dokumentApiBlankett.js';
 
 export const InntektGrunnlag: React.FC<{
   tidligereVedtaksperioder: ITidligereVedtaksperioder | undefined;
