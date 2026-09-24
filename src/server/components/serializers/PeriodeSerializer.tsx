@@ -4,26 +4,26 @@ import type {
   Flettefelter,
   IDokumentData,
   IDokumentDataMedPeriode,
-} from '../../../typer/dokumentApiBrev';
-import { FlettefeltSerializer } from './FlettefeltSerializer';
-import { BlockSerializer } from './BlockSerializer';
-import type { Maalform } from '../../../typer/sanitygrensesnitt';
-import { useServerEffect } from '../../utils/useServerEffect';
-import { hentDokumentQuery } from '../../sanity/Queries';
-import type { Datasett } from '../../sanity/sanityClient';
-import { client } from '../../sanity/sanityClient';
-import { DokumentType } from '../../../typer/dokumentType';
-import { validerPeriode } from '../../utils/valideringer/validerPeriode';
-import { Feil } from '../../utils/Feil';
-import type { Begrunnelse, BegrunnelseMedData, IPeriodedata } from '../../../baks/typer';
-import { Begrunnelsetype } from '../../../baks/typer';
+} from '../../../typer/dokumentApiBrev.js';
+import { FlettefeltSerializer } from './FlettefeltSerializer.js';
+import { BlockSerializer } from './BlockSerializer.js';
+import type { Maalform } from '../../../typer/sanitygrensesnitt.js';
+import { useServerEffect } from '../../utils/useServerEffect.js';
+import { hentDokumentQuery } from '../../sanity/Queries.js';
+import type { Datasett } from '../../sanity/sanityClient.js';
+import { client } from '../../sanity/sanityClient.js';
+import { DokumentType } from '../../../typer/dokumentType.js';
+import { validerPeriode } from '../../utils/valideringer/validerPeriode.js';
+import { Feil } from '../../utils/Feil.js';
+import type { Begrunnelse, BegrunnelseMedData, IPeriodedata } from '../../../baks/typer.js';
+import { Begrunnelsetype } from '../../../baks/typer.js';
 import {
   validerBegrunnelse,
   validerEøsbegrunnelsedata,
   validerStandardbegrunnelsedata,
-} from '../../../baks/valideringer';
-import { hentBegrunnelseTekstQuery } from '../../../baks/queries';
-import { begrunnelseSerializer } from '../../../baks/begrunnelseSerializer';
+} from '../../../baks/valideringer.js';
+import { hentBegrunnelseTekstQuery } from '../../../baks/queries.js';
+import { begrunnelseSerializer } from '../../../baks/begrunnelseSerializer.js';
 
 import { PortableText } from '@portabletext/react';
 

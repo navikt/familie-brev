@@ -1,4 +1,4 @@
-import { Datasett } from './sanity/sanityClient';
+import { Datasett } from './sanity/sanityClient.js';
 
 const { NODE_ENV } = process.env;
 

@@ -1,12 +1,12 @@
 import express from 'express';
 import path from 'path';
-import routes from './routes';
-import ksSakEndepunkter from '../baks/ksSakEndepunkter';
-import baSakEndepunkter from '../baks/baSakEndepunkter';
+import routes from './routes.js';
+import ksSakEndepunkter from '../baks/ksSakEndepunkter.js';
+import baSakEndepunkter from '../baks/baSakEndepunkter.js';
 import dotenv from 'dotenv';
 import { logInfo } from '@navikt/familie-logging';
-import blankettRoutes from './blankett/blankettRoutes';
-import næringsinntektRoutes from './næringsinntekt/næringsinntektRoutes';
+import blankettRoutes from './blankett/blankettRoutes.js';
+import næringsinntektRoutes from './næringsinntekt/næringsinntektRoutes.js';
 
 dotenv.config();
 export const { NODE_ENV } = process.env;

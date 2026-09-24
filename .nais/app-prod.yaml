@@ -42,6 +42,8 @@ spec:
     outbound:
       rules:
         - application: familie-dokument
+        - application: logging
+          namespace: nais-system
       external:
         - host: appres.nav.no
         - host: xsrv1mh6.api.sanity.io

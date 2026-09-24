@@ -1,6 +1,6 @@
 import React from 'react';
 import { styled } from 'styled-components';
-import { IDokumentData, IDokumentDataMedFritekst } from '../../../typer/dokumentApiBrev';
+import { IDokumentData, IDokumentDataMedFritekst } from '../../../typer/dokumentApiBrev.js';
 
 interface Props {
   dokumentData: IDokumentData | undefined;

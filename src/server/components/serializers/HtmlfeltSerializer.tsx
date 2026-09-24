@@ -1,6 +1,6 @@
-import type { IHtmlfelter } from '../../../typer/dokumentApiBrev';
+import type { IHtmlfelter } from '../../../typer/dokumentApiBrev.js';
 import React from 'react';
-import { Feil } from '../../utils/Feil';
+import { Feil } from '../../utils/Feil.js';
 
 interface IHtmlfeltSerializerProps {
   sanityProps: any;

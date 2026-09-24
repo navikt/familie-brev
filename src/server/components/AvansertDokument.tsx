@@ -1,21 +1,21 @@
 import React from 'react';
-import type { IAvansertDokumentVariabler } from '../../typer/dokumentApiBrev';
-import { hentAvansertDokumentQuery } from '../sanity/Queries';
-import type { Datasett } from '../sanity/sanityClient';
-import { client } from '../sanity/sanityClient';
-import { useServerEffect } from '../utils/useServerEffect';
-import { ValgfeltSerializer } from './serializers/ValgfeltSerializer';
-import { AvansertDelmalSerializer } from './serializers/AvansertDelmalSerialaizer';
-import { ListItemSerializer } from './serializers/ListItemSerializer';
-import type { Maalform } from '../../typer/sanitygrensesnitt';
-import { DokumentType } from '../../typer/dokumentType';
-import { FlettefeltSerializer } from './serializers/FlettefeltSerializer';
-import { BlockSerializer } from './serializers/BlockSerializer';
-import { LenkeSerializer } from './serializers/LenkeSerializer';
-import { HtmlfeltSerializer } from './serializers/HtmlfeltSerializer';
+import type { IAvansertDokumentVariabler } from '../../typer/dokumentApiBrev.js';
+import { hentAvansertDokumentQuery } from '../sanity/Queries.js';
+import type { Datasett } from '../sanity/sanityClient.js';
+import { client } from '../sanity/sanityClient.js';
+import { useServerEffect } from '../utils/useServerEffect.js';
+import { ValgfeltSerializer } from './serializers/ValgfeltSerializer.js';
+import { AvansertDelmalSerializer } from './serializers/AvansertDelmalSerialaizer.js';
+import { ListItemSerializer } from './serializers/ListItemSerializer.js';
+import type { Maalform } from '../../typer/sanitygrensesnitt.js';
+import { DokumentType } from '../../typer/dokumentType.js';
+import { FlettefeltSerializer } from './serializers/FlettefeltSerializer.js';
+import { BlockSerializer } from './serializers/BlockSerializer.js';
+import { LenkeSerializer } from './serializers/LenkeSerializer.js';
+import { HtmlfeltSerializer } from './serializers/HtmlfeltSerializer.js';
 
 import { PortableText } from '@portabletext/react';
-import { FritekstområdeSerializer } from './serializers/FritekstområdeSerializer';
+import { FritekstområdeSerializer } from './serializers/FritekstområdeSerializer.js';
 
 interface AvansertDokumentProps {
   apiNavn: string;

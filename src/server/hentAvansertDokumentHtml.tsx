@@ -1,17 +1,17 @@
 import * as React from 'react';
-import type { IBrevMedSignatur } from '../typer/dokumentApiBrev';
-import { AvansertDokument } from './components/AvansertDokument';
-import type { Datasett } from './sanity/sanityClient';
-import { client } from './sanity/sanityClient';
+import type { IBrevMedSignatur } from '../typer/dokumentApiBrev.js';
+import { AvansertDokument } from './components/AvansertDokument.js';
+import type { Datasett } from './sanity/sanityClient.js';
+import { client } from './sanity/sanityClient.js';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { Context } from './utils/Context';
-import css from './utils/css';
-import { HeaderDeprecated } from './components/HeaderDeprecated';
-import { Maalform } from '../typer/sanitygrensesnitt';
-import { DokumentType } from '../typer/dokumentType';
-import { dagensDatoFormatert } from './utils/util';
-import { SaksbehandlerSignatur } from './components/SaksbehandlerSignatur';
-import { Header } from './components/Header';
+import { Context } from './utils/Context.js';
+import css from './utils/css.js';
+import { HeaderDeprecated } from './components/HeaderDeprecated.js';
+import { Maalform } from '../typer/sanitygrensesnitt.js';
+import { DokumentType } from '../typer/dokumentType.js';
+import { dagensDatoFormatert } from './utils/util.js';
+import { SaksbehandlerSignatur } from './components/SaksbehandlerSignatur.js';
+import { Header } from './components/Header.js';
 
 enum HtmlLang {
   NB = 'nb',

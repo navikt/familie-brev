@@ -1,10 +1,11 @@
 import express, { type Request, type Response } from 'express';
-import { genererMetadata } from '../utils/logging';
-import { genererPdfBlankett } from '../utils/apiBlankett';
-import { logFerdigstilt } from '../routes';
-import { logError, logSecure } from '@navikt/familie-logging';
-import { hentDokumentHtmlNæringsinntekt } from './hentDokumentHtmlNæringsinntekt';
-import { NæringsinntektDokumentData } from '../../typer/dokumentApiNæringsinntekt';
+import { genererMetadata } from '../utils/logging.js';
+import { genererPdfBlankett } from '../utils/apiBlankett.js';
+import { logFerdigstilt } from '../routes.js';
+import { logError } from '@navikt/familie-logging';
+import { logSecure } from '../utils/teamLogs.js';
+import { hentDokumentHtmlNæringsinntekt } from './hentDokumentHtmlNæringsinntekt.js';
+import { NæringsinntektDokumentData } from '../../typer/dokumentApiNæringsinntekt.js';
 import fs from 'fs';
 
 const router = express.Router();

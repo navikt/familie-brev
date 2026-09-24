@@ -3,10 +3,10 @@ import {
   studietypeTilTekst,
   type IInnvilgeVedtakSkolepenger,
   type ISøknadsdatoer,
-} from '../../../typer/dokumentApiBlankett';
-import { parseOgFormaterÅrMåned, tilSkoleår } from '../../utils/util';
-import { Begrunnelse } from './InnvilgeVedtak/Begrunnelse';
-import { Søknadsinformasjon } from './InnvilgeVedtak/Søknadsinformasjon';
+} from '../../../typer/dokumentApiBlankett.js';
+import { parseOgFormaterÅrMåned, tilSkoleår } from '../../utils/util.js';
+import { Begrunnelse } from './InnvilgeVedtak/Begrunnelse.js';
+import { Søknadsinformasjon } from './InnvilgeVedtak/Søknadsinformasjon.js';
 
 export const InnvilgetSkolepenger: React.FC<{
   vedtak: IInnvilgeVedtakSkolepenger;

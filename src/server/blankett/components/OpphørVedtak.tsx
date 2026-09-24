@@ -1,6 +1,6 @@
 import React from 'react';
-import { IOpphørVedtak } from '../../../typer/dokumentApiBlankett';
-import { parseOgFormaterÅrMåned } from '../../utils/util';
+import { IOpphørVedtak } from '../../../typer/dokumentApiBlankett.js';
+import { parseOgFormaterÅrMåned } from '../../utils/util.js';
 
 export const OpphørVedtak: React.FC<IOpphørVedtak> = ({ opphørFom, begrunnelse }) => {
   return (

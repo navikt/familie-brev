@@ -1,11 +1,11 @@
 import * as React from 'react';
-import type { IDelmal } from '../typer/dokumentApiBrev';
-import { AvansertDokument } from './components/AvansertDokument';
-import type { Datasett } from './sanity/sanityClient';
+import type { IDelmal } from '../typer/dokumentApiBrev.js';
+import { AvansertDokument } from './components/AvansertDokument.js';
+import type { Datasett } from './sanity/sanityClient.js';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { Context } from './utils/Context';
-import { Maalform } from '../typer/sanitygrensesnitt';
-import { DokumentType } from '../typer/dokumentType';
+import { Context } from './utils/Context.js';
+import { Maalform } from '../typer/sanitygrensesnitt.js';
+import { DokumentType } from '../typer/dokumentType.js';
 
 export const hentDelmalblokkHtml = async (
   delmal: IDelmal,

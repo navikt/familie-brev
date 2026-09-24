@@ -15,8 +15,9 @@ Konsumenter kan få returnert html eller pdf/bytearray.
 ### Kjør server lokalt
 
 * `familie-dokument` må kjøres med ApplicationLocal for at pdf-generering skal fungere
-* Pass på at du har installert alle NPM-avhengighetene `yarn`
-* Kjør `yarn start:dev`
+* Aktiver riktig pnpm-versjon med `corepack enable` (henter versjonen fra `packageManager` i package.json)
+* Pass på at du har installert alle NPM-avhengighetene `pnpm install`
+* Kjør `pnpm start:dev`
 
 ### Bygg og deploy
 
@@ -42,8 +43,8 @@ Konsumenter kan få returnert html eller pdf/bytearray.
   REACT_APP_BACKEND=http://localhost:8033
 ```
 * `familie-dokument` må kjøres med DevLauncher for at pdf-generering skal fungere
-* Kjør `yarn build`
-* Kjør `yarn run:dev`
+* Kjør `pnpm build`
+* Kjør `pnpm run:dev`
 
 ### Bygg og deploy
 

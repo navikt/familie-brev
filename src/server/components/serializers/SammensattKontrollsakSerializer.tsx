@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 import type {
   IDokumentData,
   IDokumentDataSammensattKontrollsak,
-} from '../../../typer/dokumentApiBrev';
+} from '../../../typer/dokumentApiBrev.js';
 
 interface Props {
   dokumentData: IDokumentData | undefined;

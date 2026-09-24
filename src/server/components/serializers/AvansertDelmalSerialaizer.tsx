@@ -1,9 +1,9 @@
 import React, { JSX } from 'react';
-import type { IAvansertDokumentVariabler, IDelmaler } from '../../../typer/dokumentApiBrev';
-import type { Datasett } from '../../sanity/sanityClient';
-import { AvansertDokument } from '../AvansertDokument';
-import type { Maalform } from '../../../typer/sanitygrensesnitt';
-import { validerAvansertDelmal } from '../../utils/valideringer/validerAvansertDelmal';
+import type { IAvansertDokumentVariabler, IDelmaler } from '../../../typer/dokumentApiBrev.js';
+import type { Datasett } from '../../sanity/sanityClient.js';
+import { AvansertDokument } from '../AvansertDokument.js';
+import type { Maalform } from '../../../typer/sanitygrensesnitt.js';
+import { validerAvansertDelmal } from '../../utils/valideringer/validerAvansertDelmal.js';
 
 interface IAvansertDelmalSerializerProps {
   sanityProps: any;

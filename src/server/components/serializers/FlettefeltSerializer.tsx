@@ -1,7 +1,7 @@
-import type { Flettefelter } from '../../../typer/dokumentApiBrev';
+import type { Flettefelter } from '../../../typer/dokumentApiBrev.js';
 import React from 'react';
-import { Feil } from '../../utils/Feil';
-import { validerFlettefelt } from '../../utils/valideringer/validerFlettefelt';
+import { Feil } from '../../utils/Feil.js';
+import { validerFlettefelt } from '../../utils/valideringer/validerFlettefelt.js';
 
 interface IFlettefeltSerializerProps {
   sanityProps: any;
