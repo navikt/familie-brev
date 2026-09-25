@@ -15,7 +15,7 @@ export const Regelendring2026Visning: React.FC<{
     <div style={{ marginTop: '1rem' }}>
       <div>
         <strong>Regelverk: </strong>
-        {erRegelendring2026 ? 'Nytt regelverk fra 01.07.2026' : 'Gammelt regelverk før 01.07.2026'}
+        {erRegelendring2026 ? 'Nytt regelverk fra 01.07.2026' : 'Overgangsregler'}
       </div>
       {regelendring2026Begrunnelse && (
         <div>
