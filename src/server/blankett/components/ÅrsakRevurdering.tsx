@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 import type { IÅrsakRevurdering } from '../../../typer/dokumentApiBlankett.js';
 import { opplysningskildeTilTekst, årsakRevuderingTilTekst } from '../../../typer/dokumentApiBlankett.js';
 

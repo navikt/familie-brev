@@ -1,7 +1,7 @@
 import { renderToStaticMarkup } from 'react-dom/server';
 import type { IDelmal } from '../typer/dokumentApiBrev.js';
 import { DokumentType } from '../typer/dokumentType.js';
-import { Maalform } from '../typer/sanitygrensesnitt.js';
+import type { Maalform } from '../typer/sanitygrensesnitt.js';
 import { AvansertDokument } from './components/AvansertDokument.js';
 import type { Datasett } from './sanity/sanityClient.js';
 import { Context } from './utils/Context.js';

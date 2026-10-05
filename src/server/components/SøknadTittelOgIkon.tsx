@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 import type { ISøknad } from '../../typer/dokumentApiBrev.js';
 import { dagensDatoTidFormatert } from '../utils/util.js';
 import { NavIkon } from './ikoner/navIkon.js';

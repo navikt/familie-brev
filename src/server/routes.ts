@@ -10,7 +10,12 @@ import type {
     ISøknad,
 } from '../typer/dokumentApiBrev.js';
 import type { Maalform } from '../typer/sanitygrensesnitt.js';
-import { Brevmeny, BrevStruktur, hentBrevmenyBlokker, hentFlettefelterMedType } from './hentAvansertDokumentFelter.js';
+import {
+    type Brevmeny,
+    type BrevStruktur,
+    hentBrevmenyBlokker,
+    hentFlettefelterMedType,
+} from './hentAvansertDokumentFelter.js';
 import { hentAvansertDokumentHtml } from './hentAvansertDokumentHtml.js';
 import { hentAvansertDokumentNavn } from './hentAvansertDokumentNavn.js';
 import { hentDelmalblokkHtml } from './hentDelmalBlockHtml.js';

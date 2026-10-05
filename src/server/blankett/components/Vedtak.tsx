@@ -1,14 +1,14 @@
-import React from 'react';
+import type React from 'react';
 import {
     EBehandlingResultat,
     EBehandlingÅrsak,
     EStønadType,
-    IInnvilgeVedtakBarnetilsyn,
-    IInnvilgeVedtakOvergangsstønad,
-    IInnvilgeVedtakSkolepenger,
-    IKontantstøttePerioder,
-    ISøknadsdatoer,
-    IVedtak,
+    type IInnvilgeVedtakBarnetilsyn,
+    type IInnvilgeVedtakOvergangsstønad,
+    type IInnvilgeVedtakSkolepenger,
+    type IKontantstøttePerioder,
+    type ISøknadsdatoer,
+    type IVedtak,
 } from '../../../typer/dokumentApiBlankett.js';
 import { AvslåVedtak } from './AvslåVedtak.js';
 import { InnvilgetBarnetilsyn } from './InnvilgetBarnetilsyn.js';

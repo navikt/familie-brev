@@ -14,11 +14,11 @@ import {
     hentSøkersAktivitetValg,
 } from './formateringsvalg.js';
 import {
-    BegrunnelseMedData,
-    FlettefeltBlock,
-    MarkDef,
-    ValgfeltBlock,
-    ValgfeltMuligheter,
+    type BegrunnelseMedData,
+    type FlettefeltBlock,
+    type MarkDef,
+    type ValgfeltBlock,
+    type ValgfeltMuligheter,
     Valgfelttype,
 } from './typer.js';
 

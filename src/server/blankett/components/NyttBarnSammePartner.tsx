@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 import type { IBarnMedSamvær } from '../../../typer/dokumentApiBlankett.js';
 import { AnnenForelder } from './AnnenForelder.js';
 

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import type React from 'react';
 
 const NavIkon: React.FunctionComponent = () => {
     return (

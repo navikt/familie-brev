@@ -1,5 +1,5 @@
-import React from 'react';
-import { IOpphørVedtak } from '../../../typer/dokumentApiBlankett.js';
+import type React from 'react';
+import type { IOpphørVedtak } from '../../../typer/dokumentApiBlankett.js';
 import { parseOgFormaterÅrMåned } from '../../utils/util.js';
 
 export const OpphørVedtak: React.FC<IOpphørVedtak> = ({ opphørFom, begrunnelse }) => {

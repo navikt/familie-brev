@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 import type { ISivilstandVilkår } from '../../../typer/dokumentApiBlankett.js';
 import { sivilstandTilTekst } from '../../../typer/dokumentApiBlankett.js';
 import { formaterNullableIsoDato } from '../../utils/util.js';
