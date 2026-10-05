@@ -1,4 +1,3 @@
-import React from 'react';
 import { rightTrimLastProp } from '../../utils/openhtmltopdfBughåndtering.js';
 
 export const LenkeSerializer = (props: any) => {

@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { ServerStyleSheet } from 'styled-components';
 import type { IDokumentData } from '../typer/dokumentApiBrev.js';

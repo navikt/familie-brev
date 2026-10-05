@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import type { IBrevMedSignatur } from '../typer/dokumentApiBrev.js';
 import { DokumentType } from '../typer/dokumentType.js';

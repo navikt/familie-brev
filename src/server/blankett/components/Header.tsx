@@ -1,4 +1,3 @@
-import React from 'react';
 import { NavIkon } from '../../components/ikoner/navIkon.js';
 
 interface HeaderProps {

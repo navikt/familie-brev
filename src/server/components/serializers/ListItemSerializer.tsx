@@ -1,5 +1,5 @@
 import { PortableText } from '@portabletext/react';
-import React, { JSX } from 'react';
+import { JSX } from 'react';
 import type { IAvansertDokumentVariabler } from '../../../typer/dokumentApiBrev.js';
 import { DokumentType } from '../../../typer/dokumentType.js';
 import type { Maalform } from '../../../typer/sanitygrensesnitt.js';

@@ -1,5 +1,4 @@
 import { PortableText } from '@portabletext/react';
-import React from 'react';
 import type { IDokumentData } from '../../typer/dokumentApiBrev.js';
 import { DokumentType } from '../../typer/dokumentType.js';
 import type { Maalform } from '../../typer/sanitygrensesnitt.js';

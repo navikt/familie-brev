@@ -1,5 +1,4 @@
 import { PortableText } from '@portabletext/react';
-import React from 'react';
 import { css, styled } from 'styled-components';
 import type { Flettefelter, IDokumentData, IDokumentDataMedUtbetalingerEøs } from '../../../typer/dokumentApiBrev.js';
 import type { Maalform } from '../../../typer/sanitygrensesnitt.js';

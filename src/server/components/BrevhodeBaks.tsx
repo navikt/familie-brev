@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrevmottakerOrganisasjon } from '../../typer/dokumentApiBrev.js';
 import { formaterOrgNummer } from '../utils/util.js';
 import { NavIkonUtenSirkel } from './ikoner/NavIkonUtenSirkel.js';

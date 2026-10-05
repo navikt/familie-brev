@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import type { ISøknad, IVerdiliste } from '../typer/dokumentApiBrev.js';
 import { Line } from './components/Line.js';
