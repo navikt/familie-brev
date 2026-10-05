@@ -1,6 +1,7 @@
-import type React from 'react';
+import { type FunctionComponent, useId } from 'react';
 
-export const NavIkonUtenSirkel: React.FunctionComponent = () => {
+export const NavIkonUtenSirkel: FunctionComponent = () => {
+    const titleId = useId();
     return (
         <svg
             className={'nav-ikon-ny'}
@@ -10,7 +11,9 @@ export const NavIkonUtenSirkel: React.FunctionComponent = () => {
             fill="#cf181f"
             viewBox="0 0 64 20"
             id="ny_nav_logo"
+            aria-labelledby={titleId}
         >
+            <title id={titleId}>Nav-logo</title>
             <path
                 fillRule="evenodd"
                 fill="#c30000"
