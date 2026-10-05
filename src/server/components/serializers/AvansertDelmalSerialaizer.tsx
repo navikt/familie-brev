@@ -22,7 +22,7 @@ export const AvansertDelmalSerializer = (props: IAvansertDelmalSerializerProps):
 
     // Hvis ikke konsument har sendt inn delmalen rendrer vi heller ikke denne delen
     if (!skalAlltidMed && !delmaler?.[delmalApiNavn]) {
-        return <></>;
+        return null;
     }
     const avanserteDokumentVariabler: IAvansertDokumentVariabler[] | undefined = delmaler?.[delmalApiNavn];
 

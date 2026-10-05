@@ -14,7 +14,7 @@ interface IValgfeltSerializer {
     forelderDokumentApiNavn: string;
 }
 
-export const ValgfeltSerializer = (props: IValgfeltSerializer): JSX.Element => {
+export const ValgfeltSerializer = (props: IValgfeltSerializer): JSX.Element | null => {
     const { sanityProps, valgfelter, maalform, datasett, forelderDokumentApiNavn } = props;
     const { valgReferanse, erGjentagende, skalAlltidMed } = sanityProps.value;
     const { apiNavn, valg: muligeValg } = valgReferanse;
@@ -23,7 +23,7 @@ export const ValgfeltSerializer = (props: IValgfeltSerializer): JSX.Element => {
 
     // Hvis ikke konsument har sendt inn valgfeltet rendrer vi heller ikke denne delen
     if (!valgfelter?.[apiNavn]) {
-        return <></>;
+        return null;
     }
 
     const valg: IValg[] = valgfelter[apiNavn];

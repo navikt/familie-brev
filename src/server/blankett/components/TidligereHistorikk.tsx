@@ -70,7 +70,7 @@ export const TidligereHistorikk: React.FC<{
 const TidligereHistorikkOvergangsstønadTabell: React.FC<{
     periodeHistorikkOvergangsstønad: IGrunnlagsdataPeriodeHistorikkOvergangsstønad[] | undefined;
 }> = ({ periodeHistorikkOvergangsstønad }) => {
-    if (!periodeHistorikkOvergangsstønad || periodeHistorikkOvergangsstønad?.length < 1) return <></>;
+    if (!periodeHistorikkOvergangsstønad || periodeHistorikkOvergangsstønad?.length < 1) return null;
 
     return (
         <table>
@@ -102,7 +102,7 @@ const TidligereHistorikkOvergangsstønadTabell: React.FC<{
 const TidligereHistorikkBarnetilsynTabell: React.FC<{
     periodeHistorikkBarnetilsyn: IGrunnlagsdataPeriodeHistorikkBarnetilsyn[] | undefined;
 }> = ({ periodeHistorikkBarnetilsyn }) => {
-    if (!periodeHistorikkBarnetilsyn || periodeHistorikkBarnetilsyn?.length < 1) return <></>;
+    if (!periodeHistorikkBarnetilsyn || periodeHistorikkBarnetilsyn?.length < 1) return null;
 
     return (
         <table>
