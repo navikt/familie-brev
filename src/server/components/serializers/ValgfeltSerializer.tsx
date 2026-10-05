@@ -22,7 +22,7 @@ export const ValgfeltSerializer = (props: IValgfeltSerializer): JSX.Element => {
     validerValgfelt(valgfelter, apiNavn, skalAlltidMed, forelderDokumentApiNavn, erGjentagende);
 
     // Hvis ikke konsument har sendt inn valgfeltet rendrer vi heller ikke denne delen
-    if (!valgfelter || !valgfelter[apiNavn]) {
+    if (!valgfelter?.[apiNavn]) {
         return <></>;
     }
 
