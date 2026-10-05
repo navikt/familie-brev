@@ -130,7 +130,7 @@ export const UtbetalingerSerializer = (props: UtbetalingerProps) => {
                             {utbetalingMndEøs.utbetalinger.map((utbetalingEØS, index) => (
                                 <StyledTableDataRow
                                     $borderTop={harFlereYtelserIPeriode && index === 0}
-                                    key={mndÅr + '-' + index}
+                                    key={`${mndÅr}-${index}`}
                                 >
                                     <StyledTableData align="left">
                                         {barnetrygdTekst(utbetalingEØS.fødselsdato, utbetalingEØS.ytelseType)}
@@ -150,7 +150,7 @@ export const UtbetalingerSerializer = (props: UtbetalingerProps) => {
                                 </StyledTableDataRow>
                             ))}
                             {harFlereYtelserIPeriode && (
-                                <SummaryTableRow key={mndÅr + 'oppsummering'}>
+                                <SummaryTableRow key={`${mndÅr}oppsummering`}>
                                     <StyledTableData align="left">Totalt i:</StyledTableData>
                                     <StyledTableData align="left">{mndÅr}</StyledTableData>
                                     <StyledTableData align="right">

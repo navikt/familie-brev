@@ -54,7 +54,7 @@ export const tilSkoleår = (årMåned: string): number => {
 export const månedÅrTilDate = (årMåned: string): Date => parse(årMåned, 'yyyy-MM', new Date());
 
 export const formaterBeløp = (verdi: number): string =>
-    Number(verdi).toLocaleString('no-NO', { currency: 'NOK' }) + ' kr';
+    `${Number(verdi).toLocaleString('no-NO', { currency: 'NOK' })} kr`;
 
 export const formaterBeløpMedPostfix = (verdi: number, postfix: string): string =>
     `${verdi.toLocaleString('no-NO')} ${postfix}`;
