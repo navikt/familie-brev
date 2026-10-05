@@ -34,7 +34,7 @@ export const DelmalSerializer = (props: IDelmalSerializerProps) => {
     const delmalApiNavn = delmalReferanse.apiNavn as string;
 
     // Hvis ikke konsument har sendt inn delmalen rendrer vi heller ikke denne delen
-    if (!skalAlltidMed && (!delmalData || !delmalData[delmalApiNavn])) {
+    if (!skalAlltidMed && !delmalData?.[delmalApiNavn]) {
         return null;
     }
 
@@ -56,7 +56,7 @@ export const DelmalSerializer = (props: IDelmalSerializerProps) => {
         return dokumentData.utbetalingerPerMndEøs;
     };
 
-    const flettefelter: Flettefelter | undefined = delmalData && delmalData[delmalApiNavn];
+    const flettefelter: Flettefelter | undefined = delmalData?.[delmalApiNavn];
 
     return (
         <StyledDelmalWrapper $skalBegynnePaaNySide={skalBegynnePaaNySide} className={'delmal'}>

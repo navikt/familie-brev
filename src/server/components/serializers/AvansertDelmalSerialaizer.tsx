@@ -21,10 +21,10 @@ export const AvansertDelmalSerializer = (props: IAvansertDelmalSerializerProps):
     validerAvansertDelmal(delmaler, delmalApiNavn, forelderDokumentApiNavn, erGjentagende);
 
     // Hvis ikke konsument har sendt inn delmalen rendrer vi heller ikke denne delen
-    if (!skalAlltidMed && (!delmaler || !delmaler[delmalApiNavn])) {
+    if (!skalAlltidMed && !delmaler?.[delmalApiNavn]) {
         return <></>;
     }
-    const avanserteDokumentVariabler: IAvansertDokumentVariabler[] | undefined = delmaler && delmaler[delmalApiNavn];
+    const avanserteDokumentVariabler: IAvansertDokumentVariabler[] | undefined = delmaler?.[delmalApiNavn];
 
     return (
         <div className={'delmal'}>
