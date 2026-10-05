@@ -85,7 +85,7 @@ const Periode = (props: { maalform: Maalform; datasett: Datasett; periodedata: I
 
     const hentBegrunnelsetekst = (begrunnelseApiNavn: string, målform: string): any => {
         const query = hentBegrunnelseTekstQuery(begrunnelseApiNavn, målform, datasett);
-        // eslint-disable-next-line react-hooks/rules-of-hooks
+        // biome-ignore lint/correctness/useHookAtTopLevel: kalles én gang per begrunnelse i props, i samme rekkefølge ved hver rendring, så hook-rekkefølgen er stabil
         return useServerEffect(undefined, query, () =>
             client(datasett)
                 .fetch(query)
