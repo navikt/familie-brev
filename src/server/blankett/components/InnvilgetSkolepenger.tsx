@@ -18,12 +18,10 @@ export const InnvilgetSkolepenger: React.FC<{
             <h3 className={'blankett'}>Resultat</h3>
             <div>Innvilge</div>
             {søknadsdatoer && (
-                <>
-                    <Søknadsinformasjon
-                        søknadsdato={søknadsdatoer.søknadsdato}
-                        søkerStønadFra={søknadsdatoer.søkerStønadFra}
-                    />
-                </>
+                <Søknadsinformasjon
+                    søknadsdato={søknadsdatoer.søknadsdato}
+                    søkerStønadFra={søknadsdatoer.søkerStønadFra}
+                />
             )}
 
             {vedtak.skoleårsperioder.map((skoleårsperiode, i) => {

@@ -69,37 +69,35 @@ export const KlageBehandling: React.FC<{ behandling: IKlageBehandling }> = ({ be
 export const KlageFormkrav: React.FC<{ formkrav: IFormkravVilkår }> = ({ formkrav }) => {
     return (
         <div className={'blankett-page-break'}>
-            <>
-                <h2>Formkrav</h2>
-                <h4 className={'blankett'}>Er klager part i saken?</h4>
-                <span>{formVilkårTilTekst[formkrav.klagePart]}</span>
-                <h4 className={'blankett'}>Klages det på konkrete elementer i vedtaket?</h4>
-                <span>{formVilkårTilTekst[formkrav.klageKonkret]}</span>
-                <h4 className={'blankett'}>Er klagefristen overholdt?</h4>
-                <span>{formVilkårTilTekst[formkrav.klagefristOverholdt]}</span>
-                {formkrav.klagefristOverholdt === EFormVilkår.IKKE_OPPFYLT && formkrav.klagefristOverholdtUnntak && (
+            <h2>Formkrav</h2>
+            <h4 className={'blankett'}>Er klager part i saken?</h4>
+            <span>{formVilkårTilTekst[formkrav.klagePart]}</span>
+            <h4 className={'blankett'}>Klages det på konkrete elementer i vedtaket?</h4>
+            <span>{formVilkårTilTekst[formkrav.klageKonkret]}</span>
+            <h4 className={'blankett'}>Er klagefristen overholdt?</h4>
+            <span>{formVilkårTilTekst[formkrav.klagefristOverholdt]}</span>
+            {formkrav.klagefristOverholdt === EFormVilkår.IKKE_OPPFYLT && formkrav.klagefristOverholdtUnntak && (
+                <>
+                    <h5>Er unntak for klagefristen oppfylt?</h5>
+                    <span>{formkravFristUnntakTilTekst[formkrav.klagefristOverholdtUnntak]}</span>
+                </>
+            )}
+            <h4 className={'blankett'}>Er klagen signert?</h4>
+            <span>{formVilkårTilTekst[formkrav.klageSignert]}</span>
+            {formkrav.saksbehandlerBegrunnelse && (
+                <>
+                    <h4 className={'blankett'}>Begrunnelse</h4>
+                    <span style={{ whiteSpace: 'pre-wrap' }}>{formkrav.saksbehandlerBegrunnelse}</span>
+                </>
+            )}
+            {!alleFormkravOppfylt(formkrav) &&
+                !klagefristUnntakOppfylt(formkrav.klagefristOverholdtUnntak) &&
+                formkrav.brevtekst && (
                     <>
-                        <h5>Er unntak for klagefristen oppfylt?</h5>
-                        <span>{formkravFristUnntakTilTekst[formkrav.klagefristOverholdtUnntak]}</span>
+                        <h4 className={'blankett'}>Fritekst til brev</h4>
+                        <span style={{ whiteSpace: 'pre-wrap' }}>{formkrav.brevtekst}</span>
                     </>
                 )}
-                <h4 className={'blankett'}>Er klagen signert?</h4>
-                <span>{formVilkårTilTekst[formkrav.klageSignert]}</span>
-                {formkrav.saksbehandlerBegrunnelse && (
-                    <>
-                        <h4 className={'blankett'}>Begrunnelse</h4>
-                        <span style={{ whiteSpace: 'pre-wrap' }}>{formkrav.saksbehandlerBegrunnelse}</span>
-                    </>
-                )}
-                {!alleFormkravOppfylt(formkrav) &&
-                    !klagefristUnntakOppfylt(formkrav.klagefristOverholdtUnntak) &&
-                    formkrav.brevtekst && (
-                        <>
-                            <h4 className={'blankett'}>Fritekst til brev</h4>
-                            <span style={{ whiteSpace: 'pre-wrap' }}>{formkrav.brevtekst}</span>
-                        </>
-                    )}
-            </>
         </div>
     );
 };
