@@ -21,6 +21,7 @@ export const HtmlfeltSerializer = (props: IHtmlfeltSerializerProps) => {
 
     const htmlfelt = htmlfelter[htmlfeltNavn];
 
+    // biome-ignore lint/security/noDangerouslySetInnerHtml: htmlfelter sendes som ferdig HTML fra konsumenten og skal flettes inn uendret
     return <div dangerouslySetInnerHTML={{ __html: htmlfelt }} />;
 };
 
