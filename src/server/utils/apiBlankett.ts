@@ -1,8 +1,8 @@
+import type { Meta } from '@navikt/familie-logging';
+import { logInfo } from '@navikt/familie-logging';
 import type { AxiosResponse } from 'axios';
 import axios from 'axios';
 import { hentMiljøvariabler } from '../environment.js';
-import type { Meta } from '@navikt/familie-logging';
-import { logInfo } from '@navikt/familie-logging';
 
 export const genererPdfBlankett = async (html: string, meta: Meta): Promise<ArrayBuffer> => {
     const url = `${hentMiljøvariabler().FAMILIE_DOKUMENT_API_URL}/api/html-til-pdf`;

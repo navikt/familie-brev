@@ -1,18 +1,17 @@
 import React from 'react';
-import { Medlemskapsgrunnlag } from './Medlemskapsgrunnlag.js';
-import { LovligOppholdGrunnlag } from './LovligOppholdGrunnlag.js';
-import { SivilstandGrunnlag } from './Sivilstand.js';
-import { SamlivGrunnlag } from './Samliv.js';
-import { MorEllerFarGrunnlag } from './MorEllerFarGrunnlag.js';
+import type { EStønadType, ITidligereVedtaksperioder, IVilkårGrunnlag } from '../../../typer/dokumentApiBlankett.js';
+import { EStønadType as StønadType, Vilkår, VilkårGruppe } from '../../../typer/dokumentApiBlankett.js';
+import { AlderPåBarnGrunnlag } from './AlderPåBarnGrunnlag.js';
 import { AleneomsorgGrunnlag } from './AleneomsorgGrunnlag.js';
+import { InntektGrunnlag } from './InntektGrunnlag.js';
+import { LovligOppholdGrunnlag } from './LovligOppholdGrunnlag.js';
+import { Medlemskapsgrunnlag } from './Medlemskapsgrunnlag.js';
+import { MorEllerFarGrunnlag } from './MorEllerFarGrunnlag.js';
 import { NyttBarnSammePartner } from './NyttBarnSammePartner.js';
 import { SagtOppEllerRedusertGrunnlag } from './SagtOppEllerRedusertGrunnlag.js';
-import { AlderPåBarnGrunnlag } from './AlderPåBarnGrunnlag.js';
+import { SamlivGrunnlag } from './Samliv.js';
+import { SivilstandGrunnlag } from './Sivilstand.js';
 import { TidligereHistorikk } from './TidligereHistorikk.js';
-import type { IVilkårGrunnlag, ITidligereVedtaksperioder, EStønadType } from '../../../typer/dokumentApiBlankett.js';
-import { EStønadType as StønadType } from '../../../typer/dokumentApiBlankett.js';
-import { VilkårGruppe, Vilkår } from '../../../typer/dokumentApiBlankett.js';
-import { InntektGrunnlag } from './InntektGrunnlag.js';
 
 export interface RegistergrunnlagForVilkårProps {
     grunnlag: IVilkårGrunnlag;

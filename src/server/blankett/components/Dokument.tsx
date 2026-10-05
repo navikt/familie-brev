@@ -1,6 +1,4 @@
 import React from 'react';
-import { Vilkårsvurdering } from './Vilkårsvurdering.js';
-import { Vedtak } from './Vedtak.js';
 import {
     EBehandlingÅrsak,
     EStønadType,
@@ -10,9 +8,11 @@ import {
     VilkårGruppe,
     vilkårTypeTilTekst,
 } from '../../../typer/dokumentApiBlankett.js';
+import { Regelendring2026Visning } from './Regelendring2026Visning.js';
 import { RegistergrunnlagForVilkår } from './RegistergrunnlagForVilkår.js';
 import { Samværsavtale } from './Samværsavtale.js';
-import { Regelendring2026Visning } from './Regelendring2026Visning.js';
+import { Vedtak } from './Vedtak.js';
+import { Vilkårsvurdering } from './Vilkårsvurdering.js';
 
 interface DokumentProps {
     dokumentData: IDokumentData;

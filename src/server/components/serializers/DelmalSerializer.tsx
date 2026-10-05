@@ -1,14 +1,14 @@
-import React from 'react';
-import type { Flettefelter, IDokumentData, IDokumentDataMedUtbetalingerEøs } from '../../../typer/dokumentApiBrev.js';
-import { FlettefeltSerializer } from './FlettefeltSerializer.js';
-import { BlockSerializer } from './BlockSerializer.js';
-import type { Maalform } from '../../../typer/sanitygrensesnitt.js';
-import { LenkeSerializer } from './LenkeSerializer.js';
 import { PortableText } from '@portabletext/react';
-import { UtbetalingerSerializer } from './UtbetalingerSerializer.js';
+import React from 'react';
 import { css, styled } from 'styled-components';
-import { Feil } from '../../utils/Feil.js';
+import type { Flettefelter, IDokumentData, IDokumentDataMedUtbetalingerEøs } from '../../../typer/dokumentApiBrev.js';
+import type { Maalform } from '../../../typer/sanitygrensesnitt.js';
 import type { UtbetalingerPerMndEøs } from '../../../typer/utbetalingerEøs.js';
+import { Feil } from '../../utils/Feil.js';
+import { BlockSerializer } from './BlockSerializer.js';
+import { FlettefeltSerializer } from './FlettefeltSerializer.js';
+import { LenkeSerializer } from './LenkeSerializer.js';
+import { UtbetalingerSerializer } from './UtbetalingerSerializer.js';
 
 interface IDelmalSerializerProps {
     sanityProps: any;

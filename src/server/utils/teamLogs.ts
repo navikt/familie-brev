@@ -1,6 +1,6 @@
-import axios from 'axios';
 import type { Meta } from '@navikt/familie-logging';
 import { logWarn } from '@navikt/familie-logging';
+import axios from 'axios';
 
 const TEAM_LOGS_URL = 'http://team-logs.nais-system/';
 

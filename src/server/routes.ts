@@ -1,7 +1,6 @@
+import { logError, logInfo } from '@navikt/familie-logging';
 import type { Request, Response } from 'express';
 import express from 'express';
-import type { Datasett } from './sanity/sanityClient.js';
-import type { Maalform } from '../typer/sanitygrensesnitt.js';
 import type {
     IAvansertDokumentVariabler,
     IBrevMedSignatur,
@@ -10,18 +9,19 @@ import type {
     IFritekstbrevMedSignatur,
     ISøknad,
 } from '../typer/dokumentApiBrev.js';
+import type { Maalform } from '../typer/sanitygrensesnitt.js';
+import { Brevmeny, BrevStruktur, hentBrevmenyBlokker, hentFlettefelterMedType } from './hentAvansertDokumentFelter.js';
+import { hentAvansertDokumentHtml } from './hentAvansertDokumentHtml.js';
+import { hentAvansertDokumentNavn } from './hentAvansertDokumentNavn.js';
+import { hentDelmalblokkHtml } from './hentDelmalBlockHtml.js';
 import { hentDokumentHtml } from './hentDokumentHtml.js';
+import { lagManueltBrevBaksHtml, lagManueltBrevHtml } from './lagManueltBrevHtml.js';
+import type { Datasett } from './sanity/sanityClient.js';
+import { genererSøknadHtml } from './søknadgenerator.js';
 import { genererPdf } from './utils/api.js';
 import { Feil } from './utils/Feil.js';
-import { hentAvansertDokumentHtml } from './hentAvansertDokumentHtml.js';
-import { validerDokumentApiData } from './utils/valideringer/validerDokumentApiData.js';
-import { logError, logInfo } from '@navikt/familie-logging';
 import { logSecure } from './utils/teamLogs.js';
-import { Brevmeny, BrevStruktur, hentBrevmenyBlokker, hentFlettefelterMedType } from './hentAvansertDokumentFelter.js';
-import { hentAvansertDokumentNavn } from './hentAvansertDokumentNavn.js';
-import { lagManueltBrevBaksHtml, lagManueltBrevHtml } from './lagManueltBrevHtml.js';
-import { genererSøknadHtml } from './søknadgenerator.js';
-import { hentDelmalblokkHtml } from './hentDelmalBlockHtml.js';
+import { validerDokumentApiData } from './utils/valideringer/validerDokumentApiData.js';
 
 const router = express.Router();
 

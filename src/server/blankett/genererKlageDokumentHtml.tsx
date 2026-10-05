@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { IKlageDokumentData, stønadstypeTilTekst } from '../../typer/klageDokumentApi.js';
-import { KlageBehandling, KlageFormkrav, Klagevurdering } from './components/KlageBehandling.js';
-import { Header } from './components/Header.js';
 import css from '../utils/css.js';
 import { datoFormat } from '../utils/util.js';
+import { Header } from './components/Header.js';
+import { KlageBehandling, KlageFormkrav, Klagevurdering } from './components/KlageBehandling.js';
 
 enum HtmlLang {
     NB = 'nb',

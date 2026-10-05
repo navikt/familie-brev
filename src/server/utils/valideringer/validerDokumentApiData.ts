@@ -1,5 +1,5 @@
-import { Datasett } from '../../sanity/sanityClient.js';
 import { Maalform } from '../../../typer/sanitygrensesnitt.js';
+import { Datasett } from '../../sanity/sanityClient.js';
 import { Feil } from '../Feil.js';
 
 export const validerDokumentApiData = async (datasett: Datasett, maalform: Maalform) => {

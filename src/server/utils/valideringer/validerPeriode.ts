@@ -1,5 +1,5 @@
-import { Feil } from '../Feil.js';
 import type { IPeriodedata } from '../../../baks/typer.js';
+import { Feil } from '../Feil.js';
 
 export const validerPeriode = (forelderDokument: string, periodedata?: IPeriodedata[]) => {
     if (!periodedata || periodedata.length === 0) {

@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { BrevmottakerRolle, Heading, IAvsnitt, IFritekstbrevMedSignatur } from '../typer/dokumentApiBrev.js';
-import { dagensDatoFormatert, dagensDatoFormatertLang } from './utils/util.js';
+import { Maalform } from '../typer/sanitygrensesnitt.js';
+import { BrevhodeBaks } from './components/BrevhodeBaks.js';
+import { Header } from './components/Header.js';
+import { SaksbehandlerSignatur } from './components/SaksbehandlerSignatur.js';
 import css from './utils/css.js';
 import cssFritekstbrevBaks from './utils/css-fritekstbrev-baks.js';
-import { BrevhodeBaks } from './components/BrevhodeBaks.js';
-import { SaksbehandlerSignatur } from './components/SaksbehandlerSignatur.js';
-import { Header } from './components/Header.js';
-import { Maalform } from '../typer/sanitygrensesnitt.js';
+import { dagensDatoFormatert, dagensDatoFormatertLang } from './utils/util.js';
 
 export const lagManueltBrevHtml = (brevMedSignatur: IFritekstbrevMedSignatur) => {
     const brev = brevMedSignatur.brevFraSaksbehandler;

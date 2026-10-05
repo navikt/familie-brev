@@ -1,7 +1,7 @@
 import React from 'react';
-import { AnnenForelder } from './AnnenForelder.js';
 import { IBarnMedSamvær, IPersonalia } from '../../../typer/dokumentApiBlankett.js';
 import { formaterNullableIsoDato } from '../../utils/util.js';
+import { AnnenForelder } from './AnnenForelder.js';
 
 interface Props {
     barnMedSamvær: IBarnMedSamvær[];

@@ -1,12 +1,5 @@
 import { Feil } from '../server/utils/Feil.js';
-import {
-    BegrunnelseMedData,
-    FlettefeltBlock,
-    MarkDef,
-    ValgfeltBlock,
-    ValgfeltMuligheter,
-    Valgfelttype,
-} from './typer.js';
+import { ManglerFlettefeltFeil } from '../server/utils/ManglerFlettefeltFeil.js';
 import {
     hentAnnenForeldersAktivitetValg,
     hentBarnetBarnaDineDittValg,
@@ -20,7 +13,14 @@ import {
     hentSøkerOgEllerBarnetBarnaValg,
     hentSøkersAktivitetValg,
 } from './formateringsvalg.js';
-import { ManglerFlettefeltFeil } from '../server/utils/ManglerFlettefeltFeil.js';
+import {
+    BegrunnelseMedData,
+    FlettefeltBlock,
+    MarkDef,
+    ValgfeltBlock,
+    ValgfeltMuligheter,
+    Valgfelttype,
+} from './typer.js';
 
 export const formaterValgfelt = (valgfeltBlock: ValgfeltBlock, data: BegrunnelseMedData) => {
     switch (valgfeltBlock.apiNavn) {

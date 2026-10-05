@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import css from '../utils/css.js';
 import { NæringsinntektDokumentData } from '../../typer/dokumentApiNæringsinntekt.js';
+import css from '../utils/css.js';
 import { Header } from './components/Header.js';
 import { Inntekt } from './components/Inntekt.js';
 

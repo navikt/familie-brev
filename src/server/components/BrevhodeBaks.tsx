@@ -1,7 +1,7 @@
 import React from 'react';
-import { NavIkonUtenSirkel } from './ikoner/NavIkonUtenSirkel.js';
 import { BrevmottakerOrganisasjon } from '../../typer/dokumentApiBrev.js';
 import { formaterOrgNummer } from '../utils/util.js';
+import { NavIkonUtenSirkel } from './ikoner/NavIkonUtenSirkel.js';
 
 interface BrevhodeProps {
     navn: string;
