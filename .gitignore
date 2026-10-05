@@ -10,9 +10,6 @@
 /dist
 /build
 
-# etc
-.eslintcache
-
 # misc
 .DS_Store
 .env.local

@@ -17,12 +17,9 @@ updates:
         - "react-dom"
         - "@types/react"
         - "@types/react-dom"
-    lint-and-format:
+    linting:
       patterns:
-        - "eslint*"
-        - "prettier"
-        - "@typescript-eslint/eslint-plugin"
-        - "@typescript-eslint/parser"
+        - "@biomejs/biome"
         - "husky"
         - "lint-staged"
     type-definitions:

@@ -1,0 +1,51 @@
+{
+    "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+    "vcs": {
+        "enabled": true,
+        "clientKind": "git",
+        "useIgnoreFile": true,
+        "defaultBranch": "main"
+    },
+    "formatter": {
+        "indentStyle": "space",
+        "indentWidth": 4,
+        "lineWidth": 120
+    },
+    "linter": {
+        "enabled": true,
+        "rules": {
+            "preset": "recommended"
+        }
+    },
+    "javascript": {
+        "formatter": {
+            "trailingCommas": "es5",
+            "arrowParentheses": "asNeeded",
+            "quoteStyle": "single"
+        }
+    },
+    "html": {
+        "parser": {
+            "interpolation": true
+        }
+    },
+    "assist": {
+        "enabled": true,
+        "actions": {
+            "source": {
+                "organizeImports": "on"
+            }
+        }
+    },
+    "overrides": [
+        {
+            "includes": ["**/tsconfig*.json"],
+            "json": {
+                "parser": {
+                    "allowComments": true,
+                    "allowTrailingCommas": true
+                }
+            }
+        }
+    ]
+}
