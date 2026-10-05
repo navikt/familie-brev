@@ -34,4 +34,4 @@ export const hentBegrunnelseTekstQuery = (apiNavn: string, maalform: string, dat
 
 `;
 
-const erKsDatasett = (datasett: Datasett) => datasett == Datasett.KS;
+const erKsDatasett = (datasett: Datasett) => datasett === Datasett.KS;

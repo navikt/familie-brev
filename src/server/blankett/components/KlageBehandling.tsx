@@ -27,18 +27,18 @@ const påklagetVedtak = (påklagetVedtak?: IPåklagetVedtak) => {
 };
 
 const alleFormkravOppfylt = (formkrav: IFormkravVilkår) =>
-    formkrav.klagePart == EFormVilkår.OPPFYLT &&
-    formkrav.klageKonkret == EFormVilkår.OPPFYLT &&
-    formkrav.klagefristOverholdt == EFormVilkår.OPPFYLT &&
-    formkrav.klageSignert == EFormVilkår.OPPFYLT;
+    formkrav.klagePart === EFormVilkår.OPPFYLT &&
+    formkrav.klageKonkret === EFormVilkår.OPPFYLT &&
+    formkrav.klagefristOverholdt === EFormVilkår.OPPFYLT &&
+    formkrav.klageSignert === EFormVilkår.OPPFYLT;
 
 const alleFormkravUtenomKlagefristOppfylt = (formkrav: IFormkravVilkår): boolean =>
-    formkrav.klagePart == EFormVilkår.OPPFYLT &&
-    formkrav.klageKonkret == EFormVilkår.OPPFYLT &&
-    formkrav.klageSignert == EFormVilkår.OPPFYLT;
+    formkrav.klagePart === EFormVilkår.OPPFYLT &&
+    formkrav.klageKonkret === EFormVilkår.OPPFYLT &&
+    formkrav.klageSignert === EFormVilkår.OPPFYLT;
 
 const klagefristUnntakOppfylt = (klagefristOverholdtUnntak: FormkravFristUnntak | undefined): boolean =>
-    klagefristOverholdtUnntak != undefined &&
+    klagefristOverholdtUnntak != null &&
     [FormkravFristUnntak.UNNTAK_SÆRLIG_GRUNN, FormkravFristUnntak.UNNTAK_KAN_IKKE_LASTES].includes(
         klagefristOverholdtUnntak
     );
