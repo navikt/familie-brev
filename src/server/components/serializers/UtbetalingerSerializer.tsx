@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 import { css, styled } from 'styled-components';
 import { Maalform } from '../../../typer/sanitygrensesnitt.js';
 import type { UtbetalingerPerMndEøs } from '../../../typer/utbetalingerEøs.js';

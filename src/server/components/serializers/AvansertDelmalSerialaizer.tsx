@@ -1,4 +1,4 @@
-import React, { JSX } from 'react';
+import { JSX } from 'react';
 import type { IAvansertDokumentVariabler, IDelmaler } from '../../../typer/dokumentApiBrev.js';
 import type { Maalform } from '../../../typer/sanitygrensesnitt.js';
 import type { Datasett } from '../../sanity/sanityClient.js';

@@ -1,5 +1,4 @@
 import { PortableText } from '@portabletext/react';
-import React from 'react';
 import { begrunnelseSerializer } from '../../../baks/begrunnelseSerializer.js';
 import { hentBegrunnelseTekstQuery } from '../../../baks/queries.js';
 import type { Begrunnelse, BegrunnelseMedData, IPeriodedata } from '../../../baks/typer.js';

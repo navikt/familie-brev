@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface InntektProps {
     forventetInntekt: number;
     næringsinntekt: number;

@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { BrevmottakerRolle, Heading, IAvsnitt, IFritekstbrevMedSignatur } from '../typer/dokumentApiBrev.js';
 import { Maalform } from '../typer/sanitygrensesnitt.js';

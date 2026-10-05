@@ -1,4 +1,3 @@
-import React from 'react';
 import type { IHtmlfelter } from '../../../typer/dokumentApiBrev.js';
 import { Feil } from '../../utils/Feil.js';
 

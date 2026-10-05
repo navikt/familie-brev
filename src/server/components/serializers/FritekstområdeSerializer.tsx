@@ -1,4 +1,3 @@
-import React from 'react';
 import type { IFritekstområder } from '../../../typer/dokumentApiBrev.js';
 
 interface IFritekstområdeSerializerProps {

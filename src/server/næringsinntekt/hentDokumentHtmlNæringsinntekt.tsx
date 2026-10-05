@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { NæringsinntektDokumentData } from '../../typer/dokumentApiNæringsinntekt.js';
 import css from '../utils/css.js';

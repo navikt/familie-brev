@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import type { IDokumentData } from '../../typer/dokumentApiBlankett.js';
 import { stønadstypeTilTekst } from '../../typer/dokumentApiBlankett.js';
