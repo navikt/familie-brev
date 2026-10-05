@@ -31,7 +31,7 @@ router.post('/pdf', async (req: Request, res: Response) => {
     }
 });
 
-if (NODE_ENV != 'production' && NODE_ENV != 'preprod') {
+if (NODE_ENV !== 'production' && NODE_ENV !== 'preprod') {
     const lesMockFil = () => {
         const fileString = fs.readFileSync('./src/server/mock/dummyDataNæringsinntekt.json', {
             encoding: 'utf-8',
