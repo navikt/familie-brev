@@ -27,8 +27,8 @@ jobs:
       - name: pnpm build
         run: pnpm build
 
-  eslint:
-    name: ⬣ ESLint
+  biome:
+    name: ✨ Biome
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -46,30 +46,8 @@ jobs:
           node-version: ${{ steps.node.outputs.version }}
           reader-token: ${{ secrets.READER_TOKEN }}
 
-      - name: 🔬 Kjør sjekk med esLint
-        run: pnpm eslint-check
-
-  lint:
-    name: ✨ Prettier
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    steps:
-      - name: ⬇️ Checkout repo
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v4
-
-      - name: Les Node-versjon fra .node-version
-        id: node
-        run: echo "version=$(tr -d '[:space:]' < .node-version)" >> "$GITHUB_OUTPUT"
-
-      - name: ⎔ Setup node and install pnpm packages
-        uses: navikt/familie-baks-gha-workflows/.github/actions/setup-node-pnpm@main # ratchet:exclude
-        with:
-          node-version: ${{ steps.node.outputs.version }}
-          reader-token: ${{ secrets.READER_TOKEN }}
-
-      - name: 🔬 Kjør sjekk med prettier
-        run: pnpm prettier-check
+      - name: 🔬 Kjør sjekk med Biome
+        run: pnpm check
 
   typecheck:
     name: ʦ TypeScript

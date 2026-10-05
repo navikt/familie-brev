@@ -12,15 +12,18 @@
     "build:dev": "tsc -p tsconfig.json",
     "run:dev": "node dist/src/server/index.js",
     "prepare": "husky",
-    "kjør-prettier": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,css}\"",
     "typecheck": "tsc --noEmit --skipLibCheck",
-    "eslint-check": "eslint './src/**/*.{js,ts,tsx}'",
-    "prettier-check": "prettier --check \"./src/**/*.{js,jsx,ts,tsx,css}\""
+    "lint": "biome lint .",
+    "lint:fix": "biome lint --write .",
+    "format": "biome format .",
+    "format:fix": "biome format --write .",
+    "check": "biome check .",
+    "check:fix": "biome check --write .",
+    "validate": "pnpm typecheck && pnpm check"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,css}": [
-      "prettier --write",
-      "eslint --fix"
+      "biome check ."
     ]
   },
   "dependencies": {
@@ -39,23 +42,16 @@
     "typescript": "6.0.3"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.5.14",
     "@types/express": "5.0.6",
     "@types/express-session": "1.19.0",
     "@types/node": "26.6.2",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "@types/styled-components": "5.1.36",
-    "eslint": "9.39.2",
-    "eslint-config-prettier": "10.1.8",
-    "eslint-plugin-jsx-a11y": "6.10.2",
-    "eslint-plugin-prettier": "5.5.6",
-    "eslint-plugin-react": "7.37.5",
-    "eslint-plugin-react-hooks": "7.1.1",
     "husky": "9.1.7",
     "lint-staged": "17.5.1",
-    "nodemon": "3.1.14",
-    "prettier": "3.9.9",
-    "typescript-eslint": "8.70.1"
+    "nodemon": "3.1.14"
   },
   "browserslist": {
     "production": [
