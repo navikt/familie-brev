@@ -14,7 +14,8 @@ export const useServerEffect = (initial: any, key: any, effect: any) => {
     if (context.requests && !context[key]) {
         context.requests.push(
             effect().then((data: any) => {
-                return (context[key] = data);
+                context[key] = data;
+                return data;
             })
         );
     }
