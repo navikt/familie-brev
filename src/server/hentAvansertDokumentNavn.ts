@@ -3,7 +3,7 @@ import { client } from './sanity/sanityClient.js';
 import { Feil } from './utils/Feil.js';
 
 export const hentAvansertDokumentNavn = async (datasett: Datasett, hentUpubliserte?: string): Promise<string> => {
-    let query;
+    let query: string;
     if (hentUpubliserte === 'true') {
         query = `*[_type == "dokumentmal"]{visningsnavn, prioriteringsnummer, apiNavn, overgangsstonad, barnetilsyn, skolepenger, frittstaendeBrev, regelverkVersjon }`;
     } else {
