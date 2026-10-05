@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 import { EStønadType } from '../../../typer/dokumentApiBlankett.js';
 
 export const Regelendring2026Visning: React.FC<{

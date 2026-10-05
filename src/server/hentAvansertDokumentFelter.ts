@@ -1,5 +1,5 @@
 import type { Maalform } from '../typer/sanitygrensesnitt.js';
-import { client, clientV2, Datasett } from './sanity/sanityClient.js';
+import { client, clientV2, type Datasett } from './sanity/sanityClient.js';
 import { Feil } from './utils/Feil.js';
 
 export interface Flettefeltreferanse {

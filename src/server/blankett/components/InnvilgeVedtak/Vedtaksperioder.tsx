@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 import type { IPeriode } from '../../../../typer/dokumentApiBlankett.js';
 import { aktivitetsTypeTilTekst, periodetypeTilTekst } from '../../../../typer/dokumentApiBlankett.js';
 import { parseOgFormaterÅrMåned } from '../../../utils/util.js';

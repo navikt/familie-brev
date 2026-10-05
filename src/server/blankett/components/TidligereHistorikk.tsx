@@ -1,11 +1,11 @@
-import React from 'react';
+import type React from 'react';
 import type {
     IGrunnlagsdataPeriodeHistorikkBarnetilsyn,
     IGrunnlagsdataPeriodeHistorikkOvergangsstønad,
     ITidligereVedtaksperioder,
     OverlappMedOvergangsstønad,
 } from '../../../typer/dokumentApiBlankett.js';
-import { EPeriodetype, EStønadType, periodetypeTilTekst } from '../../../typer/dokumentApiBlankett.js';
+import { EPeriodetype, type EStønadType, periodetypeTilTekst } from '../../../typer/dokumentApiBlankett.js';
 import { formaterIsoDato, mapBooleanTilString } from '../../utils/util.js';
 import { Regelendring2026Visning } from './Regelendring2026Visning.js';
 

@@ -1,5 +1,5 @@
-import React from 'react';
-import { IBarnMedSamvær, IPersonalia } from '../../../typer/dokumentApiBlankett.js';
+import type React from 'react';
+import type { IBarnMedSamvær, IPersonalia } from '../../../typer/dokumentApiBlankett.js';
 import { formaterNullableIsoDato } from '../../utils/util.js';
 import { AnnenForelder } from './AnnenForelder.js';
 

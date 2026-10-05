@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 import type { EStønadType, ITidligereVedtaksperioder, IVilkårGrunnlag } from '../../../typer/dokumentApiBlankett.js';
 import { EStønadType as StønadType, Vilkår, VilkårGruppe } from '../../../typer/dokumentApiBlankett.js';
 import { AlderPåBarnGrunnlag } from './AlderPåBarnGrunnlag.js';

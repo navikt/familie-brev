@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 import { avslagÅrsakTilTekst, type IAvslåVedtak } from '../../../typer/dokumentApiBlankett.js';
 
 export const AvslåVedtak: React.FC<IAvslåVedtak> = ({ avslåÅrsak, avslåBegrunnelse }) => {

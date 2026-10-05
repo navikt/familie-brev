@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 import { formaterNullableIsoDato, formaterNullableMånedÅr } from '../../../utils/util.js';
 
 export const Søknadsinformasjon: React.FC<{

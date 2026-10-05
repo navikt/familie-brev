@@ -1,5 +1,5 @@
 import { renderToStaticMarkup } from 'react-dom/server';
-import { IKlageDokumentData, stønadstypeTilTekst } from '../../typer/klageDokumentApi.js';
+import { type IKlageDokumentData, stønadstypeTilTekst } from '../../typer/klageDokumentApi.js';
 import css from '../utils/css.js';
 import { datoFormat } from '../utils/util.js';
 import { Header } from './components/Header.js';

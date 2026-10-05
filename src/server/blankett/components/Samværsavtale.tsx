@@ -1,5 +1,5 @@
-import React from 'react';
-import { BeregnetSamvær } from '../../../typer/dokumentApiBlankett.js';
+import type React from 'react';
+import type { BeregnetSamvær } from '../../../typer/dokumentApiBlankett.js';
 import { utledDeloverskrift } from '../../lagManueltBrevHtml.js';
 
 interface Props {

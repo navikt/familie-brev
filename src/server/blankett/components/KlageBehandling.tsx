@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 import {
     behandlingResultatTilTekst,
     EFormVilkår,
@@ -6,10 +6,10 @@ import {
     formkravFristUnntakTilTekst,
     formVilkårTilTekst,
     hjemmelTilVisningstekst,
-    IFormkravVilkår,
-    IKlageBehandling,
-    IPåklagetVedtak,
-    IVurdering,
+    type IFormkravVilkår,
+    type IKlageBehandling,
+    type IPåklagetVedtak,
+    type IVurdering,
     klagebehandlingsårakTilTekst,
     vedtakTilTekst,
     årsakTilTekst,

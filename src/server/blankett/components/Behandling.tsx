@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 import type { IBehandling } from '../../../typer/dokumentApiBlankett.js';
 import { behandlingÅrsakTilTekst } from '../../../typer/dokumentApiBlankett.js';
 

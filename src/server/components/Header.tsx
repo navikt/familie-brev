@@ -1,11 +1,11 @@
-import React from 'react';
+import type React from 'react';
 import {
-    Brevmottakere,
-    BrevmottakerOrganisasjon,
-    BrevmottakerPrivatperson,
+    type Brevmottakere,
+    type BrevmottakerOrganisasjon,
+    type BrevmottakerPrivatperson,
     BrevmottakerRolle,
     brevmottakerRolleTilTekst,
-    Flettefelt,
+    type Flettefelt,
 } from '../../typer/dokumentApiBrev.js';
 import { Maalform } from '../../typer/sanitygrensesnitt.js';
 import { validerFlettefelt } from '../utils/valideringer/validerFlettefelt.js';

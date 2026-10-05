@@ -1,8 +1,8 @@
 import {
     EBehandlingÅrsak,
     EStønadType,
-    IDokumentData,
-    IVurdering,
+    type IDokumentData,
+    type IVurdering,
     Vilkår,
     VilkårGruppe,
     vilkårTypeTilTekst,

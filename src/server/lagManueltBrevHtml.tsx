@@ -1,5 +1,5 @@
 import { renderToStaticMarkup } from 'react-dom/server';
-import { BrevmottakerRolle, Heading, IAvsnitt, IFritekstbrevMedSignatur } from '../typer/dokumentApiBrev.js';
+import { BrevmottakerRolle, Heading, type IAvsnitt, type IFritekstbrevMedSignatur } from '../typer/dokumentApiBrev.js';
 import { Maalform } from '../typer/sanitygrensesnitt.js';
 import { BrevhodeBaks } from './components/BrevhodeBaks.js';
 import { Header } from './components/Header.js';

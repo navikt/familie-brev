@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 
 export const TekstLabelVerdi: React.FC<{ label: string; verdi: string; alternativer?: string }> = ({
     label,

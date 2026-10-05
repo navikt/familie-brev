@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 import type { IInnvilgeVedtakOvergangsstønad } from '../../../typer/dokumentApiBlankett.js';
 import { Begrunnelse } from './InnvilgeVedtak/Begrunnelse.js';
 import { Inntektsperioder } from './InnvilgeVedtak/Inntektsperioder.js';

@@ -1,7 +1,7 @@
 import { logError } from '@navikt/familie-logging';
 import express, { type Request, type Response } from 'express';
 import fs from 'fs';
-import { NæringsinntektDokumentData } from '../../typer/dokumentApiNæringsinntekt.js';
+import type { NæringsinntektDokumentData } from '../../typer/dokumentApiNæringsinntekt.js';
 import { logFerdigstilt } from '../routes.js';
 import { genererPdfBlankett } from '../utils/apiBlankett.js';
 import { genererMetadata } from '../utils/logging.js';

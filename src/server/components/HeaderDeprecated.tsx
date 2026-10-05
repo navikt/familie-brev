@@ -1,5 +1,5 @@
-import React from 'react';
-import { Flettefelt } from '../../typer/dokumentApiBrev.js';
+import type React from 'react';
+import type { Flettefelt } from '../../typer/dokumentApiBrev.js';
 import { Maalform } from '../../typer/sanitygrensesnitt.js';
 import { validerFlettefelt } from '../utils/valideringer/validerFlettefelt.js';
 import { NavIkon } from './ikoner/navIkon.js';

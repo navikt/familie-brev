@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 import type { IAnnenForelder } from '../../../typer/dokumentApiBlankett.js';
 import { formaterNullableIsoDato } from '../../utils/util.js';
 
