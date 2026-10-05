@@ -1,127 +1,126 @@
-import * as React from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
 import type { IBrevMedSignatur } from '../typer/dokumentApiBrev.js';
+import { DokumentType } from '../typer/dokumentType.js';
+import { Maalform } from '../typer/sanitygrensesnitt.js';
 import { AvansertDokument } from './components/AvansertDokument.js';
+import { Header } from './components/Header.js';
+import { HeaderDeprecated } from './components/HeaderDeprecated.js';
+import { SaksbehandlerSignatur } from './components/SaksbehandlerSignatur.js';
 import type { Datasett } from './sanity/sanityClient.js';
 import { client } from './sanity/sanityClient.js';
-import { renderToStaticMarkup } from 'react-dom/server';
 import { Context } from './utils/Context.js';
 import css from './utils/css.js';
-import { HeaderDeprecated } from './components/HeaderDeprecated.js';
-import { Maalform } from '../typer/sanitygrensesnitt.js';
-import { DokumentType } from '../typer/dokumentType.js';
 import { dagensDatoFormatert } from './utils/util.js';
-import { SaksbehandlerSignatur } from './components/SaksbehandlerSignatur.js';
-import { Header } from './components/Header.js';
 
 enum HtmlLang {
-  NB = 'nb',
-  NN = 'nn',
+    NB = 'nb',
+    NN = 'nn',
 }
 
 export const hentAvansertDokumentHtml = async (
-  brevMedSignatur: IBrevMedSignatur,
-  maalform: Maalform,
-  dokumentApiNavn: string,
-  datasett: Datasett,
+    brevMedSignatur: IBrevMedSignatur,
+    maalform: Maalform,
+    dokumentApiNavn: string,
+    datasett: Datasett
 ): Promise<string> => {
-  const tittelQuery = `*[_type == "dokumentmal" && apiNavn == "${dokumentApiNavn}" ][].tittel${
-    maalform === Maalform.NB ? 'Bokmaal' : 'Nynorsk'
-  }`;
-  const tittel = (await client(datasett).fetch(tittelQuery))[0];
+    const tittelQuery = `*[_type == "dokumentmal" && apiNavn == "${dokumentApiNavn}" ][].tittel${
+        maalform === Maalform.NB ? 'Bokmaal' : 'Nynorsk'
+    }`;
+    const tittel = (await client(datasett).fetch(tittelQuery))[0];
 
-  const {
-    brevFraSaksbehandler: dokumentVariabler,
-    saksbehandlersignatur,
-    saksbehandlerEnhet,
-    besluttersignatur,
-    beslutterEnhet,
-    skjulBeslutterSignatur,
-    datoPlaceholder,
-  } = brevMedSignatur;
+    const {
+        brevFraSaksbehandler: dokumentVariabler,
+        saksbehandlersignatur,
+        saksbehandlerEnhet,
+        besluttersignatur,
+        beslutterEnhet,
+        skjulBeslutterSignatur,
+        datoPlaceholder,
+    } = brevMedSignatur;
 
-  const htmlLang = () => {
-    switch (maalform) {
-      case Maalform.NB:
-        return HtmlLang.NB;
-      case Maalform.NN:
-        return HtmlLang.NN;
+    const htmlLang = () => {
+        switch (maalform) {
+            case Maalform.NB:
+                return HtmlLang.NB;
+            case Maalform.NN:
+                return HtmlLang.NN;
+        }
+    };
+
+    const contextValue = { requests: [] };
+    const asyncHtml = () => (
+        <Context.Provider value={contextValue}>
+            <html lang={htmlLang()}>
+                <head>
+                    <meta httpEquiv="content-type" content="text/html; charset=utf-8" />
+                    <style type="text/css">{css}</style>
+                    <title>{tittel}</title>
+                </head>
+                <body className={'body'}>
+                    <div>
+                        {dokumentVariabler.featureToggleBrukNyBrevHeader ? (
+                            <Header
+                                tittel={tittel}
+                                navn={dokumentVariabler?.flettefelter?.navn}
+                                fodselsnummer={dokumentVariabler?.flettefelter?.fodselsnummer}
+                                apiNavn={dokumentApiNavn}
+                                brevOpprettetDato={[dagensDatoFormatert()]}
+                                maalform={maalform}
+                                datoPlaceholder={datoPlaceholder}
+                                brevmottakere={dokumentVariabler?.brevmottakere}
+                            />
+                        ) : (
+                            <HeaderDeprecated
+                                visLogo={true}
+                                tittel={tittel}
+                                navn={dokumentVariabler?.flettefelter?.navn}
+                                fodselsnummer={dokumentVariabler?.flettefelter?.fodselsnummer}
+                                apiNavn={dokumentApiNavn}
+                                brevOpprettetDato={[dagensDatoFormatert()]}
+                                maalform={maalform}
+                                datoPlaceholder={datoPlaceholder}
+                            />
+                        )}
+                        <AvansertDokument
+                            apiNavn={dokumentApiNavn}
+                            avanserteDokumentVariabler={dokumentVariabler}
+                            maalform={maalform}
+                            dokumentType={DokumentType.DOKUMENTMAL}
+                            datasett={datasett}
+                        />
+                        <SaksbehandlerSignatur
+                            saksbehandlersignatur={saksbehandlersignatur}
+                            saksbehandlerEnhet={saksbehandlerEnhet}
+                            besluttersignatur={skjulBeslutterSignatur ? undefined : besluttersignatur}
+                            beslutterEnhet={beslutterEnhet}
+                        />
+                    </div>
+                </body>
+            </html>
+        </Context.Provider>
+    );
+
+    async function byggDokumentAsynkront() {
+        const html = renderToStaticMarkup(asyncHtml());
+        await Promise.all(contextValue.requests);
+        return html;
     }
-  };
 
-  const contextValue = { requests: [] };
-  const asyncHtml = () => (
-    <Context.Provider value={contextValue}>
-      <html lang={htmlLang()}>
-        <head>
-          <meta httpEquiv="content-type" content="text/html; charset=utf-8" />
-          <style type="text/css">{css}</style>
-          <title>{tittel}</title>
-        </head>
-        <body className={'body'}>
-          <div>
-            {dokumentVariabler.featureToggleBrukNyBrevHeader ? (
-              <Header
-                tittel={tittel}
-                navn={dokumentVariabler?.flettefelter?.navn}
-                fodselsnummer={dokumentVariabler?.flettefelter?.fodselsnummer}
-                apiNavn={dokumentApiNavn}
-                brevOpprettetDato={[dagensDatoFormatert()]}
-                maalform={maalform}
-                datoPlaceholder={datoPlaceholder}
-                brevmottakere={dokumentVariabler?.brevmottakere}
-              />
-            ) : (
-              <HeaderDeprecated
-                visLogo={true}
-                tittel={tittel}
-                navn={dokumentVariabler?.flettefelter?.navn}
-                fodselsnummer={dokumentVariabler?.flettefelter?.fodselsnummer}
-                apiNavn={dokumentApiNavn}
-                brevOpprettetDato={[dagensDatoFormatert()]}
-                maalform={maalform}
-                datoPlaceholder={datoPlaceholder}
-              />
-            )}
-            <AvansertDokument
-              apiNavn={dokumentApiNavn}
-              avanserteDokumentVariabler={dokumentVariabler}
-              maalform={maalform}
-              dokumentType={DokumentType.DOKUMENTMAL}
-              datasett={datasett}
-            />
-            <SaksbehandlerSignatur
-              saksbehandlersignatur={saksbehandlersignatur}
-              saksbehandlerEnhet={saksbehandlerEnhet}
-              besluttersignatur={skjulBeslutterSignatur ? undefined : besluttersignatur}
-              beslutterEnhet={beslutterEnhet}
-            />
-          </div>
-        </body>
-      </html>
-    </Context.Provider>
-  );
-
-  async function byggDokumentAsynkront() {
-    const html = renderToStaticMarkup(asyncHtml());
-    await Promise.all(contextValue.requests);
-    return html;
-  }
-
-  /* Følger denne guiden:
-   * https://medium.com/swlh/how-to-use-useeffect-on-server-side-654932c51b13
-   *
-   * Resultatet fra eksterne kall blir lagret i konteksten slik at man kan bruke asynkrone funksjoner med serverside rendering.
-   *
-   * Når man kjører byggDokumentAsynkront flere ganger vil dokumentene og underdokumentene til alt er hentet fra Sanity.
-   */
-  let i = 0;
-  let dokument = await byggDokumentAsynkront();
-  while (dokument !== (await byggDokumentAsynkront())) {
-    if (i++ >= 100) {
-      throw new Error('Dokumentet har en dybde på mer enn 100');
+    /* Følger denne guiden:
+     * https://medium.com/swlh/how-to-use-useeffect-on-server-side-654932c51b13
+     *
+     * Resultatet fra eksterne kall blir lagret i konteksten slik at man kan bruke asynkrone funksjoner med serverside rendering.
+     *
+     * Når man kjører byggDokumentAsynkront flere ganger vil dokumentene og underdokumentene til alt er hentet fra Sanity.
+     */
+    let i = 0;
+    let dokument = await byggDokumentAsynkront();
+    while (dokument !== (await byggDokumentAsynkront())) {
+        if (i++ >= 100) {
+            throw new Error('Dokumentet har en dybde på mer enn 100');
+        }
+        dokument = await byggDokumentAsynkront();
     }
-    dokument = await byggDokumentAsynkront();
-  }
 
-  return dokument;
+    return dokument;
 };

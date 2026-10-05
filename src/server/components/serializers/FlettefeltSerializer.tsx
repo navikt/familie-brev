@@ -1,86 +1,83 @@
-import type { Flettefelter } from '../../../typer/dokumentApiBrev.js';
 import React from 'react';
+import type { Flettefelter } from '../../../typer/dokumentApiBrev.js';
 import { Feil } from '../../utils/Feil.js';
 import { validerFlettefelt } from '../../utils/valideringer/validerFlettefelt.js';
 
 interface IFlettefeltSerializerProps {
-  sanityProps: any;
-  flettefelter: Flettefelter | undefined;
-  dokumentApiNavn: string;
-  erListe?: boolean;
+    sanityProps: any;
+    flettefelter: Flettefelter | undefined;
+    dokumentApiNavn: string;
+    erListe?: boolean;
 }
 
 export const FlettefeltSerializer = (props: IFlettefeltSerializerProps) => {
-  const { sanityProps, flettefelter, dokumentApiNavn, erListe } = props;
-  const flettefeltNavn = hentFlettefeltNavn(sanityProps);
-  const erFlettefeltListe = hentFlettefeltErListe(sanityProps, erListe);
+    const { sanityProps, flettefelter, dokumentApiNavn, erListe } = props;
+    const flettefeltNavn = hentFlettefeltNavn(sanityProps);
+    const erFlettefeltListe = hentFlettefeltErListe(sanityProps, erListe);
 
-  if (!flettefelter) {
-    throw new Feil(
-      `Flettefeltet "${flettefeltNavn}" er påkrevd for "${dokumentApiNavn}", ` +
-        `men det ble ikke sendt med noen flettefelter.`,
-      400,
-    );
-  }
+    if (!flettefelter) {
+        throw new Feil(
+            `Flettefeltet "${flettefeltNavn}" er påkrevd for "${dokumentApiNavn}", ` +
+                `men det ble ikke sendt med noen flettefelter.`,
+            400
+        );
+    }
 
-  const flettefelt = flettefelter[flettefeltNavn];
+    const flettefelt = flettefelter[flettefeltNavn];
 
-  const høyrestill =
-    Array.isArray(props.sanityProps.children) &&
-    props.sanityProps.children.length &&
-    props.sanityProps.children[0].props?.markType === 'hoyrestill';
+    const høyrestill =
+        Array.isArray(props.sanityProps.children) &&
+        props.sanityProps.children.length &&
+        props.sanityProps.children[0].props?.markType === 'hoyrestill';
 
-  validerFlettefelt(flettefelt, flettefeltNavn, dokumentApiNavn, erFlettefeltListe);
+    validerFlettefelt(flettefelt, flettefeltNavn, dokumentApiNavn, erFlettefeltListe);
 
-  if (erFlettefeltListe) {
-    return (
-      <ul>
-        {flettefelt.map((felt, index) => (
-          <li key={index} className={`block`}>
-            {felt}
-          </li>
-        ))}
-      </ul>
-    );
-  } else {
-    return konverterFlettefeltTekstMedNewLineTilBrTag(flettefelt[0], høyrestill);
-  }
+    if (erFlettefeltListe) {
+        return (
+            <ul>
+                {flettefelt.map((felt, index) => (
+                    <li key={index} className={`block`}>
+                        {felt}
+                    </li>
+                ))}
+            </ul>
+        );
+    } else {
+        return konverterFlettefeltTekstMedNewLineTilBrTag(flettefelt[0], høyrestill);
+    }
 };
 
 /**
  * Skal ikke ha en ekstra linjeskift på slutten av hvert avsnitt
  * Dersom siste elementet ikke er "tomt" (som betyr \n) så skippes <br />-taggen på slutten
  */
-const konverterFlettefeltTekstMedNewLineTilBrTag = (
-  flettefeltElement: string,
-  høyrestill: boolean,
-) => {
-  if (flettefeltElement?.includes('\n')) {
-    return flettefeltElement?.split('\n').map((avsnitt, index, total) => {
-      const erSisteElement = total.length - 1 === index;
-      const erLinjeskiftElement = avsnitt.length === 0;
-      const skalHaBreaklineTag = erLinjeskiftElement || !erSisteElement;
-      return (
-        <React.Fragment key={index}>
-          <span className={høyrestill ? 'høyrestill' : ''}>{avsnitt}</span>
-          {skalHaBreaklineTag && <br />}
-        </React.Fragment>
-      );
-    });
-  } else {
-    return <span className={høyrestill ? 'høyrestill' : ''}>{flettefeltElement}</span>;
-  }
+const konverterFlettefeltTekstMedNewLineTilBrTag = (flettefeltElement: string, høyrestill: boolean) => {
+    if (flettefeltElement?.includes('\n')) {
+        return flettefeltElement?.split('\n').map((avsnitt, index, total) => {
+            const erSisteElement = total.length - 1 === index;
+            const erLinjeskiftElement = avsnitt.length === 0;
+            const skalHaBreaklineTag = erLinjeskiftElement || !erSisteElement;
+            return (
+                <React.Fragment key={index}>
+                    <span className={høyrestill ? 'høyrestill' : ''}>{avsnitt}</span>
+                    {skalHaBreaklineTag && <br />}
+                </React.Fragment>
+            );
+        });
+    } else {
+        return <span className={høyrestill ? 'høyrestill' : ''}>{flettefeltElement}</span>;
+    }
 };
 
 const hentFlettefeltNavn = (sanityProps: any) => {
-  const { flettefeltReferanse, felt } = sanityProps.value;
+    const { flettefeltReferanse, felt } = sanityProps.value;
 
-  // Dersom flettefeltet er en referanse ligger det i flettefeltReferanse og må hentes derifra
-  const flettefeltNavn = felt ? felt : flettefeltReferanse.felt;
-  return flettefeltNavn;
+    // Dersom flettefeltet er en referanse ligger det i flettefeltReferanse og må hentes derifra
+    const flettefeltNavn = felt ? felt : flettefeltReferanse.felt;
+    return flettefeltNavn;
 };
 
 const hentFlettefeltErListe = (sanityProps: any, erBegrunnelse?: boolean) => {
-  const { flettefeltReferanse } = sanityProps.value;
-  return !!(flettefeltReferanse?.erListe || erBegrunnelse);
+    const { flettefeltReferanse } = sanityProps.value;
+    return !!(flettefeltReferanse?.erListe || erBegrunnelse);
 };

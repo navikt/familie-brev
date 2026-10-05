@@ -1,72 +1,72 @@
-import React, { JSX } from 'react';
+import { PortableText } from '@portabletext/react';
+import type { JSX } from 'react';
 import type { IAvansertDokumentVariabler } from '../../../typer/dokumentApiBrev.js';
-import type { Datasett } from '../../sanity/sanityClient.js';
-import { ValgfeltSerializer } from './ValgfeltSerializer.js';
+import { DokumentType } from '../../../typer/dokumentType.js';
 import type { Maalform } from '../../../typer/sanitygrensesnitt.js';
+import type { Datasett } from '../../sanity/sanityClient.js';
 import { AvansertDelmalSerializer } from './AvansertDelmalSerialaizer.js';
 import { FlettefeltSerializer } from './FlettefeltSerializer.js';
-import { DokumentType } from '../../../typer/dokumentType.js';
-import { PortableText } from '@portabletext/react';
+import { ValgfeltSerializer } from './ValgfeltSerializer.js';
 
 interface IListItemSerializerProps {
-  sanityProps: any;
-  avanserteDokumentVariabler: IAvansertDokumentVariabler | undefined;
-  maalform: Maalform;
-  datasett: Datasett;
-  apiNavn: string;
+    sanityProps: any;
+    avanserteDokumentVariabler: IAvansertDokumentVariabler | undefined;
+    maalform: Maalform;
+    datasett: Datasett;
+    apiNavn: string;
 }
 
 export const ListItemSerializer = (props: IListItemSerializerProps): JSX.Element | null => {
-  const { sanityProps, avanserteDokumentVariabler, maalform, datasett, apiNavn } = props;
-  const erDelmal = (markDef: any) => markDef._type === DokumentType.DELMAL;
-  const delmalSkalMed = (mark: any): boolean =>
-    !mark.skalMedFelt || !!avanserteDokumentVariabler?.delmaler[mark.submal?.id];
+    const { sanityProps, avanserteDokumentVariabler, maalform, datasett, apiNavn } = props;
+    const erDelmal = (markDef: any) => markDef._type === DokumentType.DELMAL;
+    const delmalSkalMed = (mark: any): boolean =>
+        !mark.skalMedFelt || !!avanserteDokumentVariabler?.delmaler[mark.submal?.id];
 
-  const erKunText = sanityProps.value.markDefs.length === 0;
+    const erKunText = sanityProps.value.markDefs.length === 0;
 
-  const markDefSkalMed = sanityProps.value.markDefs?.reduce(
-    (acc: boolean, markDef: any) => acc || !erDelmal(markDef) || delmalSkalMed(markDef),
-    false,
-  );
-
-  if (erKunText) {
-    return <li>{sanityProps.children}</li>;
-  } else if (markDefSkalMed) {
-    return (
-      <PortableText
-        value={{ ...sanityProps.value, level: undefined, listItem: undefined }}
-        components={{
-          marks: {
-            flettefelt: (props: any) =>
-              FlettefeltSerializer({
-                sanityProps: props,
-                flettefelter: avanserteDokumentVariabler?.flettefelter,
-                dokumentApiNavn: apiNavn,
-              }),
-            delmal: (props: any) =>
-              AvansertDelmalSerializer({
-                sanityProps: props,
-                delmaler: avanserteDokumentVariabler?.delmaler,
-                maalform,
-                datasett,
-                forelderDokumentApiNavn: apiNavn,
-              }),
-            valgfelt: (props: any) =>
-              ValgfeltSerializer({
-                sanityProps: props,
-                valgfelter: avanserteDokumentVariabler?.valgfelter,
-                maalform,
-                datasett,
-                forelderDokumentApiNavn: apiNavn,
-              }),
-          },
-          types: {
-            block: (props: any) => <li className={`block`}>{props.children}</li>,
-          },
-        }}
-      />
+    const markDefSkalMed = sanityProps.value.markDefs?.reduce(
+        (acc: boolean, markDef: any) => acc || !erDelmal(markDef) || delmalSkalMed(markDef),
+        false
     );
-  } else {
-    return null;
-  }
+
+    if (erKunText) {
+        return <li>{sanityProps.children}</li>;
+    } else if (markDefSkalMed) {
+        return (
+            <PortableText
+                value={{ ...sanityProps.value, level: undefined, listItem: undefined }}
+                components={{
+                    marks: {
+                        flettefelt: (props: any) =>
+                            FlettefeltSerializer({
+                                sanityProps: props,
+                                flettefelter: avanserteDokumentVariabler?.flettefelter,
+                                dokumentApiNavn: apiNavn,
+                            }),
+                        delmal: (props: any) =>
+                            AvansertDelmalSerializer({
+                                sanityProps: props,
+                                delmaler: avanserteDokumentVariabler?.delmaler,
+                                maalform,
+                                datasett,
+                                forelderDokumentApiNavn: apiNavn,
+                            }),
+                        valgfelt: (props: any) =>
+                            ValgfeltSerializer({
+                                sanityProps: props,
+                                valgfelter: avanserteDokumentVariabler?.valgfelter,
+                                maalform,
+                                datasett,
+                                forelderDokumentApiNavn: apiNavn,
+                            }),
+                    },
+                    types: {
+                        block: (props: any) => <li className={`block`}>{props.children}</li>,
+                    },
+                }}
+            />
+        );
+    } else {
+        return null;
+    }
 };

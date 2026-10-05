@@ -19,6 +19,10 @@ Konsumenter kan få returnert html eller pdf/bytearray.
 * Pass på at du har installert alle NPM-avhengighetene `pnpm install`
 * Kjør `pnpm start:dev`
 
+### Utvikling
+* Vi bruker [Biome](https://biomejs.dev/) til linting og formatering. Kjør `pnpm check` for å sjekke og `pnpm check:fix` for å rette opp. `pnpm validate` kjører typesjekk og Biome, slik som i CI.
+* Pre-commit-hooken (husky + lint-staged) kjører `biome check .` på hele repoet uten å endre filer, og stopper commiten hvis Biome finner feil.
+
 ### Bygg og deploy
 
 Appen bygges hos github actions og gir beskjed til nais deploy om å deployere appen på gcp.

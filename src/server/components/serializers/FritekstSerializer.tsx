@@ -1,9 +1,9 @@
-import React from 'react';
+import type React from 'react';
 import { styled } from 'styled-components';
-import { IDokumentData, IDokumentDataMedFritekst } from '../../../typer/dokumentApiBrev.js';
+import type { IDokumentData, IDokumentDataMedFritekst } from '../../../typer/dokumentApiBrev.js';
 
 interface Props {
-  dokumentData: IDokumentData | undefined;
+    dokumentData: IDokumentData | undefined;
 }
 
 const StyledDiv = styled.div`
@@ -11,16 +11,16 @@ const StyledDiv = styled.div`
 `;
 
 export const FritekstSerializer: React.FC<Props> = ({ dokumentData }) => {
-  const dokumentDataHarFritekst = (dokumentData: any): dokumentData is IDokumentDataMedFritekst =>
-    typeof (dokumentData as IDokumentDataMedFritekst)?.fritekst === 'string';
+    const dokumentDataHarFritekst = (dokumentData: any): dokumentData is IDokumentDataMedFritekst =>
+        typeof (dokumentData as IDokumentDataMedFritekst)?.fritekst === 'string';
 
-  if (!dokumentDataHarFritekst(dokumentData)) {
-    return null;
-  }
+    if (!dokumentDataHarFritekst(dokumentData)) {
+        return null;
+    }
 
-  return dokumentData.fritekst
-    ?.split('\n')
-    .map((avsnitt, index) =>
-      avsnitt.length > 0 ? <StyledDiv key={index}>{avsnitt}</StyledDiv> : <br key={index} />,
-    );
+    return dokumentData.fritekst
+        ?.split('\n')
+        .map((avsnitt, index) =>
+            avsnitt.length > 0 ? <StyledDiv key={index}>{avsnitt}</StyledDiv> : <br key={index} />
+        );
 };

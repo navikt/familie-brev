@@ -1,100 +1,95 @@
-import React from 'react';
-import type {
-  Flettefelter,
-  IDokumentData,
-  IDokumentDataMedUtbetalingerEøs,
-} from '../../../typer/dokumentApiBrev.js';
-import { FlettefeltSerializer } from './FlettefeltSerializer.js';
-import { BlockSerializer } from './BlockSerializer.js';
-import type { Maalform } from '../../../typer/sanitygrensesnitt.js';
-import { LenkeSerializer } from './LenkeSerializer.js';
 import { PortableText } from '@portabletext/react';
-import { UtbetalingerSerializer } from './UtbetalingerSerializer.js';
 import { css, styled } from 'styled-components';
-import { Feil } from '../../utils/Feil.js';
+import type { Flettefelter, IDokumentData, IDokumentDataMedUtbetalingerEøs } from '../../../typer/dokumentApiBrev.js';
+import type { Maalform } from '../../../typer/sanitygrensesnitt.js';
 import type { UtbetalingerPerMndEøs } from '../../../typer/utbetalingerEøs.js';
+import { Feil } from '../../utils/Feil.js';
+import { BlockSerializer } from './BlockSerializer.js';
+import { FlettefeltSerializer } from './FlettefeltSerializer.js';
+import { LenkeSerializer } from './LenkeSerializer.js';
+import { UtbetalingerSerializer } from './UtbetalingerSerializer.js';
 
 interface IDelmalSerializerProps {
-  sanityProps: any;
-  dokumentData: IDokumentData | undefined;
-  maalform: Maalform;
+    sanityProps: any;
+    dokumentData: IDokumentData | undefined;
+    maalform: Maalform;
 }
 
 interface StyledDelmalWrapperProps {
-  $skalBegynnePaaNySide: boolean;
+    $skalBegynnePaaNySide: boolean;
 }
 
 const StyledDelmalWrapper = styled.div<StyledDelmalWrapperProps>`
   ${props =>
-    props.$skalBegynnePaaNySide
-      ? css`
+      props.$skalBegynnePaaNySide
+          ? css`
           page-break-before: always;
         `
-      : ''}
+          : ''}
 `;
 export const DelmalSerializer = (props: IDelmalSerializerProps) => {
-  const { sanityProps, dokumentData, maalform } = props;
-  const delmalData = dokumentData?.delmalData;
-  const { delmalReferanse, skalAlltidMed, skalBegynnePaaNySide } = sanityProps.value;
-  const delmalApiNavn = delmalReferanse.apiNavn as string;
+    const { sanityProps, dokumentData, maalform } = props;
+    const delmalData = dokumentData?.delmalData;
+    const { delmalReferanse, skalAlltidMed, skalBegynnePaaNySide } = sanityProps.value;
+    const delmalApiNavn = delmalReferanse.apiNavn as string;
 
-  // Hvis ikke konsument har sendt inn delmalen rendrer vi heller ikke denne delen
-  if (!skalAlltidMed && (!delmalData || !delmalData[delmalApiNavn])) {
-    return null;
-  }
-
-  const erIDokumentDataMedUtbetalingerEøs = (
-    dokumentData: IDokumentData | IDokumentDataMedUtbetalingerEøs | undefined,
-  ): dokumentData is IDokumentDataMedUtbetalingerEøs => {
-    return (dokumentData as IDokumentDataMedUtbetalingerEøs)?.utbetalingerPerMndEøs !== undefined;
-  };
-
-  const utbetalingerPerMndEøs = (
-    dokumentData: IDokumentData | IDokumentDataMedUtbetalingerEøs | undefined,
-  ): UtbetalingerPerMndEøs => {
-    if (!erIDokumentDataMedUtbetalingerEøs(dokumentData)) {
-      throw new Feil(
-        `Delmalen ${delmalApiNavn} skal inneholde tabell med utbetalinger, men feltet 'utbetalingerPerMndEøs' mangler.`,
-        400,
-      );
+    // Hvis ikke konsument har sendt inn delmalen rendrer vi heller ikke denne delen
+    if (!skalAlltidMed && !delmalData?.[delmalApiNavn]) {
+        return null;
     }
-    return dokumentData.utbetalingerPerMndEøs;
-  };
 
-  const flettefelter: Flettefelter | undefined = delmalData && delmalData[delmalApiNavn];
+    const erIDokumentDataMedUtbetalingerEøs = (
+        dokumentData: IDokumentData | IDokumentDataMedUtbetalingerEøs | undefined
+    ): dokumentData is IDokumentDataMedUtbetalingerEøs => {
+        return (dokumentData as IDokumentDataMedUtbetalingerEøs)?.utbetalingerPerMndEøs !== undefined;
+    };
 
-  return (
-    <StyledDelmalWrapper $skalBegynnePaaNySide={skalBegynnePaaNySide} className={'delmal'}>
-      <PortableText
-        value={delmalReferanse[maalform]}
-        components={{
-          block: BlockSerializer,
-          marks: {
-            flettefelt: (props: any) =>
-              FlettefeltSerializer({
-                sanityProps: props,
-                flettefelter,
-                dokumentApiNavn: delmalApiNavn,
-              }),
-            lenke: LenkeSerializer,
-            hoyrestill: (props: any) => <span className={'høyrestill'}>{props.children}</span>,
-          },
-          types: {
-            undefined: (_: any) => <div />,
-            flettefelt: (props: any) =>
-              FlettefeltSerializer({
-                sanityProps: props,
-                flettefelter,
-                dokumentApiNavn: delmalApiNavn,
-              }),
-            utbetalinger: (_: any) =>
-              UtbetalingerSerializer({
-                maalform: maalform,
-                utbetalingerPerMndEøs: utbetalingerPerMndEøs(dokumentData),
-              }),
-          },
-        }}
-      />
-    </StyledDelmalWrapper>
-  );
+    const utbetalingerPerMndEøs = (
+        dokumentData: IDokumentData | IDokumentDataMedUtbetalingerEøs | undefined
+    ): UtbetalingerPerMndEøs => {
+        if (!erIDokumentDataMedUtbetalingerEøs(dokumentData)) {
+            throw new Feil(
+                `Delmalen ${delmalApiNavn} skal inneholde tabell med utbetalinger, men feltet 'utbetalingerPerMndEøs' mangler.`,
+                400
+            );
+        }
+        return dokumentData.utbetalingerPerMndEøs;
+    };
+
+    const flettefelter: Flettefelter | undefined = delmalData?.[delmalApiNavn];
+
+    return (
+        <StyledDelmalWrapper $skalBegynnePaaNySide={skalBegynnePaaNySide} className={'delmal'}>
+            <PortableText
+                value={delmalReferanse[maalform]}
+                components={{
+                    block: BlockSerializer,
+                    marks: {
+                        flettefelt: (props: any) =>
+                            FlettefeltSerializer({
+                                sanityProps: props,
+                                flettefelter,
+                                dokumentApiNavn: delmalApiNavn,
+                            }),
+                        lenke: LenkeSerializer,
+                        hoyrestill: (props: any) => <span className={'høyrestill'}>{props.children}</span>,
+                    },
+                    types: {
+                        undefined: (_: any) => <div />,
+                        flettefelt: (props: any) =>
+                            FlettefeltSerializer({
+                                sanityProps: props,
+                                flettefelter,
+                                dokumentApiNavn: delmalApiNavn,
+                            }),
+                        utbetalinger: (_: any) =>
+                            UtbetalingerSerializer({
+                                maalform: maalform,
+                                utbetalingerPerMndEøs: utbetalingerPerMndEøs(dokumentData),
+                            }),
+                    },
+                }}
+            />
+        </StyledDelmalWrapper>
+    );
 };

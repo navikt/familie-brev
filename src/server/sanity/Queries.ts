@@ -1,8 +1,4 @@
-export const hentAvansertDokumentQuery = (
-  dokumentType: string,
-  apiNavn: string,
-  maalform: string,
-) => `
+export const hentAvansertDokumentQuery = (dokumentType: string, apiNavn: string, maalform: string) => `
 *[_type == "${dokumentType}" && apiNavn == "${apiNavn}"][0]
   {..., ${maalform}[]
     { ...,
@@ -21,11 +17,7 @@ export const hentAvansertDokumentQuery = (
 }
 `;
 
-export const hentDokumentQuery = (
-  dokumentType: string,
-  dokumentApiNavn: string,
-  maalform: string,
-) => `
+export const hentDokumentQuery = (dokumentType: string, dokumentApiNavn: string, maalform: string) => `
 *[_type == "${dokumentType}" && apiNavn == "${dokumentApiNavn}"][0]
   {..., ${maalform}[]
     { ...,

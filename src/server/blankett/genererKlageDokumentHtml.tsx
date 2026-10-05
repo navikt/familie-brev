@@ -1,42 +1,41 @@
-import * as React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { IKlageDokumentData, stønadstypeTilTekst } from '../../typer/klageDokumentApi.js';
-import { KlageBehandling, KlageFormkrav, Klagevurdering } from './components/KlageBehandling.js';
-import { Header } from './components/Header.js';
+import { type IKlageDokumentData, stønadstypeTilTekst } from '../../typer/klageDokumentApi.js';
 import css from '../utils/css.js';
 import { datoFormat } from '../utils/util.js';
+import { Header } from './components/Header.js';
+import { KlageBehandling, KlageFormkrav, Klagevurdering } from './components/KlageBehandling.js';
 
 enum HtmlLang {
-  NB = 'nb',
+    NB = 'nb',
 }
 
 export const hentDokumentHtml = async (data: IKlageDokumentData): Promise<string> => {
-  const asyncHtml = () => (
-    <html lang={HtmlLang.NB}>
-      <head>
-        <meta httpEquiv="content-type" content="text/html; charset=utf-8" />
-        <style type="text/css">{css}</style>
-        <title>Saksbehandlingsblankett klage</title>
-      </head>
-      <body className={'body'}>
-        <div>
-          <Header
-            visLogo={true}
-            tittel={`Blankett klage ${stønadstypeTilTekst[data.behandling.stønadstype]}`}
-            navn={data.personopplysninger.navn}
-            fodselsnummer={data.personopplysninger.personIdent}
-            dato={new Date().toLocaleDateString('no-NO', datoFormat)}
-          />
-          <KlageBehandling behandling={data.behandling} />
-          <KlageFormkrav formkrav={data.formkrav} />
-          <Klagevurdering vurdering={data.vurdering} formkrav={data.formkrav} />
-        </div>
-      </body>
-    </html>
-  );
+    const asyncHtml = () => (
+        <html lang={HtmlLang.NB}>
+            <head>
+                <meta httpEquiv="content-type" content="text/html; charset=utf-8" />
+                <style type="text/css">{css}</style>
+                <title>Saksbehandlingsblankett klage</title>
+            </head>
+            <body className={'body'}>
+                <div>
+                    <Header
+                        visLogo={true}
+                        tittel={`Blankett klage ${stønadstypeTilTekst[data.behandling.stønadstype]}`}
+                        navn={data.personopplysninger.navn}
+                        fodselsnummer={data.personopplysninger.personIdent}
+                        dato={new Date().toLocaleDateString('no-NO', datoFormat)}
+                    />
+                    <KlageBehandling behandling={data.behandling} />
+                    <KlageFormkrav formkrav={data.formkrav} />
+                    <Klagevurdering vurdering={data.vurdering} formkrav={data.formkrav} />
+                </div>
+            </body>
+        </html>
+    );
 
-  const htmldokument = asyncHtml();
-  const dokument = await renderToStaticMarkup(htmldokument);
+    const htmldokument = asyncHtml();
+    const dokument = await renderToStaticMarkup(htmldokument);
 
-  return dokument;
+    return dokument;
 };

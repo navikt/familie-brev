@@ -1,83 +1,77 @@
-import type { Request, Response } from 'express';
-import { client } from '../server/sanity/sanityClient.js';
-import {
-  hentBegrunnelseQuery,
-  hentBegrunnelserAvTypeQuery,
-  hentBegrunnelserForVilkårQuery,
-  hentBegrunnelseTekstQuery,
-  hentHjemlerForBegrunnelseQuery,
-} from './queries.js';
-import { begrunnelseSerializer } from './begrunnelseSerializer.js';
-import type { BegrunnelseMedData } from './typer.js';
-import { Begrunnelsetype } from './typer.js';
-import {
-  validerBegrunnelse,
-  validerEøsbegrunnelsedata,
-  validerStandardbegrunnelsedata,
-} from './valideringer.js';
-import { Feil } from '../server/utils/Feil.js';
 import { logError } from '@navikt/familie-logging';
-import { logSecure } from '../server/utils/teamLogs.js';
+import type { Request, Response } from 'express';
 import { hentMiljøvariabler } from '../server/environment.js';
 import router from '../server/routes.js';
+import { client } from '../server/sanity/sanityClient.js';
+import { Feil } from '../server/utils/Feil.js';
 import { ManglerFlettefeltFeil } from '../server/utils/ManglerFlettefeltFeil.js';
+import { logSecure } from '../server/utils/teamLogs.js';
+import { begrunnelseSerializer } from './begrunnelseSerializer.js';
+import {
+    hentBegrunnelseQuery,
+    hentBegrunnelserAvTypeQuery,
+    hentBegrunnelserForVilkårQuery,
+    hentBegrunnelseTekstQuery,
+    hentHjemlerForBegrunnelseQuery,
+} from './queries.js';
+import type { BegrunnelseMedData } from './typer.js';
+import { Begrunnelsetype } from './typer.js';
+import { validerBegrunnelse, validerEøsbegrunnelsedata, validerStandardbegrunnelsedata } from './valideringer.js';
 
 const { BA_DATASETT } = hentMiljøvariabler();
 
 router.get('/status', (_, res) => {
-  res.status(200).end();
+    res.status(200).end();
 });
 
 router.get('/begrunnelser/av-type/:type', async (req: Request, res: Response) => {
-  const type = req.params.type;
-  res.status(200).send(await client(BA_DATASETT).fetch(hentBegrunnelserAvTypeQuery(type)));
+    const type = req.params.type;
+    res.status(200).send(await client(BA_DATASETT).fetch(hentBegrunnelserAvTypeQuery(type)));
 });
 
 router.get('/begrunnelser/for-vilkaar/:vilkaar', async (req: Request, res: Response) => {
-  const vilkår = req.params.vilkaar;
-  res.status(200).send(await client(BA_DATASETT).fetch(hentBegrunnelserForVilkårQuery(vilkår)));
+    const vilkår = req.params.vilkaar;
+    res.status(200).send(await client(BA_DATASETT).fetch(hentBegrunnelserForVilkårQuery(vilkår)));
 });
 
 router.get('/begrunnelser/:begrunnelseApiNavn/hjemler', async (req: Request, res: Response) => {
-  const begrunnelseApiNavn = req.params.begrunnelseApiNavn;
-  res
-    .status(200)
-    .send(await client(BA_DATASETT).fetch(hentHjemlerForBegrunnelseQuery(begrunnelseApiNavn)));
+    const begrunnelseApiNavn = req.params.begrunnelseApiNavn;
+    res.status(200).send(await client(BA_DATASETT).fetch(hentHjemlerForBegrunnelseQuery(begrunnelseApiNavn)));
 });
 
 router.get('/begrunnelser/:begrunnelseApiNavn', async (req: Request, res: Response) => {
-  const begrunnelseApiNavn = req.params.begrunnelseApiNavn;
-  res.status(200).send(await client(BA_DATASETT).fetch(hentBegrunnelseQuery(begrunnelseApiNavn)));
+    const begrunnelseApiNavn = req.params.begrunnelseApiNavn;
+    res.status(200).send(await client(BA_DATASETT).fetch(hentBegrunnelseQuery(begrunnelseApiNavn)));
 });
 
 router.post('/begrunnelser/:begrunnelseApiNavn/tekst/', async (req: Request, res: Response) => {
-  const begrunnelseApiNavn = req.params.begrunnelseApiNavn;
-  const data = req.body as BegrunnelseMedData;
-  try {
-    if (data.type === Begrunnelsetype.STANDARD_BEGRUNNELSE) {
-      validerStandardbegrunnelsedata(data);
-    } else if (data.type === Begrunnelsetype.EØS_BEGRUNNELSE) {
-      validerEøsbegrunnelsedata(data);
+    const begrunnelseApiNavn = req.params.begrunnelseApiNavn;
+    const data = req.body as BegrunnelseMedData;
+    try {
+        if (data.type === Begrunnelsetype.STANDARD_BEGRUNNELSE) {
+            validerStandardbegrunnelsedata(data);
+        } else if (data.type === Begrunnelsetype.EØS_BEGRUNNELSE) {
+            validerEøsbegrunnelsedata(data);
+        }
+
+        const begrunnelseFraSanity = await client(BA_DATASETT).fetch(
+            hentBegrunnelseTekstQuery(begrunnelseApiNavn, data.maalform, BA_DATASETT)
+        );
+
+        validerBegrunnelse(begrunnelseFraSanity, begrunnelseApiNavn);
+
+        const begrunnelse = begrunnelseSerializer(begrunnelseFraSanity, data);
+
+        res.status(200).send(begrunnelse);
+    } catch (error: any) {
+        if (error instanceof Feil || error instanceof ManglerFlettefeltFeil) {
+            res.status(error.code).send(error.message);
+        } else {
+            logError(`Generering av begrunnelse feilet: ${error.message}`);
+            logSecure(`Generering av begrunnelse feilet: ${error}`);
+            res.status(500).send(`Generering av begrunnelse feilet: ${error.message}`);
+        }
     }
-
-    const begrunnelseFraSanity = await client(BA_DATASETT).fetch(
-      hentBegrunnelseTekstQuery(begrunnelseApiNavn, data.maalform, BA_DATASETT),
-    );
-
-    validerBegrunnelse(begrunnelseFraSanity, begrunnelseApiNavn);
-
-    const begrunnelse = begrunnelseSerializer(begrunnelseFraSanity, data);
-
-    res.status(200).send(begrunnelse);
-  } catch (error: any) {
-    if (error instanceof Feil || error instanceof ManglerFlettefeltFeil) {
-      res.status(error.code).send(error.message);
-    } else {
-      logError(`Generering av begrunnelse feilet: ${error.message}`);
-      logSecure(`Generering av begrunnelse feilet: ${error}`);
-      res.status(500).send(`Generering av begrunnelse feilet: ${error.message}`);
-    }
-  }
 });
 
 export default router;

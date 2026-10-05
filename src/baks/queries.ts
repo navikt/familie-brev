@@ -22,22 +22,16 @@ export const hentBegrunnelseQuery = (apiNavn: string) => `
   {apiNavn, begrunnelsetype, navnISystem, vilkaar, visningsnavn}
 `;
 
-export const hentBegrunnelseTekstQuery = (
-  apiNavn: string,
-  maalform: string,
-  datasett: Datasett,
-) => `
+export const hentBegrunnelseTekstQuery = (apiNavn: string, maalform: string, datasett: Datasett) => `
  *[_type == "${
-   erKsDatasett(datasett) ? 'ksBegrunnelse' : 'begrunnelse'
+     erKsDatasett(datasett) ? 'ksBegrunnelse' : 'begrunnelse'
  }" && apiNavn=="${apiNavn}"][0].${maalform}[]{...,children[]
    {..., 
      _type == "valgReferanse"=>{...}->{..., valg[]{..., delmal->${hentDelmalQuery(maalform)}}},
-     _type == "valgfeltV2"=>{..., valgReferanse->{..., valg[]{..., delmal->${hentDelmalQuery(
-       maalform,
-     )}}}}
+     _type == "valgfeltV2"=>{..., valgReferanse->{..., valg[]{..., delmal->${hentDelmalQuery(maalform)}}}}
    }
  }
 
 `;
 
-const erKsDatasett = (datasett: Datasett) => datasett == Datasett.KS;
+const erKsDatasett = (datasett: Datasett) => datasett === Datasett.KS;

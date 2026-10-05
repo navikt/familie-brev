@@ -1,52 +1,52 @@
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
+import { css, styled } from 'styled-components';
 import { Maalform } from '../../../typer/sanitygrensesnitt.js';
 import type { UtbetalingerPerMndEøs } from '../../../typer/utbetalingerEøs.js';
 import { YtelseType } from '../../../typer/utbetalingerEøs.js';
-import { css, styled } from 'styled-components';
 import { formaterBeløpMedPostfix } from '../../utils/util.js';
 
 interface UtbetalingerProps {
-  maalform: Maalform;
-  utbetalingerPerMndEøs: UtbetalingerPerMndEøs;
+    maalform: Maalform;
+    utbetalingerPerMndEøs: UtbetalingerPerMndEøs;
 }
 
 interface TabellHeader {
-  barnetrygd: string;
-  månedÅr: string;
-  satsINorge: string;
-  utbetaltFraAnnetLand: string;
-  utbetaltFraNorge: string;
+    barnetrygd: string;
+    månedÅr: string;
+    satsINorge: string;
+    utbetaltFraAnnetLand: string;
+    utbetaltFraNorge: string;
 }
 
 const TabellHeaderForSpraak: Record<Maalform, TabellHeader> = {
-  [Maalform.NB]: {
-    barnetrygd: 'Barnetrygd',
-    månedÅr: 'Måned - år',
-    satsINorge: 'Sats i Norge',
-    utbetaltFraAnnetLand: 'Utbetalt fra annet land',
-    utbetaltFraNorge: 'Utbetalt fra Norge',
-  },
-  [Maalform.NN]: {
-    barnetrygd: 'Barnetrygd',
-    månedÅr: 'Måned - år',
-    satsINorge: 'Sats i Noreg',
-    utbetaltFraAnnetLand: 'Utbetalt frå anna land',
-    utbetaltFraNorge: 'Utbetalt frå Noreg',
-  },
+    [Maalform.NB]: {
+        barnetrygd: 'Barnetrygd',
+        månedÅr: 'Måned - år',
+        satsINorge: 'Sats i Norge',
+        utbetaltFraAnnetLand: 'Utbetalt fra annet land',
+        utbetaltFraNorge: 'Utbetalt fra Norge',
+    },
+    [Maalform.NN]: {
+        barnetrygd: 'Barnetrygd',
+        månedÅr: 'Måned - år',
+        satsINorge: 'Sats i Noreg',
+        utbetaltFraAnnetLand: 'Utbetalt frå anna land',
+        utbetaltFraNorge: 'Utbetalt frå Noreg',
+    },
 };
 
 const YtelseTypeText: Record<YtelseType, string> = {
-  [YtelseType.ORDINÆR_BARNETRYGD]: 'Ordinær barnetrygd',
-  [YtelseType.UTVIDET_BARNETRYGD]: 'Utvidet barnetrygd',
-  [YtelseType.SMÅBARNSTILLEGG]: 'Småbarnstillegg',
+    [YtelseType.ORDINÆR_BARNETRYGD]: 'Ordinær barnetrygd',
+    [YtelseType.UTVIDET_BARNETRYGD]: 'Utvidet barnetrygd',
+    [YtelseType.SMÅBARNSTILLEGG]: 'Småbarnstillegg',
 };
 
 const barnetrygdTekst = (fødselsdato: string, ytelseType: YtelseType) => {
-  if (ytelseType === YtelseType.ORDINÆR_BARNETRYGD) {
-    return `Barn ${fødselsdato}`;
-  } else {
-    return YtelseTypeText[ytelseType];
-  }
+    if (ytelseType === YtelseType.ORDINÆR_BARNETRYGD) {
+        return `Barn ${fødselsdato}`;
+    } else {
+        return YtelseTypeText[ytelseType];
+    }
 };
 
 const ZebraStripedTable = styled.table`
@@ -97,88 +97,88 @@ const SummaryTableRow = styled.tr`
 `;
 
 export const UtbetalingerSerializer = (props: UtbetalingerProps) => {
-  const { maalform, utbetalingerPerMndEøs } = props;
+    const { maalform, utbetalingerPerMndEøs } = props;
 
-  const header = TabellHeaderForSpraak[maalform];
+    const header = TabellHeaderForSpraak[maalform];
 
-  return (
-    <ZebraStripedTable>
-      <thead>
-        <tr>
-          <StyledTableHeader align="left" scope="col">
-            {header.barnetrygd}
-          </StyledTableHeader>
-          <StyledTableHeader align="left" scope="col">
-            {header.månedÅr}
-          </StyledTableHeader>
-          <StyledTableHeader align="right" scope="col">
-            {header.satsINorge}
-          </StyledTableHeader>
-          <StyledTableHeader align="right" scope="col">
-            {header.utbetaltFraAnnetLand}
-          </StyledTableHeader>
-          <StyledTableHeader align="right" scope="col">
-            {header.utbetaltFraNorge}
-          </StyledTableHeader>
-        </tr>
-      </thead>
-      <tbody>
-        {Object.entries(utbetalingerPerMndEøs).map(([mndÅr, utbetalingMndEøs]) => {
-          const harFlereYtelserIPeriode = utbetalingMndEøs.utbetalinger.length > 1;
-          return (
-            <Fragment key={mndÅr}>
-              {utbetalingMndEøs.utbetalinger.map((utbetalingEØS, index) => (
-                <StyledTableDataRow
-                  $borderTop={harFlereYtelserIPeriode && index === 0}
-                  key={mndÅr + '-' + index}
-                >
-                  <StyledTableData align="left">
-                    {barnetrygdTekst(utbetalingEØS.fødselsdato, utbetalingEØS.ytelseType)}
-                  </StyledTableData>
-                  <StyledTableData align="left">{mndÅr}</StyledTableData>
-                  <StyledTableData align="right">
-                    {formaterBeløpMedPostfix(utbetalingEØS.satsINorge, 'NOK')}
-                  </StyledTableData>
-                  <StyledTableData align="right">
-                    {utbetalingEØS.utbetaltFraAnnetLand
-                      ? `${formaterBeløpMedPostfix(utbetalingEØS.utbetaltFraAnnetLand.beløp, utbetalingEØS.utbetaltFraAnnetLand.valutakode)} / ${formaterBeløpMedPostfix(utbetalingEØS.utbetaltFraAnnetLand.beløpINok, 'NOK')}`
-                      : '-'}
-                  </StyledTableData>
-                  <StyledTableData align="right">
-                    {formaterBeløpMedPostfix(utbetalingEØS.utbetaltFraNorge, 'NOK')}
-                  </StyledTableData>
-                </StyledTableDataRow>
-              ))}
-              {harFlereYtelserIPeriode && (
-                <SummaryTableRow key={mndÅr + 'oppsummering'}>
-                  <StyledTableData align="left">Totalt i:</StyledTableData>
-                  <StyledTableData align="left">{mndÅr}</StyledTableData>
-                  <StyledTableData align="right">
-                    {formaterBeløpMedPostfix(
-                      utbetalingMndEøs.oppsummering.summertSatsINorge,
-                      'NOK',
-                    )}
-                  </StyledTableData>
-                  <StyledTableData align="right">
-                    {utbetalingMndEøs.oppsummering.summertUtbetaltFraAnnetLand
-                      ? formaterBeløpMedPostfix(
-                          utbetalingMndEøs.oppsummering.summertUtbetaltFraAnnetLand,
-                          'NOK',
-                        )
-                      : '-'}
-                  </StyledTableData>
-                  <StyledTableData align="right">
-                    {formaterBeløpMedPostfix(
-                      utbetalingMndEøs.oppsummering.summertUtbetaltFraNorge,
-                      'NOK',
-                    )}
-                  </StyledTableData>
-                </SummaryTableRow>
-              )}
-            </Fragment>
-          );
-        })}
-      </tbody>
-    </ZebraStripedTable>
-  );
+    return (
+        <ZebraStripedTable>
+            <thead>
+                <tr>
+                    <StyledTableHeader align="left" scope="col">
+                        {header.barnetrygd}
+                    </StyledTableHeader>
+                    <StyledTableHeader align="left" scope="col">
+                        {header.månedÅr}
+                    </StyledTableHeader>
+                    <StyledTableHeader align="right" scope="col">
+                        {header.satsINorge}
+                    </StyledTableHeader>
+                    <StyledTableHeader align="right" scope="col">
+                        {header.utbetaltFraAnnetLand}
+                    </StyledTableHeader>
+                    <StyledTableHeader align="right" scope="col">
+                        {header.utbetaltFraNorge}
+                    </StyledTableHeader>
+                </tr>
+            </thead>
+            <tbody>
+                {Object.entries(utbetalingerPerMndEøs).map(([mndÅr, utbetalingMndEøs]) => {
+                    const harFlereYtelserIPeriode = utbetalingMndEøs.utbetalinger.length > 1;
+                    return (
+                        <Fragment key={mndÅr}>
+                            {utbetalingMndEøs.utbetalinger.map((utbetalingEØS, index) => (
+                                <StyledTableDataRow
+                                    $borderTop={harFlereYtelserIPeriode && index === 0}
+                                    key={`${mndÅr}-${index}`}
+                                >
+                                    <StyledTableData align="left">
+                                        {barnetrygdTekst(utbetalingEØS.fødselsdato, utbetalingEØS.ytelseType)}
+                                    </StyledTableData>
+                                    <StyledTableData align="left">{mndÅr}</StyledTableData>
+                                    <StyledTableData align="right">
+                                        {formaterBeløpMedPostfix(utbetalingEØS.satsINorge, 'NOK')}
+                                    </StyledTableData>
+                                    <StyledTableData align="right">
+                                        {utbetalingEØS.utbetaltFraAnnetLand
+                                            ? `${formaterBeløpMedPostfix(utbetalingEØS.utbetaltFraAnnetLand.beløp, utbetalingEØS.utbetaltFraAnnetLand.valutakode)} / ${formaterBeløpMedPostfix(utbetalingEØS.utbetaltFraAnnetLand.beløpINok, 'NOK')}`
+                                            : '-'}
+                                    </StyledTableData>
+                                    <StyledTableData align="right">
+                                        {formaterBeløpMedPostfix(utbetalingEØS.utbetaltFraNorge, 'NOK')}
+                                    </StyledTableData>
+                                </StyledTableDataRow>
+                            ))}
+                            {harFlereYtelserIPeriode && (
+                                <SummaryTableRow key={`${mndÅr}oppsummering`}>
+                                    <StyledTableData align="left">Totalt i:</StyledTableData>
+                                    <StyledTableData align="left">{mndÅr}</StyledTableData>
+                                    <StyledTableData align="right">
+                                        {formaterBeløpMedPostfix(
+                                            utbetalingMndEøs.oppsummering.summertSatsINorge,
+                                            'NOK'
+                                        )}
+                                    </StyledTableData>
+                                    <StyledTableData align="right">
+                                        {utbetalingMndEøs.oppsummering.summertUtbetaltFraAnnetLand
+                                            ? formaterBeløpMedPostfix(
+                                                  utbetalingMndEøs.oppsummering.summertUtbetaltFraAnnetLand,
+                                                  'NOK'
+                                              )
+                                            : '-'}
+                                    </StyledTableData>
+                                    <StyledTableData align="right">
+                                        {formaterBeløpMedPostfix(
+                                            utbetalingMndEøs.oppsummering.summertUtbetaltFraNorge,
+                                            'NOK'
+                                        )}
+                                    </StyledTableData>
+                                </SummaryTableRow>
+                            )}
+                        </Fragment>
+                    );
+                })}
+            </tbody>
+        </ZebraStripedTable>
+    );
 };
