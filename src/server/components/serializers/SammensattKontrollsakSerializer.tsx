@@ -1,36 +1,28 @@
 import React from 'react';
 import { styled } from 'styled-components';
-import type {
-  IDokumentData,
-  IDokumentDataSammensattKontrollsak,
-} from '../../../typer/dokumentApiBrev.js';
+import type { IDokumentData, IDokumentDataSammensattKontrollsak } from '../../../typer/dokumentApiBrev.js';
 
 interface Props {
-  dokumentData: IDokumentData | undefined;
+    dokumentData: IDokumentData | undefined;
 }
 
 const StyledParagraph = styled.p`
   white-space: pre-wrap;
 `;
 export const SammensattKontrollsakSerializer: React.FC<Props> = ({ dokumentData }) => {
-  const erIDokumentDataSammensattKontrollsak = (
-    dokumentData: IDokumentData | IDokumentDataSammensattKontrollsak | undefined,
-  ): dokumentData is IDokumentDataSammensattKontrollsak => {
-    return (
-      (dokumentData as IDokumentDataSammensattKontrollsak)?.sammensattKontrollsakFritekst !==
-      undefined
-    );
-  };
+    const erIDokumentDataSammensattKontrollsak = (
+        dokumentData: IDokumentData | IDokumentDataSammensattKontrollsak | undefined
+    ): dokumentData is IDokumentDataSammensattKontrollsak => {
+        return (dokumentData as IDokumentDataSammensattKontrollsak)?.sammensattKontrollsakFritekst !== undefined;
+    };
 
-  if (!erIDokumentDataSammensattKontrollsak(dokumentData)) {
-    return null;
-  }
+    if (!erIDokumentDataSammensattKontrollsak(dokumentData)) {
+        return null;
+    }
 
-  const fritekst = dokumentData.sammensattKontrollsakFritekst;
+    const fritekst = dokumentData.sammensattKontrollsakFritekst;
 
-  const fritekstAvsnitt = fritekst.split('\n\n');
+    const fritekstAvsnitt = fritekst.split('\n\n');
 
-  return fritekstAvsnitt.map((avsnitt, index) => (
-    <StyledParagraph key={index}>{avsnitt}</StyledParagraph>
-  ));
+    return fritekstAvsnitt.map((avsnitt, index) => <StyledParagraph key={index}>{avsnitt}</StyledParagraph>);
 };

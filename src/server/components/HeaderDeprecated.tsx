@@ -5,85 +5,84 @@ import { validerFlettefelt } from '../utils/valideringer/validerFlettefelt.js';
 import { Maalform } from '../../typer/sanitygrensesnitt.js';
 
 interface Props {
-  tittel: string;
-  navn: Flettefelt;
-  fodselsnummer: Flettefelt;
-  brevOpprettetDato: Flettefelt;
-  visLogo?: boolean;
-  apiNavn: string;
-  maalform: Maalform;
-  organisasjonsnummer?: Flettefelt;
-  gjelder?: Flettefelt;
-  datoPlaceholder?: string;
+    tittel: string;
+    navn: Flettefelt;
+    fodselsnummer: Flettefelt;
+    brevOpprettetDato: Flettefelt;
+    visLogo?: boolean;
+    apiNavn: string;
+    maalform: Maalform;
+    organisasjonsnummer?: Flettefelt;
+    gjelder?: Flettefelt;
+    datoPlaceholder?: string;
 }
 
 export const HeaderDeprecated: React.FC<Props> = ({
-  tittel,
-  navn,
-  fodselsnummer,
-  visLogo,
-  brevOpprettetDato,
-  apiNavn,
-  maalform,
-  organisasjonsnummer,
-  gjelder,
-  datoPlaceholder,
+    tittel,
+    navn,
+    fodselsnummer,
+    visLogo,
+    brevOpprettetDato,
+    apiNavn,
+    maalform,
+    organisasjonsnummer,
+    gjelder,
+    datoPlaceholder,
 }) => {
-  validerFlettefelt(navn, 'navn', apiNavn, false);
-  validerFlettefelt(fodselsnummer, 'fodselsnummer', apiNavn, false);
-  validerFlettefelt(brevOpprettetDato, 'brevOpprettetDato', apiNavn, false);
+    validerFlettefelt(navn, 'navn', apiNavn, false);
+    validerFlettefelt(fodselsnummer, 'fodselsnummer', apiNavn, false);
+    validerFlettefelt(brevOpprettetDato, 'brevOpprettetDato', apiNavn, false);
 
-  organisasjonsnummer &&
-    validerFlettefelt(organisasjonsnummer, 'organisasjonsnummer', apiNavn, false);
-  gjelder && validerFlettefelt(gjelder, 'gjelder', apiNavn, false);
+    organisasjonsnummer && validerFlettefelt(organisasjonsnummer, 'organisasjonsnummer', apiNavn, false);
+    gjelder && validerFlettefelt(gjelder, 'gjelder', apiNavn, false);
 
-  const brevDato = () => {
-    return `Dato: ${datoPlaceholder || brevOpprettetDato[0]}`;
-  };
+    const brevDato = () => {
+        return `Dato: ${datoPlaceholder || brevOpprettetDato[0]}`;
+    };
 
-  return (
-    <div className={'header'}>
-      <div className="ikon-og-dato-wrapper">
-        <div className="ikon-og-dato">
-          {visLogo && <NavIkon />}
-          <p>{brevDato()}</p>
-        </div>
-      </div>
-      <div className={'tittel-og-personinfo'}>
-        <h2 className="tittel">{tittel}</h2>
-        <div className="kolonner">
-          <div className="personinfo">
-            <div>
-              {navnTittel(maalform)}: {navn}
+    return (
+        <div className={'header'}>
+            <div className="ikon-og-dato-wrapper">
+                <div className="ikon-og-dato">
+                    {visLogo && <NavIkon />}
+                    <p>{brevDato()}</p>
+                </div>
             </div>
-            {organisasjonsnummer && <div>Organisasjonsnummer: {organisasjonsnummer}</div>}
-            {gjelder && (
-              <div>
-                {gjelderTittel(maalform)}: {gjelder}
-              </div>
-            )}
-            <div>Fødselsnummer: {fodselsnummer}</div>
-          </div>
+            <div className={'tittel-og-personinfo'}>
+                <h2 className="tittel">{tittel}</h2>
+                <div className="kolonner">
+                    <div className="personinfo">
+                        <div>
+                            {navnTittel(maalform)}: {navn}
+                        </div>
+                        {organisasjonsnummer && <div>Organisasjonsnummer: {organisasjonsnummer}</div>}
+                        {gjelder && (
+                            <div>
+                                {gjelderTittel(maalform)}: {gjelder}
+                            </div>
+                        )}
+                        <div>Fødselsnummer: {fodselsnummer}</div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 const navnTittel = (maalform: Maalform): string => {
-  switch (maalform) {
-    case Maalform.NB:
-      return 'Navn';
-    case Maalform.NN:
-      return 'Namn';
-  }
+    switch (maalform) {
+        case Maalform.NB:
+            return 'Navn';
+        case Maalform.NN:
+            return 'Namn';
+    }
 };
 
 const gjelderTittel = (maalform: Maalform): string => {
-  switch (maalform) {
-    case Maalform.NB:
-      return 'Gjelder';
-    case Maalform.NN:
-      return 'Gjeld';
-  }
+    switch (maalform) {
+        case Maalform.NB:
+            return 'Gjelder';
+        case Maalform.NN:
+            return 'Gjeld';
+    }
 };

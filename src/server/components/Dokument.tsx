@@ -18,81 +18,81 @@ import { SammensattKontrollsakSerializer } from './serializers/SammensattKontrol
 import { FritekstSerializer } from './serializers/FritekstSerializer.js';
 
 interface DokumentProps {
-  dokumentApiNavn: string;
-  dokumentData: IDokumentData | undefined;
-  maalform: Maalform;
-  datasett: Datasett;
+    dokumentApiNavn: string;
+    dokumentData: IDokumentData | undefined;
+    maalform: Maalform;
+    datasett: Datasett;
 }
 
 export const Dokument = (dokumentProps: DokumentProps) => {
-  const { dokumentApiNavn, dokumentData, maalform, datasett } = dokumentProps;
+    const { dokumentApiNavn, dokumentData, maalform, datasett } = dokumentProps;
 
-  const [dokument] = useServerEffect(undefined, dokumentApiNavn, () => {
-    const query = hentDokumentQuery(DokumentType.DOKUMENT, dokumentApiNavn, maalform);
-    return client(datasett)
-      .fetch(query)
-      .then((res: any) => {
-        if (!res[maalform]) {
-          throw new Feil(
-            `Fant ikke ${maalform} tekst for "${dokumentApiNavn}" i datasettet "${datasett}".`,
-            404,
-          );
-        }
-        return res[maalform];
-      });
-  });
+    const [dokument] = useServerEffect(undefined, dokumentApiNavn, () => {
+        const query = hentDokumentQuery(DokumentType.DOKUMENT, dokumentApiNavn, maalform);
+        return client(datasett)
+            .fetch(query)
+            .then((res: any) => {
+                if (!res[maalform]) {
+                    throw new Feil(
+                        `Fant ikke ${maalform} tekst for "${dokumentApiNavn}" i datasettet "${datasett}".`,
+                        404
+                    );
+                }
+                return res[maalform];
+            });
+    });
 
-  if (!dokument) {
-    return null;
-  }
+    if (!dokument) {
+        return null;
+    }
 
-  return (
-    <PortableText
-      value={dokument}
-      components={{
-        block: BlockSerializer,
-        marks: {
-          flettefelt: (props: any) =>
-            FlettefeltSerializer({
-              sanityProps: props,
-              flettefelter: dokumentData?.flettefelter,
-              dokumentApiNavn,
-            }),
-          lenke: LenkeSerializer,
-          hoyrestill: (props: any) => <span className={'høyrestill'}>{props.children}</span>,
-        },
-        types: {
-          flettefelt: (props: any) =>
-            FlettefeltSerializer({
-              sanityProps: props,
-              flettefelter: dokumentData?.flettefelter,
-              dokumentApiNavn,
-            }),
-          sammensattKontrollsakFritekst: (_: any) =>
-            SammensattKontrollsakSerializer({
-              dokumentData: dokumentData,
-            }),
-          fritekst: (_: any) =>
-            FritekstSerializer({
-              dokumentData: dokumentData,
-            }),
-          perioder: (props: any) =>
-            PeriodeSerializer({
-              sanityProps: props,
-              dokumentData: dokumentData,
-              maalform,
-              datasett,
-              forelderApiNavn: dokumentApiNavn,
-            }),
-          undefined: (_: any) => <div />,
-          delmal: (props: any) =>
-            DelmalSerializer({
-              sanityProps: props,
-              dokumentData: dokumentData,
-              maalform,
-            }),
-        },
-      }}
-    />
-  );
+    return (
+        <PortableText
+            value={dokument}
+            components={{
+                block: BlockSerializer,
+                marks: {
+                    flettefelt: (props: any) =>
+                        FlettefeltSerializer({
+                            sanityProps: props,
+                            flettefelter: dokumentData?.flettefelter,
+                            dokumentApiNavn,
+                        }),
+                    lenke: LenkeSerializer,
+                    hoyrestill: (props: any) => <span className={'høyrestill'}>{props.children}</span>,
+                },
+                types: {
+                    flettefelt: (props: any) =>
+                        FlettefeltSerializer({
+                            sanityProps: props,
+                            flettefelter: dokumentData?.flettefelter,
+                            dokumentApiNavn,
+                        }),
+                    sammensattKontrollsakFritekst: (_: any) =>
+                        SammensattKontrollsakSerializer({
+                            dokumentData: dokumentData,
+                        }),
+                    fritekst: (_: any) =>
+                        FritekstSerializer({
+                            dokumentData: dokumentData,
+                        }),
+                    perioder: (props: any) =>
+                        PeriodeSerializer({
+                            sanityProps: props,
+                            dokumentData: dokumentData,
+                            maalform,
+                            datasett,
+                            forelderApiNavn: dokumentApiNavn,
+                        }),
+                    undefined: (_: any) => <div />,
+                    delmal: (props: any) =>
+                        DelmalSerializer({
+                            sanityProps: props,
+                            dokumentData: dokumentData,
+                            maalform,
+                        }),
+                },
+            }}
+        />
+    );
 };

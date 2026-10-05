@@ -1,23 +1,20 @@
 {
-  "extends": "./tsconfig.base.json",
-  "compilerOptions": {
-    "skipLibCheck": true,
-    "outDir": "./dist/",
-    "rootDir": ".",
-    "noEmit": false,
-    "resolveJsonModule": true,
+    "extends": "./tsconfig.base.json",
+    "compilerOptions": {
+        "skipLibCheck": true,
+        "outDir": "./dist/",
+        "rootDir": ".",
+        "noEmit": false,
+        "resolveJsonModule": true,
 
-    "sourceMap": true,
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "esModuleInterop": true,
+        "sourceMap": true,
+        "strict": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "esModuleInterop": true,
 
-    "verbatimModuleSyntax": false
-  },
-  "include": ["src"],
-  "exclude": [
-    "src/**/*.test.ts",
-    "src/**/*.mock.ts",
-  ]
+        "verbatimModuleSyntax": false
+    },
+    "include": ["src"],
+    "exclude": ["src/**/*.test.ts", "src/**/*.mock.ts"]
 }

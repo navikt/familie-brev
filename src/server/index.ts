@@ -15,7 +15,7 @@ const buildDir = path.join(process.cwd() + '/public');
 const app = express();
 
 if (NODE_ENV == 'production' || NODE_ENV == 'preprod') {
-  app.use(express.static(buildDir));
+    app.use(express.static(buildDir));
 }
 
 app.use(express.json({ limit: '1mb' }));
@@ -29,5 +29,5 @@ app.use('/naeringsinntekt-kontroll', næringsinntektRoutes);
 
 const port = 8001;
 app.listen(port, () => {
-  logInfo(`Server now listening on port: ${port}`);
+    logInfo(`Server now listening on port: ${port}`);
 });

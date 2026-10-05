@@ -3,12 +3,12 @@ import { css, styled } from 'styled-components';
 import { dagensDatoFormatert } from '../../utils/util.js';
 
 interface HeaderProps {
-  saksid: string;
-  personident: string;
-  navn: string;
-  saksbehandlernavn: string;
-  enhet: string;
-  årstall: number;
+    saksid: string;
+    personident: string;
+    navn: string;
+    saksbehandlernavn: string;
+    enhet: string;
+    årstall: number;
 }
 
 const CommonCellCSS = css`
@@ -41,32 +41,32 @@ const StyledTableDataRow = styled.tr<{ $borderTop?: boolean }>`
 `;
 
 export function Header(props: HeaderProps) {
-  const { saksid, personident, navn, saksbehandlernavn, enhet, årstall } = props;
+    const { saksid, personident, navn, saksbehandlernavn, enhet, årstall } = props;
 
-  return (
-    <div>
-      <h1>Notat av {dagensDatoFormatert()}</h1>
-      <table>
-        <StyledTableHeader colSpan={3}>Saksnummer: {saksid}</StyledTableHeader>
-        <StyledTableDataRow>
-          <StyledTableData>
-            <b>Hvem saken gjelder</b>
-          </StyledTableData>
-          <StyledTableData>Navn: {navn}</StyledTableData>
-          <StyledTableData>Fødselsnummer: {personident}</StyledTableData>
-        </StyledTableDataRow>
-        <StyledTableDataRow>
-          <StyledTableData>
-            <b>Saksbehandler(e)</b>
-          </StyledTableData>
-          <StyledTableData>Navn: {saksbehandlernavn}</StyledTableData>
-          <StyledTableData>Enhet: {enhet}</StyledTableData>
-        </StyledTableDataRow>
-        <StyledTableDataRow>
-          <StyledTableData>Saken gjelder:</StyledTableData>
-          <StyledTableData colSpan={2}>Vurdering næringsinntekt {årstall}</StyledTableData>
-        </StyledTableDataRow>
-      </table>
-    </div>
-  );
+    return (
+        <div>
+            <h1>Notat av {dagensDatoFormatert()}</h1>
+            <table>
+                <StyledTableHeader colSpan={3}>Saksnummer: {saksid}</StyledTableHeader>
+                <StyledTableDataRow>
+                    <StyledTableData>
+                        <b>Hvem saken gjelder</b>
+                    </StyledTableData>
+                    <StyledTableData>Navn: {navn}</StyledTableData>
+                    <StyledTableData>Fødselsnummer: {personident}</StyledTableData>
+                </StyledTableDataRow>
+                <StyledTableDataRow>
+                    <StyledTableData>
+                        <b>Saksbehandler(e)</b>
+                    </StyledTableData>
+                    <StyledTableData>Navn: {saksbehandlernavn}</StyledTableData>
+                    <StyledTableData>Enhet: {enhet}</StyledTableData>
+                </StyledTableDataRow>
+                <StyledTableDataRow>
+                    <StyledTableData>Saken gjelder:</StyledTableData>
+                    <StyledTableData colSpan={2}>Vurdering næringsinntekt {årstall}</StyledTableData>
+                </StyledTableDataRow>
+            </table>
+        </div>
+    );
 }

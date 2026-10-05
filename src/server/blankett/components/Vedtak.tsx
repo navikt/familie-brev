@@ -5,102 +5,97 @@ import { InnvilgetBarnetilsyn } from './InnvilgetBarnetilsyn.js';
 import { InnvilgetSkolepenger } from './InnvilgetSkolepenger.js';
 import { InnvilgetGOmregning } from './InnvilgetGOmregning.js';
 import {
-  EBehandlingResultat,
-  EBehandlingÅrsak,
-  EStønadType,
-  IInnvilgeVedtakBarnetilsyn,
-  IInnvilgeVedtakOvergangsstønad,
-  IInnvilgeVedtakSkolepenger,
-  IKontantstøttePerioder,
-  ISøknadsdatoer,
-  IVedtak,
+    EBehandlingResultat,
+    EBehandlingÅrsak,
+    EStønadType,
+    IInnvilgeVedtakBarnetilsyn,
+    IInnvilgeVedtakOvergangsstønad,
+    IInnvilgeVedtakSkolepenger,
+    IKontantstøttePerioder,
+    ISøknadsdatoer,
+    IVedtak,
 } from '../../../typer/dokumentApiBlankett.js';
 import { OpphørVedtak } from './OpphørVedtak.js';
 
 export const Vedtak: React.FC<{
-  stønadstype: EStønadType;
-  vedtak: IVedtak;
-  søknadsdatoer?: ISøknadsdatoer;
-  årsak: EBehandlingÅrsak;
-  harKontantstøttePerioder: boolean;
-  kontantstøttePerioderFraKs: IKontantstøttePerioder[];
-  registeropplysningerOpprettetDato: string;
+    stønadstype: EStønadType;
+    vedtak: IVedtak;
+    søknadsdatoer?: ISøknadsdatoer;
+    årsak: EBehandlingÅrsak;
+    harKontantstøttePerioder: boolean;
+    kontantstøttePerioderFraKs: IKontantstøttePerioder[];
+    registeropplysningerOpprettetDato: string;
 }> = ({
-  stønadstype,
-  vedtak,
-  søknadsdatoer,
-  årsak,
-  kontantstøttePerioderFraKs,
-  harKontantstøttePerioder,
-  registeropplysningerOpprettetDato,
+    stønadstype,
+    vedtak,
+    søknadsdatoer,
+    årsak,
+    kontantstøttePerioderFraKs,
+    harKontantstøttePerioder,
+    registeropplysningerOpprettetDato,
 }) => {
-  switch (vedtak.resultatType) {
-    case EBehandlingResultat.INNVILGE:
-      return (
-        <InnvilgetVedtak
-          stønadstype={stønadstype}
-          vedtak={vedtak}
-          søknadsdatoer={søknadsdatoer}
-          årsak={årsak}
-          harKontantstøttePerioder={harKontantstøttePerioder}
-          kontantstøttePerioderFraKs={kontantstøttePerioderFraKs}
-          registeropplysningerOpprettetDato={registeropplysningerOpprettetDato}
-        />
-      );
-    case EBehandlingResultat.AVSLÅ:
-      return <AvslåVedtak {...vedtak} />;
-    case EBehandlingResultat.OPPHØRT:
-      return <OpphørVedtak {...vedtak} />;
-    default:
-      return null;
-  }
+    switch (vedtak.resultatType) {
+        case EBehandlingResultat.INNVILGE:
+            return (
+                <InnvilgetVedtak
+                    stønadstype={stønadstype}
+                    vedtak={vedtak}
+                    søknadsdatoer={søknadsdatoer}
+                    årsak={årsak}
+                    harKontantstøttePerioder={harKontantstøttePerioder}
+                    kontantstøttePerioderFraKs={kontantstøttePerioderFraKs}
+                    registeropplysningerOpprettetDato={registeropplysningerOpprettetDato}
+                />
+            );
+        case EBehandlingResultat.AVSLÅ:
+            return <AvslåVedtak {...vedtak} />;
+        case EBehandlingResultat.OPPHØRT:
+            return <OpphørVedtak {...vedtak} />;
+        default:
+            return null;
+    }
 };
 
 const InnvilgetVedtak: React.FC<{
-  stønadstype: EStønadType;
-  vedtak: IVedtak;
-  søknadsdatoer?: ISøknadsdatoer;
-  årsak: EBehandlingÅrsak;
-  harKontantstøttePerioder: boolean;
-  kontantstøttePerioderFraKs: IKontantstøttePerioder[];
-  registeropplysningerOpprettetDato: string;
+    stønadstype: EStønadType;
+    vedtak: IVedtak;
+    søknadsdatoer?: ISøknadsdatoer;
+    årsak: EBehandlingÅrsak;
+    harKontantstøttePerioder: boolean;
+    kontantstøttePerioderFraKs: IKontantstøttePerioder[];
+    registeropplysningerOpprettetDato: string;
 }> = ({
-  stønadstype,
-  vedtak,
-  søknadsdatoer,
-  årsak,
-  kontantstøttePerioderFraKs,
-  harKontantstøttePerioder,
-  registeropplysningerOpprettetDato,
+    stønadstype,
+    vedtak,
+    søknadsdatoer,
+    årsak,
+    kontantstøttePerioderFraKs,
+    harKontantstøttePerioder,
+    registeropplysningerOpprettetDato,
 }) => {
-  if (årsak === EBehandlingÅrsak.G_OMREGNING) {
-    return <InnvilgetGOmregning vedtak={vedtak as IInnvilgeVedtakOvergangsstønad} />;
-  }
+    if (årsak === EBehandlingÅrsak.G_OMREGNING) {
+        return <InnvilgetGOmregning vedtak={vedtak as IInnvilgeVedtakOvergangsstønad} />;
+    }
 
-  switch (stønadstype) {
-    case EStønadType.OVERGANGSSTØNAD:
-      return (
-        <InnvilgetOvergangsstønad
-          vedtak={vedtak as IInnvilgeVedtakOvergangsstønad}
-          søknadsdatoer={søknadsdatoer}
-        />
-      );
-    case EStønadType.BARNETILSYN:
-      return (
-        <InnvilgetBarnetilsyn
-          vedtak={vedtak as IInnvilgeVedtakBarnetilsyn}
-          søknadsdatoer={søknadsdatoer}
-          harKontantstøttePerioder={harKontantstøttePerioder}
-          kontantstøttePerioderFraKs={kontantstøttePerioderFraKs}
-          registeropplysningerOpprettetDato={registeropplysningerOpprettetDato}
-        />
-      );
-    case EStønadType.SKOLEPENGER:
-      return (
-        <InnvilgetSkolepenger
-          vedtak={vedtak as IInnvilgeVedtakSkolepenger}
-          søknadsdatoer={søknadsdatoer}
-        />
-      );
-  }
+    switch (stønadstype) {
+        case EStønadType.OVERGANGSSTØNAD:
+            return (
+                <InnvilgetOvergangsstønad
+                    vedtak={vedtak as IInnvilgeVedtakOvergangsstønad}
+                    søknadsdatoer={søknadsdatoer}
+                />
+            );
+        case EStønadType.BARNETILSYN:
+            return (
+                <InnvilgetBarnetilsyn
+                    vedtak={vedtak as IInnvilgeVedtakBarnetilsyn}
+                    søknadsdatoer={søknadsdatoer}
+                    harKontantstøttePerioder={harKontantstøttePerioder}
+                    kontantstøttePerioderFraKs={kontantstøttePerioderFraKs}
+                    registeropplysningerOpprettetDato={registeropplysningerOpprettetDato}
+                />
+            );
+        case EStønadType.SKOLEPENGER:
+            return <InnvilgetSkolepenger vedtak={vedtak as IInnvilgeVedtakSkolepenger} søknadsdatoer={søknadsdatoer} />;
+    }
 };

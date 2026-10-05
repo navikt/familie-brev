@@ -3,88 +3,88 @@ import { client, clientV2, Datasett } from './sanity/sanityClient.js';
 import { Feil } from './utils/Feil.js';
 
 export interface Flettefeltreferanse {
-  _ref: string;
+    _ref: string;
 }
 
 export interface Flettefelter {
-  flettefelt: Flettefeltreferanse[];
+    flettefelt: Flettefeltreferanse[];
 }
 
 export interface Valgmulighet {
-  flettefelter: Flettefelter[];
-  valgmulighet: string;
-  visningsnavnValgmulighet: string;
+    flettefelter: Flettefelter[];
+    valgmulighet: string;
+    visningsnavnValgmulighet: string;
 }
 
 export interface ValgFelt {
-  valgMuligheter: Valgmulighet[];
-  valgfeltVisningsnavn: string;
-  valgFeltApiNavn: string;
-  valgfeltBeskrivelse?: string;
+    valgMuligheter: Valgmulighet[];
+    valgfeltVisningsnavn: string;
+    valgFeltApiNavn: string;
+    valgfeltBeskrivelse?: string;
 }
 
 export interface DelmalerSortert {
-  delmalApiNavn: string;
-  delmalNavn: string;
-  delmalValgfelt: ValgFelt[];
-  delmalFlettefelter: Flettefelter[]; // referanse til flettefelt
-  gruppeVisningsnavn: string;
+    delmalApiNavn: string;
+    delmalNavn: string;
+    delmalValgfelt: ValgFelt[];
+    delmalFlettefelter: Flettefelter[]; // referanse til flettefelt
+    gruppeVisningsnavn: string;
 }
 
 export interface BrevStruktur {
-  dokument: DokumentMal;
-  flettefelter: AlleFlettefelter;
+    dokument: DokumentMal;
+    flettefelter: AlleFlettefelter;
 }
 
 export interface DokumentMal {
-  brevmenyBlokker: BrevmenyBlokk[];
+    brevmenyBlokker: BrevmenyBlokk[];
 }
 
 export interface AlleFlettefelter {
-  flettefeltReferanse: Flettefelt[];
+    flettefeltReferanse: Flettefelt[];
 }
 
 interface Flettefelt {
-  felt: string;
-  erFritektsfelt?: boolean;
-  feltVisningsnavn?: string;
-  _id: string;
-  beskrivelse?: string;
+    felt: string;
+    erFritektsfelt?: boolean;
+    feltVisningsnavn?: string;
+    _id: string;
+    beskrivelse?: string;
 }
 
 export type FritekstBlokk = {
-  _type: 'fritekstområde';
-  innhold: { id: string };
+    _type: 'fritekstområde';
+    innhold: { id: string };
 };
 type DelmalBlokk = {
-  _type: 'delmalBlock';
-  innhold: DelmalerSortert;
+    _type: 'delmalBlock';
+    innhold: DelmalerSortert;
 };
 export type Brevmeny = {
-  brevmenyBlokker: BrevmenyBlokk[];
+    brevmenyBlokker: BrevmenyBlokk[];
 };
 export type BrevmenyBlokk = FritekstBlokk | DelmalBlokk;
 
 export const hentFlettefelterMedType = async (
-  datasett: Datasett,
-  avansertDokumentNavn: string,
+    datasett: Datasett,
+    avansertDokumentNavn: string
 ): Promise<AlleFlettefelter> => {
-  const query = `*[apiNavn == "${avansertDokumentNavn}"]{
+    const query = `*[apiNavn == "${avansertDokumentNavn}"]{
      "flettefeltReferanse" :  *[ _type=='flettefelt' ]
     }[0]`;
-  return client(datasett)
-    .fetch(query)
-    .catch(error => {
-      throw new Feil(error.message, error.statusCode);
-    });
+    return client(datasett)
+        .fetch(query)
+        .catch(error => {
+            throw new Feil(error.message, error.statusCode);
+        });
 };
 
 export const hentBrevmenyBlokker = async (
-  datasett: Datasett,
-  maalform: Maalform,
-  avansertDokumentNavn: string,
+    datasett: Datasett,
+    maalform: Maalform,
+    avansertDokumentNavn: string
 ): Promise<Brevmeny> => {
-  const query = `*[apiNavn == "${avansertDokumentNavn}"]{
+    const query = `*[apiNavn == "${avansertDokumentNavn}"]{
         "brevmenyBlokker": ${maalform}[defined(delmalReferanse) ||  _type == "fritekstområde" ] | { 
             _type,
             "innhold": select(
@@ -115,9 +115,9 @@ export const hentBrevmenyBlokker = async (
         }
   }[0]`;
 
-  return clientV2(datasett, '2022-03-07')
-    .fetch(query)
-    .catch(error => {
-      throw new Feil(error.message, error.statusCode);
-    });
+    return clientV2(datasett, '2022-03-07')
+        .fetch(query)
+        .catch(error => {
+            throw new Feil(error.message, error.statusCode);
+        });
 };
