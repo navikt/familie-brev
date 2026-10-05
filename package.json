@@ -27,12 +27,12 @@
         ]
     },
     "dependencies": {
-        "@navikt/familie-logging": "7.0.9",
+        "@navikt/familie-logging": "7.0.11",
         "@portabletext/react": "8.0.1",
-        "@sanity/client": "8.6.2",
+        "@sanity/client": "8.9.0",
         "axios": "1.20.0",
         "date-fns": "4.4.0",
-        "dotenv": "18.0.3",
+        "dotenv": "18.0.5",
         "express": "5.2.1",
         "express-session": "1.19.0",
         "react": "19.3.0",
@@ -42,15 +42,15 @@
         "typescript": "6.0.3"
     },
     "devDependencies": {
-        "@biomejs/biome": "2.5.14",
+        "@biomejs/biome": "2.5.15",
         "@types/express": "5.0.6",
         "@types/express-session": "1.19.0",
-        "@types/node": "26.6.2",
+        "@types/node": "26.6.3",
         "@types/react": "19.3.0",
         "@types/react-dom": "19.3.0",
         "@types/styled-components": "5.1.36",
         "husky": "9.1.7",
-        "lint-staged": "17.5.1",
+        "lint-staged": "17.6.0",
         "nodemon": "3.1.14"
     },
     "browserslist": {
