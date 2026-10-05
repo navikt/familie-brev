@@ -1,7 +1,7 @@
+import fs from 'node:fs';
 import { logError } from '@navikt/familie-logging';
 import type { Request, Response } from 'express';
 import express from 'express';
-import fs from 'fs';
 import type { IDokumentData } from '../../typer/dokumentApiBlankett.js';
 import type { IKlageDokumentData } from '../../typer/klageDokumentApi.js';
 import { logFerdigstilt } from '../routes.js';
