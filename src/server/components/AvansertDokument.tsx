@@ -50,6 +50,7 @@ export const AvansertDokument = (avansertDokumentProps: AvansertDokumentProps) =
         // TODO: Håndtere htmlTabell her
         return (
             <div
+                // biome-ignore lint/security/noDangerouslySetInnerHtml: overstyrt delmalblokk sendes som ferdig HTML fra konsumenten og skal flettes inn uendret
                 dangerouslySetInnerHTML={{
                     __html: avanserteDokumentVariabler.overstyrtDelmalblokk.htmlInnhold,
                 }}
