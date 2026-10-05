@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import type { ISøknad, IVerdiliste } from '../typer/dokumentApiBrev.js';
-import css from './utils/css.js';
-import { Heading } from './components/typografi/Heading.js';
 import { Line } from './components/Line.js';
-import { TekstLabelVerdi } from './components/typografi/TekstLabelVerdi.js';
 import { SøknadTittelOgIkon } from './components/SøknadTittelOgIkon.js';
+import { Heading } from './components/typografi/Heading.js';
+import { TekstLabelVerdi } from './components/typografi/TekstLabelVerdi.js';
+import css from './utils/css.js';
 
 export const genererSøknadHtml = (søknad: ISøknad) => {
     const lagVerdiliste = (verdier: IVerdiliste[], nivå: number) => {

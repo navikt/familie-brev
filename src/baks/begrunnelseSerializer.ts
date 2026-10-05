@@ -1,3 +1,6 @@
+import { Feil } from '../server/utils/Feil.js';
+import { lagStorForbokstav } from '../server/utils/strenghåndtering.js';
+import { formaterFlettefelt, formaterValgfelt } from './formateringer.js';
 import type {
     BegrunnelseBlock,
     BegrunnelseMedData,
@@ -6,9 +9,6 @@ import type {
     ValgfeltBlock,
     ValgfeltV2Block,
 } from './typer.js';
-import { Feil } from '../server/utils/Feil.js';
-import { formaterFlettefelt, formaterValgfelt } from './formateringer.js';
-import { lagStorForbokstav } from '../server/utils/strenghåndtering.js';
 
 export const begrunnelseSerializer = (
     blocks: BegrunnelseBlock[] | Record<string, never>,

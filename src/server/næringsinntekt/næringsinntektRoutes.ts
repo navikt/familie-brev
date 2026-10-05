@@ -1,12 +1,12 @@
-import express, { type Request, type Response } from 'express';
-import { genererMetadata } from '../utils/logging.js';
-import { genererPdfBlankett } from '../utils/apiBlankett.js';
-import { logFerdigstilt } from '../routes.js';
 import { logError } from '@navikt/familie-logging';
+import express, { type Request, type Response } from 'express';
+import fs from 'fs';
+import { NæringsinntektDokumentData } from '../../typer/dokumentApiNæringsinntekt.js';
+import { logFerdigstilt } from '../routes.js';
+import { genererPdfBlankett } from '../utils/apiBlankett.js';
+import { genererMetadata } from '../utils/logging.js';
 import { logSecure } from '../utils/teamLogs.js';
 import { hentDokumentHtmlNæringsinntekt } from './hentDokumentHtmlNæringsinntekt.js';
-import { NæringsinntektDokumentData } from '../../typer/dokumentApiNæringsinntekt.js';
-import fs from 'fs';
 
 const router = express.Router();
 const { NODE_ENV } = process.env;

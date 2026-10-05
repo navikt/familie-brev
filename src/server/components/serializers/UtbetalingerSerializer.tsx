@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
+import { css, styled } from 'styled-components';
 import { Maalform } from '../../../typer/sanitygrensesnitt.js';
 import type { UtbetalingerPerMndEøs } from '../../../typer/utbetalingerEøs.js';
 import { YtelseType } from '../../../typer/utbetalingerEøs.js';
-import { css, styled } from 'styled-components';
 import { formaterBeløpMedPostfix } from '../../utils/util.js';
 
 interface UtbetalingerProps {

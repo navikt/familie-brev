@@ -1,9 +1,4 @@
 import React from 'react';
-import { AvslåVedtak } from './AvslåVedtak.js';
-import { InnvilgetOvergangsstønad } from './InnvilgetOvergangsstønad.js';
-import { InnvilgetBarnetilsyn } from './InnvilgetBarnetilsyn.js';
-import { InnvilgetSkolepenger } from './InnvilgetSkolepenger.js';
-import { InnvilgetGOmregning } from './InnvilgetGOmregning.js';
 import {
     EBehandlingResultat,
     EBehandlingÅrsak,
@@ -15,6 +10,11 @@ import {
     ISøknadsdatoer,
     IVedtak,
 } from '../../../typer/dokumentApiBlankett.js';
+import { AvslåVedtak } from './AvslåVedtak.js';
+import { InnvilgetBarnetilsyn } from './InnvilgetBarnetilsyn.js';
+import { InnvilgetGOmregning } from './InnvilgetGOmregning.js';
+import { InnvilgetOvergangsstønad } from './InnvilgetOvergangsstønad.js';
+import { InnvilgetSkolepenger } from './InnvilgetSkolepenger.js';
 import { OpphørVedtak } from './OpphørVedtak.js';
 
 export const Vedtak: React.FC<{

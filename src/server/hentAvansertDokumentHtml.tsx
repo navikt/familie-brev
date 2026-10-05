@@ -1,17 +1,17 @@
 import * as React from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
 import type { IBrevMedSignatur } from '../typer/dokumentApiBrev.js';
+import { DokumentType } from '../typer/dokumentType.js';
+import { Maalform } from '../typer/sanitygrensesnitt.js';
 import { AvansertDokument } from './components/AvansertDokument.js';
+import { Header } from './components/Header.js';
+import { HeaderDeprecated } from './components/HeaderDeprecated.js';
+import { SaksbehandlerSignatur } from './components/SaksbehandlerSignatur.js';
 import type { Datasett } from './sanity/sanityClient.js';
 import { client } from './sanity/sanityClient.js';
-import { renderToStaticMarkup } from 'react-dom/server';
 import { Context } from './utils/Context.js';
 import css from './utils/css.js';
-import { HeaderDeprecated } from './components/HeaderDeprecated.js';
-import { Maalform } from '../typer/sanitygrensesnitt.js';
-import { DokumentType } from '../typer/dokumentType.js';
 import { dagensDatoFormatert } from './utils/util.js';
-import { SaksbehandlerSignatur } from './components/SaksbehandlerSignatur.js';
-import { Header } from './components/Header.js';
 
 enum HtmlLang {
     NB = 'nb',

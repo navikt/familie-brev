@@ -1,10 +1,10 @@
 import React, { JSX } from 'react';
 import type { IValg, IValgfelter } from '../../../typer/dokumentApiBrev.js';
-import type { Datasett } from '../../sanity/sanityClient.js';
-import { AvansertDokument } from '../AvansertDokument.js';
 import type { Maalform } from '../../../typer/sanitygrensesnitt.js';
-import { validerValgfelt } from '../../utils/valideringer/validerValgfelt.js';
+import type { Datasett } from '../../sanity/sanityClient.js';
 import { Feil } from '../../utils/Feil.js';
+import { validerValgfelt } from '../../utils/valideringer/validerValgfelt.js';
+import { AvansertDokument } from '../AvansertDokument.js';
 
 interface IValgfeltSerializer {
     sanityProps: any;

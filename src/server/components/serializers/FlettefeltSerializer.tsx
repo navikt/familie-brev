@@ -1,5 +1,5 @@
-import type { Flettefelter } from '../../../typer/dokumentApiBrev.js';
 import React from 'react';
+import type { Flettefelter } from '../../../typer/dokumentApiBrev.js';
 import { Feil } from '../../utils/Feil.js';
 import { validerFlettefelt } from '../../utils/valideringer/validerFlettefelt.js';
 

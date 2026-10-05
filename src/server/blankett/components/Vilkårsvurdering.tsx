@@ -1,11 +1,11 @@
 import React from 'react';
 import type { IVurdering } from '../../../typer/dokumentApiBlankett.js';
 import {
-    Vilkårsresultat,
-    Vilkår,
-    resultatTilTekst,
     delvilkårTypeTilTekst,
+    resultatTilTekst,
     svarIdTilTekst,
+    Vilkår,
+    Vilkårsresultat,
 } from '../../../typer/dokumentApiBlankett.js';
 import { IkkeOppfylt } from '../../components/ikoner/IkkeOppfylt.js';
 import { IkkeVurdert } from '../../components/ikoner/IkkeVurdert.js';

@@ -1,20 +1,7 @@
+import { PortableText } from '@portabletext/react';
 import React from 'react';
-import type {
-    Flettefelt,
-    Flettefelter,
-    IDokumentData,
-    IDokumentDataMedPeriode,
-} from '../../../typer/dokumentApiBrev.js';
-import { FlettefeltSerializer } from './FlettefeltSerializer.js';
-import { BlockSerializer } from './BlockSerializer.js';
-import type { Maalform } from '../../../typer/sanitygrensesnitt.js';
-import { useServerEffect } from '../../utils/useServerEffect.js';
-import { hentDokumentQuery } from '../../sanity/Queries.js';
-import type { Datasett } from '../../sanity/sanityClient.js';
-import { client } from '../../sanity/sanityClient.js';
-import { DokumentType } from '../../../typer/dokumentType.js';
-import { validerPeriode } from '../../utils/valideringer/validerPeriode.js';
-import { Feil } from '../../utils/Feil.js';
+import { begrunnelseSerializer } from '../../../baks/begrunnelseSerializer.js';
+import { hentBegrunnelseTekstQuery } from '../../../baks/queries.js';
 import type { Begrunnelse, BegrunnelseMedData, IPeriodedata } from '../../../baks/typer.js';
 import { Begrunnelsetype } from '../../../baks/typer.js';
 import {
@@ -22,10 +9,22 @@ import {
     validerEøsbegrunnelsedata,
     validerStandardbegrunnelsedata,
 } from '../../../baks/valideringer.js';
-import { hentBegrunnelseTekstQuery } from '../../../baks/queries.js';
-import { begrunnelseSerializer } from '../../../baks/begrunnelseSerializer.js';
-
-import { PortableText } from '@portabletext/react';
+import type {
+    Flettefelt,
+    Flettefelter,
+    IDokumentData,
+    IDokumentDataMedPeriode,
+} from '../../../typer/dokumentApiBrev.js';
+import { DokumentType } from '../../../typer/dokumentType.js';
+import type { Maalform } from '../../../typer/sanitygrensesnitt.js';
+import { hentDokumentQuery } from '../../sanity/Queries.js';
+import type { Datasett } from '../../sanity/sanityClient.js';
+import { client } from '../../sanity/sanityClient.js';
+import { Feil } from '../../utils/Feil.js';
+import { useServerEffect } from '../../utils/useServerEffect.js';
+import { validerPeriode } from '../../utils/valideringer/validerPeriode.js';
+import { BlockSerializer } from './BlockSerializer.js';
+import { FlettefeltSerializer } from './FlettefeltSerializer.js';
 
 interface IPeriodeProps {
     sanityProps: any;

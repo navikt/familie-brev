@@ -1,21 +1,20 @@
+import { PortableText } from '@portabletext/react';
 import React from 'react';
 import type { IAvansertDokumentVariabler } from '../../typer/dokumentApiBrev.js';
+import { DokumentType } from '../../typer/dokumentType.js';
+import type { Maalform } from '../../typer/sanitygrensesnitt.js';
 import { hentAvansertDokumentQuery } from '../sanity/Queries.js';
 import type { Datasett } from '../sanity/sanityClient.js';
 import { client } from '../sanity/sanityClient.js';
 import { useServerEffect } from '../utils/useServerEffect.js';
-import { ValgfeltSerializer } from './serializers/ValgfeltSerializer.js';
 import { AvansertDelmalSerializer } from './serializers/AvansertDelmalSerialaizer.js';
-import { ListItemSerializer } from './serializers/ListItemSerializer.js';
-import type { Maalform } from '../../typer/sanitygrensesnitt.js';
-import { DokumentType } from '../../typer/dokumentType.js';
-import { FlettefeltSerializer } from './serializers/FlettefeltSerializer.js';
 import { BlockSerializer } from './serializers/BlockSerializer.js';
-import { LenkeSerializer } from './serializers/LenkeSerializer.js';
-import { HtmlfeltSerializer } from './serializers/HtmlfeltSerializer.js';
-
-import { PortableText } from '@portabletext/react';
+import { FlettefeltSerializer } from './serializers/FlettefeltSerializer.js';
 import { FritekstområdeSerializer } from './serializers/FritekstområdeSerializer.js';
+import { HtmlfeltSerializer } from './serializers/HtmlfeltSerializer.js';
+import { LenkeSerializer } from './serializers/LenkeSerializer.js';
+import { ListItemSerializer } from './serializers/ListItemSerializer.js';
+import { ValgfeltSerializer } from './serializers/ValgfeltSerializer.js';
 
 interface AvansertDokumentProps {
     apiNavn: string;

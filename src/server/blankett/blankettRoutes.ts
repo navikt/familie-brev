@@ -1,15 +1,15 @@
-import type { Request, Response } from 'express';
-import type { IDokumentData } from '../../typer/dokumentApiBlankett.js';
-import { hentDokumentHtmlBlankett } from './hentDokumentHtmlBlankett.js';
 import { logError } from '@navikt/familie-logging';
-import { logSecure } from '../utils/teamLogs.js';
-import { genererMetadata } from '../utils/logging.js';
-import { genererPdfBlankett } from '../utils/apiBlankett.js';
-import type { IKlageDokumentData } from '../../typer/klageDokumentApi.js';
-import { hentDokumentHtml } from './genererKlageDokumentHtml.js';
-import fs from 'fs';
+import type { Request, Response } from 'express';
 import express from 'express';
+import fs from 'fs';
+import type { IDokumentData } from '../../typer/dokumentApiBlankett.js';
+import type { IKlageDokumentData } from '../../typer/klageDokumentApi.js';
 import { logFerdigstilt } from '../routes.js';
+import { genererPdfBlankett } from '../utils/apiBlankett.js';
+import { genererMetadata } from '../utils/logging.js';
+import { logSecure } from '../utils/teamLogs.js';
+import { hentDokumentHtml } from './genererKlageDokumentHtml.js';
+import { hentDokumentHtmlBlankett } from './hentDokumentHtmlBlankett.js';
 
 const router = express.Router();
 const { NODE_ENV } = process.env;

@@ -1,8 +1,8 @@
 import React from 'react';
 import {
-    studietypeTilTekst,
     type IInnvilgeVedtakSkolepenger,
     type ISøknadsdatoer,
+    studietypeTilTekst,
 } from '../../../typer/dokumentApiBlankett.js';
 import { parseOgFormaterÅrMåned, tilSkoleår } from '../../utils/util.js';
 import { Begrunnelse } from './InnvilgeVedtak/Begrunnelse.js';

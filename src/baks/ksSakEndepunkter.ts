@@ -1,16 +1,16 @@
+import { logError } from '@navikt/familie-logging';
 import type { Request, Response } from 'express';
 import express from 'express';
+import { hentMiljøvariabler } from '../server/environment.js';
 import { client } from '../server/sanity/sanityClient.js';
+import { escape } from '../server/utils/escapeString.js';
+import { Feil } from '../server/utils/Feil.js';
+import { logSecure } from '../server/utils/teamLogs.js';
+import { begrunnelseSerializer } from './begrunnelseSerializer.js';
 import { hentBegrunnelseTekstQuery, hentKsBegrunnelserQuery } from './queries.js';
 import type { BegrunnelseMedData } from './typer.js';
 import { Begrunnelsetype } from './typer.js';
 import { validerBegrunnelse, validerEøsbegrunnelsedata, validerStandardbegrunnelsedata } from './valideringer.js';
-import { Feil } from '../server/utils/Feil.js';
-import { logError } from '@navikt/familie-logging';
-import { logSecure } from '../server/utils/teamLogs.js';
-import { hentMiljøvariabler } from '../server/environment.js';
-import { escape } from '../server/utils/escapeString.js';
-import { begrunnelseSerializer } from './begrunnelseSerializer.js';
 
 const router = express.Router();
 

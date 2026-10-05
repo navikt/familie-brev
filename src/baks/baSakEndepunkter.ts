@@ -1,5 +1,12 @@
+import { logError } from '@navikt/familie-logging';
 import type { Request, Response } from 'express';
+import { hentMiljøvariabler } from '../server/environment.js';
+import router from '../server/routes.js';
 import { client } from '../server/sanity/sanityClient.js';
+import { Feil } from '../server/utils/Feil.js';
+import { ManglerFlettefeltFeil } from '../server/utils/ManglerFlettefeltFeil.js';
+import { logSecure } from '../server/utils/teamLogs.js';
+import { begrunnelseSerializer } from './begrunnelseSerializer.js';
 import {
     hentBegrunnelseQuery,
     hentBegrunnelserAvTypeQuery,
@@ -7,16 +14,9 @@ import {
     hentBegrunnelseTekstQuery,
     hentHjemlerForBegrunnelseQuery,
 } from './queries.js';
-import { begrunnelseSerializer } from './begrunnelseSerializer.js';
 import type { BegrunnelseMedData } from './typer.js';
 import { Begrunnelsetype } from './typer.js';
 import { validerBegrunnelse, validerEøsbegrunnelsedata, validerStandardbegrunnelsedata } from './valideringer.js';
-import { Feil } from '../server/utils/Feil.js';
-import { logError } from '@navikt/familie-logging';
-import { logSecure } from '../server/utils/teamLogs.js';
-import { hentMiljøvariabler } from '../server/environment.js';
-import router from '../server/routes.js';
-import { ManglerFlettefeltFeil } from '../server/utils/ManglerFlettefeltFeil.js';
 
 const { BA_DATASETT } = hentMiljøvariabler();
 
