@@ -3,7 +3,7 @@ import type { Request, Response } from 'express';
 import express from 'express';
 import { hentMiljøvariabler } from '../server/environment.js';
 import { client } from '../server/sanity/sanityClient.js';
-import { escape } from '../server/utils/escapeString.js';
+import { escapeString } from '../server/utils/escapeString.js';
 import { Feil } from '../server/utils/Feil.js';
 import { logSecure } from '../server/utils/teamLogs.js';
 import { begrunnelseSerializer } from './begrunnelseSerializer.js';
@@ -41,11 +41,11 @@ router.post('/begrunnelser/:begrunnelseApiNavn/tekst/', async (req: Request, res
         res.status(200).send(begrunnelse);
     } catch (error: any) {
         if (error instanceof Feil) {
-            res.status(error.code).send(escape(error.message));
+            res.status(error.code).send(escapeString(error.message));
         } else {
             logError(`Generering av begrunnelse feilet: ${error.message}`);
             logSecure(`Generering av begrunnelse feilet: ${error}`);
-            res.status(500).send(`Generering av begrunnelse feilet: ${escape(error.message)}`);
+            res.status(500).send(`Generering av begrunnelse feilet: ${escapeString(error.message)}`);
         }
     }
 });
