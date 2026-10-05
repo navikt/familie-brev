@@ -3,15 +3,15 @@ import { IOpphørVedtak } from '../../../typer/dokumentApiBlankett.js';
 import { parseOgFormaterÅrMåned } from '../../utils/util.js';
 
 export const OpphørVedtak: React.FC<IOpphørVedtak> = ({ opphørFom, begrunnelse }) => {
-  return (
-    <div className={'blankett-page-break'}>
-      <h2>Vedtak</h2>
-      <h3 className={'blankett'}>Resultat</h3>
-      <div>Opphørt</div>
-      <h4 className={'blankett'}>Opphør fra og med:</h4>
-      <p>{parseOgFormaterÅrMåned(opphørFom)}</p>
-      <h4 className={'blankett'}>Begrunnelse</h4>
-      <p style={{ whiteSpace: 'pre-wrap' }}>{begrunnelse}</p>
-    </div>
-  );
+    return (
+        <div className={'blankett-page-break'}>
+            <h2>Vedtak</h2>
+            <h3 className={'blankett'}>Resultat</h3>
+            <div>Opphørt</div>
+            <h4 className={'blankett'}>Opphør fra og med:</h4>
+            <p>{parseOgFormaterÅrMåned(opphørFom)}</p>
+            <h4 className={'blankett'}>Begrunnelse</h4>
+            <p style={{ whiteSpace: 'pre-wrap' }}>{begrunnelse}</p>
+        </div>
+    );
 };

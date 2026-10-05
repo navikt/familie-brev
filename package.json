@@ -1,68 +1,68 @@
 {
-  "name": "famile-brev",
-  "type": "module",
-  "version": "0.1.0",
-  "packageManager": "pnpm@11.15.0",
-  "private": true,
-  "scripts": {
-    "start": "NODE_ENV=production node dist/src/server/index.js",
-    "build": "tsc -p tsconfig.json",
-    "start:dev": "nodemon -e ts,tsx --exec \"pnpm build:dev && pnpm run:dev\"",
-    "dev": "pnpm start:dev",
-    "build:dev": "tsc -p tsconfig.json",
-    "run:dev": "node dist/src/server/index.js",
-    "prepare": "husky",
-    "typecheck": "tsc --noEmit --skipLibCheck",
-    "lint": "biome lint .",
-    "lint:fix": "biome lint --write .",
-    "format": "biome format .",
-    "format:fix": "biome format --write .",
-    "check": "biome check .",
-    "check:fix": "biome check --write .",
-    "validate": "pnpm typecheck && pnpm check"
-  },
-  "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx,css}": [
-      "biome check ."
-    ]
-  },
-  "dependencies": {
-    "@navikt/familie-logging": "7.0.9",
-    "@portabletext/react": "8.0.1",
-    "@sanity/client": "8.6.2",
-    "axios": "1.20.0",
-    "date-fns": "4.4.0",
-    "dotenv": "18.0.3",
-    "express": "5.2.1",
-    "express-session": "1.19.0",
-    "react": "19.3.0",
-    "react-dom": "19.3.0",
-    "styled-components": "6.5.3",
-    "tslib": "2.8.1",
-    "typescript": "6.0.3"
-  },
-  "devDependencies": {
-    "@biomejs/biome": "2.5.14",
-    "@types/express": "5.0.6",
-    "@types/express-session": "1.19.0",
-    "@types/node": "26.6.2",
-    "@types/react": "19.3.0",
-    "@types/react-dom": "19.3.0",
-    "@types/styled-components": "5.1.36",
-    "husky": "9.1.7",
-    "lint-staged": "17.5.1",
-    "nodemon": "3.1.14"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+    "name": "famile-brev",
+    "type": "module",
+    "version": "0.1.0",
+    "packageManager": "pnpm@11.15.0",
+    "private": true,
+    "scripts": {
+        "start": "NODE_ENV=production node dist/src/server/index.js",
+        "build": "tsc -p tsconfig.json",
+        "start:dev": "nodemon -e ts,tsx --exec \"pnpm build:dev && pnpm run:dev\"",
+        "dev": "pnpm start:dev",
+        "build:dev": "tsc -p tsconfig.json",
+        "run:dev": "node dist/src/server/index.js",
+        "prepare": "husky",
+        "typecheck": "tsc --noEmit --skipLibCheck",
+        "lint": "biome lint .",
+        "lint:fix": "biome lint --write .",
+        "format": "biome format .",
+        "format:fix": "biome format --write .",
+        "check": "biome check .",
+        "check:fix": "biome check --write .",
+        "validate": "pnpm typecheck && pnpm check"
+    },
+    "lint-staged": {
+        "src/**/*.{js,jsx,ts,tsx,css}": [
+            "biome check ."
+        ]
+    },
+    "dependencies": {
+        "@navikt/familie-logging": "7.0.9",
+        "@portabletext/react": "8.0.1",
+        "@sanity/client": "8.6.2",
+        "axios": "1.20.0",
+        "date-fns": "4.4.0",
+        "dotenv": "18.0.3",
+        "express": "5.2.1",
+        "express-session": "1.19.0",
+        "react": "19.3.0",
+        "react-dom": "19.3.0",
+        "styled-components": "6.5.3",
+        "tslib": "2.8.1",
+        "typescript": "6.0.3"
+    },
+    "devDependencies": {
+        "@biomejs/biome": "2.5.14",
+        "@types/express": "5.0.6",
+        "@types/express-session": "1.19.0",
+        "@types/node": "26.6.2",
+        "@types/react": "19.3.0",
+        "@types/react-dom": "19.3.0",
+        "@types/styled-components": "5.1.36",
+        "husky": "9.1.7",
+        "lint-staged": "17.5.1",
+        "nodemon": "3.1.14"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    }
 }

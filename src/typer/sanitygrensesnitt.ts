@@ -1,38 +1,38 @@
 export enum Maalform {
-  NB = 'bokmaal',
-  NN = 'nynorsk',
+    NB = 'bokmaal',
+    NN = 'nynorsk',
 }
 
 export interface ISanityDelmalGrensesnitt {
-  betingelse: string | undefined;
-  erGjentagende: boolean;
-  id: string;
-  grensesnitt: ISanityGrensesnitt;
+    betingelse: string | undefined;
+    erGjentagende: boolean;
+    id: string;
+    grensesnitt: ISanityGrensesnitt;
 }
 
 export interface ISanityValgmulighet {
-  valgnavn: string;
-  grensesnitt: ISanityGrensesnitt;
+    valgnavn: string;
+    grensesnitt: ISanityGrensesnitt;
 }
 
 export interface ISanityValgfeltGrensesnitt {
-  navn: string;
-  erGjentagende: boolean;
-  valgmuligheter: ISanityValgmulighet[];
+    navn: string;
+    erGjentagende: boolean;
+    valgmuligheter: ISanityValgmulighet[];
 }
 
 export interface ISanityDokument {
-  id: string;
-  grensesnitt: ISanityGrensesnitt;
+    id: string;
+    grensesnitt: ISanityGrensesnitt;
 }
 
 export interface ISanityGrensesnitt {
-  flettefelter: string[];
-  delmaler: ISanityDelmalGrensesnitt[];
-  valgfelter: ISanityValgfeltGrensesnitt[];
+    flettefelter: string[];
+    delmaler: ISanityDelmalGrensesnitt[];
+    valgfelter: ISanityValgfeltGrensesnitt[];
 }
 
 export interface ISanityGrensesnittMedMaalform {
-  grensesnitt: ISanityGrensesnitt;
-  maalform: Maalform;
+    grensesnitt: ISanityGrensesnitt;
+    maalform: Maalform;
 }

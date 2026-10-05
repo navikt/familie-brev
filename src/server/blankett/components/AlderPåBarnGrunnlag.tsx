@@ -3,44 +3,44 @@ import type { IBarnMedSamvær } from '../../../typer/dokumentApiBlankett.js';
 import { formaterNullableIsoDato } from '../../utils/util.js';
 
 interface Props {
-  barnMedSamvær: IBarnMedSamvær[];
-  barnId?: string;
+    barnMedSamvær: IBarnMedSamvær[];
+    barnId?: string;
 }
 
 const navnPåBarnet = (barnMedSamvær: IBarnMedSamvær) => {
-  const { søknadsgrunnlag, registergrunnlag } = barnMedSamvær;
-  if (registergrunnlag.navn) {
-    return registergrunnlag.navn;
-  }
-  if (søknadsgrunnlag.navn && søknadsgrunnlag.navn !== '') {
-    return søknadsgrunnlag.navn;
-  }
-  return søknadsgrunnlag.erBarnetFødt ? 'Ikke utfylt' : 'Ikke født';
+    const { søknadsgrunnlag, registergrunnlag } = barnMedSamvær;
+    if (registergrunnlag.navn) {
+        return registergrunnlag.navn;
+    }
+    if (søknadsgrunnlag.navn && søknadsgrunnlag.navn !== '') {
+        return søknadsgrunnlag.navn;
+    }
+    return søknadsgrunnlag.erBarnetFødt ? 'Ikke utfylt' : 'Ikke født';
 };
 
 export const AlderPåBarnGrunnlag: React.FC<Props> = ({ barnMedSamvær, barnId }) => {
-  return (
-    <>
-      <h3 className={'blankett'}>Registerdata</h3>
-      {barnMedSamvær
-        .filter(barn => barn.barnId === barnId)
-        .map((barn, index) => {
-          return (
-            <div key={index}>
-              <h4 className={'blankett'}>Navn: {navnPåBarnet(barn)}</h4>
-              <div>
-                Fødsels eller D-nummer:{' '}
-                {barn.registergrunnlag.fødselsnummer || barn.søknadsgrunnlag.fødselsnummer}
-              </div>
-              {barn.søknadsgrunnlag.fødselTermindato && (
-                <div>
-                  Fødselsdato/termindato:{' '}
-                  {formaterNullableIsoDato(barn.søknadsgrunnlag.fødselTermindato)}
-                </div>
-              )}
-            </div>
-          );
-        })}
-    </>
-  );
+    return (
+        <>
+            <h3 className={'blankett'}>Registerdata</h3>
+            {barnMedSamvær
+                .filter(barn => barn.barnId === barnId)
+                .map((barn, index) => {
+                    return (
+                        <div key={index}>
+                            <h4 className={'blankett'}>Navn: {navnPåBarnet(barn)}</h4>
+                            <div>
+                                Fødsels eller D-nummer:{' '}
+                                {barn.registergrunnlag.fødselsnummer || barn.søknadsgrunnlag.fødselsnummer}
+                            </div>
+                            {barn.søknadsgrunnlag.fødselTermindato && (
+                                <div>
+                                    Fødselsdato/termindato:{' '}
+                                    {formaterNullableIsoDato(barn.søknadsgrunnlag.fødselTermindato)}
+                                </div>
+                            )}
+                        </div>
+                    );
+                })}
+        </>
+    );
 };

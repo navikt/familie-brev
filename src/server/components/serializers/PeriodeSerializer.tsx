@@ -1,9 +1,9 @@
 import React from 'react';
 import type {
-  Flettefelt,
-  Flettefelter,
-  IDokumentData,
-  IDokumentDataMedPeriode,
+    Flettefelt,
+    Flettefelter,
+    IDokumentData,
+    IDokumentDataMedPeriode,
 } from '../../../typer/dokumentApiBrev.js';
 import { FlettefeltSerializer } from './FlettefeltSerializer.js';
 import { BlockSerializer } from './BlockSerializer.js';
@@ -18,9 +18,9 @@ import { Feil } from '../../utils/Feil.js';
 import type { Begrunnelse, BegrunnelseMedData, IPeriodedata } from '../../../baks/typer.js';
 import { Begrunnelsetype } from '../../../baks/typer.js';
 import {
-  validerBegrunnelse,
-  validerEøsbegrunnelsedata,
-  validerStandardbegrunnelsedata,
+    validerBegrunnelse,
+    validerEøsbegrunnelsedata,
+    validerStandardbegrunnelsedata,
 } from '../../../baks/valideringer.js';
 import { hentBegrunnelseTekstQuery } from '../../../baks/queries.js';
 import { begrunnelseSerializer } from '../../../baks/begrunnelseSerializer.js';
@@ -28,150 +28,145 @@ import { begrunnelseSerializer } from '../../../baks/begrunnelseSerializer.js';
 import { PortableText } from '@portabletext/react';
 
 interface IPeriodeProps {
-  sanityProps: any;
-  dokumentData: IDokumentData | undefined;
-  maalform: Maalform;
-  datasett: Datasett;
-  forelderApiNavn: string;
+    sanityProps: any;
+    dokumentData: IDokumentData | undefined;
+    maalform: Maalform;
+    datasett: Datasett;
+    forelderApiNavn: string;
 }
 
 export const PeriodeSerializer = (props: IPeriodeProps) => {
-  const { dokumentData, maalform, datasett, forelderApiNavn } = props;
+    const { dokumentData, maalform, datasett, forelderApiNavn } = props;
 
-  const erIDokumentDataMedPeriode = (
-    dokumentData: IDokumentData | IDokumentDataMedPeriode | undefined,
-  ): dokumentData is IDokumentDataMedPeriode => {
-    return (dokumentData as IDokumentDataMedPeriode)?.perioder !== undefined;
-  };
+    const erIDokumentDataMedPeriode = (
+        dokumentData: IDokumentData | IDokumentDataMedPeriode | undefined
+    ): dokumentData is IDokumentDataMedPeriode => {
+        return (dokumentData as IDokumentDataMedPeriode)?.perioder !== undefined;
+    };
 
-  if (!erIDokumentDataMedPeriode(dokumentData)) {
-    return null;
-  }
+    if (!erIDokumentDataMedPeriode(dokumentData)) {
+        return null;
+    }
 
-  const perioder = dokumentData.perioder;
+    const perioder = dokumentData.perioder;
 
-  validerPeriode(forelderApiNavn, perioder);
+    validerPeriode(forelderApiNavn, perioder);
 
-  return (
-    <div className={`delmal`}>
-      {perioder.map((periode, index) => (
-        <Periode
-          key={`${(periode.type as Flettefelt)[0]}-${index}`}
-          datasett={datasett}
-          maalform={maalform}
-          periodedata={periode}
-        />
-      ))}
-    </div>
-  );
+    return (
+        <div className={`delmal`}>
+            {perioder.map((periode, index) => (
+                <Periode
+                    key={`${(periode.type as Flettefelt)[0]}-${index}`}
+                    datasett={datasett}
+                    maalform={maalform}
+                    periodedata={periode}
+                />
+            ))}
+        </div>
+    );
 };
 
 const Periode = (props: { maalform: Maalform; datasett: Datasett; periodedata: IPeriodedata }) => {
-  const { maalform, datasett, periodedata } = props;
-  const periodeApiNavn = (periodedata.type as Flettefelt)[0];
+    const { maalform, datasett, periodedata } = props;
+    const periodeApiNavn = (periodedata.type as Flettefelt)[0];
 
-  const [periode] = useServerEffect(undefined, periodeApiNavn, () => {
-    const query = hentDokumentQuery(DokumentType.PERIODE, periodeApiNavn, maalform);
-    return client(datasett)
-      .fetch(query)
-      .then((sanityPeriodeRespons: any) => {
-        if (!sanityPeriodeRespons[maalform]) {
-          throw new Feil(
-            `Fant ikke ${maalform} tekst for "${periodeApiNavn}" i datasettet "${datasett}".`,
-            404,
-          );
-        }
-        return sanityPeriodeRespons[maalform];
-      });
-  });
-
-  const hentBegrunnelsetekst = (begrunnelseApiNavn: string, målform: string): any => {
-    const query = hentBegrunnelseTekstQuery(begrunnelseApiNavn, målform, datasett);
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    return useServerEffect(undefined, query, () =>
-      client(datasett)
-        .fetch(query)
-        .then(begrunnelseFraSanity => {
-          validerBegrunnelse(begrunnelseFraSanity, begrunnelseApiNavn);
-          return begrunnelseFraSanity;
-        }),
-    )[0];
-  };
-
-  const byggBegrunnelse = (begrunnelseData: BegrunnelseMedData) => {
-    if (begrunnelseData.type === Begrunnelsetype.STANDARD_BEGRUNNELSE) {
-      validerStandardbegrunnelsedata(begrunnelseData);
-    } else if (begrunnelseData.type === Begrunnelsetype.EØS_BEGRUNNELSE) {
-      validerEøsbegrunnelsedata(begrunnelseData);
-    }
-
-    const begrunnelsetekstFraSanity = hentBegrunnelsetekst(
-      begrunnelseData.apiNavn,
-      begrunnelseData.maalform,
-    );
-
-    return (
-      begrunnelsetekstFraSanity && begrunnelseSerializer(begrunnelsetekstFraSanity, begrunnelseData)
-    );
-  };
-
-  const byggBegrunnelser = (begrunnelser: Begrunnelse[] | Flettefelt): string[] => {
-    const bygdeBegrunnelser = begrunnelser.map((begrunnelse: Begrunnelse | string) => {
-      if (typeof begrunnelse === 'string') {
-        return begrunnelse;
-      } else if (begrunnelse.type === Begrunnelsetype.FRITEKST) {
-        return begrunnelse.fritekst;
-      } else if (begrunnelse.type === Begrunnelsetype.STANDARD_BEGRUNNELSE) {
-        return byggBegrunnelse(begrunnelse);
-      } else if (begrunnelse.type === Begrunnelsetype.EØS_BEGRUNNELSE) {
-        return byggBegrunnelse(begrunnelse);
-      } else {
-        return byggBegrunnelse(begrunnelse);
-      }
+    const [periode] = useServerEffect(undefined, periodeApiNavn, () => {
+        const query = hentDokumentQuery(DokumentType.PERIODE, periodeApiNavn, maalform);
+        return client(datasett)
+            .fetch(query)
+            .then((sanityPeriodeRespons: any) => {
+                if (!sanityPeriodeRespons[maalform]) {
+                    throw new Feil(
+                        `Fant ikke ${maalform} tekst for "${periodeApiNavn}" i datasettet "${datasett}".`,
+                        404
+                    );
+                }
+                return sanityPeriodeRespons[maalform];
+            });
     });
 
-    // Fjerner duplikate begrunnelser
-    return [...new Set(bygdeBegrunnelser)];
-  };
+    const hentBegrunnelsetekst = (begrunnelseApiNavn: string, målform: string): any => {
+        const query = hentBegrunnelseTekstQuery(begrunnelseApiNavn, målform, datasett);
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        return useServerEffect(undefined, query, () =>
+            client(datasett)
+                .fetch(query)
+                .then(begrunnelseFraSanity => {
+                    validerBegrunnelse(begrunnelseFraSanity, begrunnelseApiNavn);
+                    return begrunnelseFraSanity;
+                })
+        )[0];
+    };
 
-  const flettefelter = { ...periodedata };
-  if (periodedata.begrunnelser) {
-    flettefelter.begrunnelser = byggBegrunnelser(periodedata.begrunnelser);
-  }
+    const byggBegrunnelse = (begrunnelseData: BegrunnelseMedData) => {
+        if (begrunnelseData.type === Begrunnelsetype.STANDARD_BEGRUNNELSE) {
+            validerStandardbegrunnelsedata(begrunnelseData);
+        } else if (begrunnelseData.type === Begrunnelsetype.EØS_BEGRUNNELSE) {
+            validerEøsbegrunnelsedata(begrunnelseData);
+        }
 
-  if (!periode) {
-    return null;
-  }
+        const begrunnelsetekstFraSanity = hentBegrunnelsetekst(begrunnelseData.apiNavn, begrunnelseData.maalform);
 
-  return (
-    <div className={`delmal`}>
-      <PortableText
-        value={periode}
-        components={{
-          block: BlockSerializer,
-          marks: {
-            flettefelt: (sanityProps: any) =>
-              FlettefeltSerializer({
-                sanityProps: sanityProps,
-                flettefelter: flettefelter as Flettefelter,
-                dokumentApiNavn: periodeApiNavn,
-                erListe: sanityProps?.value?.felt === 'begrunnelser',
-              }),
-          },
-          types: {
-            flettefelt: (sanityProps: any) =>
-              FlettefeltSerializer({
-                sanityProps: sanityProps,
-                flettefelter: flettefelter as Flettefelter,
-                dokumentApiNavn: periodeApiNavn,
-                erListe: sanityProps?.value?.felt === 'begrunnelser',
-              }),
-            undefined: (_: any) => <div />,
-          },
-        }}
-      />
+        return begrunnelsetekstFraSanity && begrunnelseSerializer(begrunnelsetekstFraSanity, begrunnelseData);
+    };
 
-      <div style={{ minHeight: '1rem' }} />
-    </div>
-  );
+    const byggBegrunnelser = (begrunnelser: Begrunnelse[] | Flettefelt): string[] => {
+        const bygdeBegrunnelser = begrunnelser.map((begrunnelse: Begrunnelse | string) => {
+            if (typeof begrunnelse === 'string') {
+                return begrunnelse;
+            } else if (begrunnelse.type === Begrunnelsetype.FRITEKST) {
+                return begrunnelse.fritekst;
+            } else if (begrunnelse.type === Begrunnelsetype.STANDARD_BEGRUNNELSE) {
+                return byggBegrunnelse(begrunnelse);
+            } else if (begrunnelse.type === Begrunnelsetype.EØS_BEGRUNNELSE) {
+                return byggBegrunnelse(begrunnelse);
+            } else {
+                return byggBegrunnelse(begrunnelse);
+            }
+        });
+
+        // Fjerner duplikate begrunnelser
+        return [...new Set(bygdeBegrunnelser)];
+    };
+
+    const flettefelter = { ...periodedata };
+    if (periodedata.begrunnelser) {
+        flettefelter.begrunnelser = byggBegrunnelser(periodedata.begrunnelser);
+    }
+
+    if (!periode) {
+        return null;
+    }
+
+    return (
+        <div className={`delmal`}>
+            <PortableText
+                value={periode}
+                components={{
+                    block: BlockSerializer,
+                    marks: {
+                        flettefelt: (sanityProps: any) =>
+                            FlettefeltSerializer({
+                                sanityProps: sanityProps,
+                                flettefelter: flettefelter as Flettefelter,
+                                dokumentApiNavn: periodeApiNavn,
+                                erListe: sanityProps?.value?.felt === 'begrunnelser',
+                            }),
+                    },
+                    types: {
+                        flettefelt: (sanityProps: any) =>
+                            FlettefeltSerializer({
+                                sanityProps: sanityProps,
+                                flettefelter: flettefelter as Flettefelter,
+                                dokumentApiNavn: periodeApiNavn,
+                                erListe: sanityProps?.value?.felt === 'begrunnelser',
+                            }),
+                        undefined: (_: any) => <div />,
+                    },
+                }}
+            />
+
+            <div style={{ minHeight: '1rem' }} />
+        </div>
+    );
 };
