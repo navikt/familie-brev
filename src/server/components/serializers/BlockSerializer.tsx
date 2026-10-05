@@ -4,7 +4,7 @@ import { rightTrimLastProp } from '../../utils/openhtmltopdfBughåndtering.js';
 const settTag = (node: any) => {
     const style = node.style;
 
-    if (RegExp('/?h[1-6]').test(style)) {
+    if (/\/?h[1-6]/.test(style)) {
         return style;
     }
 
