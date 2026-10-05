@@ -1,7 +1,7 @@
+import path from 'node:path';
 import { logInfo } from '@navikt/familie-logging';
 import dotenv from 'dotenv';
 import express from 'express';
-import path from 'path';
 import baSakEndepunkter from '../baks/baSakEndepunkter.js';
 import ksSakEndepunkter from '../baks/ksSakEndepunkter.js';
 import blankettRoutes from './blankett/blankettRoutes.js';
