@@ -34,7 +34,7 @@ jobs:
           pnpm install --prod --frozen-lockfile --ignore-scripts
 
       - name: Push docker image to GAR
-        uses: nais/docker-build-push@423a915c9b72edf2ba848b88171ccb0489e2a40a # ratchet:nais/docker-build-push@v0
+        uses: nais/docker-build-push@bfe52e3ad6d0e96fd1056a03acb7b619aaffb39d # ratchet:nais/docker-build-push@v0
         id: docker-build-push
         with:
           team: teamfamilie
