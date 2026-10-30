@@ -15,7 +15,7 @@ Konsumenter kan få returnert html eller pdf/bytearray.
 ### Kjør server lokalt
 
 * `familie-dokument` må kjøres med ApplicationLocal for at pdf-generering skal fungere
-* Aktiver riktig pnpm-versjon med `corepack enable` (henter versjonen fra `packageManager` i package.json)
+* Installer Corepack med `npm install -g corepack` (følger ikke lenger med Node) og aktiver riktig pnpm-versjon med `corepack enable` (henter versjonen fra `packageManager` i package.json)
 * Pass på at du har installert alle NPM-avhengighetene `pnpm install`
 * Kjør `pnpm start:dev`
 
