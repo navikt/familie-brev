@@ -29,10 +29,10 @@
     "dependencies": {
         "@navikt/familie-logging": "7.0.11",
         "@portabletext/react": "8.0.1",
-        "@sanity/client": "8.10.1",
-        "axios": "1.20.0",
+        "@sanity/client": "8.12.0",
+        "axios": "1.21.0",
         "date-fns": "4.4.0",
-        "dotenv": "18.0.8",
+        "dotenv": "18.0.9",
         "express": "5.3.0",
         "express-session": "1.19.0",
         "react": "19.3.1",
