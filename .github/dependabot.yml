@@ -1,44 +1,44 @@
 version: 2
 
 updates:
-- package-ecosystem: npm
-  directory: "/"
-  schedule:
-    interval: "weekly"
-    day: "sunday"
-    time: "04:00"
-  cooldown:
-    default-days: 4
-  open-pull-requests-limit: 10
-  groups:
-    react-core:
-      patterns:
-        - "react"
-        - "react-dom"
-        - "@types/react"
-        - "@types/react-dom"
-    linting:
-      patterns:
-        - "@biomejs/biome"
-        - "husky"
-        - "lint-staged"
-    type-definitions:
-      patterns:
-        - "@types/*"
-    minor-and-patch-dependencies:
-      update-types:
-        - "minor"
-        - "patch"
+    - package-ecosystem: npm
+      directory: "/"
+      schedule:
+          interval: "weekly"
+          day: "sunday"
+          time: "04:00"
+      cooldown:
+          default-days: 4
+      open-pull-requests-limit: 10
+      groups:
+          react-core:
+              patterns:
+                  - "react"
+                  - "react-dom"
+                  - "@types/react"
+                  - "@types/react-dom"
+          linting:
+              patterns:
+                  - "@biomejs/biome"
+                  - "husky"
+                  - "lint-staged"
+          type-definitions:
+              patterns:
+                  - "@types/*"
+          minor-and-patch-dependencies:
+              update-types:
+                  - "minor"
+                  - "patch"
 
-- package-ecosystem: "github-actions"
-  directory: "/"
-  schedule:
-    interval: "weekly"
-    day: "sunday"
-    time: "04:00"
-  cooldown:
-    default-days: 4
-  groups:
-    workflows:
-      patterns:
-        - "*"
+    - package-ecosystem: "github-actions"
+      directory: "/"
+      schedule:
+          interval: "weekly"
+          day: "sunday"
+          time: "04:00"
+      cooldown:
+          default-days: 4
+      groups:
+          workflows:
+              patterns:
+                  - "*"

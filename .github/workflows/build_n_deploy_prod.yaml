@@ -1,69 +1,69 @@
 name: Build and deploy prod
 
 on:
-  push:
-    branches:
-      - 'main'
+    push:
+        branches:
+            - "main"
 
 jobs:
-  build:
-    name: Build and push Docker container
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write
-    outputs:
-      image: ${{ steps.docker-build-push.outputs.image }}
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v4
-      - name: Les Node-versjon fra .node-version
-        id: node
-        run: echo "version=$(tr -d '[:space:]' < .node-version)" >> "$GITHUB_OUTPUT"
+    build:
+        name: Build and push Docker container
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            id-token: write
+        outputs:
+            image: ${{ steps.docker-build-push.outputs.image }}
+        steps:
+            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v4
+            - name: Les Node-versjon fra .node-version
+              id: node
+              run: echo "version=$(tr -d '[:space:]' < .node-version)" >> "$GITHUB_OUTPUT"
 
-      - name: ⎔ Setup node and install pnpm packages
-        uses: navikt/familie-baks-gha-workflows/.github/actions/setup-node-pnpm@main # ratchet:exclude
-        with:
-          node-version: ${{ steps.node.outputs.version }}
-          reader-token: ${{ secrets.READER_TOKEN }}
-      - name: Build and publish Docker image
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
-        run: |
-          pnpm build
-          # Kun produksjonsavhengigheter i node_modules før imaget bygges (som 'yarn install --production' gjorde)
-          pnpm install --prod --frozen-lockfile --ignore-scripts
+            - name: ⎔ Setup node and install pnpm packages
+              uses: navikt/familie-baks-gha-workflows/.github/actions/setup-node-pnpm@main # ratchet:exclude
+              with:
+                  node-version: ${{ steps.node.outputs.version }}
+                  reader-token: ${{ secrets.READER_TOKEN }}
+            - name: Build and publish Docker image
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+              run: |
+                  pnpm build
+                  # Kun produksjonsavhengigheter i node_modules før imaget bygges (som 'yarn install --production' gjorde)
+                  pnpm install --prod --frozen-lockfile --ignore-scripts
 
-      - name: Push docker image to GAR
-        uses: nais/docker-build-push@dd7421d5068057a020ca46ead966c26190c516b1 # ratchet:nais/docker-build-push@v0
-        id: docker-build-push
-        with:
-          team: teamfamilie
-          tag: latest
-  deployDev:
-    name: Deploy to dev-gcp
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v4
-      - uses: nais/deploy/actions/deploy@8f89cfaf111e66bc79b75aa18a66a49fffb565ee # ratchet:nais/deploy/actions/deploy@v3
-        env:
-          CLUSTER: dev-gcp
-          RESOURCE: .nais/app-dev.yaml
-          VAR: image=${{ needs.build.outputs.image }}
-  deployProd:
-    name: Deploy to prod-gcp
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v4
-      - uses: nais/deploy/actions/deploy@8f89cfaf111e66bc79b75aa18a66a49fffb565ee # ratchet:nais/deploy/actions/deploy@v3
-        env:
-          CLUSTER: prod-gcp
-          RESOURCE: .nais/app-prod.yaml
-          VAR: image=${{ needs.build.outputs.image }}
+            - name: Push docker image to GAR
+              uses: nais/docker-build-push@dd7421d5068057a020ca46ead966c26190c516b1 # ratchet:nais/docker-build-push@v0
+              id: docker-build-push
+              with:
+                  team: teamfamilie
+                  tag: latest
+    deployDev:
+        name: Deploy to dev-gcp
+        needs: build
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            id-token: write
+        steps:
+            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v4
+            - uses: nais/deploy/actions/deploy@8f89cfaf111e66bc79b75aa18a66a49fffb565ee # ratchet:nais/deploy/actions/deploy@v3
+              env:
+                  CLUSTER: dev-gcp
+                  RESOURCE: .nais/app-dev.yaml
+                  VAR: image=${{ needs.build.outputs.image }}
+    deployProd:
+        name: Deploy to prod-gcp
+        needs: build
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            id-token: write
+        steps:
+            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v4
+            - uses: nais/deploy/actions/deploy@8f89cfaf111e66bc79b75aa18a66a49fffb565ee # ratchet:nais/deploy/actions/deploy@v3
+              env:
+                  CLUSTER: prod-gcp
+                  RESOURCE: .nais/app-prod.yaml
+                  VAR: image=${{ needs.build.outputs.image }}

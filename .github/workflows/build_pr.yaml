@@ -1,72 +1,72 @@
 name: Bygg PR
 
 on:
-  merge_group:
-  pull_request:
-    types: [opened, synchronize, reopened, ready_for_review]
+    merge_group:
+    pull_request:
+        types: [opened, synchronize, reopened, ready_for_review]
 
 jobs:
-  build:
-    name: Bygg PR og kjør tester
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v4
+    build:
+        name: Bygg PR og kjør tester
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+        steps:
+            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v4
 
-      - name: Les Node-versjon fra .node-version
-        id: node
-        run: echo "version=$(tr -d '[:space:]' < .node-version)" >> "$GITHUB_OUTPUT"
+            - name: Les Node-versjon fra .node-version
+              id: node
+              run: echo "version=$(tr -d '[:space:]' < .node-version)" >> "$GITHUB_OUTPUT"
 
-      - name: ⎔ Setup node and install pnpm packages
-        uses: navikt/familie-baks-gha-workflows/.github/actions/setup-node-pnpm@main # ratchet:exclude
-        with:
-          node-version: ${{ steps.node.outputs.version }}
-          reader-token: ${{ secrets.READER_TOKEN }}
+            - name: ⎔ Setup node and install pnpm packages
+              uses: navikt/familie-baks-gha-workflows/.github/actions/setup-node-pnpm@main # ratchet:exclude
+              with:
+                  node-version: ${{ steps.node.outputs.version }}
+                  reader-token: ${{ secrets.READER_TOKEN }}
 
-      - name: pnpm build
-        run: pnpm build
+            - name: pnpm build
+              run: pnpm build
 
-  biome:
-    name: ✨ Biome
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    steps:
-      - name: ⬇️ Checkout repo
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v4
+    biome:
+        name: ✨ Biome
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+        steps:
+            - name: ⬇️ Checkout repo
+              uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v4
 
-      - name: Les Node-versjon fra .node-version
-        id: node
-        run: echo "version=$(tr -d '[:space:]' < .node-version)" >> "$GITHUB_OUTPUT"
+            - name: Les Node-versjon fra .node-version
+              id: node
+              run: echo "version=$(tr -d '[:space:]' < .node-version)" >> "$GITHUB_OUTPUT"
 
-      - name: ⎔ Setup node and install pnpm packages
-        uses: navikt/familie-baks-gha-workflows/.github/actions/setup-node-pnpm@main # ratchet:exclude
-        with:
-          node-version: ${{ steps.node.outputs.version }}
-          reader-token: ${{ secrets.READER_TOKEN }}
+            - name: ⎔ Setup node and install pnpm packages
+              uses: navikt/familie-baks-gha-workflows/.github/actions/setup-node-pnpm@main # ratchet:exclude
+              with:
+                  node-version: ${{ steps.node.outputs.version }}
+                  reader-token: ${{ secrets.READER_TOKEN }}
 
-      - name: 🔬 Kjør sjekk med Biome
-        run: pnpm check
+            - name: 🔬 Kjør sjekk med Biome
+              run: pnpm check
 
-  typecheck:
-    name: ʦ TypeScript
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    steps:
-      - name: ⬇️ Checkout repo
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v4
+    typecheck:
+        name: ʦ TypeScript
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+        steps:
+            - name: ⬇️ Checkout repo
+              uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v4
 
-      - name: Les Node-versjon fra .node-version
-        id: node
-        run: echo "version=$(tr -d '[:space:]' < .node-version)" >> "$GITHUB_OUTPUT"
+            - name: Les Node-versjon fra .node-version
+              id: node
+              run: echo "version=$(tr -d '[:space:]' < .node-version)" >> "$GITHUB_OUTPUT"
 
-      - name: ⎔ Setup node and install pnpm packages
-        uses: navikt/familie-baks-gha-workflows/.github/actions/setup-node-pnpm@main # ratchet:exclude
-        with:
-          node-version: ${{ steps.node.outputs.version }}
-          reader-token: ${{ secrets.READER_TOKEN }}
+            - name: ⎔ Setup node and install pnpm packages
+              uses: navikt/familie-baks-gha-workflows/.github/actions/setup-node-pnpm@main # ratchet:exclude
+              with:
+                  node-version: ${{ steps.node.outputs.version }}
+                  reader-token: ${{ secrets.READER_TOKEN }}
 
-      - name: 🔎 Type check
-        run: pnpm typecheck
+            - name: 🔎 Type check
+              run: pnpm typecheck
