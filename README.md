@@ -1,10 +1,11 @@
 # familie-brev / familie-ef-blankett
+
 Denne applikasjonen tilbyr følgende:
 - brevgenerering for barnetrygd
 - brevgenerering for enslig forsørger
 - generering av blankett for enslig forsørger
 
- ## familie-brev (brevgenerering)
+## familie-brev (brevgenerering)
 
 Brev-generator for barnetrygd og enslig forsørger.
 Appen generer html fra innsendte flettefelter ved bruk av sanity (
@@ -14,14 +15,15 @@ Konsumenter kan få returnert html eller pdf/bytearray.
 
 ### Kjør server lokalt
 
-* `familie-dokument` må kjøres med ApplicationLocal for at pdf-generering skal fungere
-* Aktiver riktig pnpm-versjon med `corepack enable` (henter versjonen fra `packageManager` i package.json)
-* Pass på at du har installert alle NPM-avhengighetene `pnpm install`
-* Kjør `pnpm start:dev`
+- `familie-dokument` må kjøres med ApplicationLocal for at pdf-generering skal fungere
+- Aktiver riktig pnpm-versjon med `corepack enable` (henter versjonen fra `packageManager` i package.json)
+- Pass på at du har installert alle NPM-avhengighetene `pnpm install`
+- Kjør `pnpm start:dev`
 
 ### Utvikling
-* Vi bruker [Biome](https://biomejs.dev/) til linting og formatering. Kjør `pnpm check` for å sjekke og `pnpm check:fix` for å rette opp. `pnpm validate` kjører typesjekk og Biome, slik som i CI.
-* Pre-commit-hooken (husky + lint-staged) kjører `biome check .` på hele repoet uten å endre filer, og stopper commiten hvis Biome finner feil.
+
+- Vi bruker [Biome](https://biomejs.dev/) til linting og formatering. Kjør `pnpm check` for å sjekke og `pnpm check:fix` for å rette opp. `pnpm validate` kjører typesjekk og Biome, slik som i CI.
+- Pre-commit-hooken (husky + lint-staged) kjører `biome check .` på hele repoet uten å endre filer, og stopper commiten hvis Biome finner feil.
 
 ### Bygg og deploy
 
@@ -29,10 +31,10 @@ Appen bygges hos github actions og gir beskjed til nais deploy om å deployere a
 
 ### Hvordan oppnå forskjellige typer endringer?
 
-* Hvis du skal legge til en ny delmal, og denne kun skal vises i gitte tilfeller, styrer du det ved å definere hvilke
+- Hvis du skal legge til en ny delmal, og denne kun skal vises i gitte tilfeller, styrer du det ved å definere hvilke
   delmal-api-navn som kommer inn til endepunktet her i familie-brev.
 
- ## familie-ef-blankett (generering av blankett)
+## familie-ef-blankett (generering av blankett)
 
 Saksbehandlingsblankett for EF-sak
 
@@ -41,18 +43,19 @@ Konsumenter kan få returnert html eller pdf/bytearray.
 
 ### Kjør server lokalt
 
-* Opprett `.env` og sett
+- Opprett `.env` og sett
 ```
   REACT_APP_FAMILIE_DOKUMENT=http://localhost:8082
   REACT_APP_BACKEND=http://localhost:8033
 ```
-* `familie-dokument` må kjøres med DevLauncher for at pdf-generering skal fungere
-* Kjør `pnpm build`
-* Kjør `pnpm run:dev`
+
+- `familie-dokument` må kjøres med DevLauncher for at pdf-generering skal fungere
+- Kjør `pnpm build`
+- Kjør `pnpm run:dev`
 
 ### Bygg og deploy
 
-Appen bygges med github actions og nais deployer appen på gcp. 
+Appen bygges med github actions og nais deployer appen på gcp.
 
 ### Trigge pdf-generering lokalt
 
@@ -76,6 +79,7 @@ fetch("http://localhost:8001/blankett/dummy-pdf", {
 For at pdf-generering skal fungere må man være pålogget Naisdevice.
 
 ### Trigge html-generering lokalt
+
 Gjør et post-kall mot `localhost:8001/blankett/dummy-html` fra postman.
 Postman skal da vise html-responsen for deg.
 
@@ -89,7 +93,7 @@ Interne henvendelser kan sendes via Slack i kanalen #team-familie.
 
 # Hvordan oppnå forskjellige typer endringer?
 
-* Hvis du skal legge til en ny delmal, og denne kun skal vises i gitte tilfeller, styrer du det ved å definere hvilke
+- Hvis du skal legge til en ny delmal, og denne kun skal vises i gitte tilfeller, styrer du det ved å definere hvilke
   delmal-api-navn som kommer inn til endepunktet her i familie-brev.
 
 ## Kode generert av GitHub Copilot

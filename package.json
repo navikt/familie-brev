@@ -42,7 +42,7 @@
         "typescript": "7.0.2"
     },
     "devDependencies": {
-        "@biomejs/biome": "2.5.15",
+        "@biomejs/biome": "2.6.3",
         "@types/express": "5.0.6",
         "@types/express-session": "1.19.0",
         "@types/node": "26.6.5",

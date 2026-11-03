@@ -5,7 +5,7 @@
 # Samme oppsett som sak-frontendene.
 nodeLinker: hoisted
 overrides:
-  qs: ^6.16.0
+    qs: ^6.16.0
 # Nye avhengigheter pinnes eksakt (pnpm 11 leser bare auth/registry fra .npmrc,
 # så save-exact der har ingen effekt — tilsvarer 'save-exact true' i .yarnrc).
 saveExact: true
@@ -18,5 +18,5 @@ allowBuilds: {}
 # Egne pakker fra GitHub Packages tas i bruk med en gang (pnpm venter ellers
 # minimumReleaseAge, som standard 1 dag, før nye versjoner installeres).
 minimumReleaseAgeExclude:
-  - '@navikt/*'
-  - '@nais/*'
+    - "@navikt/*"
+    - "@nais/*"
