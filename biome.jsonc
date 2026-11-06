@@ -6,6 +6,11 @@
         "useIgnoreFile": true,
         "defaultBranch": "main"
     },
+    // Biome sjekker bare filene som er listet her. Fra 2.6 formaterer Biome også YAML og Markdown,
+    // og en full check:fix skrev «image: {{ image }}» i .nais om til «{ { image } }», så deploy feilet.
+    "files": {
+        "includes": ["src/**", ".vscode/**", "package.json", "tsconfig.base.json", "tsconfig.json", "biome.jsonc"]
+    },
     "formatter": {
         "indentStyle": "space",
         "indentWidth": 4,
