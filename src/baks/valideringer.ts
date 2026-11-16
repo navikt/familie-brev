@@ -28,7 +28,7 @@ export const validerStandardbegrunnelsedata = (data: IStandardbegrunnelsedata) =
         );
     }
 
-    if ((typeof data.barnasFodselsdatoer as any) !== 'string') {
+    if (typeof data.barnasFodselsdatoer !== 'string') {
         throw new Feil(
             `barnasFodselsdatoer skal være en string, men fødselsdatoene ble sent som "${typeof data.barnasFodselsdatoer}"` +
                 `for med begrunnelse apiNavn="${data.apiNavn}"`,

@@ -63,13 +63,14 @@ router.post('/begrunnelser/:begrunnelseApiNavn/tekst/', async (req: Request, res
         const begrunnelse = begrunnelseSerializer(begrunnelseFraSanity, data);
 
         res.status(200).send(begrunnelse);
-    } catch (error: any) {
+    } catch (error: unknown) {
         if (error instanceof Feil || error instanceof ManglerFlettefeltFeil) {
             res.status(error.code).send(error.message);
         } else {
-            logError(`Generering av begrunnelse feilet: ${error.message}`);
+            const feilmelding = error instanceof Error ? error.message : 'Ukjent feil';
+            logError(`Generering av begrunnelse feilet: ${feilmelding}`);
             logSecure(`Generering av begrunnelse feilet: ${error}`);
-            res.status(500).send(`Generering av begrunnelse feilet: ${error.message}`);
+            res.status(500).send(`Generering av begrunnelse feilet: ${feilmelding}`);
         }
     }
 });
