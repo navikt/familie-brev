@@ -18,8 +18,8 @@ importers:
         specifier: 8.0.1
         version: 8.0.1(react@19.3.1)
       '@sanity/client':
-        specifier: 8.15.1
-        version: 8.15.1
+        specifier: 8.16.0
+        version: 8.16.0
       axios:
         specifier: 1.21.1
         version: 1.21.1(debug@4.4.3(supports-color@5.5.0))(supports-color@5.5.0)
@@ -187,8 +187,8 @@ packages:
     resolution: {integrity: sha512-djfIGU9n6DRrunlvj2nIDAp17URo/nA4jSXGvf+Gupx8NLLy9fmJBZ3GL8yhqn9lSVc+cKCharjOa3aOBnWbRw==}
     engines: {node: '>=20.19 <22 || >=22.12'}
 
-  '@sanity/client@8.15.1':
-    resolution: {integrity: sha512-/P5g4Z8HPDiI5dd8hXM4YX324/1pqN33WT/zHm28v3tGLkCxJHFjtGfgsCRa9y5OWzFZXhKhYXIXmw47SHKs+A==}
+  '@sanity/client@8.16.0':
+    resolution: {integrity: sha512-x6VKopU1Rt2mp3YBQRBIyWE2ebzqc4sMwUbQJJzIzNS0TMnNURvHe/z1qo/bDIph37B5vYvfWIT7Js6SPAQkUQ==}
     engines: {node: '>=22.12.0'}
 
   '@so-ric/colorspace@1.1.6':
@@ -1092,7 +1092,7 @@ snapshots:
 
   '@portabletext/types@4.0.2': {}
 
-  '@sanity/client@8.15.1':
+  '@sanity/client@8.16.0':
     dependencies:
       eventsource: 5.1.5
       get-it: 9.7.0
